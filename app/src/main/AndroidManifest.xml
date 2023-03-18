@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin">
         <activity
+            android:name=".BusDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Home"
             android:exported="false" />
         <activity
