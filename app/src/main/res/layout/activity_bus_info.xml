@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/logOutAdminBusCreateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Log out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/adminBusInfoCreateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bus Information"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logOutAdminBusCreateBtn" />
+
+    <TextView
+        android:id="@+id/busInfoBusOpTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Bus Operator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusInfoCreateTV" />
+
+    <TextView
+        android:id="@+id/busInfoStartPointTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Start Point"
+        app:layout_constraintStart_toStartOf="@+id/busInfoBusOpTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoBusOpTitle" />
+
+    <TextView
+        android:id="@+id/busInfoEndPointTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="End Point"
+        app:layout_constraintStart_toStartOf="@+id/busInfoStartPointTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoStartPointTitle" />
+
+    <TextView
+        android:id="@+id/busInfoStartTimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Start Time"
+        app:layout_constraintStart_toStartOf="@+id/busInfoEndPointTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoEndPointTitle" />
+
+    <TextView
+        android:id="@+id/busInfoEndTimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="End Time"
+        app:layout_constraintStart_toStartOf="@+id/busInfoStartTimeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoStartTimeTitle" />
+
+    <TextView
+        android:id="@+id/busInfoPolicyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Policy"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoEndTimeTitle"
+        tools:layout_editor_absoluteX="24dp" />
+
+    <EditText
+        android:id="@+id/adminBusPolicyCreateET"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="@+id/busInfoEndTimeTV"
+        app:layout_constraintTop_toTopOf="@+id/busInfoPolicyTitle" />
+
+    <TextView
+        android:id="@+id/busInfoNumsOfSeatTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Num of seats"
+        app:layout_constraintStart_toStartOf="@+id/busInfoPolicyTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoTypeTitle" />
+
+    <TextView
+        android:id="@+id/busInfoTypeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="52dp"
+        android:text="Type"
+        app:layout_constraintStart_toStartOf="@+id/busInfoPolicyTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoPolicyTitle" />
+
+    <TextView
+        android:id="@+id/busInfoPriceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Price"
+        app:layout_constraintStart_toStartOf="@+id/busInfoNumsOfSeatTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoNumsOfSeatTitle" />
+
+    <TextView
+        android:id="@+id/busInfoBusOpTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:text="Phương Trang"
+        app:layout_constraintStart_toEndOf="@+id/busInfoBusOpTitle"
+        app:layout_constraintTop_toTopOf="@+id/busInfoBusOpTitle" />
+
+    <TextView
+        android:id="@+id/busInfoStartPointTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bến xe miền Nam"
+        app:layout_constraintStart_toStartOf="@+id/busInfoBusOpTV"
+        app:layout_constraintTop_toTopOf="@+id/busInfoStartPointTitle" />
+
+    <TextView
+        android:id="@+id/busInfoEndPointTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bến xe miền Hoa"
+        app:layout_constraintStart_toStartOf="@+id/busInfoStartPointTV"
+        app:layout_constraintTop_toTopOf="@+id/busInfoEndPointTitle" />
+
+    <TextView
+        android:id="@+id/busInfoStartTimeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/11/2022 15:00"
+        app:layout_constraintStart_toStartOf="@+id/busInfoEndPointTV"
+        app:layout_constraintTop_toTopOf="@+id/busInfoStartTimeTitle" />
+
+    <TextView
+        android:id="@+id/busInfoEndTimeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13/11/2022 13:00"
+        app:layout_constraintStart_toStartOf="@+id/busInfoStartTimeTV"
+        app:layout_constraintTop_toTopOf="@+id/busInfoEndTimeTitle" />
+
+    <TextView
+        android:id="@+id/busInfoTypeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giường nằm"
+        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateET"
+        app:layout_constraintTop_toTopOf="@+id/busInfoTypeTitle" />
+
+    <TextView
+        android:id="@+id/busInfoNumsOfSeatTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50"
+        app:layout_constraintStart_toStartOf="@+id/busInfoTypeTV"
+        tools:layout_editor_absoluteY="525dp" />
+
+    <TextView
+        android:id="@+id/busInfoPriceTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100000"
+        app:layout_constraintTop_toTopOf="@+id/busInfoPriceTitle"
+        tools:layout_editor_absoluteX="217dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

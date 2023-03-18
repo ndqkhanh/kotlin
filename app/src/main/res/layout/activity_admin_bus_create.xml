@@ -31,19 +31,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Thông tin chuyến xe"
+        android:text="Bus Information"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logOutAdminBusCreateBtn" />
 
     <TextView
-        android:id="@+id/adminBusOpCreateTV"
+        android:id="@+id/busInfoBusOpTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="Nhà xe"
+        android:text="Bus Operator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminBusInfoCreateTV" />
 
@@ -52,49 +52,49 @@
         android:layout_width="250dp"
         android:layout_height="24dp"
         android:layout_marginStart="24dp"
-        app:layout_constraintStart_toEndOf="@+id/adminBusOpCreateTV"
-        app:layout_constraintTop_toTopOf="@+id/adminBusOpCreateTV" />
+        app:layout_constraintStart_toEndOf="@+id/busInfoBusOpTitle"
+        app:layout_constraintTop_toTopOf="@+id/busInfoBusOpTitle" />
 
     <TextView
-        android:id="@+id/adminBusStartPointCreateTV"
+        android:id="@+id/busInfoStartPointTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Điểm đi"
-        app:layout_constraintStart_toStartOf="@+id/adminBusOpCreateTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusOpCreateTV" />
+        android:text="Start Point"
+        app:layout_constraintStart_toStartOf="@+id/busInfoBusOpTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoBusOpTitle" />
 
     <Spinner
         android:id="@+id/adminBusStartPointCreateSpinner"
         android:layout_width="250dp"
         android:layout_height="24dp"
         app:layout_constraintStart_toStartOf="@+id/adminBusOpCreateSpinner"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartPointCreateTV" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoStartPointTitle" />
 
     <TextView
-        android:id="@+id/adminBusEndPointCreate"
+        android:id="@+id/busInfoEndPointTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Điểm đi"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartPointCreateTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointCreateTV" />
+        android:text="End Point"
+        app:layout_constraintStart_toStartOf="@+id/busInfoStartPointTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoStartPointTitle" />
 
     <Spinner
         android:id="@+id/adminBusEndPointCreateSpinner"
         android:layout_width="250dp"
         android:layout_height="24dp"
         app:layout_constraintStart_toStartOf="@+id/adminBusStartPointCreateSpinner"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndPointCreate" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoEndPointTitle" />
 
     <TextView
-        android:id="@+id/adminBusStartTimeCreateTV"
+        android:id="@+id/busInfoStartTimeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Giờ đi"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreate"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointCreate" />
+        android:text="Start Time"
+        app:layout_constraintStart_toStartOf="@+id/busInfoEndPointTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoEndPointTitle" />
 
     <EditText
         android:id="@+id/adminBusStartTimeCreateET"
@@ -103,7 +103,7 @@
         android:ems="10"
         android:inputType="time"
         app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateSpinner"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateTV" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoStartTimeTitle" />
 
     <EditText
         android:id="@+id/adminBusStartDateCreateET"
@@ -116,13 +116,13 @@
         app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateET" />
 
     <TextView
-        android:id="@+id/adminBusEndTimeCreateTV"
+        android:id="@+id/busInfoEndTimeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Giờ đến"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeCreateTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartTimeCreateTV" />
+        android:text="End Time"
+        app:layout_constraintStart_toStartOf="@+id/busInfoStartTimeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoStartTimeTitle" />
 
     <EditText
         android:id="@+id/adminBusEndTimeET"
@@ -131,7 +131,7 @@
         android:ems="10"
         android:inputType="time"
         app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeCreateET"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeCreateTV" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoEndTimeTitle" />
 
     <EditText
         android:id="@+id/editTextDate2"
@@ -144,13 +144,13 @@
         app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeET" />
 
     <TextView
-        android:id="@+id/adminBusImageLinkTV"
+        android:id="@+id/busInfoImageLinkTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Hình ảnh"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndTimeCreateTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusEndTimeCreateTV" />
+        android:text="Image URL"
+        app:layout_constraintStart_toStartOf="@+id/busInfoEndTimeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoEndTimeTitle" />
 
     <EditText
         android:id="@+id/adminBusImageCreateET"
@@ -161,16 +161,16 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/adminBusEndTimeET"
-        app:layout_constraintTop_toTopOf="@+id/adminBusImageLinkTV" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoImageLinkTitle" />
 
     <TextView
-        android:id="@+id/adminBusPolicyCreateTV"
+        android:id="@+id/busInfoPolicyTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Nội quy"
-        app:layout_constraintStart_toStartOf="@+id/adminBusImageLinkTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusImageLinkTV" />
+        android:text="Policy"
+        app:layout_constraintStart_toStartOf="@+id/busInfoImageLinkTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoImageLinkTitle" />
 
     <EditText
         android:id="@+id/adminBusPolicyCreateET"
@@ -180,16 +180,16 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintStart_toStartOf="@+id/adminBusImageCreateET"
-        app:layout_constraintTop_toTopOf="@+id/adminBusPolicyCreateTV" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoPolicyTitle" />
 
     <TextView
-        android:id="@+id/adminBusNumsOfSeatCreateTV"
+        android:id="@+id/busInfoNumsOfSeatTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Số chỗ"
-        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusTypeCreateTV" />
+        android:text="Num of seats"
+        app:layout_constraintStart_toStartOf="@+id/busInfoPolicyTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoTypeTitle" />
 
     <EditText
         android:id="@+id/editTextTextPersonName4"
@@ -199,33 +199,33 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/adminBusTypeCreateSpinner"
-        app:layout_constraintTop_toTopOf="@+id/adminBusNumsOfSeatCreateTV" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoNumsOfSeatTitle" />
 
     <TextView
-        android:id="@+id/adminBusTypeCreateTV"
+        android:id="@+id/busInfoTypeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="52dp"
-        android:text="Loại"
-        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusPolicyCreateTV" />
+        android:text="Type"
+        app:layout_constraintStart_toStartOf="@+id/busInfoPolicyTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoPolicyTitle" />
 
     <Spinner
         android:id="@+id/adminBusTypeCreateSpinner"
         android:layout_width="250dp"
         android:layout_height="24dp"
         app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateET"
-        app:layout_constraintTop_toTopOf="@+id/adminBusTypeCreateTV" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoTypeTitle" />
 
     <TextView
-        android:id="@+id/adminBusPriceCreateTV"
+        android:id="@+id/busInfoPriceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Giá vé"
-        app:layout_constraintStart_toStartOf="@+id/adminBusNumsOfSeatCreateTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusNumsOfSeatCreateTV" />
+        android:text="Price"
+        app:layout_constraintStart_toStartOf="@+id/busInfoNumsOfSeatTitle"
+        app:layout_constraintTop_toBottomOf="@+id/busInfoNumsOfSeatTitle" />
 
     <EditText
         android:id="@+id/adminBusPriceCreateET"
@@ -235,6 +235,6 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
-        app:layout_constraintTop_toTopOf="@+id/adminBusPriceCreateTV" />
+        app:layout_constraintTop_toTopOf="@+id/busInfoPriceTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
