@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus_create.xml" value="0.4" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_home.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_main.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_list_item.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1175" />
         <entry key="app/src/main/res/drawable/textview_border.xml" value="0.1175" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.10625" />
