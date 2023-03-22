@@ -9,4 +9,13 @@
     <string name="phone_number">Phone number</string>
     <string name="email">Email</string>
     <string name="full_name">Full Name</string>
+    <string name="home">Home</string>
+    <string name="pay">Pay</string>
+    <string name="booking_detail">Booking Detail</string>
+    <string name="fill_booking_form">Fill Booking Form</string>
+    <string name="back">Back</string>
+    <string name="your_payment_is_successful">Your payment is successful</string>
+    <string name="thank_you_for_your_payment">Thank you for your payment.</string>
+    <string name="print_pdf">Print PDF</string>
+    <string name="check_symbol">check symbol</string>
 </resources>
