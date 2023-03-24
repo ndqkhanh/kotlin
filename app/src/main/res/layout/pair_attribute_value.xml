@@ -23,7 +23,7 @@
     <TextView
         android:id="@+id/textView12"
         android:layout_width="0dp"
-        android:layout_height="58dp"
+        android:layout_height="0dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
