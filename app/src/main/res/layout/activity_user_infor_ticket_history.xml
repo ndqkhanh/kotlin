@@ -111,10 +111,14 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/back_button"
-        android:layout_width="30dp"
-        android:layout_height="37dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="false"
+        android:background="@color/blank"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="@+id/recyclerView"
         app:layout_constraintTop_toTopOf="@+id/cardView"
         app:srcCompat="@drawable/back_icon" />
