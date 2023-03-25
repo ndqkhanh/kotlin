@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kotlin">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,12 @@
                         </intent-filter>
         </activity>
         <activity
+            android:name=".BlogItem"
+            android:exported="false" />
+        <activity
+            android:name=".ticket_item"
+            android:exported="false" />
+        <activity
             android:name=".FillBookingFormActivity"
             android:exported="false" />
         <activity
@@ -30,6 +37,7 @@
         <activity
             android:name=".BusDetailActivity"
             android:exported="false" />
+
         <activity
             android:name=".Home"
             android:exported="false" />
