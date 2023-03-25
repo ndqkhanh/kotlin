@@ -50,6 +50,6 @@ class APIServiceImpl {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        return retrofit.create(BusService::class.java).searchBusses().execute().body(
+        return retrofit.create(BusService::class.java)
     }
 }
