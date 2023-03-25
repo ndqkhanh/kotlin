@@ -54,6 +54,7 @@ class BookingDetailActivity : AppCompatActivity() {
             builder.setCancelable(false)
             val btnPrintPdf = view.findViewById<Button>(R.id.btnPrintPdf)
             btnPrintPdf.setOnClickListener {
+                // TODO
                 Toast.makeText(this, "Print PDF", Toast.LENGTH_SHORT).show()
             }
             val btnHome = view.findViewById<Button>(R.id.btnHome)
