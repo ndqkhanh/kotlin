@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
+        app:layout_constraintBottom_toTopOf="@+id/btnBook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerContainer">
@@ -201,18 +201,18 @@
         android:background="@drawable/corner_button"
         android:text="@string/cancel"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSubmit"
-        app:layout_constraintEnd_toStartOf="@+id/btnSubmit"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBook"
+        app:layout_constraintEnd_toStartOf="@+id/btnBook"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnSubmit" />
+        app:layout_constraintTop_toTopOf="@+id/btnBook" />
 
     <Button
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/corner_button"
-        android:text="@string/submit"
+        android:text="@string/book"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -14,8 +14,9 @@ class BookingDetailList {
         fun generateBookingDetailList(
             fullName: String,
             email: String,
-            seatPositions: String,
-            ticketIds: String,
+            seatPositions: List<Int>,
+            ticketIds: List<String>,
+            phone: String,
             buxOperator: String,
             startPoint: String,
             endPoint: String,
@@ -28,15 +29,27 @@ class BookingDetailList {
             totalCost: String,
             status: String,
         ): MutableList<BookingDetail> {
+            var seatPositionsString = ""
+            for (i in seatPositions.indices) {
+                seatPositionsString += "<li>" + seatPositions[i] + "</li>"
+            }
+            seatPositionsString = "<ul>$seatPositionsString</ul>"
+
+            var ticketIdsString = ""
+            for (i in ticketIds.indices) {
+                ticketIdsString += "<li>" + ticketIds[i] + "</li>"
+            }
+            ticketIdsString = "<ul>$ticketIdsString</ul>"
+
             return mutableListOf(
                 BookingDetail("Full Name", fullName, "Email", email),
-                BookingDetail("Seat Positions", seatPositions, "Ticket IDs", ticketIds),
-                BookingDetail("Bux Operator", buxOperator, "Start Point", startPoint),
-                BookingDetail("End Point", endPoint, "Start Time", startTime),
-                BookingDetail("End Time", endTime, "Duration", Duration),
-                BookingDetail("Number of Seats", numOfSeats, "Seat Type", seatType),
-                BookingDetail("Ticket Cost", ticketCost, "Total Cost", totalCost),
-                BookingDetail("Status", status, "", "")
+                BookingDetail("Seat Positions", seatPositionsString, "Ticket IDs", ticketIdsString),
+                BookingDetail("Phone", phone, "Bus Operator", buxOperator),
+                BookingDetail("Start Point", startPoint, "End Point", endPoint),
+                BookingDetail("Start Time", startTime, "End Time", endTime),
+                BookingDetail("Duration", Duration, "Number of Seats", numOfSeats),
+                BookingDetail("Seat Type", seatType, "Ticket Cost", ticketCost),
+                BookingDetail("Total Cost", totalCost, "Status", status),
             )
         }
     }

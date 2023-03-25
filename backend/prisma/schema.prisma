@@ -48,15 +48,17 @@ model bus_stations {
 }
 
 model bus_tickets {
-  id      String @id(map: "bus_tickets_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  bus_id  String @db.Uuid
-  user_id String @db.Uuid
-  name    String
-  phone   String
-  seat    String
-  status  Int    @default(0) @db.SmallInt
-  buses   buses  @relation(fields: [bus_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk")
-  users   users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_2")
+  id          String    @id(map: "bus_tickets_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  bus_id      String    @db.Uuid
+  user_id     String    @db.Uuid
+  name        String
+  phone       String
+  seat        String
+  status      Int       @default(0) @db.SmallInt
+  create_time DateTime? @default(now()) @db.Timestamptz(6)
+  update_time DateTime? @default(now()) @db.Timestamptz(6)
+  buses       buses     @relation(fields: [bus_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk")
+  users       users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_2")
 }
 
 model buses {

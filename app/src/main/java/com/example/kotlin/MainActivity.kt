@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Intent(this, BookingDetailActivity::class.java).also {
+        Intent(this, FillBookingFormActivity::class.java).also {
             startActivity(it)
         }
     }

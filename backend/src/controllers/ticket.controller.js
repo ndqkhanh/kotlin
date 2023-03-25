@@ -10,15 +10,15 @@ const createTicket = catchAsync(async (req, res) => {
     req.user.id,
     req.user.email,
     req.params.busId,
-    req.body.name,
+    'Nguyen Van A',
     req.body.phone,
-    req.body.numOfSeats
+    req.body.num_of_seats
   );
   res.send(result);
 });
 
 const payTicket = catchAsync(async (req, res) => {
-  const result = await ticketService.payTicket(req.body.ticket_ids);
+  const result = await ticketService.payTicket(req.user.id, req.body.ticket_ids);
   res.send(result);
 });
 

@@ -22,7 +22,18 @@ const ApiError = require('../utils/ApiError');
 
 const prisma = new PrismaClient();
 
-const payTicket = async (ticketIds) => {
+const payTicket = async (userId, ticketIds) => {
+  for (let i = 0; i < ticketIds.length; i++) {
+    const ticketCheck = await prisma.bus_tickets.findFirst({
+      where: {
+        id: ticketIds[i],
+        user_id: userId,
+      },
+    });
+    if (!ticketCheck) {
+      throw new ApiError(httpStatus.NOT_FOUND, `Ticket ID ${ticketIds[i]} not found or not belong to user ID ${userId}`);
+    }
+  }
   for (let i = 0; i < ticketIds.length; i++) {
     const ticket = await prisma.bus_tickets.update({
       where: {
@@ -30,10 +41,11 @@ const payTicket = async (ticketIds) => {
       },
       data: {
         status: 1,
+        update_time: new Date(),
       },
     });
     if (!ticket) {
-      throw new ApiError(httpStatus.NOT_FOUND, ERROR_MESSAGE.PAY_TICKET_ERROR);
+      throw new ApiError(httpStatus.NOT_FOUND, `Ticket ID ${ticketIds[i]} not updated successfully`);
     }
   }
 
@@ -53,7 +65,7 @@ const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOf
   });
 
   if (!checkBusIDExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Bus ID Not found');
+    throw new ApiError(httpStatus.NOT_FOUND, `Bus ID ${busId} not found`);
   }
 
   const checkUserIDExist = await prisma.users.findUnique({
@@ -63,7 +75,7 @@ const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOf
   });
 
   if (!checkUserIDExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User ID Not found');
+    throw new ApiError(httpStatus.NOT_FOUND, `User ID ${userId} not found`);
   }
 
   const numOfSeatsBookedOrPayed = await prisma.bus_tickets.count({
@@ -133,6 +145,7 @@ const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOf
       data: availableSeatPosArr[i],
     });
     result.name = name;
+    result.phone = phone;
     result.email = email;
     result.seat_positions.push(createTicket.seat);
     result.ticket_ids.push(createTicket.id);
@@ -156,18 +169,13 @@ const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOf
       minute: 'numeric',
     });
     result.duration = Math.abs(checkBusIDExist.end_time.getTime() - checkBusIDExist.start_time.getTime());
-    result.policy = '';
     result.num_of_seats = numOfSeats;
     result.type = checkBusIDExist.type === 0 ? 'Limousine' : checkBusIDExist.type === 1 ? 'Normal Seat' : 'Sleeper Bus';
     result.ticket_cost = formatter.format(checkBusIDExist.price);
     result.total_cost = formatter.format(checkBusIDExist.price * numOfSeats);
     result.status = createTicket.status === 0 ? 'Booked' : createTicket.status === 1 ? 'Paid' : 'Canceled';
   }
-
-  const ticketIdsFormatted = await result.ticket_ids.map((tid) => `<li>${tid}</li>`);
-  result.ticket_ids = `<ul>${ticketIdsFormatted.join('')}</ul>`;
   result.duration = await msToTime(result.duration);
-  result.seat_positions = result.seat_positions.join(', ');
 
   return result;
 };
