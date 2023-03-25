@@ -9,5 +9,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus_create)
+        // TODO Integrate
+
     }
 }

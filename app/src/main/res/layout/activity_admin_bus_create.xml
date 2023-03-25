@@ -164,31 +164,12 @@
         app:layout_constraintTop_toTopOf="@+id/adminBusImageLinkCreateTitle" />
 
     <TextView
-        android:id="@+id/adminBusPolicyCreateTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Policy"
-        app:layout_constraintStart_toStartOf="@+id/adminBusImageLinkCreateTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusImageLinkCreateTitle" />
-
-    <EditText
-        android:id="@+id/adminBusPolicyCreateET"
-        android:layout_width="120dp"
-        android:layout_height="24dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintStart_toStartOf="@+id/adminBusImageCreateET"
-        app:layout_constraintTop_toTopOf="@+id/adminBusPolicyCreateTitle" />
-
-    <TextView
         android:id="@+id/adminBusNumsOfSeatCreateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Num of seats"
-        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateTitle"
+        app:layout_constraintStart_toStartOf="@+id/adminBusTypeCreateTitle"
         app:layout_constraintTop_toBottomOf="@+id/adminBusTypeCreateTitle" />
 
     <EditText
@@ -205,17 +186,16 @@
         android:id="@+id/adminBusTypeCreateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="24dp"
         android:text="Type"
-        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusPolicyCreateTitle" />
+        app:layout_constraintStart_toStartOf="@+id/adminBusImageLinkCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusImageLinkCreateTitle" />
 
     <Spinner
         android:id="@+id/adminBusTypeCreateSpinner"
         android:layout_width="250dp"
         android:layout_height="24dp"
-        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateET"
+        app:layout_constraintStart_toStartOf="@+id/adminBusImageCreateET"
         app:layout_constraintTop_toTopOf="@+id/adminBusTypeCreateTitle" />
 
     <TextView
