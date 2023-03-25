@@ -92,6 +92,7 @@
                         android:completionThreshold="3"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+
                     <AutoCompleteTextView
                         android:id="@+id/autoCompleteDestinationTo"
                         android:layout_height="wrap_content"
