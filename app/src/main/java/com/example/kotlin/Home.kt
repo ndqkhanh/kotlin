@@ -14,7 +14,8 @@ import java.util.*
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedIn
+                stanceState)
         setContentView(R.layout.activity_home)
 
         val tickets = ArrayList<Ticket>()
