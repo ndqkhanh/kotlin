@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/addBtnAdminBusCreateBtn"
+        android:layout_width="336dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
+        android:text="ADD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/logOutAdminBusCreateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Log out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/adminBusInfoCreateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bus Information"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logOutAdminBusCreateBtn" />
+
+    <TextView
+        android:id="@+id/adminBusBusOpCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Bus Operator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusInfoCreateTV" />
+
+    <Spinner
+        android:id="@+id/adminBusOpCreateSpinner"
+        android:layout_width="250dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toEndOf="@+id/adminBusBusOpCreateTitle"
+        app:layout_constraintTop_toTopOf="@+id/adminBusBusOpCreateTitle" />
+
+    <TextView
+        android:id="@+id/adminBusStartPointCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Start Point"
+        app:layout_constraintStart_toStartOf="@+id/adminBusBusOpCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusBusOpCreateTitle" />
+
+    <Spinner
+        android:id="@+id/adminBusStartPointCreateSpinner"
+        android:layout_width="250dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toStartOf="@+id/adminBusOpCreateSpinner"
+        app:layout_constraintTop_toTopOf="@+id/adminBusStartPointCreateTitle" />
+
+    <TextView
+        android:id="@+id/adminBusEndPointCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="End Point"
+        app:layout_constraintStart_toStartOf="@+id/adminBusStartPointCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointCreateTitle" />
+
+    <Spinner
+        android:id="@+id/adminBusEndPointCreateSpinner"
+        android:layout_width="250dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toStartOf="@+id/adminBusStartPointCreateSpinner"
+        app:layout_constraintTop_toTopOf="@+id/adminBusEndPointCreateTitle" />
+
+    <TextView
+        android:id="@+id/adminBusStartTimeCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Start Time"
+        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointCreateTitle" />
+
+    <EditText
+        android:id="@+id/adminBusStartTimeCreateET"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateSpinner"
+        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateTitle" />
+
+    <EditText
+        android:id="@+id/adminBusStartDateCreateET"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintStart_toEndOf="@+id/adminBusStartTimeCreateET"
+        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateET" />
+
+    <TextView
+        android:id="@+id/adminBusEndTimeCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="End Time"
+        app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusStartTimeCreateTitle" />
+
+    <EditText
+        android:id="@+id/adminBusEndTimeET"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeCreateET"
+        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeCreateTitle" />
+
+    <EditText
+        android:id="@+id/editTextDate2"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintStart_toEndOf="@+id/adminBusEndTimeET"
+        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeET" />
+
+    <TextView
+        android:id="@+id/adminBusImageLinkCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Image URL"
+        app:layout_constraintStart_toStartOf="@+id/adminBusEndTimeCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusEndTimeCreateTitle" />
+
+    <EditText
+        android:id="@+id/adminBusImageCreateET"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="-8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="@+id/adminBusEndTimeET"
+        app:layout_constraintTop_toTopOf="@+id/adminBusImageLinkCreateTitle" />
+
+    <TextView
+        android:id="@+id/adminBusPolicyCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Policy"
+        app:layout_constraintStart_toStartOf="@+id/adminBusImageLinkCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusImageLinkCreateTitle" />
+
+    <EditText
+        android:id="@+id/adminBusPolicyCreateET"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="@+id/adminBusImageCreateET"
+        app:layout_constraintTop_toTopOf="@+id/adminBusPolicyCreateTitle" />
+
+    <TextView
+        android:id="@+id/adminBusNumsOfSeatCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Num of seats"
+        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTypeCreateTitle" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName4"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="@+id/adminBusTypeCreateSpinner"
+        app:layout_constraintTop_toTopOf="@+id/adminBusNumsOfSeatCreateTitle" />
+
+    <TextView
+        android:id="@+id/adminBusTypeCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="52dp"
+        android:text="Type"
+        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusPolicyCreateTitle" />
+
+    <Spinner
+        android:id="@+id/adminBusTypeCreateSpinner"
+        android:layout_width="250dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toStartOf="@+id/adminBusPolicyCreateET"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTypeCreateTitle" />
+
+    <TextView
+        android:id="@+id/adminBusPriceCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Price"
+        app:layout_constraintStart_toStartOf="@+id/adminBusNumsOfSeatCreateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusNumsOfSeatCreateTitle" />
+
+    <EditText
+        android:id="@+id/adminBusPriceCreateET"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
+        app:layout_constraintTop_toTopOf="@+id/adminBusPriceCreateTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

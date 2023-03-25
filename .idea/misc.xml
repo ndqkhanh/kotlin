@@ -3,7 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1" />
+=======
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus_create.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_bus_info.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_home.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_main.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_list_item.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/fragment_bus_information.xml" value="0.2747395833333333" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/pair_attribute_value.xml" value="0.536" />
+>>>>>>> 30d17b1560785d5e28e84e52b88ce250cf8a8eb5
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1175" />
         <entry key="app/src/main/res/drawable/textview_border.xml" value="0.1175" />
         <entry key="app/src/main/res/layout/activity_blog_item.xml" value="0.11510416666666666" />
@@ -16,7 +27,11 @@
       </map>
     </option>
   </component>
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="jbr-11" project-jdk-type="JavaSDK">
+=======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+>>>>>>> 52c140f407b399784db5c4f8cf387c7bdec74e12
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -9,18 +9,20 @@ datasource db {
 }
 
 model users {
-  id                String              @id(map: "users_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  role              Int                 @default(2) @db.SmallInt
-  email             String              @unique(map: "users_un") @db.VarChar(255)
+  id                String             @id(map: "users_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role              Int                @default(2) @db.SmallInt
+  email             String             @unique(map: "users_un") @db.VarChar(255)
   password          Bytes
-  create_time       DateTime?           @default(now()) @db.Timestamptz(6)
-  update_time       DateTime?           @default(now()) @db.Timestamptz(6)
-  boid              String?             @db.Uuid
-  verification      Boolean             @default(false)
+  create_time       DateTime?          @default(now()) @db.Timestamptz(6)
+  update_time       DateTime?          @default(now()) @db.Timestamptz(6)
+  boid              String?            @db.Uuid
+  verification      Boolean            @default(false)
+  avatar_url        String?            @db.VarChar(512)
+  display_name      String?            @db.VarChar(255)
+  bus_operators     bus_operators?     @relation(fields: [boid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_fk")
   bus_tickets       bus_tickets[]
   reviews           reviews[]
-  user_verification user_verification[]
-  bus_operators     bus_operators?      @relation(fields: [boid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_fk")
+  user_verification user_verification?
 }
 
 model bus_operators {
@@ -83,6 +85,8 @@ model reviews {
   rate          Int           @db.SmallInt
   user_id       String        @db.Uuid
   bo_id         String        @db.Uuid
+  create_time   DateTime?     @default(now()) @db.Timestamptz(6)
+  update_time   DateTime?     @default(now()) @db.Timestamptz(6)
   bus_operators bus_operators @relation(fields: [bo_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "reviews_fk_2")
   users         users         @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "reviews_fk")
 }
@@ -91,4 +95,13 @@ model user_verification {
   uid   String @id @db.Uuid
   code  String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   users users  @relation(fields: [uid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model blogs {
+  id          String    @id(map: "blogs_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  thumbnail   String?   @db.VarChar(512)
+  title       String    @db.VarChar
+  content     String    @db.VarChar
+  create_time DateTime? @default(now()) @db.Timestamptz(6)
+  update_time DateTime? @default(now()) @db.Timestamptz(6)
 }
