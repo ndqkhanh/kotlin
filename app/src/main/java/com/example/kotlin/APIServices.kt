@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 data class BusStation (
-    val id: Int,
+    val id: String,
     val name: String,
     val location: String
 )
@@ -43,13 +43,25 @@ interface BusService {
     fun searchBusses(): Call<BusResponse>;
 }
 
-class APIServiceImpl {
-    fun searchBusses(): BusResponse {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://localhost:3000/v1")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+data class BusStationResponse(
+    val data: List<BusStation>
+)
 
-        return retrofit.create(BusService::class.java)
+interface BusStationService {
+    @GET("/v1/bus-station/list")
+    fun getBusStations(): Call<BusStationResponse>;
+}
+
+class APIServiceImpl {
+    val api = Retrofit.Builder()
+        .baseUrl("http://10.123.1.217:3000/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    fun searchBusses(): BusService {
+        return api.create(BusService::class.java)
+    }
+
+    fun getAllBusStations(): BusStationService {
+        return api.create(BusStationService::class.java)
     }
 }

@@ -9,13 +9,16 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.awaitResponse
 import java.util.*
 
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedIn
-                stanceState)
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         val tickets = ArrayList<Ticket>()
@@ -52,6 +55,20 @@ class Home : AppCompatActivity() {
             }, 2020, 1, 1).show()
         }
 
+
+        val retrofit = APIServiceImpl()
+
+        GlobalScope.launch (Dispatchers.IO) {
+            val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
+            Log.d("Response", "vui 1" + response.message())
+            // debug response
+            Log.d("Response", response.toString())
+            if(response.isSuccessful){
+                Log.d("Response", "vui 2")
+                val data = response.body()?.data
+                Log.d("Response", data.toString())
+            }
+        }
     }
 
 }
