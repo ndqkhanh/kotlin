@@ -19,9 +19,9 @@ const puppeteer = require('puppeteer');
 const nodemailer = require('nodemailer');
 const httpStatus = require('http-status');
 const { PrismaClient } = require('@prisma/client');
+const path = require('path');
 const { ERROR_MESSAGE } = require('../constants/ticket.constant');
 const ApiError = require('../utils/ApiError');
-const path = require('path');
 
 const prisma = new PrismaClient();
 
