@@ -21,19 +21,19 @@ class BookingDetailActivity : AppCompatActivity() {
 
         BookingDetailList.bookingDetails = BookingDetailList.generateBookingDetailList(
             "Nguyen Van A",
-            "A1, A2, A3",
-            "123456, 123457, 123458",
+            "email@gmail.com",
+            "1A, 2A, 3A",
+            "<ul><li>1</li><li>2</li><li>3</li></ul>",
             "Bux",
             "Ha Noi",
             "Ho Chi Minh",
+            "10:00",
             "12:00",
-            "13:00",
-            "1 hour",
-            "No refund, No change, No cancellation, No reschedulemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+            "2 hours",
             "3",
-            "Normal",
-            "10000",
-            "30000",
+            "VIP",
+            "100000",
+            "300000",
             "Paid"
         )
 

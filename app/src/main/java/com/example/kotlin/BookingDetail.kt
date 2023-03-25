@@ -13,6 +13,7 @@ class BookingDetailList {
 
         fun generateBookingDetailList(
             fullName: String,
+            email: String,
             seatPositions: String,
             ticketIds: String,
             buxOperator: String,
@@ -21,7 +22,6 @@ class BookingDetailList {
             startTime: String,
             endTime: String,
             Duration: String,
-            Policy: String,
             numOfSeats: String,
             seatType: String,
             ticketCost: String,
@@ -29,14 +29,14 @@ class BookingDetailList {
             status: String,
         ): MutableList<BookingDetail> {
             return mutableListOf(
-                BookingDetail("Full Name", fullName, "Seat Positions", seatPositions),
-                BookingDetail("Ticket Ids", ticketIds, "Bux Operator", buxOperator),
-                BookingDetail("Start Point", startPoint, "End Point", endPoint),
-                BookingDetail("Start Time", startTime, "End Time", endTime),
-                BookingDetail("Duration", Duration, "Policy", Policy),
+                BookingDetail("Full Name", fullName, "Email", email),
+                BookingDetail("Seat Positions", seatPositions, "Ticket IDs", ticketIds),
+                BookingDetail("Bux Operator", buxOperator, "Start Point", startPoint),
+                BookingDetail("End Point", endPoint, "Start Time", startTime),
+                BookingDetail("End Time", endTime, "Duration", Duration),
                 BookingDetail("Number of Seats", numOfSeats, "Seat Type", seatType),
                 BookingDetail("Ticket Cost", ticketCost, "Total Cost", totalCost),
-                BookingDetail("Status", status, "", ""),
+                BookingDetail("Status", status, "", "")
             )
         }
     }

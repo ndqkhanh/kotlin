@@ -1,5 +1,7 @@
 package com.example.kotlin
 
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +39,10 @@ class CustomBookingDetailAdapter(private val bookingDetails: MutableList<Booking
         holder.txtTitle1.text = bookingDetail.title1
         holder.txtContent1.text = bookingDetail.content1
         holder.txtTitle2.text = bookingDetail.title2
-        holder.txtContent2.text = bookingDetail.content2
+        holder.txtContent2.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(bookingDetail.content2, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(bookingDetail.content2)
+        }
     }
 }

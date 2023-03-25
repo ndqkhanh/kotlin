@@ -7,8 +7,8 @@ const ApiError = require('../utils/ApiError');
 
 const createTicket = catchAsync(async (req, res) => {
   const result = await ticketService.createTicketByNumOfSeats(
-    req.user.email,
     req.user.id,
+    req.user.email,
     req.params.busId,
     req.body.name,
     req.body.phone,
