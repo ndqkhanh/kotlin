@@ -4,6 +4,7 @@ const userRoute = require('./user.route');
 const adminRoute = require('./admin.route');
 const ticketRoute = require('./ticket.route');
 const busRoute = require('./bus.route');
+const blogRoute = require('./blog.route');
 const boRoute = require('./bo.route');
 const bsRoute = require('./bs.route');
 const config = require('../../config/config');
@@ -27,6 +28,7 @@ const defaultRoutes = [
   { path: '/ticket', route: ticketRoute },
   { path: '/bus-operator', route: boRoute },
   { path: '/bus-station', route: bsRoute },
+  { path: '/blog', route: blogRoute },
 ];
 
 const devRoutes = [
