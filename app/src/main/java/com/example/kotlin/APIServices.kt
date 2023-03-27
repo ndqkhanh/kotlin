@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-const val BASE_URL = "http://192.168.1.6:3000/v1/"
+const val BASE_URL = "http://192.168.1.9:3000/v1/"
 data class BusStation (
     val id: String,
     val name: String,
@@ -13,7 +13,7 @@ data class BusStation (
 )
 
 data class BusOperator (
-    val id: Int,
+    val id: String,
     val image_url: String,
     val phone: String,
     val name: String
@@ -43,6 +43,9 @@ data class BusStationResponse(
     val data: List<BusStation>
 )
 
+data class BusOperatorResponse(
+    val data: List<BusOperator>
+)
 // Structure of body for api request
 data class AdminBusCreateBody (
     val bo_id: String,
@@ -70,11 +73,18 @@ interface BusService {
         @Body bus: AdminBusCreateBody): Call<Bus>
 }
 
+
 interface BusStationService {
-    @GET("/bus-station/list")
+    @GET("bus-station/list")
     fun getBusStations(): Call<BusStationResponse>;
 }
 
+const val page = 0
+const val limit = 50
+interface BusOperatorService {
+    @GET("bus-operator/list/${page}/${limit}")
+    suspend fun getBusOperators(): Call<BusOperatorResponse>
+}
 class APIServiceImpl {
     val api = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -88,6 +98,9 @@ class APIServiceImpl {
         return api.create(BusStationService::class.java)
     }
 
+    fun getAllBusOperators(): BusOperatorService {
+        return api.create(BusOperatorService::class.java)
+    }
     // Admin create bus
     fun adminCreateBus(): BusService {
         return  api.create(BusService::class.java)

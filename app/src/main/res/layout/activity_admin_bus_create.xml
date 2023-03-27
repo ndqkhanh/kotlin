@@ -52,6 +52,7 @@
         android:layout_width="250dp"
         android:layout_height="24dp"
         android:layout_marginStart="24dp"
+        android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/adminBusBusOpCreateTitle"
         app:layout_constraintTop_toTopOf="@+id/adminBusBusOpCreateTitle" />
 
@@ -96,26 +97,6 @@
         app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateTitle"
         app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointCreateTitle" />
 
-    <EditText
-        android:id="@+id/adminBusStartTimeCreateET"
-        android:layout_width="127dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="-16dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateSpinner"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateTitle" />
-
-    <EditText
-        android:id="@+id/adminBusStartDateCreateET"
-        android:layout_width="126dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintStart_toEndOf="@+id/adminBusStartTimeCreateET"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateET" />
-
     <TextView
         android:id="@+id/adminBusEndTimeCreateTitle"
         android:layout_width="wrap_content"
@@ -124,26 +105,6 @@
         android:text="End Time"
         app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeCreateTitle"
         app:layout_constraintTop_toBottomOf="@+id/adminBusStartTimeCreateTitle" />
-
-    <EditText
-        android:id="@+id/adminBusEndTimeET"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="-16dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeCreateET"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeCreateTitle" />
-
-    <EditText
-        android:id="@+id/editTextDate2"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintStart_toEndOf="@+id/adminBusEndTimeET"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeET" />
 
     <TextView
         android:id="@+id/adminBusImageLinkCreateTitle"
@@ -162,7 +123,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndTimeET"
+        app:layout_constraintStart_toStartOf="@+id/adminCreateBusEndTimeTimePickerBtn"
         app:layout_constraintTop_toTopOf="@+id/adminBusImageLinkCreateTitle" />
 
     <TextView
@@ -220,5 +181,51 @@
         android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
         app:layout_constraintTop_toTopOf="@+id/adminBusPriceCreateTitle" />
+
+    <Button
+        android:id="@+id/adminCreateBusStartTimeDatePickerBtn"
+        style="?android:spinnerStyle"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-8dp"
+        android:onClick="openStartDatePicker"
+        android:text="JAN 21 2023"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/adminCreateBusStartTimeTimePickerBtn"
+        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateTitle" />
+
+    <Button
+        android:id="@+id/adminCreateBusEndTimeDatePickerBtn"
+        style="?android:spinnerStyle"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-8dp"
+        android:onClick="openEndDatePicker"
+        android:text="AUG 16 2023"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/adminCreateBusEndTimeTimePickerBtn"
+        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeCreateTitle" />
+
+    <Button
+        android:id="@+id/adminCreateBusStartTimeTimePickerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:onClick="openStartTimePicker"
+        android:text="00:00"
+        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateSpinner"
+        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateTitle" />
+
+    <Button
+        android:id="@+id/adminCreateBusEndTimeTimePickerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:text="00:00"
+        android:onClick="openEndTimePicker"
+        app:layout_constraintStart_toStartOf="@+id/adminCreateBusStartTimeTimePickerBtn"
+        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeCreateTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
