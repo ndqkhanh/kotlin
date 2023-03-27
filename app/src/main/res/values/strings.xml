@@ -19,4 +19,6 @@
     <string name="thank_you_for_your_payment">Thank you for your payment.</string>
     <string name="print_pdf">Print PDF</string>
     <string name="check_symbol">check symbol</string>
+    <string name="book">Book</string>
+    <string name="delete_blog">Delete Blog</string>
 </resources>
