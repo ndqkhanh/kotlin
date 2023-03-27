@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity_block_detail"
+            android:exported="false" />
+        <activity
             android:name=".BlogItem"
             android:exported="false" />
         <activity
@@ -28,7 +31,6 @@
         <activity
             android:name=".BusDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".Home"
             android:exported="false" />
