@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-
+const val BASE_URL = "http://localhost:3000/v1/"
 data class TicketPaymentData(
     val ticket_ids: List<String>,
 )
@@ -45,8 +45,9 @@ data class BusStation(
     val location: String
 )
 
-data class BusOperator(
-    val id: Int,
+
+data class BusOperator (
+    val id: String,
     val image_url: String,
     val phone: String,
     val name: String
@@ -64,7 +65,7 @@ data class Bus(
     val num_of_seats: Int,
     val price: Int,
     val bus_operators: BusOperator,
-    val left_seats: Int
+//    val left_seats: Int ADMIN DOESN'T NEED THIS
 )
 
 data class BusResponse(
@@ -72,22 +73,49 @@ data class BusResponse(
     val data: List<Bus>
 )
 
-interface BusService {
-    @GET("/bus/search")
-    fun searchBusses(): Call<BusResponse>
-}
 
 data class BusStationResponse(
     val data: List<BusStation>
 )
 
+data class BusOperatorResponse(
+    val data: List<BusOperator>
+)
+// Structure of body for api request
+data class AdminBusCreateBody (
+    val bo_id: String,
+    val start_point: String,
+    val end_point : String,
+    val type: Int,
+    val start_time: String,
+    val end_time : String,
+    val image_url: String,
+    val policy: String,
+    val num_of_seats: Int,
+    val price: Int
+)
+
+
+interface BusService {
+    @GET("/bus/search")
+    fun searchBusses(): Call<BusResponse>;
+
+    // Admin create bus
+
+    @POST("admin/bus/create")
+    fun adminCreateBus(
+        @Header("Authorization") token: String,
+        @Body bus: AdminBusCreateBody): Call<Bus>
+}
+
+
 interface BusStationService {
-    @GET("/v1/bus-station/list")
-    fun getBusStations(): Call<BusStationResponse>
+    @GET("bus-station/list")
+    fun getBusStations(): Call<BusStationResponse>;
 }
 
 interface TicketService {
-    @POST("/v1/ticket/create/{busId}")
+    @POST("ticket/create/{busId}")
     fun createTicketByNumOfSeats(
         @Path("busId") busId: String,
         @Body ticketData: TicketData
@@ -95,15 +123,19 @@ interface TicketService {
 }
 
 interface PaymentService {
-    @POST("/v1/ticket/payment")
+    @POST("ticket/payment")
     fun createPaymentByTicketIds(
         @Body ticketPaymentData: TicketPaymentData
     ): Call<TicketPaymentResponse>
 }
-
+const val page = 0
+const val limit = 50
+interface BusOperatorService {
+    @GET("bus-operator/list/${page}/${limit}")
+    suspend fun getBusOperators(): Call<BusOperatorResponse>
+}
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.12:3000/"
-    private val api: Retrofit = Retrofit.Builder()
+    val api = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -114,6 +146,56 @@ class APIServiceImpl {
 
     fun getAllBusStations(): BusStationService {
         return api.create(BusStationService::class.java)
+    }
+
+    fun getAllBusOperators(): BusOperatorService {
+        return api.create(BusOperatorService::class.java)
+    }
+
+    // Admin create bus
+    fun adminCreateBus(): BusService {
+        return api.create(BusService::class.java)
+        fun createTicket(token: String): TicketService {
+            val client = OkHttpClient.Builder()
+                .addInterceptor { chain ->
+                    val original = chain.request()
+                    val request = original.newBuilder()
+                        .header("Authorization", "Bearer $token")
+                        .method(original.method, original.body)
+                        .build()
+                    chain.proceed(request)
+                }
+                .build()
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            return retrofit.create(TicketService::class.java)
+        }
+
+        fun createPayment(token: String): PaymentService {
+            val client = OkHttpClient.Builder()
+                .addInterceptor { chain ->
+                    val original = chain.request()
+                    val request = original.newBuilder()
+                        .header("Authorization", "Bearer $token")
+                        .method(original.method, original.body)
+                        .build()
+                    chain.proceed(request)
+                }
+                .build()
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            return retrofit.create(PaymentService::class.java)
+        }
     }
 
     fun createTicket(token: String): TicketService {
