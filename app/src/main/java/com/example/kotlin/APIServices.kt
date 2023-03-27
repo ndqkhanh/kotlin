@@ -6,6 +6,26 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
+data class BlogResponse(
+    val id: String,
+    val thumbnail: String,
+    val title: String,
+    val content: String,
+    val created_time: String,
+    val update_time: String,
+    val status: Int,
+)
+
+data class BlogData(
+    val thumbnail: String,
+    val title: String,
+    val content: String,
+)
+
+data class BlogDeleteResponse(
+    val success: Boolean,
+)
+
 data class TicketPaymentData(
     val ticket_ids: List<String>,
 )
@@ -14,7 +34,7 @@ data class TicketPaymentResponse(
     val message: String
 )
 
-class TicketData(
+data class TicketData(
     val phone: String,
     val num_of_seats: Int
 )
@@ -101,6 +121,17 @@ interface PaymentService {
     ): Call<TicketPaymentResponse>
 }
 
+interface BlogService {
+    @GET("/v1/blog/{blogId}")
+    fun getBlogById(@Path("blogId") blogId: String): Call<BlogResponse>
+
+    @POST("/v1/blog/create")
+    fun createBlog(@Body blogData: BlogData): Call<BlogResponse>
+
+    @POST("/v1/blog/delete/{blogId}")
+    fun deleteBlogById(@Path("blogId") blogId: String): Call<BlogDeleteResponse>
+}
+
 class APIServiceImpl {
     private val BASE_URL = "http://192.168.1.12:3000/"
     private val api: Retrofit = Retrofit.Builder()
@@ -156,5 +187,30 @@ class APIServiceImpl {
             .build()
 
         return retrofit.create(PaymentService::class.java)
+    }
+
+    fun getBlog(): BlogService {
+        return api.create(BlogService::class.java)
+    }
+
+    fun manipulateBlog(token: String): BlogService {
+        val client = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val original = chain.request()
+                val request = original.newBuilder()
+                    .header("Authorization", "Bearer $token")
+                    .method(original.method, original.body)
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        return retrofit.create(BlogService::class.java)
     }
 }

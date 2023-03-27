@@ -55,6 +55,14 @@
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/blog_detail_create_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="01/01/2020" />
+
             <View
                 android:id="@+id/view3"
                 android:layout_width="match_parent"
