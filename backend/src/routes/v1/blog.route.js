@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.route('/:blogId').get(validate(blogValidation.getBlogByID), blogController.getBlogById);
 router.route('/create').post(auth('createBlog'), validate(blogValidation.createBlog), blogController.createBlog);
-router.route('/delete').post(auth('deleteBlog'), validate(blogValidation.deleteBlog), blogController.deleteBlog);
+router.route('/delete/:blogId').post(auth('deleteBlog'), validate(blogValidation.deleteBlog), blogController.deleteBlog);
 
 module.exports = router;

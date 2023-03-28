@@ -13,7 +13,7 @@ const createBlog = catchAsync(async (req, res) => {
 });
 
 const deleteBlog = catchAsync(async (req, res) => {
-  const result = await blogService.deleteBlog(req.body.id);
+  const result = await blogService.deleteBlog(req.params.blogId);
   res.send({ success: result !== null });
 });
 

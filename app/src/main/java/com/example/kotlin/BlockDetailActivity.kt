@@ -1,11 +1,11 @@
 package com.example.kotlin
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-class activity_block_detail : AppCompatActivity() {
+class BlockDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_block_detail)
+        setContentView(R.layout.activity_blog_detail)
     }
 }
