@@ -6,8 +6,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-const val BASE_URL = "http://localhost:3000/v1/"
-
 data class BlogResponse(
     val id: String,
     val thumbnail: String,
@@ -174,6 +172,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
+    private val BASE_URL = "http://192.168.1.2:3000/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())

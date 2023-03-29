@@ -13,7 +13,6 @@ import retrofit2.awaitResponse
 
 
 class BlogDetailActivity : AppCompatActivity() {
-    private lateinit var retrofit: APIServiceImpl
     private lateinit var imgBlogDetail: ImageView
     private lateinit var txtTitle: TextView
     private lateinit var txtContent: TextView
@@ -29,9 +28,11 @@ class BlogDetailActivity : AppCompatActivity() {
         txtCreateTime = findViewById(R.id.txtCreateTime)
         btnDelete = findViewById(R.id.btnDelete)
 
-        retrofit = APIServiceImpl()
+        val retrofit = APIServiceImpl()
 
         val blogId = "310336cc-4250-4759-b182-4913d86af5c2"
+        val token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODAwOTQ4MjUsImV4cCI6MTY4MDA5NjYyNSwidHlwZSI6ImFjY2VzcyJ9.CisI-dPGSQEsysUu-eVXqDkR5CIIY-mFuL52byTlIGY"
 
         GlobalScope.launch(Dispatchers.IO) {
             val response =
@@ -53,7 +54,7 @@ class BlogDetailActivity : AppCompatActivity() {
         btnDelete.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
                 val response =
-                    retrofit.getBlog().deleteBlogById(blogId).awaitResponse()
+                    retrofit.manipulateBlog(token).deleteBlogById(blogId).awaitResponse()
                 // debug response
                 Log.d("Response", response.toString())
                 if (response.isSuccessful) {
