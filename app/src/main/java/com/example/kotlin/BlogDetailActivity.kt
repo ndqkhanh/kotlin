@@ -18,6 +18,7 @@ class BlogDetailActivity : AppCompatActivity() {
     private lateinit var txtContent: TextView
     private lateinit var txtCreateTime: TextView
     private lateinit var btnDelete: Button
+    private lateinit var btnBack: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blog_detail)
@@ -27,6 +28,7 @@ class BlogDetailActivity : AppCompatActivity() {
         txtContent = findViewById(R.id.txtContent)
         txtCreateTime = findViewById(R.id.txtCreateTime)
         btnDelete = findViewById(R.id.btnDelete)
+        btnBack = findViewById(R.id.btnBack)
 
         val retrofit = APIServiceImpl()
 
@@ -34,36 +36,48 @@ class BlogDetailActivity : AppCompatActivity() {
         val token =
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODAwOTQ4MjUsImV4cCI6MTY4MDA5NjYyNSwidHlwZSI6ImFjY2VzcyJ9.CisI-dPGSQEsysUu-eVXqDkR5CIIY-mFuL52byTlIGY"
 
-        GlobalScope.launch(Dispatchers.IO) {
-            val response =
-                retrofit.getBlog().getBlogById(blogId).awaitResponse()
-            // debug response
-            Log.d("Response", response.toString())
-            if (response.isSuccessful) {
-                Log.d("Response", response.body().toString())
-                launch(Dispatchers.Main) {
-                    val blog = response.body()
-                    txtTitle.text = blog?.title
-                    txtContent.text = blog?.content
-                    txtCreateTime.text = blog?.created_time
-//                    imgBlogDetail.setImageBitmap(getBitmapFromURL(url))
-                }
-            }
-        }
-
-        btnDelete.setOnClickListener {
+        try {
             GlobalScope.launch(Dispatchers.IO) {
                 val response =
-                    retrofit.manipulateBlog(token).deleteBlogById(blogId).awaitResponse()
+                    retrofit.getBlog().getBlogById(blogId).awaitResponse()
                 // debug response
                 Log.d("Response", response.toString())
                 if (response.isSuccessful) {
                     Log.d("Response", response.body().toString())
                     launch(Dispatchers.Main) {
-                        finish()
+                        val blog = response.body()
+                        txtTitle.text = blog?.title
+                        txtContent.text = blog?.content
+                        txtCreateTime.text = blog?.created_time
+//                    imgBlogDetail.setImageBitmap(getBitmapFromURL(url))
                     }
                 }
             }
+        } catch (e: Exception) {
+            Log.d("Error", e.toString())
+        }
+
+        btnDelete.setOnClickListener {
+            try {
+                GlobalScope.launch(Dispatchers.IO) {
+                    val response =
+                        retrofit.manipulateBlog(token).deleteBlogById(blogId).awaitResponse()
+                    // debug response
+                    Log.d("Response", response.toString())
+                    if (response.isSuccessful) {
+                        Log.d("Response", response.body().toString())
+                        launch(Dispatchers.Main) {
+                            finish()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("Error", e.toString())
+            }
+        }
+
+        btnBack.setOnClickListener {
+            finish()
         }
     }
 }
