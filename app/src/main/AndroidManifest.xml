@@ -14,19 +14,19 @@
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".BlockDetailActivity"
+            android:name=".BlogDetailActivity"
             android:exported="false" />
         <activity
             android:name=".AdminBusActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".AdminBusCreateActivity"
             android:exported="true">
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".BlogItem"
@@ -49,11 +49,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
     </application>
 
