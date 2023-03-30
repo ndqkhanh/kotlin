@@ -6,7 +6,6 @@
 // const phantomPath = require('witch')('phantomjs-prebuilt', 'phantomjs');
 // import chromium from 'chrome-aws-lambda';
 // const chromium = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer');
 // if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
 //   // running on the Vercel platform.
 //   chrome = require('chrome-aws-lambda');
@@ -16,16 +15,25 @@ const puppeteer = require('puppeteer');
 
 // }
 // const pdf = require('pdf-creator-node');
-const nodemailer = require('nodemailer');
 const httpStatus = require('http-status');
 const { PrismaClient } = require('@prisma/client');
 const { ERROR_MESSAGE } = require('../constants/ticket.constant');
 const ApiError = require('../utils/ApiError');
-const path = require('path');
 
 const prisma = new PrismaClient();
 
-const payTicket = async (ticketIds) => {
+const payTicket = async (userId, ticketIds) => {
+  for (let i = 0; i < ticketIds.length; i++) {
+    const ticketCheck = await prisma.bus_tickets.findFirst({
+      where: {
+        id: ticketIds[i],
+        user_id: userId,
+      },
+    });
+    if (!ticketCheck) {
+      throw new ApiError(httpStatus.NOT_FOUND, `Ticket ID ${ticketIds[i]} not found or not belong to user ID ${userId}`);
+    }
+  }
   for (let i = 0; i < ticketIds.length; i++) {
     const ticket = await prisma.bus_tickets.update({
       where: {
@@ -33,18 +41,18 @@ const payTicket = async (ticketIds) => {
       },
       data: {
         status: 1,
+        update_time: new Date(),
       },
     });
     if (!ticket) {
-      throw new ApiError(httpStatus.NOT_FOUND, ERROR_MESSAGE.PAY_TICKET_ERROR);
+      throw new ApiError(httpStatus.NOT_FOUND, `Ticket ID ${ticketIds[i]} not updated successfully`);
     }
   }
 
   return { message: 'Pay ticket successfully' };
 };
 
-const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOfSeats) => {
-  console.log('email', email);
+const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOfSeats) => {
   const checkBusIDExist = await prisma.buses.findUnique({
     where: {
       id: busId,
@@ -57,7 +65,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
   });
 
   if (!checkBusIDExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Bus ID Not found');
+    throw new ApiError(httpStatus.NOT_FOUND, `Bus ID ${busId} not found`);
   }
 
   const checkUserIDExist = await prisma.users.findUnique({
@@ -67,7 +75,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
   });
 
   if (!checkUserIDExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User ID Not found');
+    throw new ApiError(httpStatus.NOT_FOUND, `User ID ${userId} not found`);
   }
 
   const numOfSeatsBookedOrPayed = await prisma.bus_tickets.count({
@@ -113,29 +121,6 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
     });
   }
 
-  const result = { seat_positions: [], ticket_ids: [] };
-
-  for (let i = 0; i < availableSeatPosArr.length; ++i) {
-    const createTicket = await prisma.bus_tickets.create({
-      data: availableSeatPosArr[i],
-    });
-    result.name = name;
-    result.seat_positions.push(createTicket.seat);
-    result.ticket_ids.push(createTicket.id);
-    result.bo_name = checkBusIDExist.bus_operators.name;
-    result.start_point = checkBusIDExist.bus_stations_bus_stationsTobuses_start_point.name;
-    result.end_point = checkBusIDExist.bus_stations_bus_stationsTobuses_end_point.name;
-    result.start_time = checkBusIDExist.start_time;
-    result.end_time = checkBusIDExist.end_time;
-    result.duration = Math.abs(checkBusIDExist.end_time.getTime() - checkBusIDExist.start_time.getTime());
-    result.policy = checkBusIDExist.policy;
-    result.num_of_seats = numOfSeats;
-    result.type = checkBusIDExist.type;
-    result.ticket_cost = checkBusIDExist.price;
-    result.total_cost = checkBusIDExist.price * numOfSeats;
-    result.status = 0;
-  }
-
   const msToTime = (ms) => {
     const seconds = (ms / 1000).toFixed(1);
     const minutes = (ms / (1000 * 60)).toFixed(1);
@@ -147,336 +132,50 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
     return `${days} Days`;
   };
 
-  const template = `<div id="table">
-    <table class="table table-hover table-striped">
-      <tbody>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Full name</th>
-          <td class="quarter-width align-middle">${name}</td>
-          <th class="quarter-width align-middle ps-4">Email</th>
-          <td class="quarter-width align-middle">${email}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Ticket id</th>
-          <td class="quarter-width align-middle">
-            <ul class="disc-list-style-type px-3">${result.ticket_ids.join('<br>')}</ul>
-          </td>
-          <th class="quarter-width align-middle ps-4">Bus operator</th>
-          <td class="quarter-width align-middle">${result.bo_name}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Start point</th>
-          <td class="quarter-width align-middle">${result.start_point}</td>
-          <th class="quarter-width align-middle ps-4">End point</th>
-          <td class="quarter-width align-middle">${result.end_point}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Start time</th>
-          <td class="quarter-width align-middle">
-            ${new Date(result.start_time).toLocaleDateString(undefined, {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-            })}
-          </td>
-          <th class="quarter-width align-middle ps-4">End time</th>
-          <td class="quarter-width align-middle">
-            ${new Date(result.end_time).toLocaleDateString(undefined, {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-            })}
-          </td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Duration</th>
-          <td class="quarter-width align-middle">${msToTime(result.duration)}</td>
-          <th class="quarter-width align-middle ps-4">Policy</th>
-          <td class="quarter-width align-middle">${result.policy}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Number of seats</th>
-          <td class="quarter-width align-middle">${result.num_of_seats}</td>
-          <th class="quarter-width align-middle ps-4">Type of bus</th>
-          <td class="quarter-width align-middle">
-            ${result.type === 0 ? 'Limousine' : result.type === 1 ? 'Normal Seat' : 'Sleeper Bus'}
-          </td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Ticket cost</th>
-          <td class="quarter-width align-middle">${result.ticket_cost} VND</td>
-          <th class="quarter-width align-middle ps-4">Total cost</th>
-          <td class="quarter-width align-middle">${result.total_cost} VND</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Seat positions</th>
-          <td class="quarter-width align-middle">${result.seat_positions.join(', ')}</td>
-          <th class="quarter-width align-middle ps-4">Status</th>
-          <td class="quarter-width align-middle">
-            ${result.status === 0 ? 'Booked' : result.status === 1 ? 'Paid' : 'Canceled'}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>`;
-
-  const ticketIdsFormatted = await result.ticket_ids.map((tid) => `<li>${tid}</li>`);
-  const startTime = new Date(result.start_time).toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   });
-  const endTime = new Date(result.end_time).toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  });
-  const durationFormatted = await msToTime(result.duration);
-  const busType = result.type === 0 ? 'Limousine' : result.type === 1 ? 'Normal Seat' : 'Sleeper Bus';
-  const statusTmp = result.status === 0 ? 'Booked' : result.status === 1 ? 'Paid' : 'Canceled';
-  const seatPositions = result.seat_positions.join(', ');
 
-  const templateHTML = `<div id="table">
-    <table class="table table-hover table-striped">
-      <tbody>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Full name</th>
-          <td class="quarter-width align-middle">{{name}}</td>
-          <th class="quarter-width align-middle ps-4">Email</th>
-          <td class="quarter-width align-middle">{{email}}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Ticket id</th>
-          <td class="quarter-width align-middle">
-            <ul class="disc-list-style-type px-3">{{ticketIdsFormatted}}</ul>
-          </td>
-          <th class="quarter-width align-middle ps-4">Bus operator</th>
-          <td class="quarter-width align-middle">{{result.bo_name}}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Start point</th>
-          <td class="quarter-width align-middle">{{result.start_point}}</td>
-          <th class="quarter-width align-middle ps-4">End point</th>
-          <td class="quarter-width align-middle">{{result.end_point}}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Start time</th>
-          <td class="quarter-width align-middle">
-            {{startTime}}
-          </td>
-          <th class="quarter-width align-middle ps-4">End time</th>
-          <td class="quarter-width align-middle">
-            {{endTime}}
-          </td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Duration</th>
-          <td class="quarter-width align-middle">{{durationFormatted}}</td>
-          <th class="quarter-width align-middle ps-4">Policy</th>
-          <td class="quarter-width align-middle">{{result.policy}}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Number of seats</th>
-          <td class="quarter-width align-middle">{{result.num_of_seats}}</td>
-          <th class="quarter-width align-middle ps-4">Type of bus</th>
-          <td class="quarter-width align-middle">
-            {{busType}}
-          </td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Ticket cost</th>
-          <td class="quarter-width align-middle">{{result.ticket_cost}} VND</td>
-          <th class="quarter-width align-middle ps-4">Total cost</th>
-          <td class="quarter-width align-middle">{{result.total_cost}} VND</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Seat positions</th>
-          <td class="quarter-width align-middle">{{seatPositions}}</td>
-          <th class="quarter-width align-middle ps-4">Status</th>
-          <td class="quarter-width align-middle">
-            {{statusTmp}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>`;
+  const result = { seat_positions: [], ticket_ids: [] };
 
-  // console.log(template);
-
-  const options = {
-    format: 'A5',
-    orientation: 'portrait',
-    border: '10mm',
-    header: {
-      height: '45mm',
-      contents: `<div style="text-align: center;">Author: ${email}</div>`,
-    },
-    footer: {
-      height: '28mm',
-      contents: {
-        first: 'Cover page',
-        2: 'Second page', // Any page number is working. 1-based index
-        default: '<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
-        last: 'Last Page',
-      },
-    },
-  };
-  const document = {
-    html: templateHTML,
-    data: {
-      name,
-      email,
-      result,
-      ticketIdsFormatted,
-      startTime,
-      endTime,
-      durationFormatted,
-      busType,
-      statusTmp,
-      seatPositions,
-    },
-    path: path.join(__dirname, '../output/ticket-information.pdf'),
-    // phantomPath: `${phantomPath}`,
-    type: '',
-  };
-
-  try {
-    console.log('test 0');
-
-    // Create browser instance
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox'],
-      // defaultViewport: puppeteer.defaultViewport,
-      // executablePath: await puppeteer.executablePath,
-      headless: true,
-      ignoreHTTPSErrors: true,
+  for (let i = 0; i < availableSeatPosArr.length; ++i) {
+    const createTicket = await prisma.bus_tickets.create({
+      data: availableSeatPosArr[i],
     });
-    console.log('test 1');
-
-    // Create a new page
-    const page = await browser.newPage();
-    console.log('test 2');
-
-    // Set HTML as page content
-    await page.setContent(
-      `<div id="table">
-    <table class="table table-hover table-striped">
-      <tbody>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Full name</th>
-          <td class="quarter-width align-middle">${name}</td>
-          <th class="quarter-width align-middle ps-4">Email</th>
-          <td class="quarter-width align-middle">${email}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Ticket id</th>
-          <td class="quarter-width align-middle">
-            <ul class="disc-list-style-type px-3">${ticketIdsFormatted}</ul>
-          </td>
-          <th class="quarter-width align-middle ps-4">Bus operator</th>
-          <td class="quarter-width align-middle">${result.bo_name}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Start point</th>
-          <td class="quarter-width align-middle">${result.start_point}</td>
-          <th class="quarter-width align-middle ps-4">End point</th>
-          <td class="quarter-width align-middle">${result.end_point}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Start time</th>
-          <td class="quarter-width align-middle">
-          ${startTime}
-          </td>
-          <th class="quarter-width align-middle ps-4">End time</th>
-          <td class="quarter-width align-middle">
-          ${endTime}
-          </td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Duration</th>
-          <td class="quarter-width align-middle">${durationFormatted}</td>
-          <th class="quarter-width align-middle ps-4">Policy</th>
-          <td class="quarter-width align-middle">${result.policy}</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Number of seats</th>
-          <td class="quarter-width align-middle">${result.num_of_seats}</td>
-          <th class="quarter-width align-middle ps-4">Type of bus</th>
-          <td class="quarter-width align-middle">
-          ${busType}
-          </td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Ticket cost</th>
-          <td class="quarter-width align-middle">${result.ticket_cost} VND</td>
-          <th class="quarter-width align-middle ps-4">Total cost</th>
-          <td class="quarter-width align-middle">${result.total_cost} VND</td>
-        </tr>
-        <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Seat positions</th>
-          <td class="quarter-width align-middle">${seatPositions}</td>
-          <th class="quarter-width align-middle ps-4">Status</th>
-          <td class="quarter-width align-middle">
-          ${statusTmp}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>`,
-      { waitUntil: 'domcontentloaded' }
-    );
-    console.log('test 55');
-    console.log('__dirname', __dirname);
-    // Save PDF File
-    await page.pdf({ path: 'ticket-information.pdf', format: 'a4' });
-
-    console.log('test 3');
-    // await pdf.create(document, options);
-
-    console.log('test 4');
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.sendgrid.net',
-      port: 465,
-      secure: true,
-      auth: {
-        user: 'apikey',
-        pass: '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',
-      },
+    result.name = name;
+    result.phone = phone;
+    result.email = email;
+    result.seat_positions.push(createTicket.seat);
+    result.ticket_ids.push(createTicket.id);
+    result.bo_name = checkBusIDExist.bus_operators.name;
+    result.start_point = checkBusIDExist.bus_stations_bus_stationsTobuses_start_point.name;
+    result.end_point = checkBusIDExist.bus_stations_bus_stationsTobuses_end_point.name;
+    result.start_time = new Date(checkBusIDExist.start_time).toLocaleDateString(undefined, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
     });
-
-    const mailOptions = {
-      from: 'Web-HCMUS <group9notification@gmail.com>',
-      to: email,
-      subject: 'Ticket information',
-      html: `<html><body>${template}</body></html>`,
-      attachments: [
-        {
-          filename: 'ticket-information.pdf',
-          path: 'ticket-information.pdf',
-          contentType: 'application/pdf',
-        },
-      ],
-    };
-
-    console.log('test 5');
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Message sent: %s', info.messageId);
-  } catch (error) {
-    console.log('email not sent', error);
-    return false;
+    result.end_time = new Date(checkBusIDExist.end_time).toLocaleDateString(undefined, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    result.duration = Math.abs(checkBusIDExist.end_time.getTime() - checkBusIDExist.start_time.getTime());
+    result.num_of_seats = numOfSeats;
+    result.type = checkBusIDExist.type === 0 ? 'Limousine' : checkBusIDExist.type === 1 ? 'Normal Seat' : 'Sleeper Bus';
+    result.ticket_cost = formatter.format(checkBusIDExist.price);
+    result.total_cost = formatter.format(checkBusIDExist.price * numOfSeats);
+    result.status = createTicket.status === 0 ? 'Booked' : createTicket.status === 1 ? 'Paid' : 'Canceled';
   }
+  result.duration = await msToTime(result.duration);
 
   return result;
 };

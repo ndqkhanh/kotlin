@@ -6,9 +6,8 @@ const createTicket = {
     busId: Joi.string().uuid().required(),
   }),
   body: Joi.object().keys({
-    name: Joi.string().required(),
     phone: Joi.string().required(),
-    numOfSeats: Joi.number().required(),
+    num_of_seats: Joi.number().required(),
   }),
 };
 

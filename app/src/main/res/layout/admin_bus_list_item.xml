@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="300dp">
 
     <ImageView
         android:id="@+id/adminBusImgV"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.106"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -20,52 +22,60 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="Bus Operator"
+        android:textStyle="bold"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/adminBusImgV"
         app:layout_constraintTop_toTopOf="@+id/adminBusImgV" />
 
     <TextView
-        android:id="@+id/adminBusStartPointTV"
+        android:id="@+id/adminBusStartPointTtile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Start point"
+        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="@+id/adminBusOpTV"
         app:layout_constraintTop_toBottomOf="@+id/adminBusOpTV" />
 
     <TextView
-        android:id="@+id/adminBusEndPointTV"
+        android:id="@+id/adminBusEndPointTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
+        android:layout_marginTop="16dp"
         android:text="End point"
-        app:layout_constraintStart_toEndOf="@+id/adminBusStartPointTV"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartPointTV" />
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusStartPointTtile"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointTtile" />
 
     <TextView
-        android:id="@+id/adminBusStartTimeTV"
+        android:id="@+id/adminBusStartTimeTtile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Start time"
-        app:layout_constraintStart_toStartOf="@+id/adminBusOpTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointTV" />
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointTitle" />
 
     <TextView
-        android:id="@+id/adminBusEndTimeTV"
+        android:id="@+id/adminBusEndTimeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="End time"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointTV"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeTV" />
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeTtile"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusStartTimeTtile" />
 
     <TextView
-        android:id="@+id/adminBusPriceTV"
+        android:id="@+id/adminBusPriceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Price"
-        app:layout_constraintBottom_toBottomOf="@+id/adminBusImgV"
-        app:layout_constraintStart_toStartOf="@+id/adminBusOpTV" />
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusOpTV"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusEndTimeTitle" />
 
     <Button
         android:id="@+id/adminBusDeleteBtn"
@@ -76,5 +86,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/adminBusStartPointVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="TP HCM"
+        app:layout_constraintStart_toEndOf="@+id/adminBusStartPointTtile"
+        app:layout_constraintTop_toTopOf="@+id/adminBusStartPointTtile" />
+
+    <TextView
+        android:id="@+id/adminBusEndPointVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Ha Noi"
+        app:layout_constraintStart_toEndOf="@+id/adminBusEndPointTitle"
+        app:layout_constraintTop_toTopOf="@+id/adminBusEndPointTitle" />
+
+    <TextView
+        android:id="@+id/adminBusStartTimeVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="15:00 13/04/2022"
+        app:layout_constraintStart_toEndOf="@+id/adminBusStartTimeTtile"
+        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeTtile" />
+
+    <TextView
+        android:id="@+id/adminBusEndTimeVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="12:00 14/04/2022"
+        app:layout_constraintStart_toEndOf="@+id/adminBusEndTimeTitle"
+        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeTitle" />
+
+    <TextView
+        android:id="@+id/adminBusPriceVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="23000"
+        app:layout_constraintStart_toEndOf="@+id/adminBusPriceTitle"
+        app:layout_constraintTop_toTopOf="@+id/adminBusPriceTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
