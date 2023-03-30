@@ -21,4 +21,12 @@
     <string name="check_symbol">check symbol</string>
     <string name="book">Book</string>
     <string name="delete_blog">Delete Blog</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="add">Add</string>
+    <string name="blog_information">Blog Information</string>
+    <string name="content">Content</string>
+    <string name="enter_content_here">Enter content here</string>
+    <string name="enter_title_here">Enter title here</string>
+    <string name="title">Title</string>
+    <string name="enter_thumbnail_here">Enter thumbnail here</string>
 </resources>

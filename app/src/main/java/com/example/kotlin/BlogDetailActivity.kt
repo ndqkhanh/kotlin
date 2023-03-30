@@ -1,10 +1,12 @@
 package com.example.kotlin
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -59,18 +61,27 @@ class BlogDetailActivity : AppCompatActivity() {
 
         btnDelete.setOnClickListener {
             try {
-                GlobalScope.launch(Dispatchers.IO) {
-                    val response =
-                        retrofit.manipulateBlog(token).deleteBlogById(blogId).awaitResponse()
-                    // debug response
-                    Log.d("Response", response.toString())
-                    if (response.isSuccessful) {
-                        Log.d("Response", response.body().toString())
-                        launch(Dispatchers.Main) {
-                            finish()
+                val dialog = AlertDialog.Builder(this)
+                dialog.setTitle("Delete Blog")
+                dialog.setMessage("Are you sure you want to delete this blog?")
+                dialog.setPositiveButton("Yes") { _, _ ->
+                    GlobalScope.launch(Dispatchers.IO) {
+                        val response =
+                            retrofit.manipulateBlog(token).deleteBlogById(blogId).awaitResponse()
+                        // debug response
+                        Log.d("Response", response.toString())
+                        if (response.isSuccessful) {
+                            Log.d("Response", response.body().toString())
+                            launch(Dispatchers.Main) {
+                                finish()
+                            }
                         }
                     }
                 }
+                dialog.setNegativeButton("No") { dialogInterface: DialogInterface, _ ->
+                    dialogInterface.dismiss()
+                }
+                dialog.show()
             } catch (e: Exception) {
                 Log.d("Error", e.toString())
             }
