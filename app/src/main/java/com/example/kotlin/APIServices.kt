@@ -1,10 +1,14 @@
 package com.example.kotlin
 
+import android.content.res.Resources
+import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import retrofit2.http.*
+import com.example.kotlin.jsonConvert.*
 
 data class BlogResponse(
     val id: String,
@@ -65,7 +69,6 @@ data class BusStation(
     val location: String
 )
 
-
 data class BusOperator(
     val id: String,
     val image_url: String,
@@ -93,7 +96,6 @@ data class BusResponse(
     val data: List<Bus>
 )
 
-
 data class BusStationResponse(
     val data: List<BusStation>
 )
@@ -116,6 +118,18 @@ data class AdminBusCreateBody(
     val price: Int
 )
 
+interface UserService{
+    @POST("auth/signup")
+    fun signUp(@Body signUpData: AccountSignUp): Call<UserSignUpRespone>
+
+    @POST("auth/signin")
+    fun signIn(@Body signInData: UserLogin): Call<UserLogInRespone>
+
+    @POST("user/history/{page}/{limit}")
+    fun ticketHistory(@Header("Authorization") token: String,
+                      @Path("page") page:Int,
+                      @Path("limit") limit: Int): Call<HistoryList>
+}
 
 interface BusService {
     @GET("/bus/search")
@@ -129,7 +143,6 @@ interface BusService {
         @Body bus: AdminBusCreateBody
     ): Call<Bus>
 }
-
 
 interface BusStationService {
     @GET("bus-station/list")
@@ -177,6 +190,10 @@ class APIServiceImpl {
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+    fun userService(): UserService {
+        return api.create(UserService::class.java)
+    }
 
     fun searchBusses(): BusService {
         return api.create(BusService::class.java)
