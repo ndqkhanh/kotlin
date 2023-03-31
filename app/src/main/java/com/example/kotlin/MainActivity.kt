@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Intent(this, AdminBlogCreateActivity::class.java).also {
+        Intent(this, AdminBusOperatorActivity::class.java).also {
             startActivity(it)
         }
     }
