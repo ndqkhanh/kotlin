@@ -82,28 +82,30 @@ android:layout_width="match_parent"
         android:layout_marginRight="10dp"
 
         >
+
         <Button
             android:id="@+id/details"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="Details"
-            android:textSize="15sp"
-            android:textColor="#fff"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_alignParentLeft="true"
-            />
+            android:background="@drawable/corner_button"
+            android:text="Details"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
         <Button
             android:id="@+id/buyTicket"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="Buy"
-            android:textSize="15sp"
-            android:textColor="#fff"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_alignParentRight="true"
-            />
+            android:background="@drawable/corner_button"
+            android:text="Buy"
+            android:textColor="#fff"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

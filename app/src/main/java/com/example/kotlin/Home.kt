@@ -1,14 +1,21 @@
 package com.example.kotlin
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.login.LoginManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -17,9 +24,25 @@ import java.util.*
 
 
 class Home : AppCompatActivity() {
+    private lateinit var localEditor: SharedPreferences.Editor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
+        localEditor = localStore.edit()
+
+        findViewById<LinearLayout>(R.id.home_logout_button).setOnClickListener{
+            Log.d("Response", "Đăng xuất")
+            localEditor.apply {
+                putString("token",".")
+                commit()
+            }// remove token
+            Firebase.auth.signOut()
+            LoginManager.getInstance().logOut()
+            finish()
+        }
 
         val tickets = ArrayList<Ticket>()
         tickets.add(Ticket("Ninh bình 2", "100.000đ", "1h 30p", "Hà Nội", "HCM"))

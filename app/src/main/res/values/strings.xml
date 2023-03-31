@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kotlin</string>
+    <string name="app_name">Vexere</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
@@ -27,4 +27,7 @@
 
     <string name="book">Book</string>
     <string name="delete_blog">Delete Blog</string>
+
+    <string name="localIP">192.168.35.211</string>
+    <string name="userPassword">vexeREvexeRE123</string>
 </resources>

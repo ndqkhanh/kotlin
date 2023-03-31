@@ -3,19 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".Home">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
 
             <LinearLayout
@@ -35,6 +33,39 @@
                     android:textColor="#000000"
                     android:textSize="30sp"
                     android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100" />
+
+                <LinearLayout
+                    android:id="@+id/home_logout_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/home_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:background="@color/blank"
+                        android:contentDescription="&quot;this is logout button&quot;"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/button_color"
+                        app:srcCompat="@drawable/logout_icon" />
+
+                    <TextView
+                        android:id="@+id/log_out_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Log out"
+                        android:textColor="@color/button_color"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -84,12 +115,12 @@
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
                         android:layout_below="@+id/textView"
-                        android:drawableStart="@drawable/ic_baseline_location_on_24"
-                        android:hint="Destination"
                         android:layout_gravity="fill"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:completionThreshold="3"
+                        android:drawableStart="@drawable/ic_baseline_location_on_24"
+                        android:hint="Destination"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
@@ -98,12 +129,12 @@
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
                         android:layout_below="@+id/textView"
-                        android:drawableStart="@drawable/ic_baseline_location_on_24"
-                        android:hint="Destination"
                         android:layout_gravity="fill"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:completionThreshold="3"
+                        android:drawableStart="@drawable/ic_baseline_location_on_24"
+                        android:hint="Destination"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
                 </GridLayout>
 
@@ -112,26 +143,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_below="@+id/gridLayout"
-                    android:hint="Departure date"
                     android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_baseline_date_range_24"
                     android:layout_marginBottom="0dp"
-                    />
+                    android:drawableStart="@drawable/ic_baseline_date_range_24"
+                    android:hint="Departure date" />
 
                 <Button
                     android:id="@+id/searchButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/datePicker"
                     android:layout_alignParentStart="true"
 
-                    android:layout_below="@+id/datePicker"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:background="@drawable/corner_button"
                     android:text="Search"
+
                     android:textColor="#fff"
                     android:textSize="15sp"
-
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -149,14 +180,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/searchBox" />
 
             <ListView
-                android:orientation="vertical"
                 android:id="@+id/searchResult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:fillViewport="true"
-                android:dividerHeight="20.0sp"
                 android:divider="@android:color/transparent"
+                android:dividerHeight="20.0sp"
+                android:fillViewport="true"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchText" />
