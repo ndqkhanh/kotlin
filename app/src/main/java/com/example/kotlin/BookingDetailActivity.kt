@@ -84,48 +84,54 @@ class BookingDetailActivity : AppCompatActivity() {
             dialog.setMessage("Are you sure to pay for this ticket?")
             dialog.setPositiveButton("Yes") { _, _ ->
                 val retrofit = APIServiceImpl()
-
-                GlobalScope.launch(Dispatchers.IO) {
-                    val response =
-                        retrofit.createPayment(token)
-                            .createPaymentByTicketIds(
-                                TicketPaymentData(
-                                    ticketIds ?: ArrayList()
-                                )
-                            ).awaitResponse()
-                    // debug response
-                    Log.d("Response", response.toString())
-                    if (response.isSuccessful) {
-                        val body = response.body()
-                        Log.d("Response", body?.message.toString())
-                        launch(Dispatchers.Main) {
-                            val builder = AlertDialog.Builder(this@BookingDetailActivity)
-                            val view =
-                                layoutInflater.inflate(R.layout.alert_payment_status_layout, null)
-                            builder.setView(view)
-                            builder.setCancelable(false)
-                            val btnPrintPdf = view.findViewById<Button>(R.id.btnPrintPdf)
-                            btnPrintPdf.setOnClickListener {
-                                // TODO
-                                Toast.makeText(
-                                    this@BookingDetailActivity,
-                                    "Print PDF",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                try {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        val response =
+                            retrofit.createPayment(token)
+                                .createPaymentByTicketIds(
+                                    TicketPaymentData(
+                                        ticketIds ?: ArrayList()
+                                    )
+                                ).awaitResponse()
+                        // debug response
+                        Log.d("Response", response.toString())
+                        if (response.isSuccessful) {
+                            val body = response.body()
+                            Log.d("Response", body?.message.toString())
+                            launch(Dispatchers.Main) {
+                                val builder = AlertDialog.Builder(this@BookingDetailActivity)
+                                val view =
+                                    layoutInflater.inflate(
+                                        R.layout.alert_payment_status_layout,
+                                        null
+                                    )
+                                builder.setView(view)
+                                builder.setCancelable(false)
+                                val btnPrintPdf = view.findViewById<Button>(R.id.btnPrintPdf)
+                                btnPrintPdf.setOnClickListener {
+                                    // TODO
+                                    Toast.makeText(
+                                        this@BookingDetailActivity,
+                                        "Print PDF",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+                                val btnHome = view.findViewById<Button>(R.id.btnHome)
+                                btnHome.setOnClickListener {
+                                    Intent(this@BookingDetailActivity, Home::class.java)
+                                        .also {
+                                            startActivity(it)
+                                        }
+                                }
+                                paymentDialog = builder.create()
+                                paymentDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                                paymentDialog.show()
                             }
-                            val btnHome = view.findViewById<Button>(R.id.btnHome)
-                            btnHome.setOnClickListener {
-                                Intent(this@BookingDetailActivity, Home::class.java)
-                                    .also {
-                                        startActivity(it)
-                                    }
-                            }
-                            paymentDialog = builder.create()
-                            paymentDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-                            paymentDialog.show()
                         }
                     }
+                } catch (e: Exception) {
+                    Log.d("Error", e.toString())
                 }
             }
             dialog.setNegativeButton("No") { dialogInterface: DialogInterface, _ ->

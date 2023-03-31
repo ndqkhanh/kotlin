@@ -11,7 +11,6 @@ const getBlogById = async (id) => {
   const blog = await prisma.blogs.findFirst({
     where: {
       id,
-      status: 0,
     },
   });
   if (!blog) {
@@ -32,15 +31,15 @@ const deleteBlog = async (id) => {
   const blogCheck = await prisma.blogs.findFirst({
     where: {
       id,
-      status: 0,
     },
   });
   if (!blogCheck) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Blog not found or already deleted');
   }
-  const blog = await prisma.blogs.update({
-    where: { id },
-    data: { status: 1 },
+  const blog = await prisma.blogs.delete({
+    where: {
+      id,
+    },
   });
   if (!blog) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Blog not deleted successfully');

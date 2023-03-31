@@ -6,6 +6,27 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 const val BASE_URL = "http://192.168.1.7:3000/v1/"
+
+data class BlogResponse(
+    val id: String,
+    val thumbnail: String,
+    val title: String,
+    val content: String,
+    val created_time: String,
+    val update_time: String,
+    val status: Int,
+)
+
+data class BlogData(
+    val thumbnail: String,
+    val title: String,
+    val content: String,
+)
+
+data class BlogDeleteResponse(
+    val success: Boolean,
+)
+
 data class TicketPaymentData(
     val ticket_ids: List<String>,
 )
@@ -14,7 +35,7 @@ data class TicketPaymentResponse(
     val message: String
 )
 
-class TicketData(
+data class TicketData(
     val phone: String,
     val num_of_seats: Int
 )
@@ -46,7 +67,7 @@ data class BusStation(
 )
 
 
-data class BusOperator (
+data class BusOperator(
     val id: String,
     val image_url: String,
     val phone: String,
@@ -81,14 +102,15 @@ data class BusStationResponse(
 data class BusOperatorResponse(
     val data: List<BusOperator>
 )
+
 // Structure of body for api request
-data class AdminBusCreateBody (
+data class AdminBusCreateBody(
     val bo_id: String,
     val start_point: String,
-    val end_point : String,
+    val end_point: String,
     val type: Int,
     val start_time: String,
-    val end_time : String,
+    val end_time: String,
     val image_url: String,
     val policy: String,
     val num_of_seats: Int,
@@ -114,20 +136,21 @@ data class DeleteBusTicketResponse (
     )
 interface BusService {
     @GET("/bus/search")
-    fun searchBusses(): Call<BusResponse>;
+    fun searchBusses(): Call<BusResponse>
 
     // Admin create bus
 
     @POST("admin/bus/create")
     fun adminCreateBus(
         @Header("Authorization") token: String,
-        @Body bus: AdminBusCreateBody): Call<Bus>
+        @Body bus: AdminBusCreateBody
+    ): Call<Bus>
 }
 
 
 interface BusStationService {
     @GET("bus-station/list")
-    fun getBusStations(): Call<BusStationResponse>;
+    fun getBusStations(): Call<BusStationResponse>
 }
 
 interface TicketService {
@@ -150,14 +173,30 @@ interface PaymentService {
         @Body ticketPaymentData: TicketPaymentData
     ): Call<TicketPaymentResponse>
 }
+
+interface BlogService {
+    @GET("/v1/blog/{blogId}")
+    fun getBlogById(@Path("blogId") blogId: String): Call<BlogResponse>
+
+    @POST("/v1/blog/create")
+    fun createBlog(@Body blogData: BlogData): Call<BlogResponse>
+
+    @POST("/v1/blog/delete/{blogId}")
+    fun deleteBlogById(@Path("blogId") blogId: String): Call<BlogDeleteResponse>
+}
+
 const val page = 0
 const val limit = 50
+
 interface BusOperatorService {
     @GET("bus-operator/list/${page}/${limit}")
     suspend fun getBusOperators(): Call<BusOperatorResponse>
 }
+
+
 class APIServiceImpl {
-    val api = Retrofit.Builder()
+    private val BASE_URL = "http://192.168.1.4:3000/"
+    private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -229,3 +268,32 @@ class APIServiceImpl {
 
     }
 
+
+        return retrofit.create(PaymentService::class.java)
+    }
+
+    fun getBlog(): BlogService {
+        return api.create(BlogService::class.java)
+    }
+
+    fun manipulateBlog(token: String): BlogService {
+        val client = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val original = chain.request()
+                val request = original.newBuilder()
+                    .header("Authorization", "Bearer $token")
+                    .method(original.method, original.body)
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        return retrofit.create(BlogService::class.java)
+    }
+}

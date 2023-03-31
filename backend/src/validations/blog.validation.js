@@ -16,8 +16,8 @@ const createBlog = {
 };
 
 const deleteBlog = {
-  body: Joi.object().keys({
-    id: Joi.string().uuid().required(),
+  params: Joi.object().keys({
+    blogId: Joi.string().uuid().required(),
   }),
 };
 
