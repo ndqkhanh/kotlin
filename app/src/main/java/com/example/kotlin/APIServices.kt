@@ -266,11 +266,7 @@ class APIServiceImpl {
             return retrofit.create(PaymentService::class.java)
         }
 
-    }
 
-
-        return retrofit.create(PaymentService::class.java)
-    }
 
     fun getBlog(): BlogService {
         return api.create(BlogService::class.java)
