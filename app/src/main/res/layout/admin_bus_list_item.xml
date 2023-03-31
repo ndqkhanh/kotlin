@@ -17,7 +17,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/adminBusOpTV"
+        android:id="@+id/adminBusTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -28,14 +28,14 @@
         app:layout_constraintTop_toTopOf="@+id/adminBusImgV" />
 
     <TextView
-        android:id="@+id/adminBusStartPointTtile"
+        android:id="@+id/adminBusStartPointTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Start point"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusOpTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusOpTV" />
+        app:layout_constraintStart_toStartOf="@+id/adminBusTV"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTV" />
 
     <TextView
         android:id="@+id/adminBusEndPointTitle"
@@ -44,11 +44,11 @@
         android:layout_marginTop="16dp"
         android:text="End point"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartPointTtile"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointTtile" />
+        app:layout_constraintStart_toStartOf="@+id/adminBusStartPointTV"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointTV" />
 
     <TextView
-        android:id="@+id/adminBusStartTimeTtile"
+        android:id="@+id/adminBusTicketStartTimeTtile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -58,24 +58,24 @@
         app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointTitle" />
 
     <TextView
-        android:id="@+id/adminBusEndTimeTitle"
+        android:id="@+id/adminBusTicketEndTimeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="End time"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeTtile"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartTimeTtile" />
+        app:layout_constraintStart_toStartOf="@+id/adminBusTicketStartTimeTtile"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTicketStartTimeTtile" />
 
     <TextView
-        android:id="@+id/adminBusPriceTitle"
+        android:id="@+id/adminBusTicketPriceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Price"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusOpTV"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusEndTimeTitle" />
+        app:layout_constraintStart_toStartOf="@+id/adminBusTV"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTicketEndTimeTitle" />
 
     <Button
         android:id="@+id/adminBusDeleteBtn"
@@ -93,11 +93,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="TP HCM"
-        app:layout_constraintStart_toEndOf="@+id/adminBusStartPointTtile"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartPointTtile" />
+        app:layout_constraintStart_toEndOf="@+id/adminBusStartPointTV"
+        app:layout_constraintTop_toTopOf="@+id/adminBusStartPointTV" />
 
     <TextView
-        android:id="@+id/adminBusEndPointVal"
+        android:id="@+id/adminBusTicketEndPointVal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -106,22 +106,22 @@
         app:layout_constraintTop_toTopOf="@+id/adminBusEndPointTitle" />
 
     <TextView
-        android:id="@+id/adminBusStartTimeVal"
+        android:id="@+id/adminBusTicketStartTimeVal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="15:00 13/04/2022"
-        app:layout_constraintStart_toEndOf="@+id/adminBusStartTimeTtile"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeTtile" />
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketStartTimeTtile"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketStartTimeTtile" />
 
     <TextView
-        android:id="@+id/adminBusEndTimeVal"
+        android:id="@+id/adminBusTicketEndTimeVal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="12:00 14/04/2022"
-        app:layout_constraintStart_toEndOf="@+id/adminBusEndTimeTitle"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeTitle" />
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketEndTimeTitle"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketEndTimeTitle" />
 
     <TextView
         android:id="@+id/adminBusPriceVal"
@@ -129,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="23000"
-        app:layout_constraintStart_toEndOf="@+id/adminBusPriceTitle"
-        app:layout_constraintTop_toTopOf="@+id/adminBusPriceTitle" />
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketPriceTitle"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketPriceTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

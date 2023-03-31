@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+
+    <ImageView
+        android:id="@+id/adminBusTicketImgV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.072"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/adminBusTicketBusIDTitle"
+        android:layout_width="46dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="8dp"
+        android:text="Bus ID"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketImgV"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketImgV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketBusIDVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="da2a717d-3989-4e8e..."
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketBusIDTitle"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketBusIDTitle" />
+
+    <TextView
+        android:id="@+id/AdminBusTicketUserNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Passenger"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusTicketBusIDTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTicketBusIDTitle" />
+
+    <TextView
+        android:id="@+id/adminBusTicketUserNameVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="VO DUY NHAN"
+        app:layout_constraintStart_toEndOf="@+id/AdminBusTicketUserNameTV"
+        app:layout_constraintTop_toTopOf="@+id/AdminBusTicketUserNameTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketStartPointTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="From"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/AdminBusTicketUserNameTV"
+        app:layout_constraintTop_toBottomOf="@+id/AdminBusTicketUserNameTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketStartPointVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Distric 7, HCM"
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketStartPointTV"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketStartPointTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketEndPointTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="To"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusTicketStartPointTV"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTicketStartPointTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketEndPointVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="District 12, HCM"
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketEndPointTV"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketEndPointTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketTimeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Date"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusTicketEndPointTV"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTicketEndPointTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketTimeVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="JAN 11 2023, 11 30"
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketTimeTV"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketTimeTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketSeatTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Seat"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusTicketTimeTV"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTicketTimeTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketSeatVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="26"
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketSeatTV"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketSeatTV" />
+
+    <TextView
+        android:id="@+id/adminBusTicketStatusTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Status"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketSeatVal"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketSeatVal" />
+
+    <TextView
+        android:id="@+id/adminBusTicketStatusVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Paid"
+        app:layout_constraintStart_toEndOf="@+id/adminBusTicketStatusTV"
+        app:layout_constraintTop_toTopOf="@+id/adminBusTicketStatusTV" />
+
+    <Button
+        android:id="@+id/adminBusTicketDeleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusTicketSeatTV" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

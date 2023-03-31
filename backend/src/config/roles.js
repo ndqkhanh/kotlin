@@ -15,7 +15,7 @@ const allRoles = {
     'getBus',
   ],
 
-  admin: ['getBOByID', 'viewBO', 'createBO', 'updateBO', 'deteleBO', 'deleteBlog', 'createBlog'],
+  admin: ['getBOByID', 'viewBO', 'createBO', 'updateBO', 'deteleBO', 'deleteBlog', 'createBlog', 'bookingDelete'],
 };
 
 allRoles.bus_operator = [...allRoles.bus_operator, ...allRoles.user];

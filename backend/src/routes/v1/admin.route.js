@@ -15,13 +15,12 @@ router.route('/bus/update/:busId').post(auth('updateBus'), validate(adminValidat
 router.route('/bus/list/:page/:limit').get(auth('busList'), validate(adminValidation.busList), adminController.busList);
 
 router.route('/bus/:busId').get(auth('getBus'), validate(adminValidation.getBus), adminController.getBus);
-router
-  .route('/booking/list/:page/:limit')
-  .get(auth('bookingList'), validate(adminValidation.bookingList), adminController.bookingList);
+router.route('/booking/list').get(auth('bookingList'), adminController.bookingList);
 
 router
   .route('/booking/:bid')
   .get(auth('bookingGet'), validate(adminValidation.bookingGet), adminController.bookingGet)
-  .post(auth('bookingUpdate'), validate(adminValidation.bookingUpdate), adminController.bookingUpdate);
+  .post(auth('bookingUpdate'), validate(adminValidation.bookingUpdate), adminController.bookingUpdate)
+  .delete(auth('bookingDelete'), validate(adminValidation.bookingDelete), adminController.bookingDelete);
 
 module.exports = router;
