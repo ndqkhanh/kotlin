@@ -21,6 +21,11 @@ const deleteBus = {
   }),
 };
 
+const bookingDelete = {
+  params: Joi.object().keys({
+    bid: Joi.string().uuid().required(),
+  }),
+};
 const updateBus = {
   params: Joi.object().keys({
     busId: Joi.string().uuid().required(),
@@ -50,12 +55,6 @@ const busList = {
     limit: Joi.number().required(),
   }),
 };
-const bookingList = {
-  params: Joi.object().keys({
-    page: Joi.number().required(),
-    limit: Joi.number().required(),
-  }),
-};
 
 const bookingUpdate = {
   params: Joi.object().keys({
@@ -80,8 +79,8 @@ module.exports = {
   deleteBus,
   updateBus,
   getBus,
-  bookingList,
   bookingUpdate,
   bookingGet,
   busList,
+  bookingDelete,
 };
