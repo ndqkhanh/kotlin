@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
@@ -14,21 +15,50 @@ import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
 
 class FillBookingFormActivity : AppCompatActivity() {
+    private lateinit var edtName: EditText
+    private lateinit var edtEmail: EditText
+    private lateinit var edtStartTime: EditText
+    private lateinit var edtEndTime: EditText
+    private lateinit var edtDestination: EditText
     private lateinit var btnBook: Button
     private lateinit var edtPhone: EditText
     private lateinit var edtNumOfSeats: EditText
-    private lateinit var btnBack: Button
+    private lateinit var btnBack: ImageButton
+    private lateinit var btnCancel: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fill_booking_form)
 
+        edtName = findViewById(R.id.edtName)
+        edtEmail = findViewById(R.id.edtEmail)
+        edtStartTime = findViewById(R.id.edtStartTime)
+        edtEndTime = findViewById(R.id.edtEndTime)
+        edtDestination = findViewById(R.id.edtDestination)
         edtPhone = findViewById(R.id.edtPhone)
         edtNumOfSeats = findViewById(R.id.edtNumOfSeats)
         btnBack = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
+        }
+        btnCancel = findViewById(R.id.btnCancel)
+        btnCancel.setOnClickListener {
+            val dialog = AlertDialog.Builder(this)
+            dialog.apply {
+                setTitle("Cancel Booking")
+                setMessage("Are you sure to cancel this booking?")
+                setPositiveButton("Yes") { _, _ ->
+                    finish()
+                }
+                setNegativeButton("No") { _, _ -> }
+            }
+            dialog.create().show()
+        }
 
-        val token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Nzk3NDI3MjgsImV4cCI6MTY3OTc0NDUyOCwidHlwZSI6ImFjY2VzcyJ9.j8l_RwDGBVEpGZP761DLFeqKm_ph09ow4Iar5L1dKHI"
-        val busId = "384fdcb1-496f-4f87-8b1e-578674111ac1"
+        edtName.setText(FBInfor.NAME)
+        edtEmail.setText(FBInfor.EMAIL)
+
+        val token = this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
+        val busId = intent.getStringExtra("busId")
 
         btnBook = findViewById(R.id.btnBook)
         btnBook.setOnClickListener {
@@ -53,9 +83,9 @@ class FillBookingFormActivity : AppCompatActivity() {
                     try {
                         GlobalScope.launch(Dispatchers.IO) {
                             val response =
-                                retrofit.createTicket(token)
+                                retrofit.createTicket(token!!)
                                     .createTicketByNumOfSeats(
-                                        busId,
+                                        busId!!,
                                         TicketData(
                                             edtPhone.text.toString(),
                                             edtNumOfSeats.text.toString().toInt()
@@ -77,8 +107,8 @@ class FillBookingFormActivity : AppCompatActivity() {
                                         body?.seat_positions?.let { it1 -> ArrayList(it1) })
                                     intent.putStringArrayListExtra("ticket_ids",
                                         body?.ticket_ids?.let { it1 -> ArrayList(it1) })
-                                    intent.putExtra("name", body?.name)
-                                    intent.putExtra("email", body?.email)
+                                    intent.putExtra("name", FBInfor.NAME)
+                                    intent.putExtra("email", FBInfor.EMAIL)
                                     intent.putExtra("phone", body?.phone)
                                     intent.putExtra("bo_name", body?.bo_name)
                                     intent.putExtra("start_point", body?.start_point)
@@ -132,10 +162,6 @@ class FillBookingFormActivity : AppCompatActivity() {
                 }
             }
             dialog.show()
-        }
-        
-        btnBack.setOnClickListener {
-            finish()
         }
     }
 }

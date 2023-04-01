@@ -54,8 +54,8 @@
                         android:background="@color/blank"
                         android:contentDescription="&quot;this is logout button&quot;"
                         android:scaleType="fitCenter"
-                        android:tint="@color/button_color"
-                        app:srcCompat="@drawable/logout_icon" />
+                        app:srcCompat="@drawable/logout_icon"
+                        app:tint="@color/button_color" />
 
                     <TextView
                         android:id="@+id/log_out_text_view"

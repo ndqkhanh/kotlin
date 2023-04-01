@@ -4,15 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnLogOut"
+    <LinearLayout
+        android:id="@+id/layoutLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:text="Log out"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnLogOut"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@color/blank"
+            android:contentDescription="this is logout button"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/logout_icon"
+            app:tint="@color/button_color" />
+
+        <TextView
+            android:id="@+id/log_out_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Log out"
+            android:textColor="@color/button_color"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="0dp"

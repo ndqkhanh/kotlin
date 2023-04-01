@@ -26,8 +26,7 @@ class BookingDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_detail)
 
-        val token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Nzk3NDI3MjgsImV4cCI6MTY3OTc0NDUyOCwidHlwZSI6ImFjY2VzcyJ9.j8l_RwDGBVEpGZP761DLFeqKm_ph09ow4Iar5L1dKHI"
+        val token = this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
 
         val name = intent.getStringExtra("name")
         val email = intent.getStringExtra("email")
@@ -87,7 +86,7 @@ class BookingDetailActivity : AppCompatActivity() {
                 try {
                     GlobalScope.launch(Dispatchers.IO) {
                         val response =
-                            retrofit.createPayment(token)
+                            retrofit.createPayment(token!!)
                                 .createPaymentByTicketIds(
                                     TicketPaymentData(
                                         ticketIds ?: ArrayList()

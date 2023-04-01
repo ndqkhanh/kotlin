@@ -1,22 +1,24 @@
 package com.example.kotlin
 
 import android.app.Activity
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import java.util.*
 
 
 class Ticket {
-    public var id: String = ""
-    public var name: String = ""
-    public var price: String = ""
-    public var time: String = ""
-    public var location: String = ""
-    public var destination: String = ""
+    var id: String = ""
+    var name: String = ""
+    var price: String = ""
+    var time: String = ""
+    var location: String = ""
+    var destination: String = ""
 
     constructor(name: String, price: String, time: String, location: String, destination: String) {
         this.id = UUID.randomUUID().toString()
@@ -27,7 +29,14 @@ class Ticket {
         this.destination = destination
     }
 
-    constructor(name: String, price: String, time: String, location: String, destination: String, id: String) {
+    constructor(
+        name: String,
+        price: String,
+        time: String,
+        location: String,
+        destination: String,
+        id: String
+    ) {
         this.id = id
         this.name = name
         this.price = price
@@ -37,7 +46,8 @@ class Ticket {
     }
 }
 
-class CustomTicketItem(private val context: Activity, private val tickets: ArrayList<Ticket>) : ArrayAdapter<Ticket>(context,  R.layout.activity_ticket_item, tickets) {
+class CustomTicketItem(private val context: Activity, private val tickets: ArrayList<Ticket>) :
+    ArrayAdapter<Ticket>(context, R.layout.activity_ticket_item, tickets) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         try {
             Log.d("debug", "name: " + tickets[position].name)
@@ -50,14 +60,20 @@ class CustomTicketItem(private val context: Activity, private val tickets: Array
             val ticketTime = rowView.findViewById(R.id.ticketTime) as TextView
             val ticketLocation = rowView.findViewById(R.id.ticketLocation) as TextView
             val ticketDestination = rowView.findViewById(R.id.ticketDestination) as TextView
+            val buyTicket = rowView.findViewById(R.id.buyTicket) as Button
 
             ticketName.text = tickets[position].name
             ticketPrice.text = tickets[position].price
             ticketTime.text = tickets[position].time
             ticketLocation.text = tickets[position].location
             ticketDestination.text = tickets[position].destination
+            buyTicket.setOnClickListener {
+                val intent = Intent(context, FillBookingFormActivity::class.java)
+                intent.putExtra("busId", tickets[position].id)
+                context.startActivity(intent)
+            }
             return rowView
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             Log.d("debug", "test")
             e.printStackTrace()
         }
@@ -76,7 +92,10 @@ object Utility {
         for (i in 0 until listAdapter.count) {
             val listItem = listAdapter.getView(i, null, listView)
             (listItem as? ViewGroup)?.layoutParams =
-                ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
             listItem.measure(0, 0)
             totalHeight += listItem.measuredHeight
         }

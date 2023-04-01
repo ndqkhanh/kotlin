@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ class BlogDetailActivity : AppCompatActivity() {
     private lateinit var txtContent: TextView
     private lateinit var txtCreateTime: TextView
     private lateinit var btnDelete: Button
-    private lateinit var btnBack: Button
+    private lateinit var btnBack: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blog_detail)
@@ -31,17 +32,18 @@ class BlogDetailActivity : AppCompatActivity() {
         txtCreateTime = findViewById(R.id.txtCreateTime)
         btnDelete = findViewById(R.id.btnDelete)
         btnBack = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
+        }
 
+        val blogId = intent.getStringExtra("blogId")
+        val token = this.getSharedPreferences("vexere", MODE_PRIVATE)
+            .getString("token", "")
         val retrofit = APIServiceImpl()
-
-        val blogId = "310336cc-4250-4759-b182-4913d86af5c2"
-        val token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODAwOTQ4MjUsImV4cCI6MTY4MDA5NjYyNSwidHlwZSI6ImFjY2VzcyJ9.CisI-dPGSQEsysUu-eVXqDkR5CIIY-mFuL52byTlIGY"
-
         try {
             GlobalScope.launch(Dispatchers.IO) {
                 val response =
-                    retrofit.getBlog().getBlogById(blogId).awaitResponse()
+                    retrofit.getBlog().getBlogById(blogId!!).awaitResponse()
                 // debug response
                 Log.d("Response", response.toString())
                 if (response.isSuccessful) {
@@ -51,7 +53,9 @@ class BlogDetailActivity : AppCompatActivity() {
                         txtTitle.text = blog?.title
                         txtContent.text = blog?.content
                         txtCreateTime.text = blog?.created_time
-//                    imgBlogDetail.setImageBitmap(getBitmapFromURL(url))
+                        Glide.with(imgBlogDetail.context)
+                            .load(blog?.thumbnail)
+                            .into(imgBlogDetail)
                     }
                 }
             }
@@ -67,7 +71,8 @@ class BlogDetailActivity : AppCompatActivity() {
                 dialog.setPositiveButton("Yes") { _, _ ->
                     GlobalScope.launch(Dispatchers.IO) {
                         val response =
-                            retrofit.manipulateBlog(token).deleteBlogById(blogId).awaitResponse()
+                            retrofit.manipulateBlog(token!!).deleteBlogById(blogId!!)
+                                .awaitResponse()
                         // debug response
                         Log.d("Response", response.toString())
                         if (response.isSuccessful) {
@@ -85,10 +90,6 @@ class BlogDetailActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.d("Error", e.toString())
             }
-        }
-
-        btnBack.setOnClickListener {
-            finish()
         }
     }
 }
