@@ -6,9 +6,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,16 +33,19 @@ class Home : AppCompatActivity() {
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         localEditor = localStore.edit()
 
-        findViewById<ImageButton>(R.id.home_logout).setOnClickListener {
+        var logOutListener = View.OnClickListener {
             Log.d("Response", "Đăng xuất")
             localEditor.apply {
-                putString("token", ".")
-                apply()
+                putString("token", null)
+                commit()
             }// remove token
-            Firebase.auth.signOut()
-            LoginManager.getInstance().logOut()
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             finish()
         }
+        findViewById<ImageButton>(R.id.home_logout).setOnClickListener(logOutListener)
+        findViewById<TextView>(R.id.log_out_text_view).setOnClickListener(logOutListener)
 
         val tickets = ArrayList<Ticket>()
         tickets.add(

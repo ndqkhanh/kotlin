@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     validToken = true
                 } else {
+                    localEditor.apply {
+                        putString("token", null)
+                        commit()
+                    }// remove token
                     launch(Dispatchers.Main) {
                         //error message here
                     }
@@ -105,10 +109,10 @@ class MainActivity : AppCompatActivity() {
                 }
             })
     }
-
-    fun toHomeScreen() {
+    fun toHomeScreen(){
+        finish()
         val intent = Intent(this, Home::class.java)
-        startActivityForResult(intent, CodeVexere.RequestCode.GenerateLogin)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -118,9 +122,6 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode() -> {
                 callbackManager.onActivityResult(requestCode, resultCode, data)
-            }
-            CodeVexere.RequestCode.GenerateLogin -> {
-                setContentView(R.layout.activity_main)
             }
         }
 
