@@ -47,17 +47,25 @@ class MainActivity : AppCompatActivity() {
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         localEditor = localStore.edit()
         var token : String? = localStore.getString("token", null)
+        Log.d("Response", "MyToken")
+        if(token != null)
+        Log.d("ResponseToken", "MyToken")
 
 
         GlobalScope.launch(Dispatchers.IO) {
             //check valid token
             var validToken: Boolean = false
+            print("MyToken $token")
             if(token != null) {
 
                 val response = UserApi.ticketHistory("Bearer ${token!!}", 0, 1).awaitResponse()
                 if (response.isSuccessful) {
                     validToken = true
                 } else {
+                    localEditor.apply {
+                        putString("token", null)
+                        commit()
+                    }// remove token
                     launch(Dispatchers.Main) {
                         //error message here
                     }
@@ -110,8 +118,9 @@ class MainActivity : AppCompatActivity() {
             })
     }
     fun toHomeScreen(){
+        finish()
         val intent = Intent(this, Home::class.java)
-        startActivityForResult(intent, CodeVexere.RequestCode.GenerateLogin)
+        startActivity(intent)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -120,9 +129,6 @@ class MainActivity : AppCompatActivity() {
         when(requestCode){
             CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode() ->{
                 callbackManager.onActivityResult(requestCode, resultCode, data)
-            }
-            CodeVexere.RequestCode.GenerateLogin->{
-                setContentView(R.layout.activity_main)
             }
         }
 
