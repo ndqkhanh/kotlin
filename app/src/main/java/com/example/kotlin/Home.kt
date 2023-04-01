@@ -42,7 +42,7 @@ class Home : AppCompatActivity() {
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish()
+            finishAffinity()
         }
         findViewById<ImageButton>(R.id.home_logout).setOnClickListener(logOutListener)
         findViewById<TextView>(R.id.log_out_text_view).setOnClickListener(logOutListener)
