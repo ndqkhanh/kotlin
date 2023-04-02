@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/adminBusOperatorCreateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="CREATE NEW BUS OPERATOR"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/adminBusOperatorNameCreateEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/full_name"
+        android:background="@drawable/custom_form_input"
+        android:drawableStart="@drawable/baseline_person_32"
+        android:drawablePadding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorCreateTitle" />
+
+    <EditText
+        android:id="@+id/adminBusOperatorPhoneCreateEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="phone"
+        android:background="@drawable/custom_form_input"
+        android:drawableStart="@drawable/baseline_contact_phone_32"
+        android:drawablePadding="10dp"
+        android:hint="@string/phone_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorNameCreateEt" />
+
+    <EditText
+        android:id="@+id/adminBusOperatorImageCreateEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/custom_form_input"
+        android:drawableStart="@drawable/ic_baseline_image_24"
+        android:drawablePadding="10dp"
+        android:hint="@string/image"
+        app:layout_constraintEnd_toEndOf="@+id/adminBusOperatorPhoneCreateEt"
+        app:layout_constraintStart_toStartOf="@+id/adminBusOperatorPhoneCreateEt"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorPhoneCreateEt" />
+
+    <Button
+        android:id="@+id/adminBusOperatorCreateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="CREATE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorImageCreateEt" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
+
 data class BlogResponse(
     val id: String,
     val thumbnail: String,
@@ -72,6 +73,11 @@ data class BusOperator(
     val phone: String,
     val name: String
 )
+data class BusOperatorBody(
+    val image_url: String,
+    val phone: String,
+    val name: String
+)
 
 data class Bus(
     val id: Int,
@@ -131,6 +137,10 @@ data class BusTicketResponse(
 )
 
 data class DeleteBusTicketResponse(
+    val success: Boolean
+)
+
+data class DeleteBusOperatorResponse(
     val success: Boolean
 )
 
@@ -207,12 +217,23 @@ const val limit = 50
 
 interface BusOperatorService {
     @GET("bus-operator/list/${page}/${limit}")
-    suspend fun getBusOperators(): Call<BusOperatorResponse>
+    fun getBusOperators(): Call<BusOperatorResponse>
+
+    @DELETE("bus-operator/{bid}")
+    fun deleteBooking(
+        @Header("Authorization") token: String,
+        @Path("bid") bid: String
+    ): Call<DeleteBusOperatorResponse>
+
+    @POST("bus-operator/create")
+    fun createBusOperator(
+        @Header("Authorization") token: String,
+        @Body busOperator: BusOperatorBody): Call<BusOperator>
 }
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.35.211:3000/v1/"
+    private val BASE_URL = "http://192.168.1.8:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -245,6 +266,10 @@ class APIServiceImpl {
 
     fun adminDeleteBooking(): TicketService {
         return api.create(TicketService::class.java)
+    }
+
+    fun adminCreateBusOperator(): BusOperatorService {
+        return api.create(BusOperatorService::class.java)
     }
 
     fun createTicket(token: String): TicketService {

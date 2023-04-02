@@ -18,7 +18,7 @@ class AdminBusTicketActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus_ticket)
 
-        val token = "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODAyNTY0ODMsImV4cCI6MTY4MDI1ODI4MywidHlwZSI6ImFjY2VzcyJ9.Mg44neuaRYOdmbJ5LknwIAnQYe0U7z4JRK1bqyAheOw"
+        val token = "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODA0MTY1ODUsImV4cCI6MTY4MDQxODM4NSwidHlwZSI6ImFjY2VzcyJ9.yTuZ-GAF3yQ_YatqqsrnzmI9ywaw7QXS2VPUymUnSPc"
         val retrofit = APIServiceImpl()
         busTickets = mutableListOf()
 
@@ -67,9 +67,6 @@ class AdminBusTicketActivity:AppCompatActivity() {
             }
 
             }
-
-
-
 
 
     }

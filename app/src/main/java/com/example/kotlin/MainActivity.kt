@@ -41,43 +41,48 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
-        localEditor = localStore.edit()
-        var token: String? = localStore.getString("token", null)
-
-
-        GlobalScope.launch(Dispatchers.IO) {
-            //check valid token
-            var validToken: Boolean = false
-            if (token != null) {
-
-                val response = UserApi.ticketHistory("Bearer ${token}", 0, 1).awaitResponse()
-                if (response.isSuccessful) {
-                    validToken = true
-                } else {
-                    localEditor.apply {
-                        putString("token", null)
-                        commit()
-                    }// remove token
-                    launch(Dispatchers.Main) {
-                        //error message here
-                    }
-                }
-            }
-
-            //update UI
-            if (!validToken) {
-                withContext(Dispatchers.Main) {
-                    setContentView(R.layout.activity_main)
-                    login()
-                }
-            } else {
-                withContext(Dispatchers.Main) {
-                    toHomeScreen()
-
-                }
-            }
+        Intent(this, AdminBusOperatorCreateActivity::class.java).also{
+            startActivity(it)
         }
+
+        // TODO Uncomment this later
+//        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
+//        localEditor = localStore.edit()
+//        var token: String? = localStore.getString("token", null)
+//
+//
+//        GlobalScope.launch(Dispatchers.IO) {
+//            //check valid token
+//            var validToken: Boolean = false
+//            if (token != null) {
+//
+//                val response = UserApi.ticketHistory("Bearer ${token}", 0, 1).awaitResponse()
+//                if (response.isSuccessful) {
+//                    validToken = true
+//                } else {
+//                    localEditor.apply {
+//                        putString("token", null)
+//                        commit()
+//                    }// remove token
+//                    launch(Dispatchers.Main) {
+//                        //error message here
+//                    }
+//                }
+//            }
+//
+//            //update UI
+//            if (!validToken) {
+//                withContext(Dispatchers.Main) {
+//                    setContentView(R.layout.activity_main)
+//                    login()
+//                }
+//            } else {
+//                withContext(Dispatchers.Main) {
+//                    toHomeScreen()
+//
+//                }
+//            }
+//        }
     }
 
     private fun login() {

@@ -35,4 +35,5 @@
     <string name="enter_title_here">Enter title here</string>
     <string name="title">Title</string>
     <string name="enter_thumbnail_here">Enter thumbnail here</string>
+    <string name="image">Image</string>
 </resources>
