@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +12,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/busOperatorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -23,36 +24,36 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/busOperatorAvatar"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_marginTop="24dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/busOperatorName"
             app:srcCompat="@drawable/ic_launcher_background"
             android:contentDescription="bus operator avatar" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/busOperatorPhoneText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Phone number:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/busOperatorAvatar" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/busOperatorPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="088.8888.888"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/textView2" />
+            app:layout_constraintStart_toEndOf="@+id/busOperatorPhoneText"
+            app:layout_constraintTop_toTopOf="@+id/busOperatorPhoneText" />
 
         <View
             android:id="@+id/view2"
@@ -64,7 +65,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/busOperatorPhone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvComment"

@@ -1,5 +1,6 @@
 package com.example.kotlin
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -13,6 +14,7 @@ class BusDetailAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):F
     }
 
     override fun createFragment(position: Int): Fragment {
+        Log.d("test", "createFragment: $position")
         return when(position){
             0 -> BusOperatorFragment()
             1 -> BusInformationFragment()

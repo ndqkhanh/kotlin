@@ -2,11 +2,18 @@ package com.example.kotlin
 
 import android.app.Activity
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
 
 
@@ -37,25 +44,32 @@ class Ticket {
     }
 }
 
-class CustomTicketItem(private val context: Activity, private val tickets: ArrayList<Ticket>) : ArrayAdapter<Ticket>(context,  R.layout.activity_ticket_item, tickets) {
+class CustomTicketItem(private val context: Activity, private val busses: List<Bus>, private val supportFragmentManager: FragmentManager, private val lifecycle: Lifecycle) : ArrayAdapter<Bus>(context,  R.layout.activity_ticket_item, busses) {
+    var showBottomSheet: ((bus: Bus)->Unit)? = null
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         try {
-            Log.d("debug", "name: " + tickets[position].name)
-            Log.d("debug", "name: " + tickets[position].price)
 
             val inflater = context.layoutInflater
             val rowView: View = inflater.inflate(R.layout.activity_ticket_item, null, true)
-            val ticketName = rowView.findViewById(R.id.ticketName) as TextView
-            val ticketPrice = rowView.findViewById(R.id.ticketPrice) as TextView
-            val ticketTime = rowView.findViewById(R.id.ticketTime) as TextView
-            val ticketLocation = rowView.findViewById(R.id.ticketLocation) as TextView
-            val ticketDestination = rowView.findViewById(R.id.ticketDestination) as TextView
+            val busOperatorName = rowView.findViewById(R.id.busOperatorName) as TextView
+            val busPrice = rowView.findViewById(R.id.busPrice) as TextView
+            val busStartTime = rowView.findViewById(R.id.busStartTime) as TextView
+            val busDeparture = rowView.findViewById(R.id.busDeparture) as TextView
+            val busDestination = rowView.findViewById(R.id.busDestination) as TextView
 
-            ticketName.text = tickets[position].name
-            ticketPrice.text = tickets[position].price
-            ticketTime.text = tickets[position].time
-            ticketLocation.text = tickets[position].location
-            ticketDestination.text = tickets[position].destination
+
+            busOperatorName.text = busses[position].bus_operators.name
+            busPrice.text = busses[position].price.toString()
+            busStartTime.text = busses[position].start_time
+            busDeparture.text = busses[position].start_point.location
+            busDestination.text = busses[position].end_point.location
+
+            val detailsBtn = rowView.findViewById<Button>(R.id.details)
+            detailsBtn.setOnClickListener {
+                showBottomSheet?.invoke(busses[position])
+            }
+
             return rowView
         }catch (e: Exception) {
             Log.d("debug", "test")
@@ -63,7 +77,6 @@ class CustomTicketItem(private val context: Activity, private val tickets: Array
         }
         return super.getView(position, convertView, parent)
     }
-
 
 }
 

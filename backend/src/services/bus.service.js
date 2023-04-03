@@ -94,6 +94,11 @@ const getBusInformation = async (busId) => {
     },
   });
 
+  data.start_point = data.bus_stations_bus_stationsTobuses_start_point;
+  data.end_point = data.bus_stations_bus_stationsTobuses_end_point;
+  delete data.bus_stations_bus_stationsTobuses_start_point;
+  delete data.bus_stations_bus_stationsTobuses_end_point;
+
   return data;
 };
 

@@ -36,26 +36,6 @@ class Blog {
         this.thumbnail = thumbnail
     }
 }
-//
-//class CustomBlogItem(private val context: Activity, private val blogs: ArrayList<Blog>) : ArrayAdapter<Blog>(context,  R.layout.activity_blog_item, blogs) {
-//    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-//        try {
-//            val inflater = context.layoutInflater
-//            val rowView: View = inflater.inflate(R.layout.activity_blog_item, null, true)
-//            val title = rowView.findViewById(R.id.title) as TextView
-//
-//            title.text = blogs[position].title
-//
-//            return rowView
-//        }catch (e: Exception) {
-//            Log.d("debug", "test")
-//            e.printStackTrace()
-//        }
-//        return super.getView(position, convertView, parent)
-//    }
-//
-//
-//}
 
 class CustomBlogItem(private val blogs: ArrayList<Blog>): RecyclerView.Adapter<CustomBlogItem.ViewHolder>() {
     var onItemClick: ((Blog) -> Unit)? = null
