@@ -45,9 +45,6 @@ class BookingDetailActivity : AppCompatActivity() {
         val totalCost = intent.getStringExtra("total_cost")
         val status = intent.getStringExtra("status")
 
-        Log.d("seatPositions", seatPositions.toString())
-        Log.d("ticketIds", ticketIds.toString())
-
         BookingDetailList.bookingDetails = BookingDetailList.generateBookingDetailList(
             name ?: "",
             email ?: "",

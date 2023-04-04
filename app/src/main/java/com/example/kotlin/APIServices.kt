@@ -14,7 +14,6 @@ data class BlogResponse(
     val content: String,
     val created_time: String,
     val update_time: String,
-    val status: Int,
 )
 
 data class BlogListResponse(
@@ -296,7 +295,6 @@ class APIServiceImpl {
 
         return retrofit.create(PaymentService::class.java)
     }
-
 
     fun getBlog(): BlogService {
         return api.create(BlogService::class.java)

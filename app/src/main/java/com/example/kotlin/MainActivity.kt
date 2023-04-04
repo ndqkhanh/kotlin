@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.example.kotlin.jsonConvert.AccountSignUp
 import com.example.kotlin.jsonConvert.UserLogin
 import com.facebook.*
@@ -74,8 +75,12 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 withContext(Dispatchers.Main) {
+                    FBInfor.ID = localStore.getString("id", "").toString()
+                    FBInfor.NAME = localStore.getString("name", "").toString()
+                    FBInfor.EMAIL = localStore.getString("email", "N/A").toString()
+                    FBInfor.PHOTO_URL = localStore.getString("photo", null)?.toUri()
+                    FBInfor.ROLE = localStore.getInt("role", 2)
                     toHomeScreen()
-
                 }
             }
         }
@@ -166,8 +171,14 @@ class MainActivity : AppCompatActivity() {
                                         if (response.isSuccessful) {
                                             val body = response.body()
                                             body?.let {
+                                                FBInfor.ROLE = body.user.role
                                                 this@MainActivity.localEditor.apply {
                                                     putString("token", body.token.token)
+                                                    putString("id", FBInfor.ID)
+                                                    putString("name", FBInfor.NAME)
+                                                    putString("email", FBInfor.EMAIL)
+                                                    putString("photo", FBInfor.PHOTO_URL.toString())
+                                                    putInt("role", FBInfor.ROLE)
                                                     commit()
                                                 }
                                             }
@@ -200,6 +211,11 @@ class MainActivity : AppCompatActivity() {
                                             body?.let {
                                                 this@MainActivity.localEditor.apply {
                                                     putString("token", body.token.token)
+                                                    putString("id", FBInfor.ID)
+                                                    putString("name", FBInfor.NAME)
+                                                    putString("email", FBInfor.EMAIL)
+                                                    putString("photo", FBInfor.PHOTO_URL.toString())
+                                                    putInt("role", FBInfor.ROLE)
                                                     commit()
                                                 }
                                             }
