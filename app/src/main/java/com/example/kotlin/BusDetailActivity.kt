@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,11 @@ class BusDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bus_detail)
+        val closeBtn = findViewById<Button>(R.id.closeBtn)
+        // close activity
+        closeBtn.setOnClickListener {
+            finish()
+        }
 
         val busAdapter = BusDetailAdapter(supportFragmentManager, lifecycle)
         val pagerBus = findViewById<ViewPager2>(R.id.pagerBus)
@@ -38,20 +44,11 @@ class BusDetailActivity : AppCompatActivity() {
                     // get inflater
                     val inflater = LayoutInflater.from(this@BusDetailActivity)
                     val view: View = inflater.inflate(R.layout.fragment_bus_information, null)
-//                    val busInfoRV = findViewById<RecyclerView>(R.id.busInfoRV)
-//                    var texts = ArrayList<String>()
-//                    texts.add("Bus Operator Name")
-//                    texts.add(bus?.bus_operators?.name ?: "")
-//                    texts.add("Bus Operator Phone")
-//                    texts.add(bus?.bus_operators?.phone ?: "")
-//                    val busAdapter = CustomBusDataItem(texts)
-//                    busInfoRV!!.layoutManager = GridLayoutManager(inflater.context, 2)
-//                    busInfoRV!!.adapter = busAdapter
-                    Log.d("Search", "test" + view.toString())
-                    Log.d("Search", "test" + view.transitionName)
 
-//                    val busInfoTitle = findViewById<TextView>(R.id.busInfoTitle)
-//                    busInfoTitle.text = "Bus Information 2"
+
+
+
+
                 }
             }
 
@@ -74,19 +71,6 @@ class BusDetailActivity : AppCompatActivity() {
                 0 -> tab.text = "Bus Operator"
                 1 -> {
                     tab.text = "Bus Information"
-//                    val busInfoRV = findViewById<RecyclerView>(R.id.busInfoRV)
-//                    var texts = ArrayList<String>()
-//                    texts.add("Bus Operator Name")
-//                    texts.add(bus?.bus_operators?.name ?: "")
-//                    texts.add("Bus Operator Phone")
-//                    texts.add(bus?.bus_operators?.phone ?: "")
-//
-//                    val blogAdapter = CustomBusDataItem(texts)
-//                    Log.d("Search", "busInfoRV: " + busInfoRV.toString())
-//                    Log.d("Search", texts.toString())
-//                    Log.d("Search", "test: " + blogAdapter.toString())
-//                    busInfoRV!!.adapter = blogAdapter
-//                    busInfoRV!!.layoutManager = GridLayoutManager(this@BusDetailActivity, 2)
                 }
             }
         }.attach()
@@ -98,6 +82,34 @@ class BusDetailActivity : AppCompatActivity() {
                 Log.d("Search", response.body().toString())
                 var data = response.body()
                 bus = data
+
+                val arr = ArrayList<String>()
+                arr.add("Bus operator")
+                arr.add(data?.bus_operators?.name ?: "")
+                arr.add("Start point")
+                arr.add(data?.start_point?.name ?: "")
+                arr.add("End point")
+                arr.add(data?.end_point?.name ?: "")
+                arr.add("Start time")
+                arr.add(data?.start_time ?: "")
+                arr.add("End time")
+                arr.add(data?.end_time ?: "")
+                arr.add("Number of seat")
+                arr.add(data?.num_of_seats.toString() ?: "")
+                arr.add("Type of bus")
+                arr.add(data?.type.toString() ?: "")
+                arr.add("Price")
+                arr.add(data?.price.toString() ?: "")
+
+                // put arr in sharedPreference
+                val sharePref = getSharedPreferences("BusDetail", MODE_PRIVATE)
+                val editor = sharePref.edit()
+                val str = arr.joinToString(",")
+                Log.d("Search", "str: $str")
+                editor.putString("busInformation", str)
+                editor.putString("busAvatar", data?.image_url)
+                editor.apply()
+
                 withContext(Dispatchers.Main) {
                     val busOperatorName = findViewById<TextView>(R.id.busOperatorName)
                     val busOperatorPhone = findViewById<TextView>(R.id.busOperatorPhone)

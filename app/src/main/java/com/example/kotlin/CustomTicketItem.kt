@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
@@ -57,13 +59,17 @@ class CustomTicketItem(private val context: Activity, private val busses: List<B
             val busStartTime = rowView.findViewById(R.id.busStartTime) as TextView
             val busDeparture = rowView.findViewById(R.id.busDeparture) as TextView
             val busDestination = rowView.findViewById(R.id.busDestination) as TextView
-
+            val busImage = rowView.findViewById(R.id.busImage) as ImageView
 
             busOperatorName.text = busses[position].bus_operators.name
             busPrice.text = busses[position].price.toString()
             busStartTime.text = busses[position].start_time
             busDeparture.text = busses[position].start_point.location
             busDestination.text = busses[position].end_point.location
+
+            Glide.with(busImage.context)
+                .load(busses[position].image_url)
+                .into(busImage)
 
             val detailsBtn = rowView.findViewById<Button>(R.id.details)
             detailsBtn.setOnClickListener {

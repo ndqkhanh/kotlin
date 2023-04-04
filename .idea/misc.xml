@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/layout/activity_blog_item.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/activity_bus_detail.xml" value="0.15307971014492755" />
         <entry key="app/src/main/res/layout/activity_fill_booking_form.xml" value="0.15307971014492755" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_ticket_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/admin_bus_list_item.xml" value="0.15307971014492755" />
@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/layout/empty_tall_divider.xml" value="0.13134057971014493" />
         <entry key="app/src/main/res/layout/fragment_blog_information_column.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_blog_item.xml" value="0.11510416666666666" />
+        <entry key="app/src/main/res/layout/fragment_bus_filter.xml" value="0.1621376811594203" />
         <entry key="app/src/main/res/layout/fragment_bus_information.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_bus_information_column.xml" value="0.10833333333333334" />
         <entry key="app/src/main/res/layout/fragment_bus_operator.xml" value="0.1" />

@@ -115,14 +115,83 @@
                     android:layout_marginBottom="0dp"
                     />
 
+                <TextView
+                    android:id="@+id/filterTitle"
+                    android:text="Filter"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/datePicker"
+                    android:textSize="15sp"
+
+                    />
+
+                <Spinner
+                    android:id="@+id/busOperatorFilter"
+                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:hint="Bus Operator"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/textview_border"
+                    android:layout_below="@+id/filterTitle"
+                />
+                <TextView
+                    android:id="@+id/typeOfSeatTitle"
+                    android:text="Type of seat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/busOperatorFilter"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    />
+                <CheckBox
+                    android:id="@+id/busLimousineType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/typeOfSeatTitle"
+                    android:text="Limousine"
+                    />
+
+                <CheckBox
+                    android:id="@+id/busNormalSeatType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/busLimousineType"
+                    android:text="Normal Seat"
+                    />
+
+                <CheckBox
+                    android:id="@+id/busSleeperBusType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/busNormalSeatType"
+                    android:text="Sleeper Bus"
+                    />
+                <TextView
+                    android:id="@+id/pricingTitle"
+                    android:text="Pricing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/busSleeperBusType"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    />
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pricingTitle"
+                    android:layout_marginTop="10dp"
+                    android:max="10000000"
+                    android:min="0" />
+
+
                 <Button
                     android:id="@+id/searchButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentStart="true"
-
-                    android:layout_below="@+id/datePicker"
+                    android:layout_below="@+id/seekBar"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:text="Search"

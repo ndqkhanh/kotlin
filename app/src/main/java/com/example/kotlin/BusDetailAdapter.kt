@@ -1,5 +1,6 @@
 package com.example.kotlin
 
+import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -7,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.kotlin.BusInformationFragment
 import com.example.kotlin.BusOperatorFragment
+import java.util.*
 
 class BusDetailAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
