@@ -21,8 +21,16 @@ const deleteBlog = {
   }),
 };
 
+const getBlogs = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
+
 module.exports = {
   getBlogByID,
   createBlog,
   deleteBlog,
+  getBlogs,
 };

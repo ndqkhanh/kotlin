@@ -17,6 +17,11 @@ data class BlogResponse(
     val status: Int,
 )
 
+data class BlogListResponse(
+    val count: Int,
+    val data: List<BlogResponse>
+)
+
 data class BlogData(
     val thumbnail: String,
     val title: String,
@@ -192,6 +197,9 @@ interface PaymentService {
 }
 
 interface BlogService {
+    @GET("blog/list/{page}/{limit}")
+    fun getBlogs(@Path("page") page: Int, @Path("limit") limit: Int): Call<BlogListResponse>
+
     @GET("blog/{blogId}")
     fun getBlogById(@Path("blogId") blogId: String): Call<BlogResponse>
 
@@ -212,7 +220,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.13:3000/v1/"
+    private val BASE_URL = "http://10.126.4.159:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
