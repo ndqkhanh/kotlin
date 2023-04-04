@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.jsonConvert.AccountSignUp
@@ -55,6 +56,10 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     validToken = true
                 } else {
+                    localEditor.apply {
+                        putString("token", null)
+                        commit()
+                    }// remove token
                     launch(Dispatchers.Main) {
                         //error message here
                     }
@@ -86,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         var buttonFacebookLogin = findViewById<LoginButton>(R.id.login_button)
-        arrayOf<String?>("email", "public_profile")
+        buttonFacebookLogin.setReadPermissions("email", "public_profile")
         buttonFacebookLogin.registerCallback(
             callbackManager,
             object : FacebookCallback<LoginResult> {
@@ -107,8 +112,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun toHomeScreen() {
+        finish()
         val intent = Intent(this, Home::class.java)
-        startActivityForResult(intent, CodeVexere.RequestCode.GenerateLogin)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -119,15 +125,11 @@ class MainActivity : AppCompatActivity() {
             CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode() -> {
                 callbackManager.onActivityResult(requestCode, resultCode, data)
             }
-            CodeVexere.RequestCode.GenerateLogin -> {
-                setContentView(R.layout.activity_main)
-            }
         }
 
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
-        //Log.d(TAG, "handleFacebookAccessToken:$token")
 
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
@@ -159,7 +161,6 @@ class MainActivity : AppCompatActivity() {
                                     }//update name on firebase database
 
                                     GlobalScope.launch(Dispatchers.IO) {
-
                                         val response =
                                             UserApi.signIn(UserLogin(FBInfor.ID)).awaitResponse()
                                         if (response.isSuccessful) {

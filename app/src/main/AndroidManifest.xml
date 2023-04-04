@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".BlogActivity"
+            android:name=".AdminBlogActivity"
             android:exported="false" />
         <activity
             android:name=".AdminBusTicketActivity"

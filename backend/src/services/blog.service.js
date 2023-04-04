@@ -49,7 +49,7 @@ const deleteBlog = async (id) => {
 
 const getBlogs = async (page, limit) => {
   const data = await prisma.blogs.findMany({
-    skip: page * limit,
+    skip: (page - 1) * limit,
     take: limit,
     orderBy: {
       create_time: 'desc',
