@@ -94,7 +94,6 @@ class Home : AppCompatActivity() {
 
                             blogAdapter.onItemClick = {
                                 val intent = Intent(this@Home, BlogDetailActivity::class.java)
-                                Log.i("blogId ne khanh", it.id)
                                 intent.putExtra("blogId", it.id)
                                 startActivity(intent)
                             }

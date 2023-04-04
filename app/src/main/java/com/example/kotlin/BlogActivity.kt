@@ -3,6 +3,7 @@ package com.example.kotlin
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,17 +15,50 @@ import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
 
 class BlogActivity : AppCompatActivity() {
+    private lateinit var blogList: RecyclerView
+    private lateinit var btnPrevious: Button
+    private lateinit var btnNext: Button
+    val retrofit = APIServiceImpl()
+    private var page = 1
+    private val limit = 5
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blog)
 
-        findViewById<Button>(R.id.btnAddBlog).isEnabled = FBInfor.ROLE == 0 || FBInfor.ROLE == 1
+        blogList = findViewById(R.id.blogList)
+        btnPrevious = findViewById(R.id.btnPrevious)
+        btnNext = findViewById(R.id.btnNext)
+        val btnAddBlog = findViewById<Button>(R.id.btnAddBlog)
+        btnAddBlog.visibility = if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        btnAddBlog.setOnClickListener {
+            if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
+                val intent = Intent(this, AdminBlogCreateActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        btnPrevious.setOnClickListener {
+            if (page > 1) {
+                page--
+                getBlogs()
+            }
+        }
+        btnNext.setOnClickListener {
+            page++
+            getBlogs()
+        }
+    }
 
-        var page = 1
-        val limit = 5
-        var blogList = findViewById<RecyclerView>(R.id.blogList)
-        val token = this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
-        val retrofit = APIServiceImpl()
+    override fun onResume() {
+        super.onResume()
+        page = 1
+        getBlogs()
+    }
+
+    private fun getBlogs() {
         try {
             GlobalScope.launch(Dispatchers.IO) {
                 val response =
@@ -35,9 +69,16 @@ class BlogActivity : AppCompatActivity() {
                     val body = response.body()
                     launch(Dispatchers.Main) {
                         if (body != null) {
+                            val pageMax = if(body.count % limit == 0) {
+                                body.count / limit
+                            } else {
+                                body.count / limit + 1
+                            }
+                            btnPrevious.isEnabled = page != pageMax
+                            btnNext.isEnabled = page != 1
                             val blogAdapter = CustomBlogItem(body.data)
 
-                            blogList!!.adapter = blogAdapter
+                            blogList.adapter = blogAdapter
                             blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
 
                             blogAdapter.onItemClick = {
