@@ -126,6 +126,7 @@ data class BusTicket(
     val status: String
 )
 
+
 data class BusTicketResponse(
     val data: List<BusTicket>
 )
@@ -134,6 +135,13 @@ data class DeleteBusTicketResponse(
     val success: Boolean
 )
 
+data class DeleteBusResponse(
+    val success: Boolean
+)
+
+data class AdminBusesResponse (
+    val data: List<Buses>
+        )
 interface UserService {
     @POST("auth/signup")
     fun signUp(@Body signUpData: AccountSignUp): Call<UserSignUpRespone>
@@ -153,13 +161,23 @@ interface BusService {
     @GET("/bus/search")
     fun searchBusses(): Call<BusResponse>
 
-    // Admin create bus
+    // Admin
+    @GET("admin/bus/list/${page}/${limit}")
+    fun adminGetBuses(
+        @Header("Authorization") token: String
+    ) : Call<AdminBusesResponse>
 
     @POST("admin/bus/create")
     fun adminCreateBus(
         @Header("Authorization") token: String,
         @Body bus: AdminBusCreateBody
     ): Call<Bus>
+
+    @POST("admin/bus/delete/{bid}")
+    fun deleteBus(
+        @Header("Authorization") token: String,
+        @Path("bid") bid: String
+    ): Call<DeleteBusResponse>
 }
 
 interface BusStationService {
@@ -212,7 +230,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.35.211:3000/v1/"
+    private val BASE_URL = "http://192.168.128.1:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -235,6 +253,14 @@ class APIServiceImpl {
     }
 
     // Admin create bus
+    fun adminDeleteBuses(): BusService {
+        return api.create(BusService::class.java)
+    }
+
+    fun adminGetBuses(): BusService {
+        return api.create(BusService::class.java)
+    }
+
     fun adminCreateBus(): BusService {
         return api.create(BusService::class.java)
     }
