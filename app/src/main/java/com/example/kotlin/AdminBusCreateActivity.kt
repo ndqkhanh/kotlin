@@ -230,7 +230,6 @@ class AdminBusCreateActivity: AppCompatActivity() {
             }
         }
 
-//        val boRV = dialog.findViewById<RecyclerView>(R.id.boDiaglogRV)
 
 
         val cancelBtn = dialog.findViewById(R.id.bsDiaglogCancelBtn) as Button
