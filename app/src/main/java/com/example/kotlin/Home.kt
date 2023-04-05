@@ -14,9 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.login.LoginManager
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -24,6 +22,7 @@ import retrofit2.awaitResponse
 
 
 class Home : AppCompatActivity() {
+    val retrofit = APIServiceImpl()
     private lateinit var localEditor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,33 +74,35 @@ class Home : AppCompatActivity() {
 
         searchResult!!.adapter = adapter
 
-        var blogs = ArrayList<Blog>()
-        blogs.add(
-            Blog(
-                "Ninh bình 2",
-                "https://cdn.pixabay.com/photo/2015/10/01/17/17/car-967387__480.png",
-                "9dacf3c6-f73e-4218-a01d-097d8d3a7a20"
-            )
-        )
-        blogs.add(
-            Blog(
-                "Ninh bình 3",
-                "https://cdn.pixabay.com/photo/2015/10/01/17/17/car-967387__480.png",
-                "310336cc-4250-4759-b182-4913d86af5c2"
-            )
-        )
-
+        var blogPage = 1
+        var blogLimit = 20
         var blogList = findViewById<RecyclerView>(R.id.blogList)
+        try {
+            GlobalScope.launch(Dispatchers.IO) {
+                val response =
+                    retrofit.getBlog().getBlogs(blogPage, blogLimit).awaitResponse()
+                // debug response
+                Log.d("Response", response.toString())
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    launch(Dispatchers.Main) {
+                        if (body != null) {
+                            val blogAdapter = CustomBlogItem(body.data)
 
-        val blogAdapter = CustomBlogItem(blogs)
+                            blogList!!.adapter = blogAdapter
+                            blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
 
-        blogList!!.adapter = blogAdapter
-        blogList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        blogAdapter.onItemClick = {
-            val intent = Intent(this, BlogDetailActivity::class.java)
-            intent.putExtra("blogId", it.id)
-            startActivity(intent)
+                            blogAdapter.onItemClick = {
+                                val intent = Intent(this@Home, BlogDetailActivity::class.java)
+                                intent.putExtra("blogId", it.id)
+                                startActivity(intent)
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("Error", e.toString())
         }
 
         Utility.setListViewHeightBasedOnChildren(searchResult)
@@ -122,9 +123,6 @@ class Home : AppCompatActivity() {
                 1
             ).show()
         }
-
-
-        val retrofit = APIServiceImpl()
 
         GlobalScope.launch(Dispatchers.IO) {
             val response = retrofit.getAllBusStations().getBusStations().awaitResponse()

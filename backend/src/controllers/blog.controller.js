@@ -17,8 +17,14 @@ const deleteBlog = catchAsync(async (req, res) => {
   res.send({ success: result !== null });
 });
 
+const getBlogs = catchAsync(async (req, res) => {
+  const result = await blogService.getBlogs(req.params.page, req.params.limit);
+  res.send(result);
+});
+
 module.exports = {
   getBlogById,
   createBlog,
   deleteBlog,
+  getBlogs,
 };

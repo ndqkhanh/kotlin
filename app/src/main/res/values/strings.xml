@@ -20,8 +20,8 @@
     <string name="print_pdf">Print PDF</string>
     <string name="check_symbol">check symbol</string>
 
-    <string name="facebook_app_id">3289091274734889</string>
-    <string name="fb_login_protocol_scheme">fb3289091274734889</string>
+    <string name="facebook_app_id">774759947319259</string>
+    <string name="fb_login_protocol_scheme">fb774759947319259</string>
     <string name="facebook_client_token">56789</string>
 
 
@@ -35,4 +35,10 @@
     <string name="enter_title_here">Enter title here</string>
     <string name="title">Title</string>
     <string name="enter_thumbnail_here">Enter thumbnail here</string>
+    <string name="this_is_logout_button">this is logout button</string>
+    <string name="log_out">Log out</string>
+    <string name="add_blog">Add Blog</string>
+    <string name="blog_management">Blog Management</string>
+    <string name="prev">Prev</string>
+    <string name="next">Next</string>
 </resources>

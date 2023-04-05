@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.example.kotlin.jsonConvert.AccountSignUp
 import com.example.kotlin.jsonConvert.UserLogin
 import com.facebook.*
@@ -41,8 +43,46 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Intent(this, AdminActivity::class.java).also {
-            startActivity(it)
+        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
+        localEditor = localStore.edit()
+        var token: String? = localStore.getString("token", null)
+
+
+        GlobalScope.launch(Dispatchers.IO) {
+            //check valid token
+            var validToken: Boolean = false
+            if (token != null) {
+
+                val response = UserApi.ticketHistory("Bearer ${token}", 0, 1).awaitResponse()
+                if (response.isSuccessful) {
+                    validToken = true
+                } else {
+                    localEditor.apply {
+                        putString("token", null)
+                        commit()
+                    }// remove token
+                    launch(Dispatchers.Main) {
+                        //error message here
+                    }
+                }
+            }
+
+            //update UI
+            if (!validToken) {
+                withContext(Dispatchers.Main) {
+                    setContentView(R.layout.activity_main)
+                    login()
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    FBInfor.ID = localStore.getString("id", "").toString()
+                    FBInfor.NAME = localStore.getString("name", "").toString()
+                    FBInfor.EMAIL = localStore.getString("email", "N/A").toString()
+                    FBInfor.PHOTO_URL = localStore.getString("photo", null)?.toUri()
+                    FBInfor.ROLE = localStore.getInt("role", 2)
+                    toHomeScreen()
+                }
+            }
         }
         // Uncomment later
 //        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
@@ -94,7 +134,7 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         var buttonFacebookLogin = findViewById<LoginButton>(R.id.login_button)
-        arrayOf<String?>("email", "public_profile")
+        buttonFacebookLogin.setReadPermissions("email", "public_profile")
         buttonFacebookLogin.registerCallback(
             callbackManager,
             object : FacebookCallback<LoginResult> {
@@ -113,7 +153,8 @@ class MainActivity : AppCompatActivity() {
                 }
             })
     }
-    fun toHomeScreen(){
+
+    fun toHomeScreen() {
         finish()
         val intent = Intent(this, Home::class.java)
         startActivity(intent)
@@ -132,7 +173,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
-        //Log.d(TAG, "handleFacebookAccessToken:$token")
 
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
@@ -164,14 +204,19 @@ class MainActivity : AppCompatActivity() {
                                     }//update name on firebase database
 
                                     GlobalScope.launch(Dispatchers.IO) {
-
                                         val response =
                                             UserApi.signIn(UserLogin(FBInfor.ID)).awaitResponse()
                                         if (response.isSuccessful) {
                                             val body = response.body()
                                             body?.let {
+                                                FBInfor.ROLE = body.user.role
                                                 this@MainActivity.localEditor.apply {
                                                     putString("token", body.token.token)
+                                                    putString("id", FBInfor.ID)
+                                                    putString("name", FBInfor.NAME)
+                                                    putString("email", FBInfor.EMAIL)
+                                                    putString("photo", FBInfor.PHOTO_URL.toString())
+                                                    putInt("role", FBInfor.ROLE)
                                                     commit()
                                                 }
                                             }
@@ -204,6 +249,11 @@ class MainActivity : AppCompatActivity() {
                                             body?.let {
                                                 this@MainActivity.localEditor.apply {
                                                     putString("token", body.token.token)
+                                                    putString("id", FBInfor.ID)
+                                                    putString("name", FBInfor.NAME)
+                                                    putString("email", FBInfor.EMAIL)
+                                                    putString("photo", FBInfor.PHOTO_URL.toString())
+                                                    putInt("role", FBInfor.ROLE)
                                                     commit()
                                                 }
                                             }

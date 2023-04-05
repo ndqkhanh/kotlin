@@ -13,20 +13,23 @@
         android:layout_gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_launcher_background"
         />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Bài viết này có tiêu đề"
         android:textColor="#000"
-        android:textSize="20sp"
+        android:gravity="center"
+        android:textSize="17sp"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:layout_gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/thumbnail"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/thumbnail"
+        app:layout_constraintRight_toRightOf="@+id/thumbnail"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

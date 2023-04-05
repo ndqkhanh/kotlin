@@ -14,7 +14,11 @@ data class BlogResponse(
     val content: String,
     val created_time: String,
     val update_time: String,
-    val status: Int,
+)
+
+data class BlogListResponse(
+    val count: Int,
+    val data: List<BlogResponse>
 )
 
 data class BlogData(
@@ -210,6 +214,9 @@ interface PaymentService {
 }
 
 interface BlogService {
+    @GET("blog/list/{page}/{limit}")
+    fun getBlogs(@Path("page") page: Int, @Path("limit") limit: Int): Call<BlogListResponse>
+
     @GET("blog/{blogId}")
     fun getBlogById(@Path("blogId") blogId: String): Call<BlogResponse>
 
@@ -316,7 +323,6 @@ class APIServiceImpl {
 
         return retrofit.create(PaymentService::class.java)
     }
-
 
     fun getBlog(): BlogService {
         return api.create(BlogService::class.java)

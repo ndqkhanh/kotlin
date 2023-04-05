@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/logOutBtnAdminBlog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnLogOut"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@color/blank"
+            android:contentDescription="@string/this_is_logout_button"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/logout_icon"
+            app:tint="@color/button_color" />
+
+        <TextView
+            android:id="@+id/log_out_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/log_out"
+            android:textColor="@color/button_color"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAddBlog"
+        android:layout_width="282dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/add_blog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/adminBlogTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/blog_management"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logOutBtnAdminBlog" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/blogList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBlogTV" />
+
+    <Button
+        android:id="@+id/btnPrevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="10dp"
+        android:text="@string/prev"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddBlog"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="8dp"
+        android:text="@string/next"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddBlog"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
