@@ -50,6 +50,9 @@
             android:name=".AdminBusOperatorActivity"
             android:exported="false" />
         <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

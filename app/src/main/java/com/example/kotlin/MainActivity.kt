@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Intent(this, AdminBusCreateActivity::class.java).also {
+        Intent(this, AdminActivity::class.java).also {
             startActivity(it)
         }
         // Uncomment later
