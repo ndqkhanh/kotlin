@@ -22,6 +22,13 @@
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_operator_item.xml" value="0.4" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_ticket_item.xml" value="0.264" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_ticket_list_item.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bold_border.xml" value="0.1546875" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bus_operator_dialog.xml" value="0.18958333333333333" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bus_operator_item.xml" value="0.4" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bus_station_dialog.xml" value="0.13854166666666667" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bus_station_item.xml" value="0.2" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/fragment_bus_information.xml" value="0.18958333333333333" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/fragment_bus_operator.xml" value="0.18958333333333333" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/item_ticket.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/pair_attribute_value.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/review_list_item.xml" value="0.11413043478260869" />

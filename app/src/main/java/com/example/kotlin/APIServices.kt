@@ -225,12 +225,12 @@ const val limit = 50
 
 interface BusOperatorService {
     @GET("bus-operator/list/${page}/${limit}")
-    suspend fun getBusOperators(): Call<BusOperatorResponse>
+    fun getBusOperators(): Call<BusOperatorResponse>
 }
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.128.1:3000/v1/"
+    private val BASE_URL = "http://192.168.1.11:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -256,6 +256,8 @@ class APIServiceImpl {
     fun adminDeleteBuses(): BusService {
         return api.create(BusService::class.java)
     }
+
+
 
     fun adminGetBuses(): BusService {
         return api.create(BusService::class.java)
