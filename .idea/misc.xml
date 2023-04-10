@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/empty_tall_divider.xml" value="0.1" />
+=======
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus_create.xml" value="0.264" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus_operator.xml" value="0.264" />
@@ -14,15 +18,26 @@
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_ticket_list_item.xml" value="0.264" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/item_ticket.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/pair_attribute_value.xml" value="0.12771739130434784" />
+>>>>>>> 1ffb303e2db63262251ae5b7f71825d1841f4c99
         <entry key="app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1175" />
         <entry key="app/src/main/res/drawable/textview_border.xml" value="0.1175" />
         <entry key="app/src/main/res/layout/activity_blog_item.xml" value="0.11510416666666666" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_bus_detail.xml" value="0.15307971014492755" />
+        <entry key="app/src/main/res/layout/activity_fill_booking_form.xml" value="0.15307971014492755" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_ticket_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/admin_bus_list_item.xml" value="0.15307971014492755" />
+        <entry key="app/src/main/res/layout/booking_detail_item.xml" value="0.15307971014492755" />
         <entry key="app/src/main/res/layout/border.xml" value="0.10625" />
+        <entry key="app/src/main/res/layout/empty_tall_divider.xml" value="0.13134057971014493" />
+        <entry key="app/src/main/res/layout/fragment_blog_information_column.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_blog_item.xml" value="0.11510416666666666" />
+        <entry key="app/src/main/res/layout/fragment_bus_filter.xml" value="0.1621376811594203" />
+        <entry key="app/src/main/res/layout/fragment_bus_information.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_bus_information_column.xml" value="0.10833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_bus_operator.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.10989583333333333" />
       </map>

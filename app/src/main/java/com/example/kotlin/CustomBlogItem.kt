@@ -35,6 +35,23 @@ import kotlin.collections.ArrayList
 //        this.thumbnail = thumbnail
 //    }
 //}
+//class Blog {
+//    public var id: String = ""
+//    public var thumbnail: String = ""
+//    public var title: String = ""
+//
+//    constructor(title: String, thumbnail: String) {
+//        this.id = UUID.randomUUID().toString()
+//        this.title = title
+//        this.thumbnail = thumbnail
+//    }
+//
+//    constructor(title: String, thumbnail: String, id: String) {
+//        this.id = id
+//        this.title = title
+//        this.thumbnail = thumbnail
+//    }
+//}
 //
 //class CustomBlogItem(private val context: Activity, private val blogs: ArrayList<Blog>) : ArrayAdapter<Blog>(context,  R.layout.activity_blog_item, blogs) {
 //    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
