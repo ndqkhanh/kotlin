@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // navigate to Home
-        val intent = Intent(this, Home::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, Home::class.java)
+//        startActivity(intent)
 
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         localEditor = localStore.edit()
