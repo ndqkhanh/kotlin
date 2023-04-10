@@ -45,10 +45,6 @@ class BusDetailActivity : AppCompatActivity() {
                     val inflater = LayoutInflater.from(this@BusDetailActivity)
                     val view: View = inflater.inflate(R.layout.fragment_bus_information, null)
 
-
-
-
-
                 }
             }
 

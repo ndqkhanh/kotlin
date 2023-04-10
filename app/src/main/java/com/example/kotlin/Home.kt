@@ -93,26 +93,6 @@ class Home : AppCompatActivity() {
 
         val adapter = CustomTicketItem(this, busses, supportFragmentManager, lifecycle)
 
-        adapter.showBottomSheet = {
-//            val dialog = BottomSheetDialog(this@Home)
-//            val view = layoutInflater.inflate(R.layout.activity_bus_detail, null)
-//            val busAdapter = BusDetailAdapter(supportFragmentManager, lifecycle)
-//            val pagerBus = view.findViewById<ViewPager2>(R.id.pagerBus)
-//            val tabLayout = view.findViewById<com.google.android.material.tabs.TabLayout>(R.id.tabLayout)
-//            pagerBus.adapter = busAdapter
-//            TabLayoutMediator(tabLayout, pagerBus) { tab, position ->
-//                when (position) {
-//                    0 -> tab.text = "Bus Operator"
-//                    1 -> tab.text = "Bus Information"
-//                }
-//            }.attach()
-//
-//            dialog.setCancelable(false)
-//
-//            dialog.setContentView(view)
-//
-//            dialog.show()
-        }
         searchResult!!.adapter = adapter
 
         var blogs = ArrayList<Blog>()
@@ -155,6 +135,8 @@ class Home : AppCompatActivity() {
             }
         }
 
+        val busOperatorFilter = findViewById<Spinner>(R.id.busOperatorFilter)
+
         val searchButton = findViewById<Button>(R.id.searchButton)
 
         searchButton.setOnClickListener {
@@ -162,9 +144,7 @@ class Home : AppCompatActivity() {
 
             loadMoreButton.visibility = View.VISIBLE
         }
-
-
-
+        
         loadMoreButton = findViewById<Button>(R.id.loadMore)
         if(currentPage == 0){
             loadMoreButton.visibility = View.GONE

@@ -122,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_below="@+id/datePicker"
                     android:textSize="15sp"
-
+                    android:layout_marginTop="10dp"
                     />
 
                 <Spinner
@@ -130,7 +130,7 @@
                     android:layout_height="40dp"
                     android:layout_width="match_parent"
                     android:hint="Bus Operator"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/textview_border"
                     android:layout_below="@+id/filterTitle"
                 />
