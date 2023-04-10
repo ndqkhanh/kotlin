@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                     user = auth.currentUser!!
                     for (profile in user.providerData) {
                         if (FacebookAuthProvider.PROVIDER_ID == profile.providerId) {
-                            FBInfor.ID = user.uid
+                            FBInfor.ID = Profile.getCurrentProfile()?.id!!
                             profile.email?.let {
                                 FBInfor.EMAIL = profile.email!!
                             }
