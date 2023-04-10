@@ -2,7 +2,6 @@ package com.example.kotlin
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,9 +9,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.tabs.TabLayoutMediator
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,6 +30,8 @@ class Home : AppCompatActivity() {
     lateinit var datePicker: EditText
     lateinit var searchResult: ListView
     lateinit var loadMoreButton: Button
+    val retrofit = APIServiceImpl()
+    private lateinit var localEditor: SharedPreferences.Editor
     var listBuses = ArrayList<Bus>()
     var currentPage = 0
 
@@ -90,21 +91,79 @@ class Home : AppCompatActivity() {
 
         val busses = ArrayList<Bus>()
         searchResult = findViewById<ListView>(R.id.searchResult)
+        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
+        localEditor = localStore.edit()
+
+        var logOutListener = View.OnClickListener {
+            Log.d("Response", "Đăng xuất")
+            localEditor.apply {
+                putString("token", null)
+                commit()
+            }// remove token
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finishAffinity()
+        }
+        findViewById<ImageButton>(R.id.home_logout).setOnClickListener(logOutListener)
+        findViewById<TextView>(R.id.log_out_text_view).setOnClickListener(logOutListener)
+
+        val tickets = ArrayList<Ticket>()
+        tickets.add(
+            Ticket(
+                "Ninh bình 2",
+                "100.000đ",
+                "1h 30p",
+                "Hà Nội",
+                "HCM",
+                "32bd7781-0713-45cc-9841-0abb62a807e0"
+            )
+        )
+        tickets.add(
+            Ticket(
+                "Ninh bình 1",
+                "100.000đ",
+                "1h 30p",
+                "Hà Nội",
+                "HCM",
+                "384fdcb1-496f-4f87-8b1e-578674111ac1"
+            )
+        )
 
         val adapter = CustomTicketItem(this, busses, supportFragmentManager, lifecycle)
 
         searchResult!!.adapter = adapter
 
-        var blogs = ArrayList<Blog>()
-        blogs.add(Blog("Ninh bình 2", "https://cdn.pixabay.com/photo/2015/10/01/17/17/car-967387__480.png", "1h 30p"))
-        blogs.add( Blog("Ninh bình 3", "https://cdn.pixabay.com/photo/2015/10/01/17/17/car-967387__480.png", "1h 30p"))
-
+        var blogPage = 1
+        var blogLimit = 20
         var blogList = findViewById<RecyclerView>(R.id.blogList)
+        try {
+            GlobalScope.launch(Dispatchers.IO) {
+                val response =
+                    retrofit.getBlog().getBlogs(blogPage, blogLimit).awaitResponse()
+                // debug response
+                Log.d("Response", response.toString())
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    launch(Dispatchers.Main) {
+                        if (body != null) {
+                            val blogAdapter = CustomBlogItem(body.data)
 
-        val blogAdapter = CustomBlogItem(blogs)
+                            blogList!!.adapter = blogAdapter
+                            blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
 
-        blogList!!.adapter = blogAdapter
-        blogList!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                            blogAdapter.onItemClick = {
+                                val intent = Intent(this@Home, BlogDetailActivity::class.java)
+                                intent.putExtra("blogId", it.id)
+                                startActivity(intent)
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("Error", e.toString())
+        }
 
         Utility.setListViewHeightBasedOnChildren(searchResult)
 

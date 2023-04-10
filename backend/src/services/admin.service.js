@@ -132,26 +132,31 @@ const busList = async (page, limit, req) => {
 
   return { data };
 };
-const bookingList = async (page, limit, req) => {
-  let data = null;
-  condition = {};
-  if (req.user.role == 'bus_operator') {
-    user = await prisma.users.findFirst({
-      where: {
-        id: req.user.id,
-      },
-      select: {
-        boid: true,
-      },
-    });
-    condition = { bo_id: user.boid };
-  }
-  data = await prisma.bus_tickets.findMany({
-    skip: page * limit,
-    take: limit,
+
+const bookingDelete = async (req) => {
+  if (req.user.role !== 'admin') return false;
+
+  const ticket = await prisma.bus_tickets.findUnique({
     where: {
-      buses: condition,
+      id: req.params.bid,
     },
+  });
+  if (!ticket) throw new ApiError(httpStatus.BAD_REQUEST, 'Can not find ticket');
+  const result = await prisma.bus_tickets.delete({
+    where: {
+      id: req.params.bid,
+    },
+  });
+
+  if (result) return true;
+  return false;
+};
+const bookingList = async (req) => {
+  let data = null;
+  console.log(req.user.role);
+  if (req.user.role !== 'admin') return [];
+
+  data = await prisma.bus_tickets.findMany({
     include: {
       buses: {
         include: {
@@ -166,7 +171,21 @@ const bookingList = async (page, limit, req) => {
     },
   });
 
-  return { data };
+  const formatData = [];
+  data.forEach((item) => {
+    formatData.push({
+      id: item.id,
+      bus_id: item.bus_id,
+      name: item.name,
+      start_point: item.buses.start_point,
+      end_point: item.buses.end_point,
+      time: item.buses.start_time,
+      seat: item.seat,
+      status: item.status,
+    });
+  });
+
+  return { data: formatData };
 };
 
 const bookingUpdate = async (req) => {
@@ -230,4 +249,5 @@ module.exports = {
   bookingUpdate,
   bookingGet,
   busList,
+  bookingDelete,
 };
