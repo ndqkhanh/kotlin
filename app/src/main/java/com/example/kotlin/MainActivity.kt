@@ -43,10 +43,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // navigate to Home
-//        val intent = Intent(this, Home::class.java)
-//        startActivity(intent)
-
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         localEditor = localStore.edit()
         var token: String? = localStore.getString("token", null)
