@@ -54,6 +54,19 @@
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="@+id/textView2" />
 
+        <TextView
+            android:id="@+id/txtStar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bus_operator_star"
+            android:drawableStart="@drawable/baseline_star_24"
+            android:padding="5dp"
+            android:text="1.0"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
+
         <View
             android:id="@+id/view2"
             android:layout_width="0dp"
@@ -72,7 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -119,9 +131,22 @@
             android:hint="Your comment."
             android:autofillHints="Your comment." />
 
+        <RatingBar
+            android:id="@+id/rating_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/rating_bar"
+            android:numStars="5"
+            android:stepSize=".5"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSubmit"
+            app:layout_constraintStart_toStartOf="@+id/edtComment"
+            app:layout_constraintTop_toTopOf="@+id/btnSubmit" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSubmit"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"

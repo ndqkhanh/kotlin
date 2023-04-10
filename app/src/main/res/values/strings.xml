@@ -41,4 +41,5 @@
     <string name="blog_management">Blog Management</string>
     <string name="prev">Prev</string>
     <string name="next">Next</string>
+    <string name="rating_bar">Rating bar</string>
 </resources>
