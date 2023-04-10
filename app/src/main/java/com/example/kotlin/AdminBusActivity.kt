@@ -13,12 +13,14 @@ class AdminBusActivity:AppCompatActivity() {
     lateinit var busRV: RecyclerView
     lateinit var buses: MutableList<Buses>
     var busAdapter: AdminBusAdapter? = null
+    val retrofit = APIServiceImpl()
+    val token = "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODExMTcwODIsImV4cCI6MTY4MTExODg4MiwidHlwZSI6ImFjY2VzcyJ9.TOcqm9zZFXAADOKcahxkgdDuwDURu009VUJ9jTF4teY"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus)
 
-        val token = "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODA2Njc4OTYsImV4cCI6MTY4MDY2OTY5NiwidHlwZSI6ImFjY2VzcyJ9.6fLzsClDbd6ry86P7DcsjeCGrFESVfWMVm5RX0rLOmw"
-        val retrofit = APIServiceImpl()
+
+
 
         buses = mutableListOf()
 
@@ -73,5 +75,9 @@ class AdminBusActivity:AppCompatActivity() {
 
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

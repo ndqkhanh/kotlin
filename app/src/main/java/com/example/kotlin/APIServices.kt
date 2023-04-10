@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import retrofit2.http.*
 
 data class BlogResponse(
@@ -70,7 +71,7 @@ data class BusStation(
     val location: String
 )
 
-data class BusOperator(
+data class BusOperator (
     val id: String,
     val image_url: String,
     val phone: String,
@@ -78,7 +79,7 @@ data class BusOperator(
 )
 
 data class Bus(
-    val id: Int,
+    val id: String,
     val bo_id: String,
     val start_point: BusStation,
     val end_point: BusStation,
@@ -97,6 +98,15 @@ data class BusResponse(
     val data: List<Bus>
 )
 
+data class BusSearchRequest(
+    var startPoint: String,
+    var endPoint: String,
+    var page: Int,
+    var limit: Int,
+    var startTime: String
+)
+
+
 data class BusStationResponse(
     val data: List<BusStation>
 )
@@ -107,6 +117,19 @@ data class BusOperatorResponse(
 
 // Structure of body for api request
 data class AdminBusCreateBody(
+    val bo_id: String,
+    val start_point: String,
+    val end_point: String,
+    val type: Int,
+    val start_time: String,
+    val end_time: String,
+    val image_url: String,
+    val policy: String,
+    val num_of_seats: Int,
+    val price: Int
+)
+data class AdminBusCreateRespond(
+    val id: String,
     val bo_id: String,
     val start_point: String,
     val end_point: String,
@@ -171,17 +194,29 @@ interface BusService {
         @Header("Authorization") token: String
     ) : Call<AdminBusesResponse>
 
+    @GET("admin/bus/{id}")
+    fun adminSearchBuses(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ) : Call<Buses>
+
     @POST("admin/bus/create")
     fun adminCreateBus(
         @Header("Authorization") token: String,
         @Body bus: AdminBusCreateBody
-    ): Call<Bus>
+    ): Call<AdminBusCreateRespond>
 
     @POST("admin/bus/delete/{bid}")
     fun deleteBus(
         @Header("Authorization") token: String,
         @Path("bid") bid: String
     ): Call<DeleteBusResponse>
+
+    @POST("/v1/bus/search")
+    fun search(@Body request: BusSearchRequest): Call<BusResponse>
+
+    @GET("/v1/bus/{busId}")
+    fun getBusById(@Path("busId") busId: String): Call<Bus>
 }
 
 interface BusStationService {
@@ -255,6 +290,9 @@ class APIServiceImpl {
         return api.create(BusStationService::class.java)
     }
 
+    fun bus(): BusService {
+        return api.create(BusService::class.java)
+    }
     fun getAllBusOperators(): BusOperatorService {
         return api.create(BusOperatorService::class.java)
     }

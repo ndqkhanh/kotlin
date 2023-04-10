@@ -82,11 +82,13 @@ const getBusById = async (busId) => {
       bus_stations_bus_stationsTobuses_start_point: {
         select: {
           name: true,
+          location: true,
         },
       },
       bus_stations_bus_stationsTobuses_end_point: {
         select: {
           name: true,
+          location: true,
         },
       },
     },
