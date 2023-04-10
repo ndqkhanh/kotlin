@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var localEditor: SharedPreferences.Editor
     private val retrofit = APIServiceImpl()
-    var UserApi = retrofit.userService()
+    private var UserApi = retrofit.userService()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
