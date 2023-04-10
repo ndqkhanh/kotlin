@@ -17,11 +17,12 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="10dp"
         >
-        <View
+        <ImageView
+            android:id="@+id/busImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginTop="5dp"
-            ></View>
+            ></ImageView>
         <LinearLayout
 android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +30,7 @@ android:layout_width="match_parent"
             android:layout_marginStart="5dp"
             >
             <TextView
-                android:id="@+id/ticketName"
+                android:id="@+id/busOperatorName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ninh bình"
@@ -38,7 +39,7 @@ android:layout_width="match_parent"
                 android:textStyle="bold"
                 />
             <TextView
-                android:id="@+id/ticketPrice"
+                android:id="@+id/busPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Price: 100.000đ"
@@ -46,7 +47,7 @@ android:layout_width="match_parent"
                 android:textColor="#000000"
                 />
             <TextView
-                android:id="@+id/ticketTime"
+                android:id="@+id/busStartTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Time: 1h"
@@ -55,7 +56,7 @@ android:layout_width="match_parent"
                 />
 <!--            location -->
             <TextView
-                android:id="@+id/ticketLocation"
+                android:id="@+id/busDeparture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Location: Ninh bình - 1h30"
@@ -63,7 +64,7 @@ android:layout_width="match_parent"
                 android:textColor="#000000"
                 />
             <TextView
-                android:id="@+id/ticketDestination"
+                android:id="@+id/busDestination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Destination: HCM - 2h30"

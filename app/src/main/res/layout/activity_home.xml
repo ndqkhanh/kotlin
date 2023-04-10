@@ -111,44 +111,44 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/textview_border"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/blogList">
 
-                <GridLayout
+                <LinearLayout
                     android:id="@+id/gridLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2">
+                    android:orientation="horizontal"
+                    android:divider="@drawable/empty_tall_divider"
+                    >
 
-
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteLocationFrom"
+                    <Spinner
+                        android:id="@+id/spinnerDeparture"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_below="@+id/textView"
-                        android:layout_gravity="fill"
+                        android:hint="Departure"
                         android:layout_marginTop="10dp"
+                        android:background="@drawable/textview_border"
+                        android:layout_gravity="fill"
                         android:layout_marginEnd="10dp"
                         android:completionThreshold="3"
-                        android:drawableStart="@drawable/ic_baseline_location_on_24"
-                        android:hint="Destination"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteDestinationTo"
+                    <Spinner
+                        android:id="@+id/spinnerDestination"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_below="@+id/textView"
-                        android:layout_gravity="fill"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:completionThreshold="3"
-                        android:drawableStart="@drawable/ic_baseline_location_on_24"
                         android:hint="Destination"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/textview_border"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
-                </GridLayout>
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/datePicker"
@@ -160,19 +160,86 @@
                     android:drawableStart="@drawable/ic_baseline_date_range_24"
                     android:hint="Departure date" />
 
+                <TextView
+                    android:id="@+id/filterTitle"
+                    android:text="Filter"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/datePicker"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <Spinner
+                    android:id="@+id/busOperatorFilter"
+                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:hint="Bus Operator"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/textview_border"
+                    android:layout_below="@+id/filterTitle"
+                />
+                <TextView
+                    android:id="@+id/typeOfSeatTitle"
+                    android:text="Type of seat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/busOperatorFilter"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    />
+                <CheckBox
+                    android:id="@+id/busLimousineType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/typeOfSeatTitle"
+                    android:text="Limousine"
+                    />
+
+                <CheckBox
+                    android:id="@+id/busNormalSeatType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/busLimousineType"
+                    android:text="Normal Seat"
+                    />
+
+                <CheckBox
+                    android:id="@+id/busSleeperBusType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/busNormalSeatType"
+                    android:text="Sleeper Bus"
+                    />
+                <TextView
+                    android:id="@+id/pricingTitle"
+                    android:text="Pricing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/busSleeperBusType"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    />
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pricingTitle"
+                    android:layout_marginTop="10dp"
+                    android:max="10000000"
+                    android:min="0" />
+
+
                 <Button
                     android:id="@+id/searchButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/datePicker"
                     android:layout_alignParentStart="true"
-
-                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/seekBar"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/corner_button"
                     android:text="Search"
-
                     android:textColor="#fff"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -203,6 +270,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchText" />
+
+            <Button
+                android:id="@+id/loadMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/searchResult"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Load More"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

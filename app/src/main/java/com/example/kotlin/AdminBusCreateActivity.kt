@@ -3,13 +3,21 @@ package com.example.kotlin
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.app.Dialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlin.jsonConvert.Buses
 import kotlinx.coroutines.*
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.internal.wait
 import retrofit2.awaitResponse
 import java.util.*
@@ -26,23 +34,36 @@ class AdminBusCreateActivity: AppCompatActivity() {
     lateinit var startTimeDateButton: Button
     lateinit var endTimeDateButton: Button
     lateinit var addBtn: Button
-    lateinit var busOperatorSpinner: Spinner
-    lateinit var startPointSpinner: Spinner
-    lateinit var endPointSpinner: Spinner
+    lateinit var busOperatorEt: EditText
+    lateinit var startPointEt: EditText
+    lateinit var endPointEt: EditText
+    lateinit var imageET: EditText
+    lateinit var numOfSeatET: EditText
+    lateinit var priceET: EditText
     lateinit var busTypeSpinner: Spinner
 
-    lateinit  var busStationData : MutableList<BusStation>
-    lateinit var locationData: MutableList<String> // This just include location not id
-    lateinit var busOperatorData: MutableList<BusOperator>
-    lateinit var busOperatorNameData: MutableList<String> // This just includes name of bus op not id
+
     private  var busType : MutableList<String> = mutableListOf("Bus 1", "Bus 2", "Bus 3")
     // THIS WILL BE REPLACED WHENEVER HOANG LOGIN BY FACEBOOK
     // TOKEN WILL GET FROM THERE
-    val token = "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2Nzk3MzM5MTQsImV4cCI6MTY3OTczNTcxNCwidHlwZSI6ImFjY2VzcyJ9.uQsh3SoCWeCoYe3l5yMUfMhiSbQDGtEjsSZrM2RPTuA"
+    val token = "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODExMTcwODIsImV4cCI6MTY4MTExODg4MiwidHlwZSI6ImFjY2VzcyJ9.TOcqm9zZFXAADOKcahxkgdDuwDURu009VUJ9jTF4teY"
 
     // Sample data
-    lateinit var sampleData : AdminBusCreateBody
+    lateinit var data : AdminBusCreateBody
+    lateinit var busOperators: MutableList<BusOperator>
+    lateinit var busStations: MutableList<BusStation>
 
+    // data field
+    var bo_id : String = ""
+    var start_point : String = ""
+    var end_point : String = ""
+    var start_time: String = ""
+    var end_time: String = ""
+    var image_url: String = ""
+    var policy: String = "Hello"
+    var num_of_seats : Int = 0
+    var price: Int = 0
+    var type: Int = 0
 
     // TODO Fragment not activity
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,14 +73,20 @@ class AdminBusCreateActivity: AppCompatActivity() {
         val retrofit = APIServiceImpl()
 
         addBtn = findViewById(R.id.addBtnAdminBusCreateBtn)
-        startPointSpinner = findViewById(R.id.adminBusStartPointCreateSpinner)
-        endPointSpinner = findViewById(R.id.adminBusEndPointCreateSpinner)
-        busOperatorSpinner = findViewById(R.id.adminBusOpCreateSpinner)
+        startPointEt = findViewById(R.id.adminBusStartPointCreateEt)
+        endPointEt = findViewById(R.id.adminBusEndPointCreateEt)
+        busOperatorEt = findViewById(R.id.adminBusBOCreateEt)
         busTypeSpinner = findViewById(R.id.adminBusTypeCreateSpinner)
+        imageET = findViewById(R.id.adminBusImageCreateET)
+        numOfSeatET = findViewById(R.id.adminBusSeatCreateET)
+        priceET = findViewById(R.id.adminBusPriceCreateET)
         startTimeDateButton = findViewById(R.id.adminCreateBusStartTimeDatePickerBtn)
         endTimeDateButton = findViewById(R.id.adminCreateBusEndTimeDatePickerBtn)
         startTimeTimeButton = findViewById(R.id.adminCreateBusStartTimeTimePickerBtn)
         endTimeTimeButton = findViewById(R.id.adminCreateBusEndTimeTimePickerBtn)
+        val boCreateBtn = findViewById<Button>(R.id.adminBusBOCreateBtn)
+        val bsStartPointCreateBtn = findViewById<Button>(R.id.adminBusStartPointCreateBtn)
+        val bsEndPointCreateBtn = findViewById<Button>(R.id.adminBusEndPointCreateBtn)
         initDatePicker()
         startTimeDateButton.setText(getTodaysDate())
         endTimeDateButton.setText(getTodaysDate())
@@ -67,102 +94,41 @@ class AdminBusCreateActivity: AppCompatActivity() {
         initTimePicker()
         startTimeTimeButton.setText(getTime())
         endTimeTimeButton.setText(getTime())
-
-        // Create sample data
-        sampleData = AdminBusCreateBody(
-            "fbb09364-3e67-46e2-bf0f-95670d827544",
-            "402bdf26-013e-4438-9813-b4d8c326e60d",
-            "402bdf26-013e-4438-9813-b4d8c326e60d",
-            0,
-            "01/03/2022",
-            "01/05/2022",
-            "https://loremflickr.com/300/200",
-            "Hello",
-            23,
-            53000
-        )
+        busStations = mutableListOf()
+        busOperators = mutableListOf()
 
 
         // NOTE: Integrate into bus type spinner
         val busTypeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, busType)
         busTypeSpinner.adapter = busTypeAdapter
-        // NOTE: Integrate spinner bus op
-        busOperatorData = mutableListOf()
-        busOperatorNameData = mutableListOf()
-        val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
-            throwable.printStackTrace()
+
+
+
+        boCreateBtn.setOnClickListener {
+            showBODialog("bus operator")
         }
 
-
-        GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-            val response = retrofit.getAllBusOperators().getBusOperators().awaitResponse()
-            Log.d("Response", "vui 1" + response.message())
-            // debug response
-            Log.d("Response", response.toString())
-            if(response.isSuccessful){
-                Log.d("Response", "vui 2")
-                val data = response.body()!!
-                Log.d("Response", data.toString())
-
-                data.data.forEach{it ->
-                    busOperatorData.add(it)
-                    busOperatorNameData.add(it.name)
-                }
-
-            }
+        bsStartPointCreateBtn.setOnClickListener {
+            showBSDialog("startPoint")
         }
 
-        Log.d("bus op data",busOperatorData.size.toString())
-        val busOperatorAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, busOperatorNameData)
-        busOperatorSpinner.adapter = busOperatorAdapter
-
-        // TODO Handle event
-        busOperatorSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val boSelected =p0?.getItemAtPosition(p2) as String
-                Log.i("Item", boSelected)
-                Log.i("BO Data: ", busOperatorData[p2].toString())
-                Toast.makeText(applicationContext,busOperatorData[p2].toString(),Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                print("Hello")
-            }
+        bsEndPointCreateBtn.setOnClickListener {
+            showBSDialog("endPoint")
         }
 
-
-
-        // NOTE: Integrate start point
-        // NOTE: Integrate end point spinner
-        busStationData = mutableListOf()
-        locationData = mutableListOf()
-
-
-        GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-            val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
-            Log.d("Response", "vui 1" + response.message())
-            // debug response
-            Log.d("Response", response.toString())
-            if(response.isSuccessful){
-                Log.d("Response", "vui 2")
-                val data = response.body()!!
-                Log.d("Response", data.toString())
-
-                data.data.forEach{
-                    busStationData.add(it)
-                    locationData.add(it.name + ", " + it.location)
-                }
-
-            }
-        }
-        val busStationAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, locationData)
-        startPointSpinner.adapter = busStationAdapter
-        endPointSpinner.adapter = busStationAdapter
-
-        // TODO Click event
-
-
-
+        // Create sample data
+//        sampleData = AdminBusCreateBody(
+//            "fbb09364-3e67-46e2-bf0f-95670d827544",
+//            "402bdf26-013e-4438-9813-b4d8c326e60d",
+//            "402bdf26-013e-4438-9813-b4d8c326e60d",
+//            0,
+//            "01/03/2022",
+//            "01/05/2022",
+//            "https://loremflickr.com/300/200",
+//            "Hello",
+//            23,
+//            53000
+//        )
 
 
         addBtn.setOnClickListener {
@@ -171,7 +137,36 @@ class AdminBusCreateActivity: AppCompatActivity() {
             }
             // THIS LOOK LIKE I CAN CALL API SUCCESSFULLY BUT REPONSE IS NOT HANDLE CORRECTLY
             GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-                val response = retrofit.adminCreateBus().adminCreateBus(token,sampleData).awaitResponse()
+                 start_time = convertTimeVal(startTimeDateButton.text.toString(), startTimeTimeButton.text.toString())
+                 end_time = convertTimeVal(endTimeDateButton.text.toString() ,endTimeTimeButton.text.toString())
+                 image_url = imageET.text.toString()
+                 policy = "Hello"
+                if (numOfSeatET.text.toString() != "")
+                 num_of_seats = numOfSeatET.text.toString()?.toInt()
+                if (priceET.text.toString() != "")
+                    price = priceET.text.toString()?.toInt()
+                when ( busTypeSpinner.selectedItem?.toString()){
+                    "Bus 1" -> type = 1
+                    "Bus 2" -> type = 2
+                    "Bus 3" -> type = 3
+                }
+//                 type = busTypeSpinner.selectedItem?.toString()?.toInt()!!
+
+                data = AdminBusCreateBody(
+                bo_id,
+                    start_point,
+                    end_point,
+                    type,
+                    start_time,
+                    end_time,
+                    image_url,
+                    policy,
+                    num_of_seats,
+                    price
+        )
+                Log.d("data", data.toString())
+
+                val response = retrofit.adminCreateBus().adminCreateBus(token,data).awaitResponse()
                 Log.d("Response", "vui 1" + response.message())
                 // debug response
                 Log.d("Response", response.toString())
@@ -179,11 +174,131 @@ class AdminBusCreateActivity: AppCompatActivity() {
                     Log.d("Response", "vui 2")
                     val data = response.body()!!
                     Log.d("Response", data.toString())
+
+                    val intent = Intent(this@AdminBusCreateActivity, AdminBusActivity::class.java )
+                    intent.putExtra("id", data.id)
+                    startActivity(intent)
+
+
                 }
             }
         }
+    }
+
+    private fun showBODialog(title: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.bus_operator_dialog)
+        val image = dialog.findViewById<ImageView>(R.id.boDiaglogImgV)
+        image.setImageResource(android.R.drawable.star_big_on)
+        val busOperatorRV = dialog.findViewById<RecyclerView>(R.id.boDiaglogRV)
+
+        val retrofit = APIServiceImpl()
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val response = retrofit.getAllBusOperators().getBusOperators().awaitResponse()
+            // debug response
+            Log.d("Response", response.toString())
+            if (response.isSuccessful) {
+                val data = response.body()!!.data
+                Log.d("Response", data.toString())
+
+                for (bo in data) busOperators.add(bo)
+                Log.d("bo data ", busOperators.toString())
+
+                withContext(Dispatchers.Main){
+                    var busOperatorAdapter = BusOperatorAdapter( busOperators)
+                    busOperatorRV.adapter = busOperatorAdapter
+                    busOperatorRV.layoutManager = LinearLayoutManager (this@AdminBusCreateActivity, LinearLayoutManager.VERTICAL,false)
+
+
+                    busOperatorAdapter.onItemClick = { busOperator ->
+                        Log.d("busOperator", busOperator.toString())
+                        busOperatorEt.setText(busOperator.name)
+                        bo_id = busOperator.id
+                        dialog.dismiss()
+                    }
+                }
+
+
+            }
         }
 
+
+
+        val cancelBtn = dialog.findViewById(R.id.boDiaglogCancelBtn) as Button
+        val okBtn = dialog.findViewById(R.id.boDiaglogOKBtn) as Button
+        cancelBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        okBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+
+    }
+
+    private fun showBSDialog(title: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.bus_station_dialog)
+        val image = dialog.findViewById<ImageView>(R.id.bsDiaglogImgV)
+        image.setImageResource(android.R.drawable.star_big_on)
+        val busStationRV = dialog.findViewById<RecyclerView>(R.id.bsDiaglogRV)
+
+        val retrofit = APIServiceImpl()
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
+            // debug response
+            Log.d("Response", response.toString())
+            if (response.isSuccessful) {
+                val data = response.body()!!.data
+                Log.d("Response", data.toString())
+
+                for (bo in data) busStations.add(bo)
+                Log.d("bo data ", busStations.toString())
+
+                withContext(Dispatchers.Main){
+                    var busStationAdapter = BusStationAdapter( busStations)
+                    busStationRV.adapter = busStationAdapter
+                    busStationRV.layoutManager = LinearLayoutManager (this@AdminBusCreateActivity, LinearLayoutManager.VERTICAL,false)
+
+
+                    busStationAdapter.onItemClick = { busStation ->
+                        Log.d("busOperator", busStation.toString())
+                        if (title == "startPoint")
+                        {
+                            startPointEt.setText(busStation.name + ", " + busStation.location)
+                            start_point = busStation.id
+                        }
+                        else {
+                            endPointEt.setText(busStation.name + ", " + busStation.location)
+                            end_point = busStation.id
+                        }
+                        dialog.dismiss()
+                    }
+                }
+
+
+            }
+        }
+
+
+
+        val cancelBtn = dialog.findViewById(R.id.bsDiaglogCancelBtn) as Button
+        val okBtn = dialog.findViewById(R.id.bsDiaglogOKBtn) as Button
+        cancelBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        okBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+
+    }
     private fun getTime(): String {
         val c = Calendar.getInstance()
         val hour = c.get(Calendar.HOUR_OF_DAY)
@@ -281,6 +396,39 @@ class AdminBusCreateActivity: AppCompatActivity() {
 
     fun openEndTimePicker(view: View?){
         endTimePickerDialog?.show()
+
+    }
+    fun convertTimeVal(date: String, time: String): String{
+        var value: String = ""
+        var s = date.split(" ")
+        value += s[2]
+
+        when (s[0]){
+            "JAN" -> value += "-01"
+            "FEB" -> value += "-02"
+            "MAR" -> value += "-03"
+            "APR" -> value += "-04"
+            "MAY" -> value += "-05"
+            "JUN" -> value += "-06"
+            "JUL" -> value += "-07"
+            "AUG" -> value += "-08"
+            "SEP" -> value += "-09"
+            "OCT" -> value += "-10"
+            "NOV" -> value += "-11"
+            "DEC" -> value += "-12"
+        }
+
+        value += "-" + s[1] + " "
+
+        // FORMAT IS HH:MM so add 0 before h:mm
+        s = time.split(":")
+        var hh = s[0]
+        var mm = s[1]
+        if (hh.length != 2 ) hh = "0" + hh
+        if (mm.length != 2 ) mm = "0" + mm
+
+        value += hh + ":" + mm
+        return value
 
     }
 
