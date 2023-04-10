@@ -47,8 +47,23 @@ const deleteBlog = async (id) => {
   return blog;
 };
 
+const getBlogs = async (page, limit) => {
+  const data = await prisma.blogs.findMany({
+    skip: (page - 1) * limit,
+    take: limit,
+    orderBy: {
+      create_time: 'desc',
+    },
+  });
+
+  const count = await prisma.blogs.count();
+
+  return { count, data };
+};
+
 module.exports = {
   getBlogById,
   createBlog,
   deleteBlog,
+  getBlogs,
 };

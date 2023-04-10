@@ -8,6 +8,7 @@ class FBInfor {
         var ID: String = ""
         var NAME: String = ""
         var EMAIL: String = "N/A"
+        var ROLE: Int = 2
         var PHOTO_URL: Uri? = null
     }
 }

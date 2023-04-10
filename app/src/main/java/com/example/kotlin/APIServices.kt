@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import retrofit2.http.*
 
 data class BlogResponse(
@@ -14,7 +15,11 @@ data class BlogResponse(
     val content: String,
     val created_time: String,
     val update_time: String,
-    val status: Int,
+)
+
+data class BlogListResponse(
+    val count: Int,
+    val data: List<BlogResponse>
 )
 
 data class BlogData(
@@ -66,7 +71,7 @@ data class BusStation(
     val location: String
 )
 
-data class BusOperator(
+data class BusOperator (
     val id: String,
     val image_url: String,
     val phone: String,
@@ -92,6 +97,15 @@ data class BusResponse(
     var count: Int,
     val data: List<Bus>
 )
+
+data class BusSearchRequest(
+    var startPoint: String,
+    var endPoint: String,
+    var page: Int,
+    var limit: Int,
+    var startTime: String
+)
+
 
 data class BusStationResponse(
     val data: List<BusStation>
@@ -197,6 +211,12 @@ interface BusService {
         @Header("Authorization") token: String,
         @Path("bid") bid: String
     ): Call<DeleteBusResponse>
+
+    @POST("/v1/bus/search")
+    fun search(@Body request: BusSearchRequest): Call<BusResponse>
+
+    @GET("/v1/bus/{busId}")
+    fun getBusById(@Path("busId") busId: String): Call<Bus>
 }
 
 interface BusStationService {
@@ -229,6 +249,9 @@ interface PaymentService {
 }
 
 interface BlogService {
+    @GET("blog/list/{page}/{limit}")
+    fun getBlogs(@Path("page") page: Int, @Path("limit") limit: Int): Call<BlogListResponse>
+
     @GET("blog/{blogId}")
     fun getBlogById(@Path("blogId") blogId: String): Call<BlogResponse>
 
@@ -267,6 +290,9 @@ class APIServiceImpl {
         return api.create(BusStationService::class.java)
     }
 
+    fun bus(): BusService {
+        return api.create(BusService::class.java)
+    }
     fun getAllBusOperators(): BusOperatorService {
         return api.create(BusOperatorService::class.java)
     }
@@ -335,7 +361,6 @@ class APIServiceImpl {
 
         return retrofit.create(PaymentService::class.java)
     }
-
 
     fun getBlog(): BlogService {
         return api.create(BlogService::class.java)

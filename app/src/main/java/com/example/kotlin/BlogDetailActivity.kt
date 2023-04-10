@@ -3,6 +3,7 @@ package com.example.kotlin
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -63,8 +64,16 @@ class BlogDetailActivity : AppCompatActivity() {
             Log.d("Error", e.toString())
         }
 
+        btnDelete.visibility = if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
         btnDelete.setOnClickListener {
             try {
+                if (FBInfor.ROLE != 0 && FBInfor.ROLE != 1) {
+                    return@setOnClickListener
+                }
                 val dialog = AlertDialog.Builder(this)
                 dialog.setTitle("Delete Blog")
                 dialog.setMessage("Are you sure you want to delete this blog?")

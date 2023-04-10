@@ -15,12 +15,15 @@ class BusOperatorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("test", "3")
+
         return inflater.inflate(R.layout.fragment_bus_operator, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+//        super.onViewCreated(view, savedInstanceState)
         val btnSubmit = view.findViewById<AppCompatButton>(R.id.btnSubmit)
+        Log.d("test", "2")
         btnSubmit.setOnClickListener {
             Log.i("BusOperatorFragment", "Button clicked")
         }
