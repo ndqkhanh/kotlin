@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi').extend(require('@joi/date'));
 
 const createBus = {
   body: Joi.object().keys({
@@ -6,8 +6,8 @@ const createBus = {
     start_point: Joi.string().uuid().required(),
     end_point: Joi.string().required(),
     type: Joi.number().required(),
-    start_time: Joi.date().required(),
-    end_time: Joi.date().required(),
+    start_time: Joi.date().format('YYYY-MM-DD HH:mm').required(),
+    end_time: Joi.date().format('YYYY-MM-DD HH:mm').required(),
     image_url: Joi.string().required(),
     policy: Joi.string(),
     num_of_seats: Joi.number().required(),

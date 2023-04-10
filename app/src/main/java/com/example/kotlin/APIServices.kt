@@ -74,7 +74,7 @@ data class BusOperator(
 )
 
 data class Bus(
-    val id: Int,
+    val id: String,
     val bo_id: String,
     val start_point: BusStation,
     val end_point: BusStation,
@@ -103,6 +103,19 @@ data class BusOperatorResponse(
 
 // Structure of body for api request
 data class AdminBusCreateBody(
+    val bo_id: String,
+    val start_point: String,
+    val end_point: String,
+    val type: Int,
+    val start_time: String,
+    val end_time: String,
+    val image_url: String,
+    val policy: String,
+    val num_of_seats: Int,
+    val price: Int
+)
+data class AdminBusCreateRespond(
+    val id: String,
     val bo_id: String,
     val start_point: String,
     val end_point: String,
@@ -167,11 +180,17 @@ interface BusService {
         @Header("Authorization") token: String
     ) : Call<AdminBusesResponse>
 
+    @GET("admin/bus/{id}")
+    fun adminSearchBuses(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ) : Call<Buses>
+
     @POST("admin/bus/create")
     fun adminCreateBus(
         @Header("Authorization") token: String,
         @Body bus: AdminBusCreateBody
-    ): Call<Bus>
+    ): Call<AdminBusCreateRespond>
 
     @POST("admin/bus/delete/{bid}")
     fun deleteBus(
@@ -230,7 +249,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.11:3000/v1/"
+    private val BASE_URL = "http://192.168.1.4:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
