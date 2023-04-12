@@ -68,7 +68,9 @@ class PersonalInformation : AppCompatActivity() {
     }
     private fun loadData(){
         GlobalScope.launch(Dispatchers.IO)   {
-            showLoadingGif()
+            withContext(Dispatchers.Main) {
+                showLoadingGif()
+            }
             val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
             localEditor = localStore.edit()
             var token: String? = localStore.getString("token", null)
@@ -91,7 +93,9 @@ class PersonalInformation : AppCompatActivity() {
 
                 }
             }
-            hideLoading()
+            withContext(Dispatchers.Main) {
+                hideLoading()
+            }
         }
     }
     private fun showLoadingGif(){
