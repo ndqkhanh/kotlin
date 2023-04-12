@@ -21,6 +21,10 @@ class PersonalInformation : AppCompatActivity() {
     private lateinit var localEditor: SharedPreferences.Editor
     private val retrofit = APIServiceImpl()
     private var UserApi = retrofit.userService()
+    private var page = 0
+    private var limit = 3
+    private var items = mutableListOf<History>()
+    private lateinit var bookedTicketAdapter: BookedTicketAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +34,6 @@ class PersonalInformation : AppCompatActivity() {
         var email = findViewById<TextView>(R.id.email)
         var avt = findViewById<ProfilePictureView>(R.id.avt_user)
         var back = findViewById<ImageButton>(R.id.back_button)
-        var page = 0
-        var limit = 4
-
 
         email.text = FBInfor.EMAIL
         name.text = FBInfor.NAME
@@ -40,44 +41,10 @@ class PersonalInformation : AppCompatActivity() {
 
         var TicketHisListView = findViewById<ListView>(R.id.ticket_lv)
 
-        var items = mutableListOf<History>()
-        var bookedTicketAdapter = BookedTicketAdapter(this, items)
+        bookedTicketAdapter = BookedTicketAdapter(this, items)
         TicketHisListView.adapter = bookedTicketAdapter
+        loadData()
 
-
-        GlobalScope.launch(Dispatchers.IO)   {
-
-            if(FBInfor.TOKEN == null)
-                withContext(Dispatchers.Main) {
-                    showLoadingGif()
-                }
-            while(FBInfor.TOKEN == null) {}
-
-            val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
-            localEditor = localStore.edit()
-            var token: String? = localStore.getString("token", null)
-
-            if (token != null) {
-
-                val response = UserApi.ticketHistory("Bearer ${token}", page, limit).awaitResponse()
-                if (response.isSuccessful) {
-                    items.clear()
-
-                    response.body()?.let {
-                        var new_items = response.body()!!.history_list
-                        if(new_items.isNotEmpty())
-                            items.addAll(new_items)
-
-                        withContext(Dispatchers.Main) {
-                            hideLoading()
-                            //pagingLayout.visibility = VISIBLE
-                            bookedTicketAdapter.notifyDataSetChanged()
-                        }
-                    }
-
-                }
-            }
-        }
         TicketHisListView.setOnScrollListener(object : AbsListView.OnScrollListener {
             override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
@@ -86,38 +53,7 @@ class PersonalInformation : AppCompatActivity() {
                 ) {
                     // Now your listview has hit the bottom
                     page += 1
-                    GlobalScope.launch(Dispatchers.IO)   {
-
-                        if(FBInfor.TOKEN == null)
-                            withContext(Dispatchers.Main) {
-                                showLoadingGif()
-                            }
-                        while(FBInfor.TOKEN == null) {}
-
-                        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
-                        localEditor = localStore.edit()
-                        var token: String? = localStore.getString("token", null)
-
-                        if (token != null) {
-
-                            val response = UserApi.ticketHistory("Bearer ${token}", page, limit).awaitResponse()
-                            if (response.isSuccessful) {
-
-                                response.body()?.let {
-                                    var new_items = response.body()!!.history_list
-                                    if(new_items.isNotEmpty())
-                                        items.addAll(new_items)
-                                    else page -= 1
-
-                                    withContext(Dispatchers.Main) {
-                                        hideLoading()
-                                        bookedTicketAdapter.notifyDataSetChanged()
-                                    }
-                                }
-
-                            }
-                        }
-                    }
+                    loadData()
                 }
             }
             override fun onScroll
@@ -129,6 +65,34 @@ class PersonalInformation : AppCompatActivity() {
             finish()
         }
 
+    }
+    private fun loadData(){
+        GlobalScope.launch(Dispatchers.IO)   {
+            showLoadingGif()
+            val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
+            localEditor = localStore.edit()
+            var token: String? = localStore.getString("token", null)
+
+            if (token != null) {
+                val response = UserApi.ticketHistory("Bearer ${token}", page, limit).awaitResponse()
+                if (response.isSuccessful) {
+
+                    response.body()?.let {
+                        var new_items = response.body()!!.history_list
+                        if(new_items.isNotEmpty())
+                            items.addAll(new_items)
+                        else if(page > 0 )
+                            page -= 1
+
+                        withContext(Dispatchers.Main) {
+                            bookedTicketAdapter.notifyDataSetChanged()
+                        }
+                    }
+
+                }
+            }
+            hideLoading()
+        }
     }
     private fun showLoadingGif(){
         var imageView = findViewById<ImageView>(R.id.loadingGif)

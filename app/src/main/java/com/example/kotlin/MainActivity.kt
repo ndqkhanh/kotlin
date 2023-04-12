@@ -5,9 +5,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import com.bumptech.glide.Glide
 import com.example.kotlin.jsonConvert.AccountSignUp
 import com.example.kotlin.jsonConvert.UserLogin
 import com.facebook.*
@@ -103,8 +108,9 @@ class MainActivity : AppCompatActivity() {
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
                     //Log.d(TAG, "facebook:onSuccess:$loginResult")
+                    buttonFacebookLogin.visibility = GONE
+                    showLoadingGif()
                     handleFacebookAccessToken(loginResult.accessToken)
-                    toHomeScreen()
                 }
 
                 override fun onCancel() {
@@ -133,6 +139,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+    private fun showLoadingGif(){
+        var imageView = findViewById<ImageView>(R.id.login_loading)
+        imageView.visibility = VISIBLE
+        Glide.with(this).load(R.drawable.loading).into(imageView)
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
@@ -185,6 +196,9 @@ class MainActivity : AppCompatActivity() {
                                                 }
                                             }
                                             //Log.d("Response", body.toString())
+                                            withContext(Dispatchers.Main){
+                                                toHomeScreen()
+                                            }
 
                                         } else {
                                             launch(Dispatchers.Main) {
@@ -220,6 +234,9 @@ class MainActivity : AppCompatActivity() {
                                                     putString("photo", FBInfor.PHOTO_URL.toString())
                                                     putInt("role", FBInfor.ROLE)
                                                     commit()
+                                                }
+                                                withContext(Dispatchers.Main){
+                                                    toHomeScreen()
                                                 }
                                             }
                                             //Log.d("Response", body.toString())

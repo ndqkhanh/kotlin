@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/imageTicket"
-        android:layout_width="41dp"
-        android:layout_height="45dp"
+        android:layout_width="60dp"
+        android:layout_height="77dp"
+        android:tint="#ECD71E"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
         app:layout_constraintTop_toTopOf="@+id/linearLayout7"
         tools:srcCompat="@drawable/ticket" />
@@ -19,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="From "
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -38,22 +40,9 @@
             android:layout_height="wrap_content"
             android:text="12/11/2022 15:00"
             android:textColor="@color/start"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" to "
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="13/11/2022 15:00"
-            android:textColor="@color/end"
-            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="From "
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -84,21 +74,6 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" to "
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/endPoint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Miền Hoa bus stop"
-            android:textColor="@color/end"
-            android:textSize="16sp"
-            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -118,13 +93,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bus house "
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/ticketHBH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <LinearLayout
@@ -146,13 +123,57 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID "
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/ticketHID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="to "
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13/11/2022 15:00"
+        android:textColor="@color/end"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="to "
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+    <TextView
+        android:id="@+id/endPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Miền Hoa bus stop"
+        android:textColor="@color/end"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
