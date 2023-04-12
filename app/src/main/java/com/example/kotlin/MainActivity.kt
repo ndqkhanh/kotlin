@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 withContext(Dispatchers.Main) {
+                    FBInfor.TOKEN = token
                     FBInfor.ID = localStore.getString("id", "").toString()
                     FBInfor.NAME = localStore.getString("name", "").toString()
                     FBInfor.EMAIL = localStore.getString("email", "N/A").toString()
@@ -172,6 +173,7 @@ class MainActivity : AppCompatActivity() {
                                             val body = response.body()
                                             body?.let {
                                                 FBInfor.ROLE = body.user.role
+                                                FBInfor.TOKEN = body.token.token
                                                 this@MainActivity.localEditor.apply {
                                                     putString("token", body.token.token)
                                                     putString("id", FBInfor.ID)
@@ -209,6 +211,7 @@ class MainActivity : AppCompatActivity() {
                                         if (response.isSuccessful) {
                                             val body = response.body()
                                             body?.let {
+                                                FBInfor.TOKEN = body.token.token
                                                 this@MainActivity.localEditor.apply {
                                                     putString("token", body.token.token)
                                                     putString("id", FBInfor.ID)

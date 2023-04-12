@@ -1,10 +1,11 @@
 package com.example.kotlin
 
 import android.net.Uri
-import com.example.kotlin.jsonConvert.Token
+import kotlinx.coroutines.Job
 
 class FBInfor {
     companion object{
+        var TOKEN: String? = null
         var ID: String = ""
         var NAME: String = ""
         var EMAIL: String = "N/A"

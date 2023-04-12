@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.View.VISIBLE
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.facebook.login.widget.LoginButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -96,6 +98,7 @@ class Home : AppCompatActivity() {
 
         var logOutListener = View.OnClickListener {
             Log.d("Response", "Đăng xuất")
+
             localEditor.apply {
                 putString("token", null)
                 commit()
