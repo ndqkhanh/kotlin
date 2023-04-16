@@ -2,6 +2,7 @@ package com.example.kotlin
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -36,6 +37,14 @@ class AdminBlogCreateActivity : AppCompatActivity() {
         localEditor = localStore.edit()
         btnLogOut.setOnClickListener {
             Log.d("Response", "Đăng xuất")
+            localEditor.apply {
+                putString("token", null)
+                commit()
+            }// remove token
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finishAffinity()
         }
 
         val token = this.getSharedPreferences("vexere", MODE_PRIVATE)

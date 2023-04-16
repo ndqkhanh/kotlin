@@ -36,6 +36,7 @@ class BlogDetailActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             finish()
         }
+        val activitySent = intent.getStringExtra("activity")
 
         val blogId = intent.getStringExtra("blogId")
         val token = this.getSharedPreferences("vexere", MODE_PRIVATE)
@@ -64,7 +65,8 @@ class BlogDetailActivity : AppCompatActivity() {
             Log.d("Error", e.toString())
         }
 
-        btnDelete.visibility = if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
+        btnDelete.visibility = if (activitySent != "home"
+            && (FBInfor.ROLE == 0 || FBInfor.ROLE == 1)) {
             View.VISIBLE
         } else {
             View.GONE

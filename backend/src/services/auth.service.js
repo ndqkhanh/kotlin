@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
 const tokenService = require('./token.service');
@@ -8,8 +8,8 @@ const ApiError = require('../utils/ApiError');
 
 const { tokenTypes } = require('../config/tokens');
 
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+// const { PrismaClient } = require('@prisma/client');
+// const prisma = new PrismaClient();
 
 /**
  * Login with email and password
@@ -90,96 +90,96 @@ const resetPassword = async (email, newPassword, repassword) => {
  * @param {string} verifyEmailToken
  * @returns {Promise}
  */
-const verifyEmail = async (req) => {
-  try {
-    const email = req.body.email;
-    const otp = req.body.otp;
-    const user = await prisma.users.findFirst({
-      where: {
-        email,
-      },
-    });
+// const verifyEmail = async (req) => {
+//   try {
+//     const email = req.body.email;
+//     const otp = req.body.otp;
+//     const user = await prisma.users.findFirst({
+//       where: {
+//         email,
+//       },
+//     });
 
-    const verification = await prisma.user_verification.findFirst({
-      where: {
-        uid: user.id,
-      },
-    });
-    console.log('otp', otp);
-    console.log('verification.code', verification.code);
-    if (!verification || verification.code !== otp) return false;
+//     const verification = await prisma.user_verification.findFirst({
+//       where: {
+//         uid: user.id,
+//       },
+//     });
+//     console.log('otp', otp);
+//     console.log('verification.code', verification.code);
+//     if (!verification || verification.code !== otp) return false;
 
-    await prisma.users.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        verification: true,
-      },
-    });
-    return true;
-  } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
-  }
-};
-const sendEmail = async (req) => {
-  const email = req.body.email;
+//     await prisma.users.update({
+//       where: {
+//         id: user.id,
+//       },
+//       data: {
+//         verification: true,
+//       },
+//     });
+//     return true;
+//   } catch (error) {
+//     throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
+//   }
+// };
+// const sendEmail = async (req) => {
+//   const email = req.body.email;
 
-  const user = await prisma.users.findFirst({
-    where: {
-      email,
-    },
-  });
+//   const user = await prisma.users.findFirst({
+//     where: {
+//       email,
+//     },
+//   });
 
-  let user_verification = await prisma.user_verification.findFirst({
-    where: {
-      uid: user.id,
-    },
-  });
+//   let user_verification = await prisma.user_verification.findFirst({
+//     where: {
+//       uid: user.id,
+//     },
+//   });
 
-  if (!user_verification || user_verification === {}) {
-    user_verification = await prisma.user_verification.create({
-      data: {
-        uid: user.id,
-      },
-    });
-  }
-  console.log(user_verification);
+//   if (!user_verification || user_verification === {}) {
+//     user_verification = await prisma.user_verification.create({
+//       data: {
+//         uid: user.id,
+//       },
+//     });
+//   }
+//   console.log(user_verification);
 
-  try {
-    console.log('test 1');
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.sendgrid.net',
-      port: 465,
-      secure: true,
-      auth: {
-        user: 'apikey',
-        pass: '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',
-      },
-    });
-    console.log('test 2');
+//   try {
+//     console.log('test 1');
+//     const transporter = nodemailer.createTransport({
+//       host: 'smtp.sendgrid.net',
+//       port: 465,
+//       secure: true,
+//       auth: {
+//         user: 'apikey',
+//         pass: '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',
+//       },
+//     });
+//     console.log('test 2');
 
-    const mailOptions = {
-      from: 'Web-HCMUS <group9notification@gmail.com>',
-      to: email,
-      subject: 'Verify email',
-      text: '\nPlease enter your code ' + user_verification.code,
-    };
-    console.log('test 3');
+//     const mailOptions = {
+//       from: 'Web-HCMUS <group9notification@gmail.com>',
+//       to: email,
+//       subject: 'Verify email',
+//       text: '\nPlease enter your code ' + user_verification.code,
+//     };
+//     console.log('test 3');
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log('test 4', info.response);
-  } catch (error) {
-    console.log('email not sent', error);
-    return false;
-  }
-  return true;
-};
+//     const info = await transporter.sendMail(mailOptions);
+//     console.log('test 4', info.response);
+//   } catch (error) {
+//     console.log('email not sent', error);
+//     return false;
+//   }
+//   return true;
+// };
 module.exports = {
   loginUserWithEmailAndPassword,
   logout,
   refreshAuth,
   resetPassword,
-  verifyEmail,
-  sendEmail,
+  // verifyEmail,
+  // sendEmail,
 };
