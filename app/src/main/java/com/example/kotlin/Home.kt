@@ -117,28 +117,6 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val tickets = ArrayList<Ticket>()
-        tickets.add(
-            Ticket(
-                "Ninh bình 2",
-                "100.000đ",
-                "1h 30p",
-                "Hà Nội",
-                "HCM",
-                "32bd7781-0713-45cc-9841-0abb62a807e0"
-            )
-        )
-        tickets.add(
-            Ticket(
-                "Ninh bình 1",
-                "100.000đ",
-                "1h 30p",
-                "Hà Nội",
-                "HCM",
-                "384fdcb1-496f-4f87-8b1e-578674111ac1"
-            )
-        )
-
         val adapter = CustomTicketItem(this, busses, supportFragmentManager, lifecycle)
 
         searchResult!!.adapter = adapter

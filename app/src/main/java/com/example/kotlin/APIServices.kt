@@ -13,7 +13,7 @@ data class BlogResponse(
     val thumbnail: String,
     val title: String,
     val content: String,
-    val created_time: String,
+    val create_time: String,
     val update_time: String,
 )
 

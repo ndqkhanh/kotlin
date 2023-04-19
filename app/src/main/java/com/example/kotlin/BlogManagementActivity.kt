@@ -14,7 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
 
-class BlogActivity : AppCompatActivity() {
+class BlogManagementActivity : AppCompatActivity() {
     private lateinit var blogList: RecyclerView
     private lateinit var btnPrevious: Button
     private lateinit var btnNext: Button
@@ -23,7 +23,7 @@ class BlogActivity : AppCompatActivity() {
     private val limit = 5
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_blog)
+        setContentView(R.layout.activity_blog_management)
 
         blogList = findViewById(R.id.blogList)
         btnPrevious = findViewById(R.id.btnPrevious)
@@ -82,7 +82,7 @@ class BlogActivity : AppCompatActivity() {
                             blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
 
                             blogAdapter.onItemClick = {
-                                val intent = Intent(this@BlogActivity, BlogDetailActivity::class.java)
+                                val intent = Intent(this@BlogManagementActivity, BlogDetailActivity::class.java)
                                 intent.putExtra("blogId", it.id)
                                 startActivity(intent)
                             }
