@@ -13,7 +13,7 @@ data class BlogResponse(
     val thumbnail: String,
     val title: String,
     val content: String,
-    val created_time: String,
+    val create_time: String,
     val update_time: String,
 )
 
@@ -272,7 +272,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.13:3000/v1/"
+    private val BASE_URL = "http://192.168.1.7:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
