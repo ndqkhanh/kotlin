@@ -23,11 +23,19 @@ const createBus = async (req) => {
 };
 
 const deleteBusById = async (busId) => {
-  await prisma.buses.delete({
+  const bus = await prisma.buses.findUnique({
     where: {
       id: busId,
     },
   });
+
+  if (!bus) throw new ApiError(httpStatus.BAD_REQUEST, 'BUS NOT FOUND');
+  const result = await prisma.buses.delete({
+    where: {
+      id: busId,
+    },
+  });
+  if (!result) return false;
   return true;
 };
 
@@ -74,11 +82,13 @@ const getBusById = async (busId) => {
       bus_stations_bus_stationsTobuses_start_point: {
         select: {
           name: true,
+          location: true,
         },
       },
       bus_stations_bus_stationsTobuses_end_point: {
         select: {
           name: true,
+          location: true,
         },
       },
     },

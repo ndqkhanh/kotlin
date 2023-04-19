@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.View.VISIBLE
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.facebook.login.widget.LoginButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -96,6 +98,7 @@ class Home : AppCompatActivity() {
 
         var logOutListener = View.OnClickListener {
             Log.d("Response", "Đăng xuất")
+
             localEditor.apply {
                 putString("token", null)
                 commit()
@@ -107,6 +110,10 @@ class Home : AppCompatActivity() {
         }
         findViewById<ImageButton>(R.id.home_logout).setOnClickListener(logOutListener)
         findViewById<TextView>(R.id.log_out_text_view).setOnClickListener(logOutListener)
+        findViewById<ImageButton>(R.id.person_infor).setOnClickListener{
+            val intent = Intent(this, PersonalInformation::class.java)
+            startActivity(intent)
+        }
 
         val tickets = ArrayList<Ticket>()
         tickets.add(
@@ -154,6 +161,7 @@ class Home : AppCompatActivity() {
 
                             blogAdapter.onItemClick = {
                                 val intent = Intent(this@Home, BlogDetailActivity::class.java)
+                                intent.putExtra("activity", "home")
                                 intent.putExtra("blogId", it.id)
                                 startActivity(intent)
                             }
@@ -215,3 +223,6 @@ class Home : AppCompatActivity() {
     }
 
 }
+
+
+

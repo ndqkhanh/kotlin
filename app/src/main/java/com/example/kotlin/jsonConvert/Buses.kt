@@ -1,5 +1,8 @@
 package com.example.kotlin.jsonConvert
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Buses(
     val bo_id: String,
     val bus_operators: BusOperators,
@@ -16,3 +19,4 @@ data class Buses(
     val start_time: String,
     val type: Int
 )
+

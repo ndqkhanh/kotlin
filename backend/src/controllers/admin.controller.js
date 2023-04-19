@@ -8,8 +8,8 @@ const createBus = catchAsync(async (req, res) => {
 });
 
 const deleteBus = catchAsync(async (req, res) => {
-  await adminService.deleteBusById(req.params.busId);
-  res.send({ success: true });
+  const result = await adminService.deleteBusById(req.params.busId);
+  res.send({ success: result });
 });
 
 const updateBus = catchAsync(async (req, res) => {

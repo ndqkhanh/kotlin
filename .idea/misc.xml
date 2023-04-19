@@ -7,17 +7,37 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/empty_tall_divider.xml" value="0.1" />
 =======
-        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/drawable/baseline_email_32.xml" value="0.146" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/drawable/baseline_person_32.xml" value="0.146" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/drawable/custom_form_input.xml" value="0.146" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/drawable/ic_baseline_date_range_24.xml" value="0.146" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.146" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin.xml" value="0.2" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus.xml" value="0.2" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus_create.xml" value="0.264" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus_operator.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus_operator_create.xml" value="0.2" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_admin_bus_ticket.xml" value="0.2" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_blog_item.xml" value="0.234375" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_bus_detail.xml" value="0.2" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_fill_booking_form.xml" value="0.2" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_main.xml" value="0.12771739130434784" />
-        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_list_item.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/activity_ticket_item.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_list_item.xml" value="0.4" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_operator_item.xml" value="0.4" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_ticket_item.xml" value="0.264" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_bus_ticket_list_item.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/admin_list_item.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bold_border.xml" value="0.1546875" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bus_operator_dialog.xml" value="0.18958333333333333" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bus_operator_item.xml" value="0.4" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bus_station_dialog.xml" value="0.13854166666666667" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/bus_station_item.xml" value="0.2" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/fragment_bus_information.xml" value="0.18958333333333333" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/fragment_bus_operator.xml" value="0.18958333333333333" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/item_ticket.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/pair_attribute_value.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Asus/Desktop/kotlin/app/src/main/res/layout/review_list_item.xml" value="0.11413043478260869" />
 >>>>>>> 1ffb303e2db63262251ae5b7f71825d1841f4c99
         <entry key="app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1175" />

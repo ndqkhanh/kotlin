@@ -6,7 +6,6 @@ const { User } = require('../models');
 const prisma = new PrismaClient();
 
 const ApiError = require('../utils/ApiError');
-const { transformDocument } = require('@prisma/client/runtime');
 
 /**
  * Create a user
@@ -31,15 +30,16 @@ const createUser = async (userBody) => {
     },
   });
 
-  if (checkEmail && checkEmail.verification === true) {
+  if (checkEmail) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Username already taken');
-  } else if (checkEmail && checkEmail.verification === false) {
-    await prisma.users.delete({
-      where: {
-        email: userBody.email,
-      },
-    });
   }
+  // else if (checkEmail && checkEmail.verification === false) {
+  //   await prisma.users.delete({
+  //     where: {
+  //       email: userBody.email,
+  //     },
+  //   });
+  // }
 
   // eslint-disable-next-line no-param-reassign
   delete userBody.repassword;

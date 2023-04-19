@@ -2,7 +2,7 @@ package com.example.kotlin.jsonConvert
 
 data class History(
     val bus_id: String,
-    val buses: Buses,
+    val buses: Buses?,
     val create_time: String,
     val id: String,
     val name: String,
@@ -11,4 +11,9 @@ data class History(
     val status: Int,
     val update_time: String,
     val user_id: String
-)
+){
+    constructor()
+            :this("",null,"",
+        "","","","",0,
+        "","")
+}
