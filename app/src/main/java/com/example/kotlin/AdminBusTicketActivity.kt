@@ -1,7 +1,9 @@
 package com.example.kotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +15,12 @@ import retrofit2.awaitResponse
 class AdminBusTicketActivity:AppCompatActivity() {
     lateinit var busTicketRV: RecyclerView
     lateinit var busTickets: MutableList<BusTicket>
+    lateinit var backBtn: ImageButton
     var busTicketAdapter: AdminBusTicketAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus_ticket)
-
-        val token = "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODAyNTY0ODMsImV4cCI6MTY4MDI1ODI4MywidHlwZSI6ImFjY2VzcyJ9.Mg44neuaRYOdmbJ5LknwIAnQYe0U7z4JRK1bqyAheOw"
+        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
         val retrofit = APIServiceImpl()
         busTickets = mutableListOf()
 
@@ -69,8 +71,12 @@ class AdminBusTicketActivity:AppCompatActivity() {
             }
 
 
-
-
+        backBtn = findViewById(R.id.adminBusTicketListBackBtn)
+        backBtn.setOnClickListener {
+            Intent(this, AdminActivity::class.java).also {
+                startActivity(it)
+            }
+        }
 
     }
 }
