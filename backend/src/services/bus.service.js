@@ -6,6 +6,18 @@ const ApiError = require('../utils/ApiError');
 
 const prisma = new PrismaClient();
 
+function secondsToHms(d) {
+  d = Number(d);
+  const h = Math.floor(d / 3600);
+  const m = Math.floor((d % 3600) / 60);
+  const s = Math.floor((d % 3600) % 60);
+
+  const hDisplay = h > 0 ? h + (h == 1 ? ' hour, ' : 'h') : '';
+  const mDisplay = m > 0 ? m + (m == 1 ? ' minute, ' : 'm') : '';
+  const sDisplay = s > 0 ? s + (s == 1 ? ' second' : 's') : '';
+  return hDisplay + mDisplay + sDisplay;
+}
+
 const searchBus = async (body) => {
   const { startPoint, endPoint, page, limit, boId, price, type, startTime } = body;
 
@@ -74,6 +86,31 @@ const searchBus = async (body) => {
           })
         )._avg.rate * 10
       ) / 10;
+    const duration = (new Date(bus.end_time) - new Date(bus.start_time)) / 1000;
+    bus.duration = secondsToHms(duration);
+    // format bus pricing format by thousand
+    bus.pricingFormat = bus.price.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'VND',
+    });
+
+    bus.start_time = new Date(bus.start_time).toLocaleDateString(undefined, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+
+    bus.end_time = new Date(bus.end_time).toLocaleDateString(undefined, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
   }
 
   const count = await prisma.buses.count({
