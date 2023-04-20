@@ -13,6 +13,8 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import com.bumptech.glide.Glide
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.util.*
 
 
@@ -66,11 +68,19 @@ class CustomTicketItem(private val context: Activity, private val busses: List<B
             val busImage = rowView.findViewById(R.id.busImage) as ImageView
 
             busOperatorName.text = busses[position].bus_operators.name
+            val pricingText: String = "Pricing: " +busses[position].price.toString() + "đ";
+            busPrice.text = pricingText
+            val timeText: String = "Time: " + busses[position].start_time + " - " + busses[position].end_time
+            busStartTime.text = timeText
+            val departureText: String = "Departure: " + busses[position].start_point.location + " - " + busses[position].start_time
+            busDeparture.text = departureText
+            val destinationText: String = "Destination: " + busses[position].end_point.location + " - " + busses[position].end_time
+            busDestination.text = destinationText
+            busOperatorName.text = busses[position].bus_operators.name
             busPrice.text = busses[position].price.toString()
             busStartTime.text = busses[position].start_time
-            busDeparture.text = busses[position].start_point.location
-            busDestination.text = busses[position].end_point.location
-
+//            busDeparture.text = busses[position].start_point.location
+//            busDestination.text = busses[position].end_point.location
             Glide.with(busImage.context)
                 .load(busses[position].image_url)
                 .into(busImage)

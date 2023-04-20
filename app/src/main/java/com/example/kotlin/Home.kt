@@ -28,8 +28,8 @@ import java.util.*
 
 
 class Home : AppCompatActivity() {
-    lateinit var listBusStations: List<BusStation>
-    lateinit var listBusOperators: List<BusOperator>
+    lateinit var listBusStations: ArrayList<BusStation>
+    lateinit var listBusOperators: ArrayList<BusOperator>
     lateinit var spinnerDeparture: Spinner
     lateinit var spinnerDestination: Spinner
     lateinit var spinnerBusOperator: Spinner
@@ -54,8 +54,8 @@ class Home : AppCompatActivity() {
 
         val departureId = listBusStations.filter { it.name == departure }.map { it.id }.first()
         val destinationId = listBusStations.filter { it.name == destination }.map { it.id }.first()
-
-        val busOperatorId = listBusOperators.filter { it.name == spinnerBusOperator.selectedItem.toString() }.map { it.id }.first()
+        val busOperatorSelectedOption = spinnerBusOperator.selectedItem.toString()
+        val busOperatorId = if(busOperatorSelectedOption == "All") null else listBusOperators.filter { it.name == busOperatorSelectedOption }.map { it.id }.first()
         val pricing = pricingSeekBar.progress
         val typeOfSeat = typeOfSeatRadioGroup.checkedRadioButtonId
 
@@ -157,6 +157,103 @@ class Home : AppCompatActivity() {
 
         searchResult!!.adapter = adapter
 
+//        var blogPage = 1
+//        var blogLimit = 20
+//        var blogList = findViewById<RecyclerView>(R.id.blogList)
+//        try {
+//            GlobalScope.launch(Dispatchers.IO) {
+//                val response =
+//                    retrofit.getBlog().getBlogs(blogPage, blogLimit).awaitResponse()
+//                // debug response
+//                Log.d("Response", response.toString())
+//                if (response.isSuccessful) {
+//                    val body = response.body()
+//                    launch(Dispatchers.Main) {
+//                        if (body != null) {
+//                            val blogAdapter = CustomBlogItem(body.data)
+//
+//                            blogList!!.adapter = blogAdapter
+//                            blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
+//
+//                            blogAdapter.onItemClick = {
+//                                val intent = Intent(this@Home, BlogDetailActivity::class.java)
+//                                intent.putExtra("activity", "home")
+//                                intent.putExtra("blogId", it.id)
+//                                startActivity(intent)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (e: Exception) {
+//            Log.d("Error", e.toString())
+//        }
+
+        Utility.setListViewHeightBasedOnChildren(searchResult)
+
+        datePicker = findViewById<EditText>(R.id.datePicker)
+
+        datePicker.setOnClickListener {
+            DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                Log.d("Date", "$dayOfMonth/$month/$year")
+                // set date to date picker
+                datePicker.setText("$dayOfMonth/$month/$year")
+            }, 2020, 1, 1).show()
+        }
+
+        val retrofit = APIServiceImpl()
+
+        spinnerDeparture = findViewById<Spinner>(R.id.spinnerDeparture)
+        spinnerDestination = findViewById<Spinner>(R.id.spinnerDestination)
+        spinnerBusOperator = findViewById<Spinner>(R.id.busOperatorFilter)
+        typeOfSeatRadioGroup = findViewById<RadioGroup>(R.id.typeOfSeat)
+        pricingSeekBar = findViewById<SeekBar>(R.id.pricingSeekBar)
+        GlobalScope.launch (Dispatchers.IO) {
+            val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
+            if(response.isSuccessful){
+                listBusStations = response.body()?.data as ArrayList<BusStation>
+
+                withContext(Dispatchers.Main) {
+                    spinnerDeparture!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
+                    spinnerDestination!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
+                }
+            }
+
+            val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
+            if(response2.isSuccessful){
+                listBusOperators = response2.body()?.data as ArrayList<BusOperator>
+                // push all bus operator to list
+                listBusOperators.add(0, BusOperator("all", "", "", "All"))
+                Log.d("test", listBusOperators.toString())
+                withContext(Dispatchers.Main) {
+                    spinnerBusOperator!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusOperators.map { it.name })
+                }
+            }
+        }
+
+        val busOperatorFilter = findViewById<Spinner>(R.id.busOperatorFilter)
+
+        val searchButton = findViewById<Button>(R.id.searchButton)
+
+        searchButton.setOnClickListener {
+            listBuses.clear()
+            loadMoreResult()
+
+            loadMoreButton.visibility = View.VISIBLE
+        }
+        
+        loadMoreButton = findViewById<Button>(R.id.loadMore)
+        if(currentPage == 0){
+            loadMoreButton.visibility = View.GONE
+        }
+        loadMoreButton.setOnClickListener {
+            currentPage += 1
+            loadMoreResult(currentPage)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         var blogPage = 1
         var blogLimit = 20
         var blogList = findViewById<RecyclerView>(R.id.blogList)
@@ -187,65 +284,6 @@ class Home : AppCompatActivity() {
             }
         } catch (e: Exception) {
             Log.d("Error", e.toString())
-        }
-
-        Utility.setListViewHeightBasedOnChildren(searchResult)
-
-        datePicker = findViewById<EditText>(R.id.datePicker)
-
-        datePicker.setOnClickListener {
-            DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                Log.d("Date", "$dayOfMonth/$month/$year")
-                // set date to date picker
-                datePicker.setText("$dayOfMonth/$month/$year")
-            }, 2020, 1, 1).show()
-        }
-
-        val retrofit = APIServiceImpl()
-
-        spinnerDeparture = findViewById<Spinner>(R.id.spinnerDeparture)
-        spinnerDestination = findViewById<Spinner>(R.id.spinnerDestination)
-        spinnerBusOperator = findViewById<Spinner>(R.id.busOperatorFilter)
-        typeOfSeatRadioGroup = findViewById<RadioGroup>(R.id.typeOfSeat)
-        pricingSeekBar = findViewById<SeekBar>(R.id.pricingSeekBar)
-        GlobalScope.launch (Dispatchers.IO) {
-            val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
-            if(response.isSuccessful){
-                listBusStations = response.body()?.data as List<BusStation>
-
-                withContext(Dispatchers.Main) {
-                    spinnerDeparture!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
-                    spinnerDestination!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
-                }
-            }
-
-            val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
-            if(response2.isSuccessful){
-                listBusOperators = response2.body()?.data as List<BusOperator>
-
-                withContext(Dispatchers.Main) {
-                    spinnerBusOperator!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusOperators.map { it.name })
-                }
-            }
-        }
-
-        val busOperatorFilter = findViewById<Spinner>(R.id.busOperatorFilter)
-
-        val searchButton = findViewById<Button>(R.id.searchButton)
-
-        searchButton.setOnClickListener {
-            loadMoreResult()
-
-            loadMoreButton.visibility = View.VISIBLE
-        }
-        
-        loadMoreButton = findViewById<Button>(R.id.loadMore)
-        if(currentPage == 0){
-            loadMoreButton.visibility = View.GONE
-        }
-        loadMoreButton.setOnClickListener {
-            currentPage += 1
-            loadMoreResult(currentPage)
         }
     }
 
