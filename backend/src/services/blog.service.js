@@ -16,6 +16,24 @@ const getBlogById = async (id) => {
   if (!blog) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Blog not found');
   }
+  // format dd/mm/yyyy and time
+  blog.create_time = new Date(blog.create_time).toLocaleDateString(undefined, {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+  blog.update_time = new Date(blog.update_time).toLocaleDateString(undefined, {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+
   return blog;
 };
 

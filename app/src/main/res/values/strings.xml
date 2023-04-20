@@ -14,6 +14,7 @@
     <string name="pay">Pay</string>
     <string name="booking_detail">Booking Detail</string>
     <string name="fill_booking_form">Fill Booking Form</string>
+    <string name="admin_page">Admin Page</string>
     <string name="back">Back</string>
     <string name="your_payment_is_successful">Your payment is successful</string>
     <string name="thank_you_for_your_payment">Thank you for your payment.</string>

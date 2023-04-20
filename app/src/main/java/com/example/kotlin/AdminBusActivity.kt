@@ -1,7 +1,10 @@
 package com.example.kotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,14 +15,17 @@ import retrofit2.awaitResponse
 class AdminBusActivity:AppCompatActivity() {
     lateinit var busRV: RecyclerView
     lateinit var buses: MutableList<Buses>
+    lateinit var addBtn: Button
+    lateinit var backBtn: ImageButton
     var busAdapter: AdminBusAdapter? = null
     val retrofit = APIServiceImpl()
-    val token = "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODExMTcwODIsImV4cCI6MTY4MTExODg4MiwidHlwZSI6ImFjY2VzcyJ9.TOcqm9zZFXAADOKcahxkgdDuwDURu009VUJ9jTF4teY"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus)
 
-
+        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
 
 
         buses = mutableListOf()
@@ -30,8 +36,8 @@ class AdminBusActivity:AppCompatActivity() {
 
 
         GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-
-            var response = retrofit.adminGetBuses().adminGetBuses(token).awaitResponse() // CHANGE
+            Log.d("token", token!!)
+            var response = retrofit.adminGetBuses().adminGetBuses(token!!).awaitResponse() // CHANGE
             Log.d("Response", "vui 1" + response.message())
             // debug response
             Log.d("Response", response.toString())
@@ -73,8 +79,20 @@ class AdminBusActivity:AppCompatActivity() {
 
 
 
+        // Add Button
+        addBtn = findViewById(R.id.adminBusAddBtn)
+        addBtn.setOnClickListener {
+            Intent(this, AdminBusCreateActivity::class.java).also {
+                startActivity(it)
+            }
+        }
 
-
+        backBtn = findViewById(R.id.adminBusListBackBtn)
+        backBtn.setOnClickListener{
+            Intent(this,AdminActivity::class.java).also {
+                startActivity(it)
+            }
+        }
     }
 
     override fun onResume() {
