@@ -117,9 +117,9 @@ class Home : AppCompatActivity() {
         val adminButtonLayout = findViewById<LinearLayout>(R.id.admin_button_layout)
         adminBtn = findViewById(R.id.admin_button)
         if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
-            adminButtonLayout.visibility = View.GONE
-        }else{
             adminButtonLayout.visibility = View.VISIBLE
+        }else{
+            adminButtonLayout.visibility = View.GONE
         }
         adminBtn.setOnClickListener {
             Intent(this, AdminActivity::class.java).also {
