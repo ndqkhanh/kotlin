@@ -27,8 +27,8 @@ import java.util.*
 
 
 class Home : AppCompatActivity() {
-    lateinit var listBusStations: List<BusStation>
-    lateinit var listBusOperators: List<BusOperator>
+    lateinit var listBusStations: ArrayList<BusStation>
+    lateinit var listBusOperators: ArrayList<BusOperator>
     lateinit var spinnerDeparture: Spinner
     lateinit var spinnerDestination: Spinner
     lateinit var spinnerBusOperator: Spinner
@@ -51,8 +51,8 @@ class Home : AppCompatActivity() {
 
         val departureId = listBusStations.filter { it.name == departure }.map { it.id }.first()
         val destinationId = listBusStations.filter { it.name == destination }.map { it.id }.first()
-
-        val busOperatorId = listBusOperators.filter { it.name == spinnerBusOperator.selectedItem.toString() }.map { it.id }.first()
+        val busOperatorSelectedOption = spinnerBusOperator.selectedItem.toString()
+        val busOperatorId = if(busOperatorSelectedOption == "All") null else listBusOperators.filter { it.name == busOperatorSelectedOption }.map { it.id }.first()
         val pricing = pricingSeekBar.progress
         val typeOfSeat = typeOfSeatRadioGroup.checkedRadioButtonId
 
@@ -192,7 +192,7 @@ class Home : AppCompatActivity() {
         GlobalScope.launch (Dispatchers.IO) {
             val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
             if(response.isSuccessful){
-                listBusStations = response.body()?.data as List<BusStation>
+                listBusStations = response.body()?.data as ArrayList<BusStation>
 
                 withContext(Dispatchers.Main) {
                     spinnerDeparture!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
@@ -202,8 +202,10 @@ class Home : AppCompatActivity() {
 
             val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
             if(response2.isSuccessful){
-                listBusOperators = response2.body()?.data as List<BusOperator>
-
+                listBusOperators = response2.body()?.data as ArrayList<BusOperator>
+                // push all bus operator to list
+                listBusOperators.add(0, BusOperator("all", "", "", "All"))
+                Log.d("test", listBusOperators.toString())
                 withContext(Dispatchers.Main) {
                     spinnerBusOperator!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusOperators.map { it.name })
                 }
@@ -215,6 +217,7 @@ class Home : AppCompatActivity() {
         val searchButton = findViewById<Button>(R.id.searchButton)
 
         searchButton.setOnClickListener {
+            listBuses.clear()
             loadMoreResult()
 
             loadMoreButton.visibility = View.VISIBLE
