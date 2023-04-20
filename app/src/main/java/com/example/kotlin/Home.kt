@@ -28,8 +28,8 @@ import java.util.*
 
 
 class Home : AppCompatActivity() {
-    lateinit var listBusStations: List<BusStation>
-    lateinit var listBusOperators: List<BusOperator>
+    lateinit var listBusStations: ArrayList<BusStation>
+    lateinit var listBusOperators: ArrayList<BusOperator>
     lateinit var spinnerDeparture: Spinner
     lateinit var spinnerDestination: Spinner
     lateinit var spinnerBusOperator: Spinner
@@ -54,8 +54,8 @@ class Home : AppCompatActivity() {
 
         val departureId = listBusStations.filter { it.name == departure }.map { it.id }.first()
         val destinationId = listBusStations.filter { it.name == destination }.map { it.id }.first()
-
-        val busOperatorId = listBusOperators.filter { it.name == spinnerBusOperator.selectedItem.toString() }.map { it.id }.first()
+        val busOperatorSelectedOption = spinnerBusOperator.selectedItem.toString()
+        val busOperatorId = if(busOperatorSelectedOption == "All") null else listBusOperators.filter { it.name == busOperatorSelectedOption }.map { it.id }.first()
         val pricing = pricingSeekBar.progress
         val typeOfSeat = typeOfSeatRadioGroup.checkedRadioButtonId
 
@@ -114,14 +114,13 @@ class Home : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         /*Admin Nav Button*/
+        val adminButtonLayout = findViewById<LinearLayout>(R.id.admin_button_layout)
         adminBtn = findViewById(R.id.admin_button)
-        adminTextBtn = findViewById(R.id.admin_text_view)
-        val fbInfor = FBInfor
-        if (fbInfor.ROLE !== 0) {
-            adminBtn.visibility = View.INVISIBLE
-            adminTextBtn.setText("")
+        if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
+            adminButtonLayout.visibility = View.VISIBLE
+        }else{
+            adminButtonLayout.visibility = View.GONE
         }
-
         adminBtn.setOnClickListener {
             Intent(this, AdminActivity::class.java).also {
                 startActivity(it)
@@ -158,6 +157,79 @@ class Home : AppCompatActivity() {
 
         searchResult!!.adapter = adapter
 
+        Utility.setListViewHeightBasedOnChildren(searchResult)
+
+        datePicker = findViewById<EditText>(R.id.datePicker)
+       // disable datePicker
+        datePicker.isClickable = true
+        datePicker.isCursorVisible = false
+
+        datePicker.setOnClickListener {
+            DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                Log.d("Date", "$dayOfMonth/$month/$year")
+                // set date to date picker
+                datePicker.setText("$dayOfMonth/$month/$year")
+            }, 2020, 1, 1).show()
+        }
+
+        val retrofit = APIServiceImpl()
+
+        spinnerDeparture = findViewById<Spinner>(R.id.spinnerDeparture)
+        spinnerDestination = findViewById<Spinner>(R.id.spinnerDestination)
+        spinnerBusOperator = findViewById<Spinner>(R.id.busOperatorFilter)
+        typeOfSeatRadioGroup = findViewById<RadioGroup>(R.id.typeOfSeat)
+        pricingSeekBar = findViewById<SeekBar>(R.id.pricingSeekBar)
+        GlobalScope.launch (Dispatchers.IO) {
+            val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
+            if(response.isSuccessful){
+                listBusStations = response.body()?.data as ArrayList<BusStation>
+
+                withContext(Dispatchers.Main) {
+                    spinnerDeparture!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
+                    spinnerDestination!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
+                }
+            }
+
+            val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
+            if(response2.isSuccessful){
+                listBusOperators = response2.body()?.data as ArrayList<BusOperator>
+                // push all bus operator to list
+                listBusOperators.add(0, BusOperator("all", "", "", "All"))
+                Log.d("test", listBusOperators.toString())
+                withContext(Dispatchers.Main) {
+                    spinnerBusOperator!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusOperators.map { it.name })
+                }
+            }
+        }
+
+        val searchButton = findViewById<Button>(R.id.searchButton)
+        val searchText = findViewById<TextView>(R.id.searchText)
+        searchText!!.visibility = View.INVISIBLE
+        searchResult!!.visibility = View.INVISIBLE
+
+        searchButton.setOnClickListener {
+            listBuses.clear()
+            // show searchText
+
+            loadMoreResult()
+
+            searchText.visibility = View.VISIBLE
+            searchResult.visibility = View.VISIBLE
+            loadMoreButton.visibility = View.VISIBLE
+        }
+        
+        loadMoreButton = findViewById<Button>(R.id.loadMore)
+        if(currentPage == 0){
+            loadMoreButton.visibility = View.GONE
+        }
+        loadMoreButton.setOnClickListener {
+            currentPage += 1
+            loadMoreResult(currentPage)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         var blogPage = 1
         var blogLimit = 20
         var blogList = findViewById<RecyclerView>(R.id.blogList)
@@ -188,65 +260,6 @@ class Home : AppCompatActivity() {
             }
         } catch (e: Exception) {
             Log.d("Error", e.toString())
-        }
-
-        Utility.setListViewHeightBasedOnChildren(searchResult)
-
-        datePicker = findViewById<EditText>(R.id.datePicker)
-
-        datePicker.setOnClickListener {
-            DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                Log.d("Date", "$dayOfMonth/$month/$year")
-                // set date to date picker
-                datePicker.setText("$dayOfMonth/$month/$year")
-            }, 2020, 1, 1).show()
-        }
-
-        val retrofit = APIServiceImpl()
-
-        spinnerDeparture = findViewById<Spinner>(R.id.spinnerDeparture)
-        spinnerDestination = findViewById<Spinner>(R.id.spinnerDestination)
-        spinnerBusOperator = findViewById<Spinner>(R.id.busOperatorFilter)
-        typeOfSeatRadioGroup = findViewById<RadioGroup>(R.id.typeOfSeat)
-        pricingSeekBar = findViewById<SeekBar>(R.id.pricingSeekBar)
-        GlobalScope.launch (Dispatchers.IO) {
-            val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
-            if(response.isSuccessful){
-                listBusStations = response.body()?.data as List<BusStation>
-
-                withContext(Dispatchers.Main) {
-                    spinnerDeparture!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
-                    spinnerDestination!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
-                }
-            }
-
-            val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
-            if(response2.isSuccessful){
-                listBusOperators = response2.body()?.data as List<BusOperator>
-
-                withContext(Dispatchers.Main) {
-                    spinnerBusOperator!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusOperators.map { it.name })
-                }
-            }
-        }
-
-        val busOperatorFilter = findViewById<Spinner>(R.id.busOperatorFilter)
-
-        val searchButton = findViewById<Button>(R.id.searchButton)
-
-        searchButton.setOnClickListener {
-            loadMoreResult()
-
-            loadMoreButton.visibility = View.VISIBLE
-        }
-        
-        loadMoreButton = findViewById<Button>(R.id.loadMore)
-        if(currentPage == 0){
-            loadMoreButton.visibility = View.GONE
-        }
-        loadMoreButton.setOnClickListener {
-            currentPage += 1
-            loadMoreResult(currentPage)
         }
     }
 

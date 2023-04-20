@@ -95,12 +95,12 @@ class BusDetailActivity : AppCompatActivity() {
                 arr.add("Type of bus")
                 arr.add(data?.type.toString() ?: "")
                 arr.add("Price")
-                arr.add(data?.price.toString() ?: "")
+                arr.add(data?.pricingFormat ?: "")
 
                 // put arr in sharedPreference
                 val sharePref = getSharedPreferences("BusDetail", MODE_PRIVATE)
                 val editor = sharePref.edit()
-                val str = arr.joinToString(",")
+                val str = arr.joinToString(";")
                 Log.d("Search", "str: $str")
                 editor.putString("busInformation", str)
                 editor.putString("busAvatar", data?.image_url)

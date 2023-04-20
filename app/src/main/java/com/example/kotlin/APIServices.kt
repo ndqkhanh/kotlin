@@ -90,6 +90,8 @@ data class Bus(
     val num_of_seats: Int,
     val price: Int,
     val bus_operators: BusOperator,
+    val pricingFormat: String,
+    val duration: String
 //    val left_seats: Int ADMIN DOESN'T NEED THIS
 )
 
