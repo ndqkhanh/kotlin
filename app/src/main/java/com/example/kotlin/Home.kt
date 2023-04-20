@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.provider.MediaStore.Audio.Radio
 import android.view.View.VISIBLE
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.facebook.login.widget.LoginButton
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +38,8 @@ class Home : AppCompatActivity() {
     lateinit var loadMoreButton: Button
     lateinit var typeOfSeatRadioGroup: RadioGroup
     lateinit var pricingSeekBar: SeekBar
+    lateinit var adminBtn: ImageButton
+    lateinit var adminTextBtn: TextView
     val retrofit = APIServiceImpl()
     private lateinit var localEditor: SharedPreferences.Editor
     var listBuses = ArrayList<Bus>()
@@ -109,6 +112,23 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        /*Admin Nav Button*/
+        adminBtn = findViewById(R.id.admin_button)
+        adminTextBtn = findViewById(R.id.admin_text_view)
+        val fbInfor = FBInfor
+        if (fbInfor.ROLE !== 0) {
+            adminBtn.visibility = View.INVISIBLE
+            adminTextBtn.setText("")
+        }
+
+        adminBtn.setOnClickListener {
+            Intent(this, AdminActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
+
 
         val busses = ArrayList<Bus>()
         searchResult = findViewById<ListView>(R.id.searchResult)
