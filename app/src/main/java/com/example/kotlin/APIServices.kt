@@ -103,8 +103,11 @@ data class BusSearchRequest(
     var endPoint: String,
     var page: Int,
     var limit: Int,
-    var startTime: String
-)
+    var startTime: String,
+    var price: Int,
+    var type: Int,
+    var boId: String?
+    )
 
 
 data class BusStationResponse(
@@ -272,11 +275,15 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.4:3000/v1/"
+    private val BASE_URL = "http://10.126.0.70:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+    fun busOperatorService(): BusOperatorService {
+        return api.create(BusOperatorService::class.java)
+    }
 
     fun userService(): UserService {
         return api.create(UserService::class.java)

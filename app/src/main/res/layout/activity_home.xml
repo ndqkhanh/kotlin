@@ -52,6 +52,33 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="100" />
+                <LinearLayout
+                    android:id="@+id/admin_button_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5pt"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/admin_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_weight="1"
+                        android:background="@color/blank"
+                        android:contentDescription="&quot;this is logout button&quot;"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/logout_icon"
+                        app:tint="@color/button_color" />
+
+                    <TextView
+                        android:id="@+id/admin_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Admin"
+                        android:textColor="@color/button_color"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/home_logout_button"
@@ -79,6 +106,7 @@
                         android:textColor="@color/button_color"
                         android:textStyle="bold" />
                 </LinearLayout>
+
 
             </LinearLayout>
 
@@ -121,6 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:divider="@drawable/empty_tall_divider"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -130,7 +159,7 @@
                         android:layout_below="@+id/textView"
                         android:layout_gravity="fill"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/textview_border"
                         android:completionThreshold="3"
@@ -143,8 +172,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView"
-                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
+                        android:layout_marginStart="5dp"
                         android:background="@drawable/textview_border"
                         android:hint="Destination"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -155,7 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_below="@+id/gridLayout"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="0dp"
                     android:drawableStart="@drawable/ic_baseline_date_range_24"
                     android:hint="Departure date" />
@@ -166,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/datePicker"
                     android:layout_marginTop="10dp"
-                    android:text="Filter"
+                    android:text="Bus Operator"
                     android:textSize="15sp" />
 
                 <Spinner
@@ -187,38 +216,71 @@
                     android:text="Type of seat"
                     android:textSize="15sp" />
 
-                <CheckBox
-                    android:id="@+id/busLimousineType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                <RadioGroup
+                    android:id="@+id/typeOfSeat"
                     android:layout_below="@+id/typeOfSeatTitle"
-                    android:text="Limousine" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/normalSeat"
+                   >
 
-                <CheckBox
-                    android:id="@+id/busNormalSeatType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_below="@+id/busLimousineType"
-                    android:text="Normal Seat" />
+                    <RadioButton
+                        android:id="@+id/limousine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Limousine"
+                        android:onClick="radio_button_click"/>
 
-                <CheckBox
-                    android:id="@+id/busSleeperBusType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_below="@+id/busNormalSeatType"
-                    android:text="Sleeper Bus" />
+                    <RadioButton
+                        android:id="@+id/normalSeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Normal Seat"
+                        android:onClick="radio_button_click"
+
+                        />
+
+                    <RadioButton
+                        android:id="@+id/sleeperBus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sleeper Bus"
+                        android:onClick="radio_button_click"/>
+
+                </RadioGroup>
+
+                <!--                <CheckBox-->
+<!--                    android:id="@+id/busLimousineType"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_below="@+id/typeOfSeatTitle"-->
+<!--                    android:text="Limousine" />-->
+
+<!--                <CheckBox-->
+<!--                    android:id="@+id/busNormalSeatType"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_below="@+id/busLimousineType"-->
+<!--                    android:text="Normal Seat" />-->
+
+<!--                <CheckBox-->
+<!--                    android:id="@+id/busSleeperBusType"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_below="@+id/busNormalSeatType"-->
+<!--                    android:text="Sleeper Bus" />-->
 
                 <TextView
                     android:id="@+id/pricingTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/busSleeperBusType"
+                    android:layout_below="@+id/typeOfSeat"
                     android:layout_marginTop="10dp"
                     android:text="Pricing"
                     android:textSize="15sp" />
 
                 <SeekBar
-                    android:id="@+id/seekBar"
+                    android:id="@+id/pricingSeekBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/pricingTitle"
@@ -231,7 +293,7 @@
                     android:id="@+id/searchButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/seekBar"
+                    android:layout_below="@+id/pricingSeekBar"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
