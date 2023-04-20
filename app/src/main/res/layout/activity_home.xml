@@ -65,9 +65,9 @@
                         android:layout_height="29dp"
                         android:layout_weight="1"
                         android:background="@color/blank"
-                        android:contentDescription="&quot;this is logout button&quot;"
+                        android:contentDescription="&quot;this is admin button&quot;"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/logout_icon"
+                        app:srcCompat="@drawable/admin_svgrepo_com"
                         app:tint="@color/button_color" />
 
                     <TextView
