@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.content.SharedPreferences
+import android.provider.MediaStore.Audio.Radio
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.facebook.login.widget.LoginButton
@@ -27,11 +28,15 @@ import java.util.*
 
 class Home : AppCompatActivity() {
     lateinit var listBusStations: List<BusStation>
+    lateinit var listBusOperators: List<BusOperator>
     lateinit var spinnerDeparture: Spinner
     lateinit var spinnerDestination: Spinner
+    lateinit var spinnerBusOperator: Spinner
     lateinit var datePicker: EditText
     lateinit var searchResult: ListView
     lateinit var loadMoreButton: Button
+    lateinit var typeOfSeatRadioGroup: RadioGroup
+    lateinit var pricingSeekBar: SeekBar
     val retrofit = APIServiceImpl()
     private lateinit var localEditor: SharedPreferences.Editor
     var listBuses = ArrayList<Bus>()
@@ -47,6 +52,20 @@ class Home : AppCompatActivity() {
         val departureId = listBusStations.filter { it.name == departure }.map { it.id }.first()
         val destinationId = listBusStations.filter { it.name == destination }.map { it.id }.first()
 
+        val busOperatorId = listBusOperators.filter { it.name == spinnerBusOperator.selectedItem.toString() }.map { it.id }.first()
+        val pricing = pricingSeekBar.progress
+        val typeOfSeat = typeOfSeatRadioGroup.checkedRadioButtonId
+
+        // convert typeOfSeat to value {"id": 0}
+        var typeOfSeatValue = 0
+        if(typeOfSeat == R.id.limousine){
+            typeOfSeatValue = 0
+        } else if(typeOfSeat == R.id.normalSeat){
+            typeOfSeatValue = 1
+        } else if(typeOfSeat == R.id.sleeperBus){
+            typeOfSeatValue = 2
+        }
+
         if(departure == "" || destination == "" || startTime == ""){
             Toast.makeText(this, "Please fill enough information", Toast.LENGTH_SHORT).show()
         } else {
@@ -60,7 +79,7 @@ class Home : AppCompatActivity() {
             val outputDateString = outputFormatter.format(zonedDateTime)
 
             GlobalScope.launch (Dispatchers.IO) {
-                val response = APIServiceImpl().searchBusses().search(BusSearchRequest(departureId, destinationId, page, limit, outputDateString)).awaitResponse()
+                val response = APIServiceImpl().searchBusses().search(BusSearchRequest(departureId, destinationId, page, limit, outputDateString, pricing, typeOfSeatValue, busOperatorId)).awaitResponse()
                 Log.d("Search", response.toString())
                 if(response.isSuccessful){
                     Log.d("Search", response.body().toString())
@@ -115,28 +134,6 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val tickets = ArrayList<Ticket>()
-        tickets.add(
-            Ticket(
-                "Ninh bình 2",
-                "100.000đ",
-                "1h 30p",
-                "Hà Nội",
-                "HCM",
-                "32bd7781-0713-45cc-9841-0abb62a807e0"
-            )
-        )
-        tickets.add(
-            Ticket(
-                "Ninh bình 1",
-                "100.000đ",
-                "1h 30p",
-                "Hà Nội",
-                "HCM",
-                "384fdcb1-496f-4f87-8b1e-578674111ac1"
-            )
-        )
-
         val adapter = CustomTicketItem(this, busses, supportFragmentManager, lifecycle)
 
         searchResult!!.adapter = adapter
@@ -189,7 +186,9 @@ class Home : AppCompatActivity() {
 
         spinnerDeparture = findViewById<Spinner>(R.id.spinnerDeparture)
         spinnerDestination = findViewById<Spinner>(R.id.spinnerDestination)
-
+        spinnerBusOperator = findViewById<Spinner>(R.id.busOperatorFilter)
+        typeOfSeatRadioGroup = findViewById<RadioGroup>(R.id.typeOfSeat)
+        pricingSeekBar = findViewById<SeekBar>(R.id.pricingSeekBar)
         GlobalScope.launch (Dispatchers.IO) {
             val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
             if(response.isSuccessful){
@@ -198,6 +197,15 @@ class Home : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     spinnerDeparture!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
                     spinnerDestination!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusStations.map { it.name })
+                }
+            }
+
+            val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
+            if(response2.isSuccessful){
+                listBusOperators = response2.body()?.data as List<BusOperator>
+
+                withContext(Dispatchers.Main) {
+                    spinnerBusOperator!!.adapter = ArrayAdapter(this@Home, android.R.layout.simple_list_item_single_choice, listBusOperators.map { it.name })
                 }
             }
         }
