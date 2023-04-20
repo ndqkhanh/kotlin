@@ -311,7 +311,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Kết quả"
+                android:text="Result"
                 android:textColor="#000000"
                 android:textSize="23sp"
                 android:textStyle="bold"

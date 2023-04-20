@@ -41,7 +41,7 @@ class BusInformationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sharedPreference = activity?.getSharedPreferences("BusDetail", Context.MODE_PRIVATE)
         val busInformation = sharedPreference?.getString("busInformation", null)
-        val splits = busInformation?.split(",")
+        val splits = busInformation?.split(";")
 
         val busInfoRV = view.findViewById<RecyclerView>(R.id.busInfoRV)
 
