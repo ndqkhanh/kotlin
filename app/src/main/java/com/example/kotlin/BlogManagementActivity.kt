@@ -84,6 +84,7 @@ class BlogManagementActivity : AppCompatActivity() {
                             blogAdapter.onItemClick = {
                                 val intent = Intent(this@BlogManagementActivity, BlogDetailActivity::class.java)
                                 intent.putExtra("blogId", it.id)
+                                intent.putExtra("activity", "management")
                                 startActivity(intent)
                             }
                         }

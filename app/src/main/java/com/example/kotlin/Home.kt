@@ -91,8 +91,6 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
-
         val busses = ArrayList<Bus>()
         searchResult = findViewById<ListView>(R.id.searchResult)
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)

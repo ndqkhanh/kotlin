@@ -31,10 +31,9 @@ class AdminActivity: AppCompatActivity() {
                 "Bus Operator" -> Intent(this, AdminBusOperatorActivity::class.java).also {
                     startActivity(it)
                 }
-//                "Blog" -> Intent(this, AdminBusOperatorActivity::class.java).also {
-//                    startActivity(it)
-//                }
-
+                "Blog" -> Intent(this, BlogManagementActivity::class.java).also {
+                    startActivity(it)
+                }
             }
             Toast.makeText(
                 this, " Selected Company is " + adminItemList.get(i).name,
@@ -47,9 +46,7 @@ class AdminActivity: AppCompatActivity() {
 
         backBtn = findViewById(R.id.adminPageBackBtn)
         backBtn.setOnClickListener {
-            Intent(this, Home::class.java).also {
-                startActivity(it)
-            }
+            finish()
         }
 
     }
