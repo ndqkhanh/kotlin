@@ -73,9 +73,10 @@ class AdminBusTicketActivity:AppCompatActivity() {
 
         backBtn = findViewById(R.id.adminBusTicketListBackBtn)
         backBtn.setOnClickListener {
-            Intent(this, AdminActivity::class.java).also {
-                startActivity(it)
-            }
+//            Intent(this, AdminActivity::class.java).also {
+//                startActivity(it)
+//            }
+            finish()
         }
 
     }

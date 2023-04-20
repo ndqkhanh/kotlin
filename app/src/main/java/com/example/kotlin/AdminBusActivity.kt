@@ -1,5 +1,6 @@
 package com.example.kotlin
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -20,16 +21,33 @@ class AdminBusActivity:AppCompatActivity() {
     var busAdapter: AdminBusAdapter? = null
     val retrofit = APIServiceImpl()
 
+    private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus)
 
-        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
-
 
         buses = mutableListOf()
 
+
+
+        // Add Button
+        addBtn = findViewById(R.id.adminBusAddBtn)
+        addBtn.setOnClickListener {
+            val intent = Intent(this, AdminBusCreateActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
+        }
+
+        backBtn = findViewById(R.id.adminBusListBackBtn)
+        backBtn.setOnClickListener{
+            finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
         val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
             throwable.printStackTrace()
         }
@@ -76,26 +94,42 @@ class AdminBusActivity:AppCompatActivity() {
             }
 
         }
-
-
-
-        // Add Button
-        addBtn = findViewById(R.id.adminBusAddBtn)
-        addBtn.setOnClickListener {
-            Intent(this, AdminBusCreateActivity::class.java).also {
-                startActivity(it)
-            }
-        }
-
-        backBtn = findViewById(R.id.adminBusListBackBtn)
-        backBtn.setOnClickListener{
-            Intent(this,AdminActivity::class.java).also {
-                startActivity(it)
-            }
-        }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val id = data?.getStringExtra("id")
+
+            val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
+            // Do something with the user input
+            val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
+                throwable.printStackTrace()
+            }
+
+
+            GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
+                Log.d("token", token!!)
+                var response = retrofit.searchBusses().adminSearchBuses(token!!,id!!).awaitResponse() // CHANGE
+                Log.d("Response", "vui 1" + response.message())
+                // debug response
+                Log.d("Response", response.toString())
+                if(response.isSuccessful){
+                    Log.d("Response", "vui 2")
+                    val data = response.body()!!
+                    Log.d("Response", data.toString())
+                    buses.add(0,data)
+
+                    Log.d("busTickets vui 1: ", buses.size.toString())
+
+                    withContext(Dispatchers.Main){
+                        busAdapter?.notifyItemInserted(0)
+
+                    }
+
+                }
+
+            }
+        }
     }
 }
