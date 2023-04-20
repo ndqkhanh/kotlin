@@ -127,8 +127,6 @@ class Home : AppCompatActivity() {
             }
         }
 
-
-
         val busses = ArrayList<Bus>()
         searchResult = findViewById<ListView>(R.id.searchResult)
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)

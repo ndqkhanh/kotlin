@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,7 @@ class AdminBlogCreateActivity : AppCompatActivity() {
     private lateinit var txtContent: EditText
     private lateinit var btnAdd: Button
     private lateinit var btnLogOut: ImageButton
+    private lateinit var btnBack: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_blog_create)
@@ -32,6 +34,10 @@ class AdminBlogCreateActivity : AppCompatActivity() {
         txtContent = findViewById(R.id.txtContent)
         btnAdd = findViewById(R.id.btnAdd)
         btnLogOut = findViewById(R.id.btnLogOut)
+        btnBack = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
+        }
 
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         localEditor = localStore.edit()

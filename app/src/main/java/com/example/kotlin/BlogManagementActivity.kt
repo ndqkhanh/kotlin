@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,12 +19,18 @@ class BlogManagementActivity : AppCompatActivity() {
     private lateinit var blogList: RecyclerView
     private lateinit var btnPrevious: Button
     private lateinit var btnNext: Button
+    private lateinit var btnBack: ImageView
     val retrofit = APIServiceImpl()
     private var page = 1
     private val limit = 5
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blog_management)
+
+        btnBack = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
+        }
 
         blogList = findViewById(R.id.blogList)
         btnPrevious = findViewById(R.id.btnPrevious)
@@ -74,9 +81,13 @@ class BlogManagementActivity : AppCompatActivity() {
                             } else {
                                 body.count / limit + 1
                             }
-                            btnPrevious.isEnabled = page != pageMax
-                            btnNext.isEnabled = page != 1
-                            val blogAdapter = CustomBlogItem(body.data)
+                            btnPrevious.isEnabled = (page in 2 .. pageMax)
+                            btnNext.isEnabled = (page in 1 until pageMax)
+                            if(pageMax == 0) {
+                                btnPrevious.isEnabled = false
+                                btnNext.isEnabled = false
+                            }
+                            val blogAdapter = CustomAdminBlogItem(body.data as MutableList<BlogResponse>)
 
                             blogList.adapter = blogAdapter
                             blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)

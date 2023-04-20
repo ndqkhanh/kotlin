@@ -22,16 +22,12 @@ const getBlogById = async (id) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
   });
   blog.update_time = new Date(blog.update_time).toLocaleDateString(undefined, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
   });
 
   return blog;
@@ -73,6 +69,23 @@ const getBlogs = async (page, limit) => {
       create_time: 'desc',
     },
   });
+
+  for (let i = 0; i < data.length; i++) {
+    data[i].create_time = new Date(data[i].create_time).toLocaleDateString(undefined, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }
+    );
+    data[i].update_time = new Date(data[i].update_time).toLocaleDateString(undefined, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }
+    );
+  }
 
   const count = await prisma.blogs.count();
 
