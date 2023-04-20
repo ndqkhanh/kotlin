@@ -157,37 +157,37 @@ class Home : AppCompatActivity() {
 
         searchResult!!.adapter = adapter
 
-        var blogPage = 1
-        var blogLimit = 20
-        var blogList = findViewById<RecyclerView>(R.id.blogList)
-        try {
-            GlobalScope.launch(Dispatchers.IO) {
-                val response =
-                    retrofit.getBlog().getBlogs(blogPage, blogLimit).awaitResponse()
-                // debug response
-                Log.d("Response", response.toString())
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    launch(Dispatchers.Main) {
-                        if (body != null) {
-                            val blogAdapter = CustomBlogItem(body.data)
-
-                            blogList!!.adapter = blogAdapter
-                            blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
-
-                            blogAdapter.onItemClick = {
-                                val intent = Intent(this@Home, BlogDetailActivity::class.java)
-                                intent.putExtra("activity", "home")
-                                intent.putExtra("blogId", it.id)
-                                startActivity(intent)
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            Log.d("Error", e.toString())
-        }
+//        var blogPage = 1
+//        var blogLimit = 20
+//        var blogList = findViewById<RecyclerView>(R.id.blogList)
+//        try {
+//            GlobalScope.launch(Dispatchers.IO) {
+//                val response =
+//                    retrofit.getBlog().getBlogs(blogPage, blogLimit).awaitResponse()
+//                // debug response
+//                Log.d("Response", response.toString())
+//                if (response.isSuccessful) {
+//                    val body = response.body()
+//                    launch(Dispatchers.Main) {
+//                        if (body != null) {
+//                            val blogAdapter = CustomBlogItem(body.data)
+//
+//                            blogList!!.adapter = blogAdapter
+//                            blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
+//
+//                            blogAdapter.onItemClick = {
+//                                val intent = Intent(this@Home, BlogDetailActivity::class.java)
+//                                intent.putExtra("activity", "home")
+//                                intent.putExtra("blogId", it.id)
+//                                startActivity(intent)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (e: Exception) {
+//            Log.d("Error", e.toString())
+//        }
 
         Utility.setListViewHeightBasedOnChildren(searchResult)
 
@@ -249,6 +249,41 @@ class Home : AppCompatActivity() {
         loadMoreButton.setOnClickListener {
             currentPage += 1
             loadMoreResult(currentPage)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var blogPage = 1
+        var blogLimit = 20
+        var blogList = findViewById<RecyclerView>(R.id.blogList)
+        try {
+            GlobalScope.launch(Dispatchers.IO) {
+                val response =
+                    retrofit.getBlog().getBlogs(blogPage, blogLimit).awaitResponse()
+                // debug response
+                Log.d("Response", response.toString())
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    launch(Dispatchers.Main) {
+                        if (body != null) {
+                            val blogAdapter = CustomBlogItem(body.data)
+
+                            blogList!!.adapter = blogAdapter
+                            blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
+
+                            blogAdapter.onItemClick = {
+                                val intent = Intent(this@Home, BlogDetailActivity::class.java)
+                                intent.putExtra("activity", "home")
+                                intent.putExtra("blogId", it.id)
+                                startActivity(intent)
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("Error", e.toString())
         }
     }
 

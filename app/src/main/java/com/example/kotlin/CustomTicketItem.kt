@@ -68,7 +68,7 @@ class CustomTicketItem(private val context: Activity, private val busses: List<B
             val busImage = rowView.findViewById(R.id.busImage) as ImageView
 
             busOperatorName.text = busses[position].bus_operators.name
-            val pricingText: String = "Pricing: " + DecimalFormat("#.###", DecimalFormatSymbols(Locale.GERMANY)).format( busses[position].price.toString()) + "đ";
+            val pricingText: String = "Pricing: " +busses[position].price.toString() + "đ";
             busPrice.text = pricingText
             val timeText: String = "Time: " + busses[position].start_time + " - " + busses[position].end_time
             busStartTime.text = timeText
