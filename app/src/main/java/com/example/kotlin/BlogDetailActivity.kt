@@ -54,7 +54,7 @@ class BlogDetailActivity : AppCompatActivity() {
                         val blog = response.body()
                         txtTitle.text = blog?.title
                         txtContent.text = blog?.content
-                        txtCreateTime.text = blog?.created_time
+                        txtCreateTime.text = blog?.create_time
                         Glide.with(imgBlogDetail.context)
                             .load(blog?.thumbnail)
                             .into(imgBlogDetail)

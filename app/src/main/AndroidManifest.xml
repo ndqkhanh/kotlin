@@ -17,7 +17,7 @@
             android:name=".PersonalInformation"
             android:exported="false" />
         <activity
-            android:name=".BlogActivity"
+            android:name=".BlogManagementActivity"
             android:exported="false" />
         <activity
             android:name=".AdminBusTicketActivity"

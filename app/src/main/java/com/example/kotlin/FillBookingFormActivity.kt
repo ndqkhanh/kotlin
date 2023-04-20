@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
 
 class FillBookingFormActivity : AppCompatActivity() {
+    private lateinit var busId: String
     private lateinit var edtName: EditText
     private lateinit var edtEmail: EditText
     private lateinit var edtStartTime: EditText
@@ -28,6 +29,8 @@ class FillBookingFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fill_booking_form)
+
+        busId = intent.getStringExtra("busId").toString()
 
         edtName = findViewById(R.id.edtName)
         edtEmail = findViewById(R.id.edtEmail)
@@ -54,11 +57,36 @@ class FillBookingFormActivity : AppCompatActivity() {
             dialog.create().show()
         }
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val retrofit = APIServiceImpl()
+        val token = this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
+
         edtName.setText(FBInfor.NAME)
         edtEmail.setText(FBInfor.EMAIL)
 
-        val token = this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
-        val busId = intent.getStringExtra("busId")
+        try {
+            GlobalScope.launch(Dispatchers.IO) {
+                val response =
+                    retrofit.bus().getBusById(busId!!).awaitResponse()
+                // debug response
+                Log.d("Response", response.toString())
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    Log.d("Response", body.toString())
+                    launch(Dispatchers.Main) {
+                        edtStartTime.setText(body?.start_time)
+                        edtEndTime.setText(body?.end_time)
+                        edtDestination.setText(body?.start_point?.name + " - " + body?.end_point?.name)
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         btnBook = findViewById(R.id.btnBook)
         btnBook.setOnClickListener {
@@ -79,7 +107,6 @@ class FillBookingFormActivity : AppCompatActivity() {
                 setTitle("Booking Confirmation")
                 setMessage("Are you sure to book this bus?")
                 setPositiveButton("Yes") { _, _ ->
-                    val retrofit = APIServiceImpl()
                     try {
                         GlobalScope.launch(Dispatchers.IO) {
                             val response =

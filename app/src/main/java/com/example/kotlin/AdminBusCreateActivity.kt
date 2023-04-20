@@ -44,9 +44,6 @@ class AdminBusCreateActivity: AppCompatActivity() {
 
 
     private  var busType : MutableList<String> = mutableListOf("Bus 1", "Bus 2", "Bus 3")
-    // THIS WILL BE REPLACED WHENEVER HOANG LOGIN BY FACEBOOK
-    // TOKEN WILL GET FROM THERE
-    val token = "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODExMTcwODIsImV4cCI6MTY4MTExODg4MiwidHlwZSI6ImFjY2VzcyJ9.TOcqm9zZFXAADOKcahxkgdDuwDURu009VUJ9jTF4teY"
 
     // Sample data
     lateinit var data : AdminBusCreateBody
@@ -69,7 +66,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus_create)
-
+        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
         val retrofit = APIServiceImpl()
 
         addBtn = findViewById(R.id.addBtnAdminBusCreateBtn)
