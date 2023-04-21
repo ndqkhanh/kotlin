@@ -9,9 +9,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 
-class Point(val id: String, val time: String, val name: String, val location: String)
-
-class ChoosePickUpLocationActivity : AppCompatActivity() {
+class ChooseDropDownLocationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_pick_up_location)
@@ -26,6 +24,7 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
         busPickUpPoints.add(Point("2","8:30", "Point 2", "Location 2"))
         busPickUpPoints.add(Point("3","9:00", "Point 3", "Location 3"))
 
+
         val listView = findViewById<ListView>(R.id.lvDiemDon)
         val adapter = PickUpPointAdapter(this, busPickUpPoints)
         listView.adapter = adapter
@@ -35,10 +34,10 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
         val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
         continueBtn.setOnClickListener {
             if(adapter.getSelectedPosition() == -1) {
-                Toast.makeText(this, "Hãy chọn điếm đón bạn muốn", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Hãy chọn điếm trả bạn muốn", Toast.LENGTH_SHORT).show()
             }
             else {
-                intent = Intent(this, ChooseDropDownLocationActivity::class.java)
+                intent = Intent(this, EnterInformationActiviy::class.java)
                 startActivity(intent)
             }
         }

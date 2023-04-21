@@ -3,29 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="3dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingVertical="10dp">
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="22:35"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat"
-            android:textColor="@color/black"
+        <ImageView
+            android:id="@+id/imgRadioButton"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/unchecked_radio"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/montserrat"
+            android:text="22:35"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imgRadioButton"
+            app:layout_constraintTop_toTopOf="@+id/imgRadioButton" />
+
+        <TextView
+            android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Văn Phòng Sài Gòn"
@@ -33,11 +43,11 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintStart_toStartOf="@+id/txtTime"
+            app:layout_constraintTop_toBottomOf="@+id/txtTime" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/txtLocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -45,8 +55,8 @@
             android:fontFamily="@font/montserrat"
             android:text="85C Nguyễn Cư Trinh, Phường Nguyễn Cư Trinh, Quận 1, Hồ Chí Minh"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintStart_toStartOf="@+id/txtTime"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
