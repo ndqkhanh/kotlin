@@ -43,4 +43,7 @@
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="rating_bar">Rating bar</string>
+
+<!--    New -->
+    <string name="login_home"><u>Đăng nhập</u></string>
 </resources>

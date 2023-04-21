@@ -73,14 +73,15 @@ class Home : AppCompatActivity() {
             Toast.makeText(this, "Please fill enough information", Toast.LENGTH_SHORT).show()
         } else {
             Log.d("Search", "$departureId - $destinationId - $startTime")
-            val inputDateString = "03/25/2023"
-            val inputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+//            val inputDateString = "03/25/2023"
+            val inputDateString = findViewById<EditText>(R.id.datePicker).text.toString()
+            val inputFormatter = DateTimeFormatter.ofPattern("M/d/yyyy")
             val localDate = LocalDate.parse(inputDateString, inputFormatter)
             val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val localDateTime = localDate.atStartOfDay()
             val zonedDateTime = localDateTime.atZone(ZoneId.of("America/New_York"))
             val outputDateString = outputFormatter.format(zonedDateTime)
-
+            Log.d("outputDateString", outputDateString)
             GlobalScope.launch (Dispatchers.IO) {
                 val response = APIServiceImpl().searchBusses().search(BusSearchRequest(departureId, destinationId, page, limit, outputDateString, pricing, typeOfSeatValue, busOperatorId)).awaitResponse()
                 Log.d("Search", response.toString())
