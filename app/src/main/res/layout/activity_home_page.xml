@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomePage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="242dp"
-        app:srcCompat="@drawable/curved_bg"/>
+        app:srcCompat="@drawable/curved_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <RelativeLayout
         android:id="@id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginRight="20dp"
         android:orientation="horizontal">
         <ImageView
@@ -193,4 +201,128 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/view"
         />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="25dp"
+        android:id="@+id/newsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/searchBus">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tin tức gần đây"
+            android:fontFamily="@font/montserrat_bold"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginHorizontal="20dp"
+            android:textColor="@color/button_color"
+            android:textSize="19sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Xem tất cả"
+            android:fontFamily="@font/montserrat_bold"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginHorizontal="20dp"
+            android:textColor="@color/primary_color"
+            android:layout_alignParentRight="true"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/newsTitle"
+        />
+
+    <TextView
+        android:id="@+id/introTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Nền tảng kết nối người dùng và nhà xe"
+        android:fontFamily="@font/montserrat_bold"
+        app:layout_constraintTop_toBottomOf="@+id/news"
+        android:layout_marginLeft="3dp"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/button_color"
+        android:textSize="19sp" />
+
+    <LinearLayout
+        android:id="@+id/introSection"
+        app:layout_constraintTop_toBottomOf="@+id/introTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_location"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2000+ nhà xe chất lượng cao"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="@color/button_color"
+                    android:textSize="17dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5000+ tuyến đường trên toàn quốc, chủ động và đa dạng lựa chọn"
+                    android:fontFamily="@font/montserrat_light"
+                    android:textSize="14dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_location"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Đặt vé dễ dàng"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="@color/button_color"
+                    android:textSize="17dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Đặt vé chỉ với 60s. Chọn xe yêu thích cực nhanh và thuận tiện"
+                    android:fontFamily="@font/montserrat_light"
+                    android:textSize="14dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
