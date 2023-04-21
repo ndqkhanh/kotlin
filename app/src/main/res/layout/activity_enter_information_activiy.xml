@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FillBookingFormActivity">
+    tools:context=".EnterInformationActiviy">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerContainer"
@@ -82,61 +82,6 @@
                     android:layout_height="wrap_content">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/circle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/white_circle_icon"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/txtNumber"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:gravity="center"
-                            android:text="1"
-                            android:textColor="@color/blue"
-                            android:textSize="15sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/txtText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="33dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center"
-                        android:text="Chọn điểm đón"
-                        android:textColor="@color/white"
-                        android:textSize="11sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/circle"
-                        app:layout_constraintStart_toEndOf="@+id/circle"
-                        app:layout_constraintTop_toTopOf="@+id/circle" />
-
-
-                    <View
-                        android:layout_width="15dp"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#8BBDF2"
-                        app:layout_constraintBottom_toBottomOf="@+id/txtText"
-                        app:layout_constraintStart_toEndOf="@+id/txtText"
-                        app:layout_constraintTop_toTopOf="@+id/txtText" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/circle2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -151,9 +96,10 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:gravity="center"
-                            android:text="2"
-                            android:textColor="@color/blue"
+                            android:text=""
+                            android:textColor="@color/white"
                             android:textSize="15sp"
+                            android:background="@drawable/baseline_check_24"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -196,7 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:background="@drawable/circle_icon"
+                        android:background="@drawable/white_circle_icon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -224,12 +170,11 @@
                         android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="Nhập thông tin"
-                        android:textColor="#8BBDF2"
+                        android:textColor="@color/white"
                         android:textSize="11sp"
                         app:layout_constraintBottom_toBottomOf="@+id/circle3"
                         app:layout_constraintStart_toEndOf="@+id/circle3"
                         app:layout_constraintTop_toTopOf="@+id/circle3" />
-
 
                     <View
                         android:layout_width="15dp"
@@ -356,181 +301,59 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
-        android:id="@+id/scrollViewForm"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnBook"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerContainer">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/edtName"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/custom_form_input"
-                    android:drawableStart="@drawable/baseline_person_32"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:hint="@string/full_name"
-                    android:inputType="textPersonName"
-                    android:padding="12dp"
-                    android:textColorHint="@android:color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/edtEmail"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/custom_form_input"
-                    android:drawableStart="@drawable/baseline_email_32"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:hint="@string/email"
-                    android:inputType="textEmailAddress"
-                    android:padding="12dp"
-                    android:textColorHint="@android:color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtName" />
-
-                <EditText
-                    android:id="@+id/edtPhone"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/custom_form_input"
-                    android:drawableStart="@drawable/baseline_contact_phone_32"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:hint="@string/phone_number"
-                    android:inputType="phone"
-                    android:padding="12dp"
-                    android:textColorHint="@android:color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
-
-                <EditText
-                    android:id="@+id/edtStartTime"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/custom_form_input"
-                    android:drawableStart="@drawable/baseline_calendar_month_32"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:hint="@string/start_time"
-                    android:inputType="datetime"
-                    android:padding="12dp"
-                    android:textColorHint="@android:color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
-
-                <EditText
-                    android:id="@+id/edtEndTime"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/custom_form_input"
-                    android:drawableStart="@drawable/baseline_calendar_month_32"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:hint="@string/end_time"
-                    android:inputType="datetime"
-                    android:padding="12dp"
-                    android:textColorHint="@android:color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtStartTime" />
-
-                <EditText
-                    android:id="@+id/edtDestination"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/custom_form_input"
-                    android:drawableStart="@drawable/baseline_place_32"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:hint="@string/destination"
-                    android:inputType="text"
-                    android:padding="12dp"
-                    android:textColorHint="@android:color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtEndTime" />
-
-                <EditText
-                    android:id="@+id/edtNumOfSeats"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginVertical="32dp"
-                    android:background="@drawable/custom_form_input"
-                    android:drawableStart="@drawable/baseline_event_seat_32"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:hint="@string/number_of_seats"
-                    android:inputType="number"
-                    android:padding="12dp"
-                    android:textColorHint="@android:color/black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtDestination" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </ScrollView>
-
-    <Button
-        android:id="@+id/btnCancel"
+    <TextView
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/corner_button"
-        android:text="@string/cancel"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBook"
-        app:layout_constraintEnd_toStartOf="@+id/btnBook"
+        android:text="Thông tin hành khách"
+        android:layout_margin="15dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnBook" />
+        app:layout_constraintTop_toBottomOf="@+id/headerContainer" />
 
-    <Button
-        android:id="@+id/btnBook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/corner_button"
-        android:text="@string/book"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:ems="10"
+        android:hint="Tên người đi"
+        android:padding="12dp"
+        android:background="@drawable/custom_form_input"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnCancel" />
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <EditText
+        android:id="@+id/edtPhone"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_form_input"
+        android:ems="10"
+        android:hint="Số điện thoại của bạn"
+        android:inputType="phone"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <EditText
+        android:id="@+id/edtNumOfSeats"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_form_input"
+        android:ems="10"
+        android:hint="Số lượng ghế mà bạn muốn đặt"
+        android:inputType="number"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/edtPhone"
+        app:layout_constraintStart_toStartOf="@+id/edtPhone"
+        app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

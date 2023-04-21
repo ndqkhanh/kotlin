@@ -14,6 +14,18 @@
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ConfirmInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnterInformationActiviy"
+            android:exported="false" />
+        <activity
+            android:name=".ChooseDropDownLocation"
+            android:exported="false" />
+        <activity
+            android:name=".ChoosePickUpLocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".PersonalInformation"
             android:exported="false" />
         <activity
