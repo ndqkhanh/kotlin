@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Red background -->
+    <item android:drawable="@android:color/holo_red_dark" />
+
+    <!-- Yellow star -->
+    <item
+        android:drawable="@drawable/yellow_star_24"
+        android:width="24dp"
+        android:height="24dp"
+        android:gravity="center" />
+
+</layer-list>

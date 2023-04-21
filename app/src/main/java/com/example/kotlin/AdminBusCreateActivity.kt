@@ -1,10 +1,7 @@
 package com.example.kotlin
 
-import android.app.AlertDialog
-import android.app.DatePickerDialog
+import android.app.*
 import android.app.DatePickerDialog.OnDateSetListener
-import android.app.Dialog
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -172,10 +169,13 @@ class AdminBusCreateActivity: AppCompatActivity() {
                     val data = response.body()!!
                     Log.d("Response", data.toString())
 
-                    val intent = Intent(this@AdminBusCreateActivity, AdminBusActivity::class.java )
+//                    val intent = Intent(this@AdminBusCreateActivity, AdminBusActivity::class.java )
+//                    intent.putExtra("id", data.id)
+//                    startActivity(intent)
+                    val intent = Intent()
                     intent.putExtra("id", data.id)
-                    startActivity(intent)
-
+                    setResult(Activity.RESULT_OK, intent)
+                        finish()
 
                 }
             }

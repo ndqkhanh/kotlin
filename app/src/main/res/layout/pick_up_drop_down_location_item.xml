@@ -19,6 +19,7 @@
             android:layout_marginStart="20dp"
             android:text="22:35"
             android:textStyle="bold"
+            android:fontFamily="@font/montserrat"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Văn Phòng Sài Gòn"
+            android:fontFamily="@font/montserrat"
             android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -40,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat"
             android:text="85C Nguyễn Cư Trinh, Phường Nguyễn Cư Trinh, Quận 1, Hồ Chí Minh"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView7"
