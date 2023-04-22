@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/CardView"
     app:cardCornerRadius="10dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
@@ -15,8 +16,8 @@
 
         <ImageView
             android:id="@+id/imgRadioButton"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_marginStart="15dp"
             android:src="@drawable/unchecked_radio"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +32,7 @@
             android:text="22:35"
             android:textColor="@color/black"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgRadioButton"
             app:layout_constraintStart_toEndOf="@+id/imgRadioButton"
             app:layout_constraintTop_toTopOf="@+id/imgRadioButton" />
 

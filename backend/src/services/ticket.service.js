@@ -52,7 +52,7 @@ const payTicket = async (userId, ticketIds) => {
   return { message: 'Pay ticket successfully' };
 };
 
-const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOfSeats) => {
+const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOfSeats, pickUpPont, dropDownPoint) => {
   const checkBusIDExist = await prisma.buses.findUnique({
     where: {
       id: busId,
@@ -118,66 +118,57 @@ const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOf
       name,
       phone,
       seat: allSeatPosArr[i],
+      pick_up_point: pickUpPont,
+      drop_down_point: dropDownPoint,
     });
   }
 
-  const msToTime = (ms) => {
-    const seconds = (ms / 1000).toFixed(1);
-    const minutes = (ms / (1000 * 60)).toFixed(1);
-    const hours = (ms / (1000 * 60 * 60)).toFixed(1);
-    const days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-    if (seconds < 60) return `${seconds} Seconds`;
-    if (minutes < 60) return `${minutes} Minutes`;
-    if (hours < 24) return `${hours} Hours`;
-    return `${days} Days`;
-  };
+  // const msToTime = (ms) => {
+  //   const seconds = (ms / 1000).toFixed(1);
+  //   const minutes = (ms / (1000 * 60)).toFixed(1);
+  //   const hours = (ms / (1000 * 60 * 60)).toFixed(1);
+  //   const days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+  //   if (seconds < 60) return `${seconds} Seconds`;
+  //   if (minutes < 60) return `${minutes} Minutes`;
+  //   if (hours < 24) return `${hours} Hours`;
+  //   return `${days} Days`;
+  // };
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'decimal',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
+  // const formatter = new Intl.NumberFormat('en-US', {
+  //   style: 'decimal',
+  //   minimumFractionDigits: 0,
+  //   maximumFractionDigits: 0,
+  // });
 
   const result = { seat_positions: [], ticket_ids: [] };
+  // result.name = name;
+  // result.phone = phone;
+  // result.email = email;
+  // result.bo_name = checkBusIDExist.bus_operators.name;
+  // result.start_point = checkBusIDExist.bus_stations_bus_stationsTobuses_start_point.name;
+  // result.end_point = checkBusIDExist.bus_stations_bus_stationsTobuses_end_point.name;
+  // result.start_time = convertDateToTime(new Date(checkBusIDExist.start_time));
+  // result.end_time = convertDateToTime(new Date(checkBusIDExist.end_time));
+  // result.duration = Math.abs(checkBusIDExist.end_time.getTime() - checkBusIDExist.start_time.getTime());
+  // result.num_of_seats = numOfSeats;
+  // result.type = checkBusIDExist.type === 0 ? 'Limousine' : checkBusIDExist.type === 1 ? 'Normal Seat' : 'Sleeper Bus';
+  // result.ticket_cost = formatter.format(checkBusIDExist.price);
+  // result.total_cost = formatter.format(checkBusIDExist.price * numOfSeats);
+  // result.pick_up_point = pickUpPont;
+  // result.drop_down_point = dropDownPoint;
+  // result.status = 0;
+  // result.duration = await msToTime(result.duration);
 
   for (let i = 0; i < availableSeatPosArr.length; ++i) {
     const createTicket = await prisma.bus_tickets.create({
       data: availableSeatPosArr[i],
     });
-    result.name = name;
-    result.phone = phone;
-    result.email = email;
+
     result.seat_positions.push(createTicket.seat);
     result.ticket_ids.push(createTicket.id);
-    result.bo_name = checkBusIDExist.bus_operators.name;
-    result.start_point = checkBusIDExist.bus_stations_bus_stationsTobuses_start_point.name;
-    result.end_point = checkBusIDExist.bus_stations_bus_stationsTobuses_end_point.name;
-    result.start_time = new Date(checkBusIDExist.start_time).toLocaleDateString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-    });
-    result.end_time = new Date(checkBusIDExist.end_time).toLocaleDateString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-    });
-    result.duration = Math.abs(checkBusIDExist.end_time.getTime() - checkBusIDExist.start_time.getTime());
-    result.num_of_seats = numOfSeats;
-    result.type = checkBusIDExist.type === 0 ? 'Limousine' : checkBusIDExist.type === 1 ? 'Normal Seat' : 'Sleeper Bus';
-    result.ticket_cost = formatter.format(checkBusIDExist.price);
-    result.total_cost = formatter.format(checkBusIDExist.price * numOfSeats);
-    result.status = createTicket.status === 0 ? 'Booked' : createTicket.status === 1 ? 'Paid' : 'Canceled';
   }
-  result.duration = await msToTime(result.duration);
 
-  return result;
+  return { status: result.ticket_ids.length > 0, data: result };
 };
 
 const getTicketByBusIdAndUserId = async (busId, userId) => {
@@ -203,6 +194,7 @@ const discardTicket = async (req) => {
     },
     data: {
       status: 2,
+      update_time: new Date(),
     },
   });
 };

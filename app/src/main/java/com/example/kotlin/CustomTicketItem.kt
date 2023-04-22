@@ -91,9 +91,9 @@ class CustomTicketItem(private val context: Activity, private val busses: List<B
             }
             val buyTicketBtn = rowView.findViewById<Button>(R.id.buyTicket)
             buyTicketBtn.setOnClickListener {
-                val intent = Intent(context, FillBookingFormActivity::class.java)
-                intent.putExtra("busId", busses[position].id)
-                context.startActivity(intent)
+//                val intent = Intent(context, FillBookingFormActivity::class.java)
+//                intent.putExtra("busId", busses[position].id)
+//                context.startActivity(intent)
             }
 
 

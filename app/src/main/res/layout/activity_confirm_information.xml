@@ -431,7 +431,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/txtPickUpName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
@@ -441,25 +441,25 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/txtPickUpLocation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:fontFamily="@font/montserrat"
                     android:text="85C Nguyễn Cư Trinh, Phường Nguyễn Cư Trinh, Quận 1, Hồ Chí Minh"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView23"
-                    app:layout_constraintTop_toBottomOf="@+id/textView23" />
+                    app:layout_constraintStart_toStartOf="@+id/txtPickUpName"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPickUpName" />
 
                 <TextView
-                    android:id="@+id/textView25"
+                    android:id="@+id/txtPickUpTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
                     android:text="Dự kiến đón lúc 22:35 • T7,22/04/2023"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView10"
-                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtPickUpLocation" />
 
                 <TextView
                     android:id="@+id/textView26"
@@ -470,10 +470,10 @@
                     android:layout_marginTop="30dp"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView10"
-                    app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtPickUpTime" />
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/txtDropDownName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
@@ -483,25 +483,24 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
                 <TextView
-                    android:id="@+id/textView28"
+                    android:id="@+id/txtDropDownLocation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
                     android:fontFamily="@font/montserrat"
                     android:text="85C Nguyễn Cư Trinh, Phường Nguyễn Cư Trinh, Quận 1, Hồ Chí Minh"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView23"
-                    app:layout_constraintTop_toBottomOf="@+id/textView27" />
+                    app:layout_constraintStart_toStartOf="@+id/textView26"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDropDownName" />
 
                 <TextView
-                    android:id="@+id/textView29"
+                    android:id="@+id/txtDropDownTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
                     android:text="Dự kiến trả lúc 06:15 • CN,23/04/2023"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView10"
-                    app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtDropDownLocation" />
 
                 <View
                     android:id="@+id/view4"
@@ -510,7 +509,7 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtDropDownTime" />
 
 
                 <TextView
