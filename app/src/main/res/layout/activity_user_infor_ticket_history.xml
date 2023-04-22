@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.facebook.login.widget.ProfilePictureView
-            android:id="@+id/avt_user"
+            android:id="@+id/fb_avt_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
