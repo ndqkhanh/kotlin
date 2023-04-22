@@ -41,28 +41,21 @@ data class TicketPaymentResponse(
 )
 
 data class TicketData(
+    val name: String,
+    val pick_up_point: String,
+    val drop_down_point: String,
     val phone: String,
     val num_of_seats: Int
 )
 
-data class TicketResponse(
+data class TicketCreateResponse(
     val seat_positions: List<Int>,
     val ticket_ids: List<String>,
-    val name: String,
-    val email: String,
-    val phone: String,
-    val bo_name: String,
-    val start_point: String,
-    val end_point: String,
-    val start_time: String,
-    val end_time: String,
-    val duration: String,
-    val num_of_seats: Int,
-    val type: String,
-    val ticket_cost: String,
-    val total_cost: String,
-    val status: String,
-    val error: String,
+)
+
+data class TicketResponse(
+    val status: Boolean,
+    val data: TicketCreateResponse,
 )
 
 data class BusStation(
@@ -91,8 +84,8 @@ data class Bus(
     val price: Int,
     val bus_operators: BusOperator,
     val pricingFormat: String,
-    val duration: String
-//    val left_seats: Int ADMIN DOESN'T NEED THIS
+    val duration: String,
+    val left_seats: Int
 )
 
 data class BusResponse(
@@ -277,7 +270,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.10:3000/v1/"
+    private val BASE_URL = "http://192.168.1.2:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())

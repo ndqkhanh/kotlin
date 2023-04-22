@@ -12,7 +12,9 @@ const createTicket = catchAsync(async (req, res) => {
     req.params.busId,
     'Nguyen Van A',
     req.body.phone,
-    req.body.num_of_seats
+    req.body.num_of_seats,
+    req.body.pick_up_point,
+    req.body.drop_down_point,
   );
   res.send(result);
 });

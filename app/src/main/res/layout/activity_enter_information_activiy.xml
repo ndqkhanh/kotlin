@@ -313,7 +313,7 @@
         app:layout_constraintTop_toBottomOf="@+id/headerContainer" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/edtPersonName"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
@@ -344,8 +344,8 @@
         android:hint="+84"
         android:inputType="phone"
         android:padding="12dp"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toStartOf="@+id/edtPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/edtPersonName" />
 
     <EditText
         android:id="@+id/edtPhone"
@@ -359,9 +359,22 @@
         android:layout_marginStart="15dp"
         android:inputType="phone"
         android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/edtPersonName"
         app:layout_constraintStart_toEndOf="@+id/edtVietNamFlag"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/edtPersonName" />
+
+    <TextView
+        android:id="@+id/txtSoLuongGheTrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số lượng ghế trống: 5"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat_bold"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
 
     <EditText
         android:id="@+id/edtNumOfSeats"
@@ -374,10 +387,10 @@
         android:hint="Số lượng ghế mà bạn muốn đặt"
         android:inputType="number"
         android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/edtPersonName"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
+        app:layout_constraintStart_toStartOf="@+id/edtPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/txtSoLuongGheTrong" />
 
     <TextView
         android:id="@+id/textView12"
