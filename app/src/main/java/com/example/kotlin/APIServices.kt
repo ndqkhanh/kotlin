@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import retrofit2.http.*
 
+
 data class BlogResponse(
     val id: String,
     val thumbnail: String,
@@ -66,6 +67,11 @@ data class BusStation(
 
 data class BusOperator (
     val id: String,
+    val image_url: String,
+    val phone: String,
+    val name: String
+)
+data class BusOperatorBody(
     val image_url: String,
     val phone: String,
     val name: String
@@ -162,13 +168,10 @@ data class DeleteBusTicketResponse(
     val success: Boolean
 )
 
-data class DeleteBusResponse(
+data class DeleteBusOperatorResponse(
     val success: Boolean
 )
 
-data class AdminBusesResponse (
-    val data: List<Buses>
-        )
 interface UserService {
     @POST("auth/signup")
     fun signUp(@Body signUpData: AccountSignUp): Call<UserSignUpRespone>
@@ -268,11 +271,24 @@ const val limit = 50
 interface BusOperatorService {
     @GET("bus-operator/list/${page}/${limit}")
     fun getBusOperators(): Call<BusOperatorResponse>
+    fun getBusOperators(): Call<BusOperatorResponse>
+
+    @DELETE("bus-operator/{bid}")
+    fun deleteBooking(
+        @Header("Authorization") token: String,
+        @Path("bid") bid: String
+    ): Call<DeleteBusOperatorResponse>
+
+    @POST("bus-operator/create")
+    fun createBusOperator(
+        @Header("Authorization") token: String,
+        @Body busOperator: BusOperatorBody): Call<BusOperator>
 }
 
 
 class APIServiceImpl {
     private val BASE_URL = "http://192.168.1.37:3000/v1/"
+    private val BASE_URL = "http://192.168.1.8:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -322,6 +338,10 @@ class APIServiceImpl {
 
     fun adminDeleteBooking(): TicketService {
         return api.create(TicketService::class.java)
+    }
+
+    fun adminCreateBusOperator(): BusOperatorService {
+        return api.create(BusOperatorService::class.java)
     }
 
     fun createTicket(token: String): TicketService {

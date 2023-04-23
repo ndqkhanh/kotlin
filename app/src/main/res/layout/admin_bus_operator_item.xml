@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="250dp">
+
+    <ImageView
+        android:id="@+id/adminBusOperatorImgV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.451"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/adminBusOperatorPhoneItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Phone"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/adminBusOperatorItemTitle"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorItemTitle" />
+
+    <TextView
+        android:id="@+id/adminBusOperatorPhoneItemVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="0769597789"
+        app:layout_constraintStart_toEndOf="@+id/adminBusOperatorPhoneItemTitle"
+        app:layout_constraintTop_toTopOf="@+id/adminBusOperatorPhoneItemTitle" />
+
+    <TextView
+        android:id="@+id/adminBusOperatorItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Phương Trang"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/adminBusOperatorImgV"
+        app:layout_constraintTop_toTopOf="@+id/adminBusOperatorImgV" />
+
+    <Button
+        android:id="@+id/adminBusOperatorDeleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorPhoneItemVal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
