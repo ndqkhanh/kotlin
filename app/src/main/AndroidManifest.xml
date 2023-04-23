@@ -44,6 +44,9 @@
             android:name=".AdminBusTicketActivity"
             android:exported="false" />
         <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminBlogCreateActivity"
             android:exported="false" />
         <activity

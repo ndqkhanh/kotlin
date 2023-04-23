@@ -44,7 +44,7 @@ class AdminBusOperatorAdapter (private val busOperators: MutableList<BusOperator
 
         name.setText(busOperator.name)
         phone.setText(busOperator.phone)
-        image.setImageResource(android.R.drawable.star_big_on)
+        image.setImageResource(R.drawable.avatar_shape)
     }
 
     override fun getItemCount(): Int {

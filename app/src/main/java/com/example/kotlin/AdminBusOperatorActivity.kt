@@ -44,11 +44,16 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                 Log.d("busTickets vui 1: ", busOperators.size.toString())
 
                 withContext(Dispatchers.Main){
+                    val space = 15
+                    val itemDecoration = SpaceItemDecoration(space)
+
                     busOperatorAdapter = AdminBusOperatorAdapter(busOperators)
                     busOperatorRV = findViewById(R.id.adminBusOperatorRV)
                     busOperatorRV.adapter = busOperatorAdapter
                     busOperatorRV.layoutManager = LinearLayoutManager(this@AdminBusOperatorActivity,
                         LinearLayoutManager.VERTICAL,false)
+
+                    busOperatorRV.addItemDecoration(itemDecoration)
 
                 }
 

@@ -167,11 +167,15 @@ data class BusTicketResponse(
 data class DeleteBusTicketResponse(
     val success: Boolean
 )
-
+data class DeleteBusResponse(
+    val success: Boolean
+)
 data class DeleteBusOperatorResponse(
     val success: Boolean
 )
-
+data class AdminBusesResponse (
+    val data: List<Buses>
+)
 interface UserService {
     @POST("auth/signup")
     fun signUp(@Body signUpData: AccountSignUp): Call<UserSignUpRespone>
@@ -271,7 +275,6 @@ const val limit = 50
 interface BusOperatorService {
     @GET("bus-operator/list/${page}/${limit}")
     fun getBusOperators(): Call<BusOperatorResponse>
-    fun getBusOperators(): Call<BusOperatorResponse>
 
     @DELETE("bus-operator/{bid}")
     fun deleteBooking(
@@ -288,7 +291,6 @@ interface BusOperatorService {
 
 class APIServiceImpl {
     private val BASE_URL = "http://192.168.1.37:3000/v1/"
-    private val BASE_URL = "http://192.168.1.8:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
