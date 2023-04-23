@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_background">
 
     <ImageView
         android:id="@+id/imageView"
@@ -182,16 +183,15 @@
         app:layout_constraintEnd_toEndOf="@+id/goi_y_dang_ky"
         app:layout_constraintStart_toStartOf="@+id/goi_y_dang_ky">
 
-        <com.facebook.login.widget.LoginButton
+        <com.facebook.login.widget.LoginButton xmlns:facebook="http://schemas.android.com/apk/res-auto"
             android:id="@+id/fb_login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:minHeight="48dp"
             android:textSize="20sp"
-            tools:ignore="TouchTargetSizeCheck"
-            xmlns:facebook="http://schemas.android.com/apk/res-auto"
-            facebook:com_facebook_login_text="tiếp tục với Facebook"/>
+            facebook:com_facebook_login_text="tiếp tục với Facebook"
+            tools:ignore="TouchTargetSizeCheck" />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout

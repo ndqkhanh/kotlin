@@ -23,4 +23,5 @@
     <color name="progress">#2CAC62</color>
     <color name="progress_background">#E6E6E6</color>
     <color name="golden">#FCD23E</color>
+    <color name="app_background">#F4F4F4</color>
 </resources>
