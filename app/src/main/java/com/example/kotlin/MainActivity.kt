@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         intent = Intent(this, HomePage::class.java)
+
         startActivity(intent)
 
 //        toHomeScreen()

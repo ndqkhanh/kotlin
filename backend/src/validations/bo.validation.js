@@ -41,8 +41,8 @@ const updateBO = {
   }),
 };
 const deleteBO = {
-  body: Joi.object().keys({
-    id: Joi.string().required(),
+  params: Joi.object().keys({
+    boId: Joi.string().required(),
   }),
 };
 const getBOByID = {

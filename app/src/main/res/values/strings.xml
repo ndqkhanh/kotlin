@@ -48,4 +48,5 @@
     <string name="login_home"><u>Đăng nhập</u></string>
     <string name="logup"><u>Đăng ký</u></string>
     <string name="close"><u>Đóng</u></string>
+    <string name="image">Image</string>
 </resources>

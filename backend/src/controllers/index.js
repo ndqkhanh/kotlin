@@ -5,3 +5,4 @@ module.exports.boController = require('./bo.controller');
 module.exports.ticketController = require('./ticket.controller');
 module.exports.bsController = require('./bs.controller');
 module.exports.blogController = require('./blog.controller');
+module.exports.pointController = require('./point.controller');

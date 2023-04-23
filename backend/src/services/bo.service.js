@@ -126,7 +126,7 @@ const updateBO = async (req) => {
 const deleteBO = async (req) => {
   const checkBO = await prisma.bus_operators.findUnique({
     where: {
-      id: req.body.id,
+      id: req.params.boId,
     },
   });
   if (!checkBO) {
@@ -134,7 +134,7 @@ const deleteBO = async (req) => {
   }
   const message = await prisma.bus_operators.delete({
     where: {
-      id: req.body.id,
+      id: req.params.boId,
     },
   });
   return message;

@@ -159,6 +159,14 @@ const getHistoryByUId = async (req) => {
   return historyList;
 };
 
+const getUserByUsername = async (email) => {
+
+  return await prisma.users.findUnique({
+    where: {
+      email,
+    },
+  });
+};
 module.exports = {
   getHistoryByUId,
   createUser,
@@ -168,4 +176,5 @@ module.exports = {
   updateUserById,
   countMyQuestions,
   getMyQuestionsPagination,
+  getUserByUsername,
 };
