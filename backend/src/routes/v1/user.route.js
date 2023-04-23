@@ -6,12 +6,15 @@ const userController = require('../../controllers/user.controller');
 
 const router = express.Router();
 
+router.route('/information').get(validate(userValidation.getUserByUsername), userController.getUserByUsername);
 router
   .route('/')
   .get(auth('getProfile'), userController.getProfile)
   .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
 
 router.route('/:userId').get(auth('getUser'), validate(userValidation.getUser), userController.getUser);
+
+
 
 router
   .route('/history/:page/:limit')

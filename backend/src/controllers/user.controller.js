@@ -52,6 +52,14 @@ const getHistoryByUId = catchAsync(async (req, res) => {
   const history_list = await userService.getHistoryByUId(req);
   res.send({ history_list });
 });
+const getUserByUsername = catchAsync(async (req, res) => {
+  const user = await userService.getUserByUsername(req.body.username);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  delete user.password;
+  res.send(user);
+});
 module.exports = {
   getHistoryByUId,
   createUser,
@@ -60,4 +68,5 @@ module.exports = {
   updateUser,
   getMyQuestions,
   getProfile,
+  getUserByUsername
 };
