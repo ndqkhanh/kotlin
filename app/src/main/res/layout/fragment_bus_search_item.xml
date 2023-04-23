@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/panel"
-    android:elevation="10dp"
+    android:elevation="5dp"
+    android:layout_marginBottom="20dp"
     tools:context=".BusSearchItem">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,6 +36,7 @@
                         android:layout_height="wrap_content"
                         >
                         <TextView
+                            android:id="@+id/busTimeStartText"
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -50,6 +53,7 @@
                         android:layout_height="wrap_content"
                         >
                         <TextView
+                            android:id="@+id/busDurationText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="6h30p"
@@ -66,6 +70,7 @@
                         android:layout_height="wrap_content"
                         >
                         <TextView
+                            android:id="@+id/busTimeEndText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="03:30"
@@ -134,6 +139,7 @@
                         android:layout_height="wrap_content"
                         >
                         <TextView
+                            android:id="@+id/busStartPointText"
                             android:text="Bến xe Mỹ Đình"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -156,7 +162,7 @@
                         >
 
                         <TextView
-                            android:id="@+id/endPointText"
+                            android:id="@+id/busEndPointText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -174,6 +180,7 @@
 
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/busPricing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="345.000đ"
@@ -184,6 +191,7 @@
                     android:fontFamily="@font/montserrat_bold"
                     />
                 <TextView
+                    android:id="@+id/busNumOfLeftSeats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5 chỗ trống"
@@ -208,6 +216,7 @@
             android:padding="10dp"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/busItemOperatorThumbnail"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -221,6 +230,7 @@
                 android:layout_marginLeft="10dp"
                 >
                 <TextView
+                    android:id="@+id/busItemOperatorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bằng Phấn"
@@ -229,6 +239,7 @@
                     android:fontFamily="@font/montserrat_bold"
                     />
                 <TextView
+                    android:id="@+id/busItemOperatorType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Xe thường"
@@ -240,6 +251,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/busItemOperatorRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.5"

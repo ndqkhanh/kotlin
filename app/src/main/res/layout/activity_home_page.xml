@@ -122,6 +122,8 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/startPointEdit"
+                    android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#efefef"
@@ -132,6 +134,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/endPointSelect"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -149,16 +152,19 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/endPointEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#efefef"
                     android:shadowColor="#fff"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="Hà Giang"
+                    android:focusable="false"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/departureDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -176,12 +182,14 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/departureDateEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#efefef"
                     android:shadowColor="#fff"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="T6, 21/04/2023"
+                    android:text="3/25/2023"
+                    android:focusable="false"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>

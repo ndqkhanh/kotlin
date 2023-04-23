@@ -42,19 +42,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var localEditor: SharedPreferences.Editor
     private val retrofit = APIServiceImpl()
-    private var UserApi = retrofit.userService()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-<<<<<<< HEAD
-        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
-        localEditor = localStore.edit()
-        var token: String? = localStore.getString("token", null)
-=======
->>>>>>> fbd405ca1b10d7f37c33d2d9eb239cc447b95e7f
 
-        intent = Intent(this, BlogSeeAllActivity::class.java)
+        intent = Intent(this, HomePage::class.java)
         startActivity(intent)
 
 //        toHomeScreen()

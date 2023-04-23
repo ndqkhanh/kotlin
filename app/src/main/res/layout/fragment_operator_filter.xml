@@ -5,8 +5,50 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:padding="20dp"
     tools:context=".FragmentOperatorFilter">
+
+    <RelativeLayout
+        android:id="@+id/headerFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <TextView
+            android:id="@+id/filterTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn nơi xuất phát"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="16dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/button_color"
+            />
+        <TextView
+            android:id="@+id/removeFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xoá lọc"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="14dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/closeFilter"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/primary_color"
+            />
+        <TextView
+            android:id="@+id/closeFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/close"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="14dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/primary_color"
+            />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/searchEditText"
@@ -18,7 +60,9 @@
         android:fontFamily="@font/montserrat"
         android:textSize="15dp"
         android:padding="10dp"
+        android:layout_marginTop="15dp"
         android:drawableStart="@drawable/ic_search"
+        app:layout_constraintTop_toBottomOf="@+id/headerFilter"
         />
 
     <View
@@ -31,8 +75,11 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/filterList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/line"
         />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
