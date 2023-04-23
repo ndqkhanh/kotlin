@@ -38,33 +38,31 @@ model bus_operators {
 }
 
 model bus_stations {
-  id                                                    String        @id(map: "bus_stations_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                                                  String
-  location                                              String
-  bus_tickets_bus_stationsTobus_tickets_drop_down_point bus_tickets[] @relation("bus_stationsTobus_tickets_drop_down_point")
-  bus_tickets_bus_stationsTobus_tickets_pick_up_point   bus_tickets[] @relation("bus_stationsTobus_tickets_pick_up_point")
-  buses_bus_stationsTobuses_end_point                   buses[]       @relation("bus_stationsTobuses_end_point")
-  buses_bus_stationsTobuses_start_point                 buses[]       @relation("bus_stationsTobuses_start_point")
+  id                                    String  @id(map: "bus_stations_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                                  String
+  location                              String
+  buses_bus_stationsTobuses_end_point   buses[] @relation("bus_stationsTobuses_end_point")
+  buses_bus_stationsTobuses_start_point buses[] @relation("bus_stationsTobuses_start_point")
 
   @@index([location])
 }
 
 model bus_tickets {
-  id                                                     String        @id(map: "bus_tickets_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  bus_id                                                 String        @db.Uuid
-  user_id                                                String        @db.Uuid
-  name                                                   String
-  phone                                                  String
-  seat                                                   String
-  status                                                 Int           @default(0) @db.SmallInt
-  create_time                                            DateTime?     @default(now()) @db.Timestamptz(6)
-  update_time                                            DateTime?     @default(now()) @db.Timestamptz(6)
-  pick_up_point                                          String?       @db.Uuid
-  drop_down_point                                        String?       @db.Uuid
-  buses                                                  buses         @relation(fields: [bus_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk")
-  bus_stations_bus_stationsTobus_tickets_drop_down_point bus_stations? @relation("bus_stationsTobus_tickets_drop_down_point", fields: [drop_down_point], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_4")
-  bus_stations_bus_stationsTobus_tickets_pick_up_point   bus_stations? @relation("bus_stationsTobus_tickets_pick_up_point", fields: [pick_up_point], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_3")
-  users                                                  users         @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_2")
+  id                                         String    @id(map: "bus_tickets_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  bus_id                                     String    @db.Uuid
+  user_id                                    String    @db.Uuid
+  name                                       String
+  phone                                      String
+  seat                                       String
+  status                                     Int       @default(0) @db.SmallInt
+  create_time                                DateTime? @default(now()) @db.Timestamptz(6)
+  update_time                                DateTime? @default(now()) @db.Timestamptz(6)
+  pick_up_point                              String?   @db.Uuid
+  drop_down_point                            String?   @db.Uuid
+  buses                                      buses     @relation(fields: [bus_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk")
+  points_bus_tickets_drop_down_pointTopoints points?   @relation("bus_tickets_drop_down_pointTopoints", fields: [drop_down_point], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_4")
+  points_bus_tickets_pick_up_pointTopoints   points?   @relation("bus_tickets_pick_up_pointTopoints", fields: [pick_up_point], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_3")
+  users                                      users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_2")
 }
 
 model buses {
@@ -112,4 +110,12 @@ model blogs {
   content     String    @db.VarChar
   create_time DateTime? @default(now()) @db.Timestamptz(6)
   update_time DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model points {
+  id                                              String        @id(map: "point_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                                            String
+  location                                        String
+  bus_tickets_bus_tickets_drop_down_pointTopoints bus_tickets[] @relation("bus_tickets_drop_down_pointTopoints")
+  bus_tickets_bus_tickets_pick_up_pointTopoints   bus_tickets[] @relation("bus_tickets_pick_up_pointTopoints")
 }

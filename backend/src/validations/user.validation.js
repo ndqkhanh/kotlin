@@ -35,10 +35,18 @@ const getHistoryByUId = {
     limit: Joi.number().required(),
   },
 };
+
+const getUserByUsername = {
+  body: Joi.object().keys({
+    username: Joi.string().required(),
+  }),
+}
+
 module.exports = {
   getUsers,
   getUser,
   updateUser,
   getMyQuestions,
   getHistoryByUId,
+  getUserByUsername,
 };
