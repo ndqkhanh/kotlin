@@ -4,6 +4,8 @@ const { PrismaClient } = require('@prisma/client');
 const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
 
+const { convertDateToString } = require('../utils/dateFormat');
+
 const prisma = new PrismaClient();
 
 function secondsToHms(d) {
@@ -95,19 +97,11 @@ const searchBus = async (body) => {
     });
 
     bus.start_time = new Date(bus.start_time).toLocaleDateString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
     });
 
     bus.end_time = new Date(bus.end_time).toLocaleDateString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
     });
@@ -130,24 +124,25 @@ const getBusInformation = async (busId) => {
       bus_stations_bus_stationsTobuses_start_point: 'end_point',
     },
   });
-
-  data.start_time = new Date(data.start_time).toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-  data.end_time = new Date(data.end_time).toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  data.start_time = convertDateToString(new Date(data.start_time));
+  data.end_time = convertDateToString(new Date(data.end_time));
 
   data.start_point = data.bus_stations_bus_stationsTobuses_start_point;
   data.end_point = data.bus_stations_bus_stationsTobuses_end_point;
   delete data.bus_stations_bus_stationsTobuses_start_point;
   delete data.bus_stations_bus_stationsTobuses_end_point;
+
+  // get the number of seats left
+  data.left_seats =
+    data.num_of_seats -
+    (await prisma.bus_tickets.count({
+      where: {
+        bus_id: data.id,
+        status: {
+          in: [0, 2],
+        },
+      },
+    }));
 
   return data;
 };

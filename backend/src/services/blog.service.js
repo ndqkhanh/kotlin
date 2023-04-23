@@ -5,6 +5,8 @@ const httpStatus = require('http-status');
 const { PrismaClient } = require('@prisma/client');
 const ApiError = require('../utils/ApiError');
 
+const { convertDateToString } = require('../utils/dateFormat');
+
 const prisma = new PrismaClient();
 
 const getBlogById = async (id) => {
@@ -66,25 +68,13 @@ const getBlogs = async (page, limit) => {
     skip: (page - 1) * limit,
     take: limit,
     orderBy: {
-      create_time: 'desc',
+      update_time: 'desc',
     },
   });
 
   for (let i = 0; i < data.length; i++) {
-    data[i].create_time = new Date(data[i].create_time).toLocaleDateString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }
-    );
-    data[i].update_time = new Date(data[i].update_time).toLocaleDateString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }
-    );
+    data[i].create_time = convertDateToString(new Date(data[i].create_time));
+    data[i].update_time = convertDateToString(new Date(data[i].update_time));
   }
 
   const count = await prisma.blogs.count();

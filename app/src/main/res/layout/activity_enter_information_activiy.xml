@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EnterInformationActiviy">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="0dp"
+        android:layout_height="110dp"
+        android:background="@color/blue"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtBusOperatorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+
+            android:fontFamily="@font/montserrat"
+            android:text="Bình Minh Bus"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="22:35 • T7,22/04/2023"
+            android:fontFamily="@font/montserrat"
+            android:textColor="#ffffff"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@+id/txtBusOperatorName"
+            app:layout_constraintTop_toBottomOf="@+id/txtBusOperatorName" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/txtBusOperatorDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/thong_tin_xe"
+            android:textAllCaps="false"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtBusOperatorName" />
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/baseline_arrow_back_10"
+            android:contentDescription="@string/back"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtBusOperatorName" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none"
+            android:layout_marginStart="42dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtTime"
+            app:layout_constraintTop_toBottomOf="@+id/txtTime">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/circle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtNumber2"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:background="@drawable/baseline_check_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/txtText2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Chọn điểm trả"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="#8BBDF2"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/circle2"
+                        app:layout_constraintStart_toEndOf="@+id/circle2"
+                        app:layout_constraintTop_toTopOf="@+id/circle2" />
+
+
+                    <View
+                        android:layout_width="15dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:background="#8BBDF2"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtText2"
+                        app:layout_constraintStart_toEndOf="@+id/txtText2"
+                        app:layout_constraintTop_toTopOf="@+id/txtText2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/circle3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/white_circle_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtNumber3"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:gravity="center"
+                            android:text="3"
+                            android:textColor="@color/blue"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/txtText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Nhập thông tin"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/circle3"
+                        app:layout_constraintStart_toEndOf="@+id/circle3"
+                        app:layout_constraintTop_toTopOf="@+id/circle3" />
+
+                    <View
+                        android:layout_width="15dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:background="#8BBDF2"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtText3"
+                        app:layout_constraintStart_toEndOf="@+id/txtText3"
+                        app:layout_constraintTop_toTopOf="@+id/txtText3" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/circle4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/circle_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtNumber4"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="@color/blue"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/txtText4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Xác nhận thông tin"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="#8BBDF2"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/circle4"
+                        app:layout_constraintStart_toEndOf="@+id/circle4"
+                        app:layout_constraintTop_toTopOf="@+id/circle4" />
+
+
+                    <View
+                        android:layout_width="15dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:background="#8BBDF2"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtText4"
+                        app:layout_constraintStart_toEndOf="@+id/txtText4"
+                        app:layout_constraintTop_toTopOf="@+id/txtText4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/circle5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/circle_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtNumber5"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:gravity="center"
+                            android:text="5"
+                            android:textColor="@color/blue"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/txtText5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="Thanh toán"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="#8BBDF2"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/circle5"
+                        app:layout_constraintStart_toEndOf="@+id/circle5"
+                        app:layout_constraintTop_toTopOf="@+id/circle5" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thông tin hành khách"
+        android:layout_margin="15dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat_bold"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerContainer" />
+
+    <EditText
+        android:id="@+id/edtPersonName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:ems="10"
+        android:hint="Tên người đi"
+        android:fontFamily="@font/montserrat"
+        android:padding="12dp"
+        android:background="@drawable/custom_form_input"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <EditText
+        android:id="@+id/edtVietNamFlag"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_form_input"
+        android:drawableStart="@drawable/vietnam_flag"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="+84"
+        android:inputType="phone"
+        android:padding="12dp"
+        app:layout_constraintStart_toStartOf="@+id/edtPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/edtPersonName" />
+
+    <EditText
+        android:id="@+id/edtPhone"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_form_input"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="Số điện thoại của bạn"
+        android:layout_marginStart="15dp"
+        android:inputType="phone"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/edtPersonName"
+        app:layout_constraintStart_toEndOf="@+id/edtVietNamFlag"
+        app:layout_constraintTop_toBottomOf="@+id/edtPersonName" />
+
+    <TextView
+        android:id="@+id/txtSoLuongGheTrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số lượng ghế trống: 5"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat_bold"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
+
+    <EditText
+        android:id="@+id/edtNumOfSeats"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_form_input"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="Số lượng ghế mà bạn muốn đặt"
+        android:inputType="number"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/edtPersonName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edtPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/txtSoLuongGheTrong" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Bằng việc nhấn vào nút Tiếp tục, bạn đồng ý với Chính sách bảo mật thông tin và Quy chế"
+        app:layout_constraintEnd_toEndOf="@+id/edtNumOfSeats"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@+id/edtNumOfSeats"
+        app:layout_constraintTop_toBottomOf="@+id/edtNumOfSeats" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/continueBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/yellow_panel"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingVertical="10dp"
+        android:text="Tiếp tục"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

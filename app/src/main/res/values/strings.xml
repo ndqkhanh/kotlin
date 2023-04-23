@@ -25,7 +25,7 @@
     <string name="fb_login_protocol_scheme">fb774759947319259</string>
     <string name="facebook_client_token">56789</string>
 
-
+    <string name="thong_tin_xe"><u>Thông tin xe</u></string>
     <string name="book">Book</string>
     <string name="delete_blog">Delete Blog</string>
     <string name="thumbnail">Thumbnail</string>
@@ -43,4 +43,10 @@
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="rating_bar">Rating bar</string>
+
+    <string name="blog_content"><ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul></string>
+
+    <!--    New -->
+    <string name="login_home"><u>Đăng nhập</u></string>
+    <string name="logup"><u>Đăng ký</u></string>
 </resources>

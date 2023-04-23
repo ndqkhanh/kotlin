@@ -32,7 +32,7 @@ class PersonalInformation : AppCompatActivity() {
 
         var name = findViewById<TextView>(R.id.user_name)
         var email = findViewById<TextView>(R.id.email)
-        var avt = findViewById<ProfilePictureView>(R.id.avt_user)
+        var avt = findViewById<ProfilePictureView>(R.id.fb_avt_user)
         var back = findViewById<ImageButton>(R.id.back_button)
 
         email.text = FBInfor.EMAIL
