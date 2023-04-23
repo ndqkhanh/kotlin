@@ -110,7 +110,7 @@ class AdminBusActivity:AppCompatActivity() {
 
             GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
                 Log.d("token", token!!)
-                var response = retrofit.searchBusses().adminSearchBuses(token!!,id!!).awaitResponse() // CHANGE
+                var response = retrofit.searchBusses().adminSearchBus(token!!,id!!).awaitResponse() // CHANGE
                 Log.d("Response", "vui 1" + response.message())
                 // debug response
                 Log.d("Response", response.toString())
