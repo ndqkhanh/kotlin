@@ -59,6 +59,7 @@ data class TicketResponse(
     val data: TicketCreateResponse,
 )
 
+
 data class BusStation(
     val id: String,
     val name: String,
@@ -89,9 +90,12 @@ data class Bus(
     val num_of_seats: Int,
     val price: Int,
     val bus_operators: BusOperator,
-    val pricingFormat: String,
+    val pricing_format: String,
     val duration: String,
-    val left_seats: Int
+    val left_seats: Int,
+    var start_time_hour: String,
+    var end_time_hour: String,
+    val rating: Float
 )
 
 data class BusResponse(
@@ -105,8 +109,8 @@ data class BusSearchRequest(
     var page: Int,
     var limit: Int,
     var startTime: String,
-    var price: Int,
-    var type: Int,
+    var price: Int?,
+    var type: Int?,
     var boId: String?
     )
 
@@ -290,7 +294,8 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.37:3000/v1/"
+    private val BASE_URL = "http://192.168.1.10:3000/v1/"
+
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -318,13 +323,10 @@ class APIServiceImpl {
     fun getAllBusOperators(): BusOperatorService {
         return api.create(BusOperatorService::class.java)
     }
-
     // Admin create bus
     fun adminDeleteBuses(): BusService {
         return api.create(BusService::class.java)
     }
-
-
 
     fun adminGetBuses(): BusService {
         return api.create(BusService::class.java)

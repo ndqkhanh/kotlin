@@ -100,6 +100,8 @@ class Home : AppCompatActivity() {
                             startActivity(intent)
                         }
 
+
+
                         searchResult!!.adapter = adapter
 
                         Utility.setListViewHeightBasedOnChildren(searchResult)
