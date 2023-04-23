@@ -109,7 +109,7 @@ const busList = async (page, limit, req) => {
     });
     condition = { bo_id: user.boid };
   }
-  console.log(condition);
+
   data = await prisma.buses.findMany({
     skip: page * limit,
     take: limit,
@@ -171,6 +171,8 @@ const bookingList = async (req) => {
       buses: {
         include: {
           bus_operators: true,
+          bus_stations_bus_stationsTobuses_end_point: true,
+          bus_stations_bus_stationsTobuses_start_point: true,
         },
       },
       users: {
@@ -182,16 +184,18 @@ const bookingList = async (req) => {
   });
 
   const formatData = [];
-  data.forEach((item) => {
+  data.forEach(async (item) => {
     formatData.push({
       id: item.id,
       bus_id: item.bus_id,
       name: item.name,
-      start_point: item.buses.start_point,
-      end_point: item.buses.end_point,
-      time: item.buses.start_time,
+      start_point: item.buses.bus_stations_bus_stationsTobuses_start_point.name,
+      end_point: item.buses.bus_stations_bus_stationsTobuses_end_point.name,
+      start_time: item.buses.start_time,
+      end_time: item.buses.end_time,
       seat: item.seat,
       status: item.status,
+      phone: item.phone,
     });
   });
 

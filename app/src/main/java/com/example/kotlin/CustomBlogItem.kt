@@ -127,8 +127,8 @@ class CustomBlogItem(private val blogs: List<BlogResponse>): RecyclerView.Adapte
     var onItemClick: ((BlogResponse) -> Unit)? = null
 
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView) {
-        val titleText = listItemView.findViewById(R.id.title) as TextView
-        var thumbnail = listItemView.findViewById(R.id.thumbnail) as ImageView
+        val titleText = listItemView.findViewById(R.id.news_item_title) as TextView
+        var thumbnail = listItemView.findViewById(R.id.news_item_thumbnail) as ImageView
 
         init {
             listItemView.setOnClickListener {
@@ -140,7 +140,7 @@ class CustomBlogItem(private val blogs: List<BlogResponse>): RecyclerView.Adapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val studentView = inflater.inflate(R.layout.activity_blog_item, parent, false)
+        val studentView = inflater.inflate(R.layout.fragment_news_item, parent, false)
         return ViewHolder(studentView)
     }
 

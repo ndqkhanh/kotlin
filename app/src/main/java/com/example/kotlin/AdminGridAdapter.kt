@@ -52,7 +52,7 @@ ArrayList<AdminItem>) : BaseAdapter(){
         var company = items[p0]
         viewHolder.nameTV?.text = company.name
 //        viewHolder.logoImgV?.setImageResource(company.logo!!)
-        viewHolder.imageView?.setImageResource(android.R.drawable.btn_star_big_on)
+        viewHolder.imageView?.setImageResource(company.image!!)
         return view as View
     }
 

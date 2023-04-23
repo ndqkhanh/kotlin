@@ -18,46 +18,11 @@ import java.text.DecimalFormatSymbols
 import java.util.*
 
 
-class Ticket {
-    var id: String = ""
-    var name: String = ""
-    var price: String = ""
-    var time: String = ""
-    var location: String = ""
-    var destination: String = ""
-
-    constructor(name: String, price: String, time: String, location: String, destination: String) {
-        this.id = UUID.randomUUID().toString()
-        this.name = name
-        this.price = price
-        this.time = time
-        this.location = location
-        this.destination = destination
-    }
-
-    constructor(
-        name: String,
-        price: String,
-        time: String,
-        location: String,
-        destination: String,
-        id: String
-    ) {
-        this.id = id
-        this.name = name
-        this.price = price
-        this.time = time
-        this.location = location
-        this.destination = destination
-    }
-}
-
 class CustomTicketItem(private val context: Activity, private val busses: List<Bus>, private val supportFragmentManager: FragmentManager, private val lifecycle: Lifecycle) : ArrayAdapter<Bus>(context,  R.layout.activity_ticket_item, busses) {
     var showBottomSheet: ((bus: Bus)->Unit)? = null
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         try {
-
             val inflater = context.layoutInflater
             val rowView: View = inflater.inflate(R.layout.activity_ticket_item, null, true)
             val busOperatorName = rowView.findViewById(R.id.busOperatorName) as TextView
@@ -68,7 +33,7 @@ class CustomTicketItem(private val context: Activity, private val busses: List<B
             val busImage = rowView.findViewById(R.id.busImage) as ImageView
 
             busOperatorName.text = busses[position].bus_operators.name
-            val pricingText: String = "Pricing: " + busses[position].pricingFormat;
+            val pricingText: String = "Pricing: " + busses[position].pricing_format;
             busPrice.text = pricingText
             val timeText: String = "Time: " + busses[position].duration
             busStartTime.text = timeText
@@ -77,10 +42,7 @@ class CustomTicketItem(private val context: Activity, private val busses: List<B
             val destinationText: String = "Destination: " + busses[position].end_point.location + " - " + busses[position].end_time
             busDestination.text = destinationText
             busOperatorName.text = busses[position].bus_operators.name
-//            busPrice.text = busses[position].price.toString()
-//            busStartTime.text = busses[position].start_time
-//            busDeparture.text = busses[position].start_point.location
-//            busDestination.text = busses[position].end_point.location
+
             Glide.with(busImage.context)
                 .load(busses[position].image_url)
                 .into(busImage)
@@ -90,11 +52,7 @@ class CustomTicketItem(private val context: Activity, private val busses: List<B
                 showBottomSheet?.invoke(busses[position])
             }
             val buyTicketBtn = rowView.findViewById<Button>(R.id.buyTicket)
-            buyTicketBtn.setOnClickListener {
-//                val intent = Intent(context, FillBookingFormActivity::class.java)
-//                intent.putExtra("busId", busses[position].id)
-//                context.startActivity(intent)
-            }
+
 
 
             return rowView

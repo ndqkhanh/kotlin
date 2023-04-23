@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Bus Information"
+        android:text="Thông tin chuyến xe"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,7 +176,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="Bus Operator"
+        android:hint="Nhà xe"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminBusInfoCreateTV" />
@@ -187,7 +187,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-8dp"
         android:layout_marginEnd="16dp"
-        android:text="Choose"
+        android:text="Chọn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/adminBusBOCreateEt" />
 
@@ -201,7 +201,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="Start / From"
+        android:hint="Khởi hành"
         app:layout_constraintStart_toStartOf="@+id/adminBusBOCreateEt"
         app:layout_constraintTop_toBottomOf="@+id/adminBusBOCreateEt" />
 
@@ -210,7 +210,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-8dp"
-        android:text="Choose"
+        android:text="Chọn"
         app:layout_constraintStart_toStartOf="@+id/adminBusBOCreateBtn"
         app:layout_constraintTop_toTopOf="@+id/adminBusStartPointCreateEt" />
 
@@ -224,7 +224,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="End / To"
+        android:hint="Kết thúc"
         app:layout_constraintStart_toStartOf="@+id/adminBusStartPointCreateEt"
         app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointCreateEt" />
 
@@ -233,7 +233,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-8dp"
-        android:text="Choose"
+        android:text="Chọn"
         app:layout_constraintStart_toStartOf="@+id/adminBusStartPointCreateBtn"
         app:layout_constraintTop_toTopOf="@+id/adminBusEndPointCreateEt" />
 

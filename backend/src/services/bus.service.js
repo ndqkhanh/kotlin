@@ -75,7 +75,7 @@ const searchBus = async (body) => {
         },
       }));
 
-    bus.averageReviews =
+    bus.rating =
       Math.round(
         (
           await prisma.reviews.aggregate({
@@ -91,10 +91,31 @@ const searchBus = async (body) => {
     const duration = (new Date(bus.end_time) - new Date(bus.start_time)) / 1000;
     bus.duration = secondsToHms(duration);
     // format bus pricing format by thousand
-    bus.pricingFormat = bus.price.toLocaleString('en-US', {
+    bus.pricing_format = bus.price.toLocaleString('en-US', {
       style: 'currency',
       currency: 'VND',
     });
+    // get hour:minute with format double 0 of start time
+    bus.start_time_hour =
+      new Date(bus.start_time).getHours() < 10
+        ? `0${new Date(bus.start_time).getHours()}`
+        : // eslint-disable-next-line prefer-template
+          new Date(bus.start_time).getHours() +
+          ':' +
+          (new Date(bus.start_time).getMinutes() < 10
+            ? `0${new Date(bus.start_time).getMinutes()}`
+            : new Date(bus.start_time).getMinutes());
+
+    // get hour of end time
+    bus.end_time_hour =
+      new Date(bus.end_time).getHours() < 10
+        ? `0${new Date(bus.end_time).getHours()}`
+        : // eslint-disable-next-line prefer-template
+          new Date(bus.end_time).getHours() +
+          ':' +
+          (new Date(bus.end_time).getMinutes() < 10
+            ? `0${new Date(bus.end_time).getMinutes()}`
+            : new Date(bus.end_time).getMinutes());
 
     bus.start_time = new Date(bus.start_time).toLocaleDateString(undefined, {
       hour: 'numeric',
