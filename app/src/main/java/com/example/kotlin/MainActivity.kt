@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        toHomeScreen()
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         localEditor = localStore.edit()
         var token: String? = localStore.getString("token", null)

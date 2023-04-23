@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f4f4f4"
     tools:context=".HomePage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,7 +95,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_location"/>
+                android:src="@drawable/ic_calendar"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -103,6 +104,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/startPointSelect"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -197,7 +199,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:textColor="#fff"
         android:background="@drawable/panel"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/view"
         />
@@ -237,7 +239,7 @@
         android:id="@+id/news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="10dp"
         app:layout_constraintTop_toBottomOf="@+id/newsTitle"
         />
 
@@ -270,7 +272,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_location"/>
+                android:src="@drawable/ic_bus"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_marginLeft="5dp"
@@ -300,7 +302,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_location"/>
+                android:src="@drawable/ic_ticket"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_marginLeft="5dp"
@@ -323,6 +325,37 @@
                     />
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_verify"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Đảm bảo có vé"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="@color/button_color"
+                    android:textSize="17dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hoàn ngày 150% nếu không có vé, mang đến hành trình trọn vẹn"
+                    android:fontFamily="@font/montserrat_light"
+                    android:textSize="14dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

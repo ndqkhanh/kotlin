@@ -6,6 +6,11 @@
     android:layout_height="wrap_content"
     android:background="@drawable/panel"
     android:elevation="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="10dp"
+
     tools:context=".NewsItem">
 
     <ImageView
@@ -21,8 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="News Title"
+        android:fontFamily="@font/montserrat"
         android:textColor="@color/button_color"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/news_item_thumbnail"
         app:layout_constraintBottom_toBottomOf="parent"
