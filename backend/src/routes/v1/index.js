@@ -7,6 +7,7 @@ const busRoute = require('./bus.route');
 const blogRoute = require('./blog.route');
 const boRoute = require('./bo.route');
 const bsRoute = require('./bs.route');
+const pointRoute = require('./point.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -29,6 +30,7 @@ const defaultRoutes = [
   { path: '/bus-operator', route: boRoute },
   { path: '/bus-station', route: bsRoute },
   { path: '/blog', route: blogRoute },
+  { path: '/point', route: pointRoute },
 ];
 
 const devRoutes = [
