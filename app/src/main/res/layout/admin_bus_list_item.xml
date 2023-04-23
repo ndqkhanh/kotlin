@@ -2,149 +2,309 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="350dp">
+    android:background="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="325dp">
 
-    <ImageView
-        android:id="@+id/adminBusImgV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adminBusListHeaderConstraintLayout"
+        android:layout_width="408dp"
+        android:layout_height="118dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/adminBusBOItemTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Phương Trang"
-        android:textSize="32sp"
-        app:layout_constraintStart_toEndOf="@+id/adminBusImgV"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/startEndHeader"
+            android:layout_width="410dp"
+            android:layout_height="114dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/adminBusStartPointTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="From"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusBOItemTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusBOItemTitle" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="136dp"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/adminBusEndPointTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="To"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusBOItemTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointTitle" />
+                <TextView
+                    android:id="@+id/adminBusStartPointVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center"
+                    android:text="Hà Nội"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/adminBusStartTimeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Start time"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointTitle" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="132dp"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/adminBusEndTimeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="End Time"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartTimeTitle" />
+                <TextView
+                    android:id="@+id/adminBusBOItemTitle"
+                    android:layout_width="127dp"
+                    android:layout_height="69dp"
+                    android:fontFamily="@font/montserrat_semibold_italic"
+                    android:gravity="center"
+                    android:text="Phương Trang"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/adminBusTypeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Type"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndTimeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusEndTimeTitle" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/adminBusPriceTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Price"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/adminBusTypeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusTypeTitle" />
+                <TextView
+                    android:id="@+id/adminBusEndPointVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Hà Giang"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/adminBusStartPointVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="District 7, HCM"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adminBusListBodyConstraintLayout"
+        android:layout_width="410dp"
+        android:layout_height="103dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartPointTitle" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusListHeaderConstraintLayout">
 
-    <TextView
-        android:id="@+id/adminBusEndPointVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="District 12 HCM"
-        app:layout_constraintEnd_toEndOf="@+id/adminBusStartPointVal"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndPointTitle" />
+        <LinearLayout
+            android:layout_width="409dp"
+            android:layout_height="95dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/adminBusStartTimeVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="15:00 04/04/2023"
-        app:layout_constraintEnd_toEndOf="@+id/adminBusStartPointVal"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndPointTitle" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="136dp"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/adminBusEndTimeVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="15:00 04/04/2023"
-        app:layout_constraintEnd_toEndOf="@+id/adminBusStartTimeVal"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeTitle" />
+                <TextView
+                    android:id="@+id/adminBusStartPointTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="Khởi hành"
+                    android:textColor="#a4a3a8"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/adminBusTypeVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Limousine"
-        app:layout_constraintEnd_toEndOf="@+id/adminBusEndTimeVal"
-        app:layout_constraintTop_toTopOf="@+id/adminBusTypeTitle" />
+                <TextView
+                    android:id="@+id/adminBusStartTimeVal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="center"
+                    android:text="15:00 04/04/2023"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointTitle" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/adminBusPriceVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="300000"
-        app:layout_constraintEnd_toEndOf="@+id/adminBusTypeVal"
-        app:layout_constraintTop_toTopOf="@+id/adminBusPriceTitle" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="134dp"
+                android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/adminBusDeleteItemBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="DELETE"
-        app:layout_constraintBottom_toBottomOf="parent"
+                <TextView
+                    android:id="@+id/adminBusDurationVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="2 h 25 m"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/adminBusEndPointTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="center"
+                    android:text="Kết thúc"
+                    android:textColor="#a4a3a8"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/adminBusEndTimeVal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="center"
+                    android:text="15:00 04/04/2023"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointTitle" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adminBusListTravelConstraintLayout"
+        android:layout_width="408dp"
+        android:layout_height="26dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.911"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/adminBusListBodyConstraintLayout">
+
+        <LinearLayout
+            android:layout_width="408dp"
+            android:layout_height="26dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="69dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/startIconImgV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/circle_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="259dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/adminBusBusIconImgV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_van_shuttle_solid" />
+
+                <View
+                    android:id="@+id/dotLineView"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/endIconImgV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/circle_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adminBusListFooterConstraintLayout"
+        android:layout_width="404dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusListTravelConstraintLayout">
+
+        <LinearLayout
+            android:layout_width="392dp"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="259dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/adminBusPriceVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="VND 300000"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/adminBusTypeVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Limousine"
+                    app:layout_constraintBottom_toBottomOf="@+id/adminBusPriceVal"
+                    app:layout_constraintStart_toEndOf="@+id/adminBusPriceVal" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/adminBusDeleteItemBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="DELETE"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.488"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

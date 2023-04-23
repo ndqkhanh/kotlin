@@ -146,9 +146,11 @@ data class BusTicket(
     val name: String,
     val start_point: String,
     val end_point: String,
-    val time: String,
+    val start_time: String,
+    val end_time: String,
     val seat: String,
-    val status: String
+    val status: String,
+    val phone: String
 )
 
 
@@ -270,7 +272,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.8:3000/v1/"
+    private val BASE_URL = "http://192.168.1.37:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
