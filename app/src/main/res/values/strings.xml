@@ -43,10 +43,10 @@
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="rating_bar">Rating bar</string>
-
     <string name="blog_content"><ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul></string>
-
     <!--    New -->
     <string name="login_home"><u>Đăng nhập</u></string>
     <string name="logup"><u>Đăng ký</u></string>
+    <string name="close"><u>Đóng</u></string>
+    <string name="image">Image</string>
 </resources>

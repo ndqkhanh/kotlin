@@ -95,7 +95,7 @@ class BusDetailActivity : AppCompatActivity() {
                 arr.add("Type of bus")
                 arr.add(data?.type.toString() ?: "")
                 arr.add("Price")
-                arr.add(data?.pricingFormat ?: "")
+                arr.add(data?.pricing_format ?: "")
 
                 // put arr in sharedPreference
                 val sharePref = getSharedPreferences("BusDetail", MODE_PRIVATE)

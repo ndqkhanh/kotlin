@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import retrofit2.http.*
 
+
 data class BlogResponse(
     val id: String,
     val thumbnail: String,
@@ -58,6 +59,7 @@ data class TicketResponse(
     val data: TicketCreateResponse,
 )
 
+
 data class BusStation(
     val id: String,
     val name: String,
@@ -66,6 +68,11 @@ data class BusStation(
 
 data class BusOperator (
     val id: String,
+    val image_url: String,
+    val phone: String,
+    val name: String
+)
+data class BusOperatorBody(
     val image_url: String,
     val phone: String,
     val name: String
@@ -83,9 +90,12 @@ data class Bus(
     val num_of_seats: Int,
     val price: Int,
     val bus_operators: BusOperator,
-    val pricingFormat: String,
+    val pricing_format: String,
     val duration: String,
-    val left_seats: Int
+    val left_seats: Int,
+    var start_time_hour: String,
+    var end_time_hour: String,
+    val rating: Float
 )
 
 data class BusResponse(
@@ -99,8 +109,8 @@ data class BusSearchRequest(
     var page: Int,
     var limit: Int,
     var startTime: String,
-    var price: Int,
-    var type: Int,
+    var price: Int?,
+    var type: Int?,
     var boId: String?
     )
 
@@ -146,9 +156,11 @@ data class BusTicket(
     val name: String,
     val start_point: String,
     val end_point: String,
-    val time: String,
+    val start_time: String,
+    val end_time: String,
     val seat: String,
-    val status: String
+    val status: String,
+    val phone: String
 )
 
 
@@ -159,14 +171,15 @@ data class BusTicketResponse(
 data class DeleteBusTicketResponse(
     val success: Boolean
 )
-
 data class DeleteBusResponse(
     val success: Boolean
 )
-
+data class DeleteBusOperatorResponse(
+    val success: Boolean
+)
 data class AdminBusesResponse (
     val data: List<Buses>
-        )
+)
 interface UserService {
     @POST("auth/signup")
     fun signUp(@Body signUpData: AccountSignUp): Call<UserSignUpRespone>
@@ -193,7 +206,7 @@ interface BusService {
     ) : Call<AdminBusesResponse>
 
     @GET("admin/bus/{id}")
-    fun adminSearchBuses(
+    fun  adminSearchBus(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ) : Call<Buses>
@@ -266,11 +279,23 @@ const val limit = 50
 interface BusOperatorService {
     @GET("bus-operator/list/${page}/${limit}")
     fun getBusOperators(): Call<BusOperatorResponse>
+
+    @DELETE("bus-operator/{bid}")
+    fun deleteBooking(
+        @Header("Authorization") token: String,
+        @Path("bid") bid: String
+    ): Call<DeleteBusOperatorResponse>
+
+    @POST("bus-operator/create")
+    fun createBusOperator(
+        @Header("Authorization") token: String,
+        @Body busOperator: BusOperatorBody): Call<BusOperator>
 }
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.2:3000/v1/"
+    private val BASE_URL = "http://192.168.1.10:3000/v1/"
+
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -298,13 +323,10 @@ class APIServiceImpl {
     fun getAllBusOperators(): BusOperatorService {
         return api.create(BusOperatorService::class.java)
     }
-
     // Admin create bus
     fun adminDeleteBuses(): BusService {
         return api.create(BusService::class.java)
     }
-
-
 
     fun adminGetBuses(): BusService {
         return api.create(BusService::class.java)
@@ -320,6 +342,10 @@ class APIServiceImpl {
 
     fun adminDeleteBooking(): TicketService {
         return api.create(TicketService::class.java)
+    }
+
+    fun adminCreateBusOperator(): BusOperatorService {
+        return api.create(BusOperatorService::class.java)
     }
 
     fun createTicket(token: String): TicketService {

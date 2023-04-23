@@ -42,13 +42,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var localEditor: SharedPreferences.Editor
     private val retrofit = APIServiceImpl()
-    private var UserApi = retrofit.userService()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent = Intent(this, BlogSeeAllActivity::class.java)
+        intent = Intent(this, HomePage::class.java)
+
         startActivity(intent)
 
 //        toHomeScreen()
