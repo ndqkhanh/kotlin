@@ -189,7 +189,9 @@
             android:layout_gravity="center_horizontal"
             android:minHeight="48dp"
             android:textSize="20sp"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="TouchTargetSizeCheck"
+            xmlns:facebook="http://schemas.android.com/apk/res-auto"
+            facebook:com_facebook_login_text="tiếp tục với Facebook"/>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout

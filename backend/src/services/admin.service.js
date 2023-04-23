@@ -109,7 +109,7 @@ const busList = async (page, limit, req) => {
     });
     condition = { bo_id: user.boid };
   }
-  console.log(condition);
+
   data = await prisma.buses.findMany({
     skip: page * limit,
     take: limit,
