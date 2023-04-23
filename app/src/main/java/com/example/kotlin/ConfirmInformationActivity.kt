@@ -51,7 +51,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
         try {
             GlobalScope.launch(Dispatchers.IO) {
                 val response =
-                    retrofit.getAllBusStations().getBusStations().awaitResponse()
+                    retrofit.point().getPoints().awaitResponse()
                 val response2 =
                     retrofit.bus().getBusById(busId!!).awaitResponse()
                 if (response.isSuccessful && response2.isSuccessful){
