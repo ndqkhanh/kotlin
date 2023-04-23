@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent = Intent(this, BlogSeeAllActivity::class.java)
+        intent = Intent(this, AdminBusOperatorActivity::class.java)
         startActivity(intent)
 
 //        toHomeScreen()

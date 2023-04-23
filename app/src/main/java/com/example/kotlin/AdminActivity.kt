@@ -20,18 +20,18 @@ class AdminActivity: AppCompatActivity() {
         adapter = AdminGridAdapter(this, adminItemList)
         grid.adapter = adapter
         grid.setOnItemClickListener { adapterView, view, i, l ->
-            when(adminItemList.get(i).name)
+            when(adminItemList.get(i).id)
             {
-                "Bus" -> Intent(this, AdminBusActivity::class.java).also {
+                1 -> Intent(this, AdminBusActivity::class.java).also {
                     startActivity(it)
                 }
-                "Bus Booking" -> Intent(this, AdminBusTicketActivity::class.java).also {
+                2 -> Intent(this, AdminBusTicketActivity::class.java).also {
                     startActivity(it)
                 }
-                "Bus Operator" -> Intent(this, AdminBusOperatorActivity::class.java).also {
+                3-> Intent(this, AdminBusOperatorActivity::class.java).also {
                     startActivity(it)
                 }
-                "Blog" -> Intent(this, BlogManagementActivity::class.java).also {
+                4 -> Intent(this, BlogManagementActivity::class.java).also {
                     startActivity(it)
                 }
             }
@@ -44,10 +44,10 @@ class AdminActivity: AppCompatActivity() {
 
 
 
-        backBtn = findViewById(R.id.adminPageBackBtn)
-        backBtn.setOnClickListener {
-            finish()
-        }
+//        backBtn = findViewById(R.id.adminPageBackBtn)
+//        backBtn.setOnClickListener {
+//            finish()
+//        }
 
     }
 
@@ -55,26 +55,26 @@ class AdminActivity: AppCompatActivity() {
         var result = ArrayList<AdminItem>()
         var adminItem: AdminItem = AdminItem()
         adminItem.id = 1
-        adminItem.name = "Bus"
-        adminItem.image = R.drawable.background_login // CHANGE LATER
+        adminItem.name = "Chuyến xe"
+        adminItem.image = R.drawable.bus_icon // CHANGE LATER
         result.add(adminItem)
 
         adminItem = AdminItem()
         adminItem.id = 2
-        adminItem.name = "Bus Booking"
-        adminItem.image = R.drawable.background_login // CHANGE LATER
+        adminItem.name = "Đặt chỗ"
+        adminItem.image = R.drawable.ticket_icon // CHANGE LATER
         result.add(adminItem)
 
         adminItem = AdminItem()
         adminItem.id = 3
-        adminItem.name = "Bus Operator"
-        adminItem.image = R.drawable.background_login // CHANGE LATER
+        adminItem.name = "Nhà xe"
+        adminItem.image = R.drawable.bus_operator_icon // CHANGE LATER
         result.add(adminItem)
 
         adminItem = AdminItem()
         adminItem.id = 4
-        adminItem.name = "Blog"
-        adminItem.image = R.drawable.background_login // CHANGE LATER
+        adminItem.name = "Bài viết"
+        adminItem.image = R.drawable.blog_icon // CHANGE LATER
         result.add(adminItem)
 
         return result

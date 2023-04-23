@@ -47,7 +47,8 @@ class AdminBusActivity:AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
+//        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
+        val token = "BEARER " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODIyNTMwNzksImV4cCI6MTY4MjI1NDg3OSwidHlwZSI6ImFjY2VzcyJ9.VLV7wnZhEFG5VKrzpRoJtXSbBnkMwJjlqpZVNmjwHZo"
         val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
             throwable.printStackTrace()
         }
@@ -68,11 +69,16 @@ class AdminBusActivity:AppCompatActivity() {
                 Log.d("busTickets vui 1: ", buses.size.toString())
 
                 withContext(Dispatchers.Main){
+                    val space = 5
+                    val itemDecoration = SpaceItemDecoration(space)
+
                     busAdapter = AdminBusAdapter(buses)
                     busRV = findViewById(R.id.adminBusRV)
                     busRV.adapter = busAdapter
                     busRV.layoutManager = LinearLayoutManager(this@AdminBusActivity,
                         LinearLayoutManager.VERTICAL,false)
+
+                    busRV.addItemDecoration(itemDecoration)
 
                 }
 
@@ -110,7 +116,7 @@ class AdminBusActivity:AppCompatActivity() {
 
             GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
                 Log.d("token", token!!)
-                var response = retrofit.searchBusses().adminSearchBuses(token!!,id!!).awaitResponse() // CHANGE
+                var response = retrofit.searchBusses().adminSearchBus(token!!,id!!).awaitResponse() // CHANGE
                 Log.d("Response", "vui 1" + response.message())
                 // debug response
                 Log.d("Response", response.toString())

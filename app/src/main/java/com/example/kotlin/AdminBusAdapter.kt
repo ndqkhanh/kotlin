@@ -19,7 +19,7 @@ class AdminBusAdapter(val buses: MutableList<Buses>): RecyclerView.Adapter<Admin
         val endTime = listItemView.findViewById<TextView>(R.id.adminBusEndTimeVal)
         val type = listItemView.findViewById<TextView>(R.id.adminBusTypeVal)
         val price = listItemView.findViewById<TextView>(R.id.adminBusPriceVal)
-        val image = listItemView.findViewById<ImageView>(R.id.adminBusImgV)
+//        val image = listItemView.findViewById<ImageView>(R.id.adminBusImgV)
 
         init {
             val buttonTemp = listItemView.findViewById<Button>(R.id.adminBusDeleteItemBtn)
@@ -46,7 +46,7 @@ class AdminBusAdapter(val buses: MutableList<Buses>): RecyclerView.Adapter<Admin
         val endTime = holder.endTime
         val type = holder.type
         val price = holder.price
-        val image = holder.image
+//        val image = holder.image
 
         // TODO Modify to see correct
         busOperator.setText(bus.bus_operators.name)
@@ -54,9 +54,15 @@ class AdminBusAdapter(val buses: MutableList<Buses>): RecyclerView.Adapter<Admin
         endPoint.setText(bus.bus_stations_bus_stationsTobuses_end_point.name)
         startTime.setText(bus.start_time)
         endTime.setText(bus.end_time)
-        type.setText(bus.type.toString())
-        price.setText(bus.price.toString())
-        image.setImageResource(android.R.drawable.star_big_on)
+        when (bus.type)
+        {
+            0 ->  type.setText("Ghế ngồi")
+            1 ->  type.setText("Giường nằm")
+            2 ->  type.setText("Giường nằm đôi")
+        }
+//        type.setText(bus.type.toString())
+        price.setText("VND " + bus.price.toString())
+//        image.setImageResource(android.R.drawable.star_big_on)
 
     }
 

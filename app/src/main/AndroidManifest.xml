@@ -44,6 +44,9 @@
             android:name=".AdminBusTicketActivity"
             android:exported="false" />
         <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminBlogCreateActivity"
             android:exported="false" />
         <activity
@@ -77,7 +80,7 @@
             android:name=".AdminBusOperatorActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".AdminBusOperatorCreateActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
