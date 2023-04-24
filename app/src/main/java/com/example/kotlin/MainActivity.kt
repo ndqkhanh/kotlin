@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent = Intent(this, ChoosePickUpLocationActivity::class.java)
+        intent = Intent(this, HomePage::class.java)
 
         startActivity(intent)
 
