@@ -48,7 +48,7 @@ class AdminBusActivity:AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 //        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
-        val token = "BEARER " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODIyNTMwNzksImV4cCI6MTY4MjI1NDg3OSwidHlwZSI6ImFjY2VzcyJ9.VLV7wnZhEFG5VKrzpRoJtXSbBnkMwJjlqpZVNmjwHZo"
+        val token = "BEARER " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODIyNjI2NzcsImV4cCI6MTY4MjI2NDQ3NywidHlwZSI6ImFjY2VzcyJ9.UOt4O_i1oz9-92d7sDIK_a_IZcvl7J4Y_Hr0gcVXLLk"
         val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
             throwable.printStackTrace()
         }
@@ -69,7 +69,7 @@ class AdminBusActivity:AppCompatActivity() {
                 Log.d("busTickets vui 1: ", buses.size.toString())
 
                 withContext(Dispatchers.Main){
-                    val space = 5
+                    val space = 50
                     val itemDecoration = SpaceItemDecoration(space)
 
                     busAdapter = AdminBusAdapter(buses)
