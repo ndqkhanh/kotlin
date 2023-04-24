@@ -20,7 +20,22 @@ const getPointById = async (id) => {
   }
   return point;
 };
+
+const getPointsByBsId = async (bsId) => {
+  const points = await prisma.point_bs.findMany({
+    where: { bs_id: bsId },
+    include: {
+      points: true,
+      bus_stations: true,
+    },
+  });
+  if (!points) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'No points for this bus station');
+  }
+  return { data: points };
+};
 module.exports = {
   getPoints,
   getPointById,
+  getPointsByBsId
 };

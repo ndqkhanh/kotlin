@@ -129,6 +129,17 @@ data class PointResponse(
     val data: List<PointStation>
 )
 
+data class PointsByBsId(
+    val point_id: String,
+    val bs_id: String,
+    val points: PointStation,
+    val bus_stations: BusStation
+)
+
+data class PointsByBsIdResponse(
+    val data: List<PointsByBsId>
+)
+
 data class BusOperatorResponse(
     val data: List<BusOperator>
 )
@@ -248,6 +259,9 @@ interface BusStationService {
 interface PointService {
     @GET("point/list")
     fun getPoints(): Call<PointResponse>
+
+    @GET("point/list-point/{bsId}")
+    fun getPointsByBsId(@Path("bsId") bsId: String): Call<PointsByBsIdResponse>
 }
 
 interface TicketService {
@@ -309,7 +323,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.10:3000/v1/"
+    private val BASE_URL = "http://192.168.1.16:3000/v1/"
 
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

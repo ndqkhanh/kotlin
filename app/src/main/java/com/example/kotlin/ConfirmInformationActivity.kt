@@ -50,17 +50,13 @@ class ConfirmInformationActivity : AppCompatActivity() {
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
-                val response =
-                    retrofit.point().getPoints().awaitResponse()
                 val response2 =
                     retrofit.bus().getBusById(busId!!).awaitResponse()
-                if (response.isSuccessful && response2.isSuccessful){
-                    val body = response.body()
+                if (response2.isSuccessful){
                     val body2 = response2.body()
-                    Log.i("body", body.toString())
                     Log.i("body2", body2.toString())
                     launch(Dispatchers.Main) {
-                        if (body != null && body2 != null) {
+                        if (body2 != null) {
                             val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
                             txtBusOperatorName.text = body2.bus_operators.name
                             val txtTime = findViewById<TextView>(R.id.txtTime)
@@ -154,6 +150,18 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                         Toast.LENGTH_SHORT
                                                     ).show()
                                                 }
+                                        }else{
+                                            launch(Dispatchers.Main) {
+                                                if(response.code() == 401){
+                                                    Toast.makeText(
+                                                        this@ConfirmInformationActivity,
+                                                        "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+//                                                    val intent = Intent(this@ConfirmInformationActivity, LoginActivity::class.java)
+//                                                    startActivity(intent)
+                                                }
+                                            }
                                         }
                                     }
                                 } catch (e: Exception) {
@@ -171,7 +179,11 @@ class ConfirmInformationActivity : AppCompatActivity() {
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Toast.makeText(
+                this@ConfirmInformationActivity,
+                "Đặt vé thất bại",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

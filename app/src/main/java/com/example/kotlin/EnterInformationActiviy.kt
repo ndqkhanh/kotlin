@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.text.HtmlCompat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,17 +34,13 @@ class EnterInformationActiviy : AppCompatActivity() {
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
-                val response =
-                    retrofit.point().getPoints().awaitResponse()
                 val response2 =
                     retrofit.bus().getBusById(busId!!).awaitResponse()
-                if (response.isSuccessful && response2.isSuccessful){
-                    val body = response.body()
+                if (response2.isSuccessful){
                     val body2 = response2.body()
-                    Log.i("body", body.toString())
                     Log.i("body2", body2.toString())
                     launch(Dispatchers.Main) {
-                        if (body != null && body2 != null) {
+                        if (body2 != null) {
                             val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
                             txtBusOperatorName.text = body2.bus_operators.name
                             val txtTime = findViewById<TextView>(R.id.txtTime)

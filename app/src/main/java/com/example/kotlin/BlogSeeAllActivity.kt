@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.AdapterView
+import android.widget.ImageButton
 import android.widget.ListView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -16,12 +17,17 @@ class BlogSeeAllActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blog_see_all)
 
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
+        }
+
         val lvTinTuc = findViewById<ListView>(R.id.lvTinTuc)
         val retrofit = APIServiceImpl()
         try {
             GlobalScope.launch(Dispatchers.IO) {
                 val response =
-                    retrofit.getBlog().getBlogs(1,5).awaitResponse()
+                    retrofit.getBlog().getBlogs(1,20).awaitResponse()
                 // debug response
                 Log.d("Response", response.toString())
                 if (response.isSuccessful) {

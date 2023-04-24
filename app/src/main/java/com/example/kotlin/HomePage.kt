@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -174,6 +175,12 @@ class HomePage : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val viewAllNews = findViewById<AppCompatButton>(R.id.viewAllNews)
+        viewAllNews.setOnClickListener {
+            val intent = Intent(this, BlogSeeAllActivity::class.java)
+            startActivity(intent)
+        }
+
         var blogPage = 1
         var blogLimit = 20
         var blogList = findViewById<RecyclerView>(R.id.news)
@@ -190,16 +197,13 @@ class HomePage : AppCompatActivity() {
                             val blogAdapter = CustomBlogItem(body.data)
 
                             blogList!!.adapter = blogAdapter
-                            // using fragment_news_item.xml
-//                            blogList.layoutManager = LinearLayoutManager(this@HomePage)
 
                             blogList.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
 
                             blogAdapter.onItemClick = {
-//                                val intent = Intent(this@Home, BlogDetailActivity::class.java)
-//                                intent.putExtra("activity", "home")
-//                                intent.putExtra("blogId", it.id)
-//                                startActivity(intent)
+                                val intent = Intent(this@HomePage, BlogDetailActivity::class.java)
+                                intent.putExtra("blogId", it.id)
+                                startActivity(intent)
                             }
                         }
                     }
