@@ -2,6 +2,7 @@ package com.example.kotlin
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,17 +10,22 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
+import java.text.SimpleDateFormat
 import java.util.ArrayList
+import java.util.Date
+import java.util.Locale
 
 data class ListItemFormat(
     val id: String,
@@ -32,9 +38,28 @@ class HomePage : AppCompatActivity() {
     lateinit var startPointEdit: EditText
     lateinit var endPointEdit: EditText
     lateinit var departureDateEdit: EditText
-
+    var fileUpload = UploadFile()
     var currentBusStartPoint = ""
     var currentBusEndPoint = ""
+    private fun selectImage(){
+        // select image from local storage
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 100)
+    }
+
+    // onActivityResult
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 100){
+            // get image from local storage
+            val imageUri = data?.data as Uri
+            // upload image to firebase
+            fileUpload.uploadImageToFirebase(imageUri)
+
+            Log.d("imageURL", fileUpload.getImageURL())
+        }
+    }
 
     private fun endPointEditHandle(){
         FragmentOperatorFilter().apply {
@@ -109,6 +134,11 @@ class HomePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
+
+        val loginBtn = findViewById<TextView>(R.id.loginBtn)
+        loginBtn.setOnClickListener {
+            selectImage()
+        }
 
         val startPointSelect = findViewById<LinearLayout>(R.id.startPointSelect)
         startPointEdit = findViewById<EditText>(R.id.startPointEdit)
