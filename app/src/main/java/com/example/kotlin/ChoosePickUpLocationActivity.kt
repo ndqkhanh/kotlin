@@ -30,57 +30,69 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
 
         val retrofit = APIServiceImpl()
 
-        val busId = "b655665e-b14e-4a87-b45c-ff019df079b9";
+        val busId = "ffe0ffaa-7d1c-4a2e-b812-46674ba8c85d";
 
         val busPickUpPoints = ArrayList<Point>()
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
                 val response =
-                    retrofit.getAllBusStations().getBusStations().awaitResponse()
-                val response2 =
                     retrofit.bus().getBusById(busId).awaitResponse()
-                if (response.isSuccessful && response2.isSuccessful){
+                if (response.isSuccessful){
                     val body = response.body()
-                    val body2 = response2.body()
                     Log.i("body", body.toString())
-                    Log.i("body2", body2.toString())
                     launch(Dispatchers.Main) {
-                        if (body != null && body2 != null) {
-                            for (i in 0 until body.data.size) {
-                                busPickUpPoints.add(Point(body.data[i].id, body2.start_time,
-                                    body.data[i].name, body.data[i].location))
-                            }
+                        if (body != null) {
                             val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
-                            txtBusOperatorName.text = body2.bus_operators.name
+                            txtBusOperatorName.text = body.bus_operators.name
                             val txtTime = findViewById<TextView>(R.id.txtTime)
-                            txtTime.text = body2.start_time
-                            val listView = findViewById<ListView>(R.id.lvDiemDon)
-                            val adapter = PickUpPointAdapter(this@ChoosePickUpLocationActivity, busPickUpPoints)
-                            listView.adapter = adapter
-                            listView.onItemClickListener =
-                                AdapterView.OnItemClickListener { _, _, position, _ -> adapter.setSelectedItem(position) }
+                            txtTime.text = body.start_time
+                            try {
+                                GlobalScope.launch(Dispatchers.IO) {
+                                    val response2 =
+                                        retrofit.point().getPointsByBsId(body.start_point.id).awaitResponse()
+                                    if (response2.isSuccessful) {
+                                        val body2 = response2.body()
+                                        launch(Dispatchers.Main) {
+                                            if (body2 != null) {
+                                                for (i in 0 until body2.data.size) {
+                                                    busPickUpPoints.add(Point(body2.data[i].point_id, body.start_time,
+                                                        body2.data[i].points.name, body2.data[i].points.location))
+                                                }
+                                                val listView = findViewById<ListView>(R.id.lvDiemDon)
+                                                val adapter = PickUpPointAdapter(this@ChoosePickUpLocationActivity, busPickUpPoints)
+                                                listView.adapter = adapter
+                                                listView.onItemClickListener =
+                                                    AdapterView.OnItemClickListener { _, _, position, _ -> adapter.setSelectedItem(position) }
 
-                            val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
-                            continueBtn.setOnClickListener {
-                                if(adapter.getSelectedPosition() == -1) {
-                                    Toast.makeText(this@ChoosePickUpLocationActivity, "Hãy chọn điếm đón bạn muốn", Toast.LENGTH_SHORT).show()
+                                                val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
+                                                continueBtn.setOnClickListener {
+                                                    if(adapter.getSelectedPosition() == -1) {
+                                                        Toast.makeText(this@ChoosePickUpLocationActivity, "Hãy chọn điếm đón bạn muốn", Toast.LENGTH_SHORT).show()
+                                                    }
+                                                    else {
+                                                        intent = Intent(this@ChoosePickUpLocationActivity, ChooseDropDownLocationActivity::class.java)
+                                                        intent.putExtra("busId", busId)
+                                                        intent.putExtra("busPickUpPointId", busPickUpPoints[adapter.getSelectedPosition()].id)
+                                                        intent.putExtra("busPickUpPointName", busPickUpPoints[adapter.getSelectedPosition()].name)
+                                                        intent.putExtra("busPickUpPointLocation", busPickUpPoints[adapter.getSelectedPosition()].location)
+                                                        startActivity(intent)
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
                                 }
-                                else {
-                                    intent = Intent(this@ChoosePickUpLocationActivity, ChooseDropDownLocationActivity::class.java)
-                                    intent.putExtra("busId", busId)
-                                    intent.putExtra("busPickUpPointId", busPickUpPoints[adapter.getSelectedPosition()].id)
-                                    intent.putExtra("busPickUpPointName", busPickUpPoints[adapter.getSelectedPosition()].name)
-                                    intent.putExtra("busPickUpPointLocation", busPickUpPoints[adapter.getSelectedPosition()].location)
-                                    startActivity(intent)
-                                }
+                            }catch (e: Exception) {
+                                Toast.makeText(this@ChoosePickUpLocationActivity, "Lỗi kết nối", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Toast.makeText(this@ChoosePickUpLocationActivity, "Lỗi kết nối", Toast.LENGTH_SHORT).show()
         }
     }
 }

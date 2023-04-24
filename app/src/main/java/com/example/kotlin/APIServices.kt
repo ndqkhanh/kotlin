@@ -66,6 +66,12 @@ data class BusStation(
     val location: String
 )
 
+data class PointStation(
+    val id: String,
+    val name: String,
+    val location: String
+)
+
 data class BusOperator (
     val id: String,
     val image_url: String,
@@ -117,6 +123,21 @@ data class BusSearchRequest(
 
 data class BusStationResponse(
     val data: List<BusStation>
+)
+
+data class PointResponse(
+    val data: List<PointStation>
+)
+
+data class PointsByBsId(
+    val point_id: String,
+    val bs_id: String,
+    val points: PointStation,
+    val bus_stations: BusStation
+)
+
+data class PointsByBsIdResponse(
+    val data: List<PointsByBsId>
 )
 
 data class BusOperatorResponse(
@@ -235,6 +256,14 @@ interface BusStationService {
     fun getBusStations(): Call<BusStationResponse>
 }
 
+interface PointService {
+    @GET("point/list")
+    fun getPoints(): Call<PointResponse>
+
+    @GET("point/list-point/{bsId}")
+    fun getPointsByBsId(@Path("bsId") bsId: String): Call<PointsByBsIdResponse>
+}
+
 interface TicketService {
     @POST("ticket/create/{busId}")
     fun createTicketByNumOfSeats(
@@ -315,6 +344,10 @@ class APIServiceImpl {
 
     fun getAllBusStations(): BusStationService {
         return api.create(BusStationService::class.java)
+    }
+
+    fun point(): PointService {
+        return api.create(PointService::class.java)
     }
 
     fun bus(): BusService {

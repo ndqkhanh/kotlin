@@ -393,12 +393,12 @@
         app:layout_constraintTop_toBottomOf="@+id/txtSoLuongGheTrong" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/chinhSach"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="30dp"
         android:fontFamily="@font/montserrat"
-        android:text="Bằng việc nhấn vào nút Tiếp tục, bạn đồng ý với Chính sách bảo mật thông tin và Quy chế"
+        android:text="@string/chinh_sach_dat_ve"
         app:layout_constraintEnd_toEndOf="@+id/edtNumOfSeats"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="@+id/edtNumOfSeats"
