@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.facebook.login.widget.LoginButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.util.regex.Pattern
 
 class LogInUp: AppCompatActivity() {
 
@@ -29,6 +30,8 @@ class LogInUp: AppCompatActivity() {
     private lateinit var switchToLogUp: TextView
     private lateinit var redNotice: TextView
     private lateinit var buttonFacebookLogin: LoginButton
+
+    private var invaliteEmailFormat = "Không đúng định dạng email !!"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +56,17 @@ class LogInUp: AppCompatActivity() {
         switchToLogIn.setOnClickListener { startLogin() }
         switchToLogUp.setOnClickListener { startLogup() }
         back.setOnClickListener { backToPrevious() }
+        dangKy.setOnClickListener { baseApplogUp() }
 
+
+    }
+    private fun baseApplogUp(){
+        var email_str = email.text.toString()
+        if(!emailFormat(email_str)){
+            redNotice.visibility = VISIBLE
+            redNotice.text = invaliteEmailFormat
+            return
+        }
 
     }
     private fun backToPrevious(){
@@ -84,4 +97,19 @@ class LogInUp: AppCompatActivity() {
         logUpSuggest.visibility = GONE
 
     }
+
+    private fun emailFormat(str: String?): Boolean{
+        if (str == null) return false
+        return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
+
+    }
+    private val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                "\\@" +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                "(" +
+                "\\." +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                ")+"
+    )
 }
