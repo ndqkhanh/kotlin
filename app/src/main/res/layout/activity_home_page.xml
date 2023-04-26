@@ -88,14 +88,14 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_location" />
+                    android:src="@drawable/blue_ic_location" />
 
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_location" />
+                    android:src="@drawable/red_ic_location" />
 
                 <ImageView
                     android:layout_width="40dp"

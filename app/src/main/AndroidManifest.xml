@@ -3,6 +3,7 @@
     package="com.example.kotlin">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -56,19 +57,16 @@
             android:name=".BlogDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".BlogManagementDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminBusActivity"
             android:exported="false" />
         <activity
             android:name=".AdminBusCreateActivity"
             android:exported="false" />
         <activity
-            android:name=".BlogItem"
-            android:exported="false" />
-        <activity
             android:name=".ticket_item"
-            android:exported="false" />
-        <activity
-            android:name=".FillBookingFormActivity"
             android:exported="false" />
         <activity
             android:name=".BookingDetailActivity"

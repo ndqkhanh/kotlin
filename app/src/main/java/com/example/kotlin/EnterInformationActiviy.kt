@@ -50,9 +50,9 @@ class EnterInformationActiviy : AppCompatActivity() {
                             val tmp = "Số lượng ghế trống: " + body2.left_seats.toString()
                             txtSoLuongGheTrong.text = tmp
 
-                            val edtPersonName = findViewById<EditText>(R.id.edtPersonName)
-                            val edtPhoneNumber = findViewById<EditText>(R.id.edtPhone)
-                            val edtNumOfSeats = findViewById<EditText>(R.id.edtNumOfSeats)
+                            val edtPersonName = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtPersonName)
+                            val edtPhoneNumber = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtPhone)
+                            val edtNumOfSeats = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtNumOfSeats)
 
                             val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
                             continueBtn.setOnClickListener {

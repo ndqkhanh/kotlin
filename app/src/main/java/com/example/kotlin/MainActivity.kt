@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent = Intent(this, HomePage::class.java)
+        intent = Intent(this, BlogManagementActivity::class.java)
 
         startActivity(intent)
 
