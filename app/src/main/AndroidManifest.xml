@@ -36,6 +36,15 @@
             android:exported="false" />
         <activity
             android:name=".HomePage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LogInUp"
             android:exported="false" />
         <activity
             android:name=".PersonalInformation"
@@ -78,7 +87,7 @@
             android:exported="false" />
         <activity
             android:name=".Home"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".AdminBusOperatorActivity"
             android:exported="false" />
@@ -87,13 +96,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -1,9 +1,8 @@
 package com.example.kotlin
 
 import android.net.Uri
-import kotlinx.coroutines.Job
 
-class FBInfor {
+class UserInformation {
     companion object{
         var TOKEN: String? = null
         var ID: String = ""

@@ -1,18 +1,11 @@
 package com.example.kotlin
 
-import android.content.DialogInterface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.awaitResponse
 
 
 //class Blog {
@@ -83,7 +76,7 @@ class CustomAdminBlogItem(private val blogs: MutableList<BlogResponse>): Recycle
         holder.txtContent.text = blogs[position].content
         holder.txtCreateTime.text = blogs[position].create_time
         val retrofit = APIServiceImpl()
-        val token = FBInfor.TOKEN
+        val token = UserInformation.TOKEN
 //        holder.btnDelete.setOnClickListener {
 //            try {
 //                if (FBInfor.ROLE != 0 && FBInfor.ROLE != 1) {

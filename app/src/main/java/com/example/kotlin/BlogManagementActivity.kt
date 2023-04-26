@@ -36,13 +36,13 @@ class BlogManagementActivity : AppCompatActivity() {
         btnPrevious = findViewById(R.id.btnPrevious)
         btnNext = findViewById(R.id.btnNext)
         val btnAddBlog = findViewById<Button>(R.id.btnAddBlog)
-        btnAddBlog.visibility = if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
+        btnAddBlog.visibility = if (UserInformation.ROLE == 0 || UserInformation.ROLE == 1) {
             View.VISIBLE
         } else {
             View.GONE
         }
         btnAddBlog.setOnClickListener {
-            if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
+            if (UserInformation.ROLE == 0 || UserInformation.ROLE == 1) {
                 val intent = Intent(this, AdminBlogCreateActivity::class.java)
                 startActivity(intent)
             }

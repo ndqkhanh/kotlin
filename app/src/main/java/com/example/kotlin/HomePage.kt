@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -137,7 +136,8 @@ class HomePage : AppCompatActivity() {
 
         val loginBtn = findViewById<TextView>(R.id.loginBtn)
         loginBtn.setOnClickListener {
-            selectImage()
+            intent = Intent(this, LogInUp::class.java)
+            startActivity(intent)
         }
 
         val startPointSelect = findViewById<LinearLayout>(R.id.startPointSelect)
