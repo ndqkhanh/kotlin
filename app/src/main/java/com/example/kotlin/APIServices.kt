@@ -214,6 +214,9 @@ interface UserService {
         @Path("page") page: Int,
         @Path("limit") limit: Int
     ): Call<HistoryList>
+
+    @GET("user/information")
+    fun getUserByAccountName(@Query("username") username: String): Call<User>
 }
 
 interface BusService {
@@ -323,7 +326,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.3:3000/v1/"
+    private val BASE_URL = "http://192.168.1.23:3000/v1/"
 
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

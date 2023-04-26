@@ -1,5 +1,6 @@
 package com.example.kotlin
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -8,9 +9,16 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlin.jsonConvert.AccountSignUp
+import com.example.kotlin.jsonConvert.User
+import com.example.kotlin.jsonConvert.UserSignUpRespone
 import com.facebook.login.widget.LoginButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import okhttp3.internal.wait
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class LogInUp: AppCompatActivity() {
@@ -30,8 +38,14 @@ class LogInUp: AppCompatActivity() {
     private lateinit var switchToLogUp: TextView
     private lateinit var redNotice: TextView
     private lateinit var buttonFacebookLogin: LoginButton
+    private val UserAPI = APIServiceImpl().userService()
 
-    private var invaliteEmailFormat = "Không đúng định dạng email !!"
+    private val invaliteEmailFormat = "Không đúng định dạng email !!"
+    private val notMatchPassword = "Mật khẩu nhập lại không khớp."
+    private val userExisted = "Người dùng đã tồn tại"
+    private val failure = "Yêu cầu thất bại"
+    private val passNotEnoughChar = "Mật khẩu cần ít nhất 1 số, 1 chữ cái và ít nhất 8 ký tự"
+    private val blankName = "Tên không được để trống"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,12 +76,52 @@ class LogInUp: AppCompatActivity() {
     }
     private fun baseApplogUp(){
         var email_str = email.text.toString()
+        var pass_str = password.text.toString()
+        var repass_str = repassword.text.toString()
+        var name_str = name.text.toString()
+
+        redNotice.visibility = GONE
+
         if(!emailFormat(email_str)){
-            redNotice.visibility = VISIBLE
-            redNotice.text = invaliteEmailFormat
+            doRedNote(invaliteEmailFormat)
+            return
+        }
+        if(pass_str != repass_str){
+            doRedNote(notMatchPassword)
+            return
+        }
+        if(!passwordFormate(pass_str)) {
+            doRedNote(passNotEnoughChar)
+            return
+        }
+        if(name_str.isBlank()){
+            doRedNote(blankName)
             return
         }
 
+        var callUser: Call<User> = UserAPI.getUserByAccountName(email_str)
+        var user: User? = WaitingAsyncClass(callUser).execute().get()
+        if(user != null){
+            doRedNote(userExisted)
+            return
+        }
+
+        var newUser = AccountSignUp(email_str ,pass_str ,repass_str ,name_str )
+        var callSignUp: Call<UserSignUpRespone> = UserAPI.signUp(newUser)
+        var newAccount: UserSignUpRespone? = WaitingAsyncClass(callSignUp).execute().get()
+        if(newAccount != null){
+            //store and navigate
+            //doRedNote("thanh cong")
+        }else{
+            doRedNote(failure)
+            return
+        }
+
+
+    }
+    private fun doRedNote(str: String){
+        redNotice.visibility = VISIBLE
+        redNotice.text = str
     }
     private fun backToPrevious(){
         finish()
@@ -103,6 +157,11 @@ class LogInUp: AppCompatActivity() {
         return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
 
     }
+    private fun passwordFormate(str: String?): Boolean{
+        if(str == null) return false
+        return PASSWORD_PATTERN.matcher(str).matches()
+    }
+
     private val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                 "\\@" +
@@ -111,5 +170,12 @@ class LogInUp: AppCompatActivity() {
                 "\\." +
                 "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                 ")+"
+    )
+    private val PASSWORD_PATTERN: Pattern = Pattern.compile(
+        "^"+
+                "(?=.*[0-9])" + //at least 1 number
+                "(?=.*[a-zA-Z])" + //at least 1 letter
+                "(.{8,})" +  //at least 8 character
+                "$"
     )
 }
