@@ -2,11 +2,6 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
-<<<<<<< HEAD
         <domain includeSubdomains="true">192.168.1.3</domain>
-
-=======
-        <domain includeSubdomains="true">192.168.1.23</domain>
->>>>>>> 493308e94af4ff8da8333a14d1524420a6e9c35c
     </domain-config>
 </network-security-config>
