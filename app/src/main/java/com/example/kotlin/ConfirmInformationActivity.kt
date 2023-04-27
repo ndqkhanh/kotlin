@@ -102,7 +102,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                             val txtDienThoai = findViewById<TextView>(R.id.txtDienThoai)
                             txtDienThoai.text = phoneNumber
                             val txtEmail = findViewById<TextView>(R.id.txtEmail)
-                            txtEmail.text = UserInformation.EMAIL
+                            txtEmail.text = UserInformation.USER?.accountName
 
                             val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
                             continueBtn.setOnClickListener {
