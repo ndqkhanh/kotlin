@@ -46,7 +46,8 @@ data class TicketData(
     val pick_up_point: String,
     val drop_down_point: String,
     val phone: String,
-    val num_of_seats: Int
+    val num_of_seats: Int,
+    val note: String,
 )
 
 data class TicketCreateResponse(
@@ -208,12 +209,15 @@ interface UserService {
     @POST("auth/signin")
     fun signIn(@Body signInData: UserLogin): Call<UserLogInRespone>
 
-    @POST("user/history/{page}/{limit}")
+    @GET("user/history/{page}/{limit}")
     fun ticketHistory(
         @Header("Authorization") token: String,
         @Path("page") page: Int,
         @Path("limit") limit: Int
     ): Call<HistoryList>
+
+    @GET("user/information")
+    fun getUserByAccountName(@Query("username") username: String): Call<User>
 }
 
 interface BusService {

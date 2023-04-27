@@ -1,6 +1,7 @@
 package com.example.kotlin
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,11 +12,18 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.example.kotlin.jsonConvert.HistoryList
+import com.example.kotlin.jsonConvert.User
+import com.example.kotlin.jsonConvert.UserLogInRespone
+import com.example.kotlin.jsonConvert.UserLogin
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Call
 import retrofit2.awaitResponse
+import java.lang.reflect.Type
 
 
 data class ListItemFormat(
@@ -32,6 +40,7 @@ class HomePage : AppCompatActivity() {
     var fileUpload = UploadFile()
     var currentBusStartPoint = ""
     var currentBusEndPoint = ""
+
     private fun selectImage(){
         // select image from local storage
         val intent = Intent(Intent.ACTION_PICK)
@@ -128,8 +137,8 @@ class HomePage : AppCompatActivity() {
 
         val loginBtn = findViewById<TextView>(R.id.loginBtn)
         loginBtn.setOnClickListener {
-            intent = Intent(this, LogInUp::class.java)
-            startActivity(intent)
+            var intentLogIn = Intent(this, LogInUp::class.java)
+            startActivity(intentLogIn)
         }
 
         val startPointSelect = findViewById<LinearLayout>(R.id.startPointSelect)

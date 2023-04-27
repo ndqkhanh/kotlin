@@ -96,8 +96,6 @@ class Home : AppCompatActivity() {
                             startActivity(intent)
                         }
 
-
-
                         searchResult!!.adapter = adapter
 
                         Utility.setListViewHeightBasedOnChildren(searchResult)
@@ -115,7 +113,7 @@ class Home : AppCompatActivity() {
         /*Admin Nav Button*/
         val adminButtonLayout = findViewById<LinearLayout>(R.id.admin_button_layout)
         adminBtn = findViewById(R.id.admin_button)
-        if (UserInformation.ROLE == 0 || UserInformation.ROLE == 1) {
+        if (UserInformation.USER != null && (UserInformation.USER!!.role == 0 || UserInformation.USER!!.role == 1)) {
             adminButtonLayout.visibility = View.VISIBLE
         }else{
             adminButtonLayout.visibility = View.GONE

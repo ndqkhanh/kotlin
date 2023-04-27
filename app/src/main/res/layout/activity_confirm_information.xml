@@ -156,7 +156,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:gravity="center"
-                            android:text="4"
+                            android:text="5"
                             android:textColor="@color/blue"
                             android:textSize="15sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -212,7 +212,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:gravity="center"
-                            android:text="5"
+                            android:text="6"
                             android:textColor="@color/blue"
                             android:textSize="15sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -595,6 +595,30 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView11"
                     app:layout_constraintTop_toTopOf="@+id/textView33" />
+
+                <TextView
+                    android:id="@+id/titleNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Ghi chú"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+                <TextView
+                    android:id="@+id/txtNote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text=""
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/txtEmail"
+                    app:layout_constraintStart_toStartOf="@+id/titleNote"
+                    app:layout_constraintTop_toBottomOf="@+id/titleNote" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

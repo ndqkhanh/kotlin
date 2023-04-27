@@ -25,6 +25,7 @@ class EnterInformationActiviy : AppCompatActivity() {
         val retrofit = APIServiceImpl()
 
         val busId = intent.getStringExtra("busId")
+        val numOfSeats = intent.getStringExtra("numOfSeats")
         val busPickUpPointId = intent.getStringExtra("busPickUpPointId")
         val busPickUpPointName = intent.getStringExtra("busPickUpPointName")
         val busPickUpPointLocation = intent.getStringExtra("busPickUpPointLocation")
@@ -45,46 +46,39 @@ class EnterInformationActiviy : AppCompatActivity() {
                             txtBusOperatorName.text = body2.bus_operators.name
                             val txtTime = findViewById<TextView>(R.id.txtTime)
                             txtTime.text = body2.start_time
-                            val txtSoLuongGheTrong = findViewById<TextView>(R.id.txtSoLuongGheTrong)
-
-                            val tmp = "Số lượng ghế trống: " + body2.left_seats.toString()
-                            txtSoLuongGheTrong.text = tmp
 
                             val edtPersonName = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtPersonName)
                             val edtPhoneNumber = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtPhone)
-                            val edtNumOfSeats = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtNumOfSeats)
+                            val edtNote = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtNote)
 
                             val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
                             continueBtn.setOnClickListener {
-                                if(edtPersonName.text.toString().isEmpty() || edtPhoneNumber.text.toString().isEmpty() || edtNumOfSeats.text.toString().isEmpty()
-                                    || edtPersonName.text.toString().isBlank() || edtPhoneNumber.text.toString().isBlank() || edtNumOfSeats.text.toString().isBlank()
-                                ) {
-                                    Toast.makeText(this@EnterInformationActiviy, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+                                var flag = false
+                                if(edtPersonName.text.toString().isBlank()) {
+                                    edtPersonName.error = "Vui lòng nhập đầy đủ họ tên"
+                                    flag = true
                                 }
-                                // check if phone number contains only numbers
-                                else if(!edtPhoneNumber.text.toString().matches(Regex("[0-9]+"))) {
-                                    Toast.makeText(this@EnterInformationActiviy, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show()
+                                if(edtPhoneNumber.text.toString().isBlank()){
+                                    edtPhoneNumber.error = "Vui lòng nhập đầy đủ số điện thoại"
+                                    flag = true
+                                }else if(!edtPhoneNumber.text.toString().matches(Regex("[0-9]+"))) {
+                                    edtPhoneNumber.error = "Số điện thoại không hợp lệ"
+                                    flag = true
                                 }
-                                else if (edtNumOfSeats.text.toString().toInt() <= 0 ){
-                                    Toast.makeText(this@EnterInformationActiviy, "Số lượng ghế không hợp lệ", Toast.LENGTH_SHORT).show()
-                                } else {
-                                    if(edtNumOfSeats.text.toString().toInt() > body2.left_seats) {
-                                        Toast.makeText(this@EnterInformationActiviy, "Số lượng ghế không đủ", Toast.LENGTH_SHORT).show()
-                                    } else {
-                                        val intent = Intent(this@EnterInformationActiviy, ConfirmInformationActivity::class.java)
-                                        intent.putExtra("busId", busId)
-                                        intent.putExtra("busPickUpPointId", busPickUpPointId)
-                                        intent.putExtra("busPickUpPointName", busPickUpPointName)
-                                        intent.putExtra("busPickUpPointLocation", busPickUpPointLocation)
-                                        intent.putExtra("busDropDownPointName", busDropDownPointName)
-                                        intent.putExtra("busDropDownPointLocation", busDropDownPointLocation)
-                                        intent.putExtra("busDropDownPointId", busDropDownPointId)
-                                        intent.putExtra("personName", edtPersonName.text.toString())
-                                        intent.putExtra("phoneNumber", edtPhoneNumber.text.toString())
-                                        intent.putExtra("numOfSeats", edtNumOfSeats.text.toString())
-                                        startActivity(intent)
-                                    }
-                                }
+                                if(flag) return@setOnClickListener
+                                val intent = Intent(this@EnterInformationActiviy, ConfirmInformationActivity::class.java)
+                                intent.putExtra("busId", busId)
+                                intent.putExtra("busPickUpPointId", busPickUpPointId)
+                                intent.putExtra("busPickUpPointName", busPickUpPointName)
+                                intent.putExtra("busPickUpPointLocation", busPickUpPointLocation)
+                                intent.putExtra("busDropDownPointName", busDropDownPointName)
+                                intent.putExtra("busDropDownPointLocation", busDropDownPointLocation)
+                                intent.putExtra("busDropDownPointId", busDropDownPointId)
+                                intent.putExtra("personName", edtPersonName.text.toString())
+                                intent.putExtra("phoneNumber", edtPhoneNumber.text.toString())
+                                intent.putExtra("note", edtNote.text.toString())
+                                intent.putExtra("numOfSeats", numOfSeats)
+                                startActivity(intent)
                             }
                         }
                     }

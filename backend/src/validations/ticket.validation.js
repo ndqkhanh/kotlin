@@ -11,6 +11,7 @@ const createTicket = {
     drop_down_point: Joi.string().uuid(),
     phone: Joi.string().required(),
     num_of_seats: Joi.number().required(),
+    note: Joi.string(),
   }),
 };
 

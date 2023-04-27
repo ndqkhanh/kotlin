@@ -36,13 +36,14 @@ class ConfirmInformationActivity : AppCompatActivity() {
         val personName = intent.getStringExtra("personName")
         val phoneNumber = intent.getStringExtra("phoneNumber")
         val numOfSeats = intent.getStringExtra("numOfSeats")
+        val note = intent.getStringExtra("note")
 
         Log.i("busPickUpPointId", busPickUpPointId.toString())
         Log.i("busDropDownPointId", busDropDownPointId.toString())
 
 //        val token = this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
 
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODIxNDMzMDUsImV4cCI6MTY4MjE0NTEwNSwidHlwZSI6ImFjY2VzcyJ9.NcSNJN-oklIicwSVk7m1ujOPI1ln7HHH_mYkyrh58WI"
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODI2MDI2MzAsImV4cCI6MTY4MjYwNDQzMCwidHlwZSI6ImFjY2VzcyJ9.G9YgkatdMObrMR02CkzrL9chy6Qc9ZBdt_YJHS1-bsE"
 
 
         try {
@@ -102,14 +103,17 @@ class ConfirmInformationActivity : AppCompatActivity() {
                             val txtDienThoai = findViewById<TextView>(R.id.txtDienThoai)
                             txtDienThoai.text = phoneNumber
                             val txtEmail = findViewById<TextView>(R.id.txtEmail)
-                            txtEmail.text = UserInformation.EMAIL
+                            txtEmail.text = UserInformation.USER?.accountName
+
+                            val txtNote = findViewById<TextView>(R.id.txtNote)
+                            txtNote.text = note
 
                             val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
                             continueBtn.setOnClickListener {
                                 try {
                                     GlobalScope.launch(Dispatchers.IO) {
                                         val response =
-                                            retrofit.createTicket(token!!)
+                                            retrofit.createTicket(token.toString())
                                                 .createTicketByNumOfSeats(
                                                     busId,
                                                     TicketData(
@@ -117,7 +121,8 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                         busPickUpPointId!!,
                                                         busDropDownPointId!!,
                                                         phoneNumber!!,
-                                                        numOfSeats.toInt()
+                                                        numOfSeats.toInt(),
+                                                        note.toString()
                                                     )
                                                 ).awaitResponse()
                                         // debug response

@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseSeatActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerContainer"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:background="@color/blue"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtBusOperatorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Bình Minh Bus"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/btnBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="22:35 • T7,22/04/2023"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/montserrat_light"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@+id/txtBusOperatorName"
+                app:layout_constraintTop_toBottomOf="@+id/txtBusOperatorName" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/txtBusOperatorDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/thong_tin_xe"
+                android:textAllCaps="false"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtBusOperatorName" />
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/baseline_arrow_back_10"
+                android:contentDescription="@string/back"
+                app:layout_constraintBottom_toBottomOf="@+id/txtTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtBusOperatorName" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:scrollbars="none"
+                android:layout_marginStart="42dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtTime"
+                app:layout_constraintTop_toBottomOf="@+id/txtTime">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/circle00"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/white_circle_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtNumber00"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textColor="@color/blue"
+                                android:textSize="15sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/txtText00"
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="center"
+                            android:text="Chọn ghế"
+                            android:textColor="@color/white"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/circle00"
+                            app:layout_constraintStart_toEndOf="@+id/circle00"
+                            app:layout_constraintTop_toTopOf="@+id/circle00" />
+
+
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="10dp"
+                            android:background="#8BBDF2"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtText00"
+                            app:layout_constraintStart_toEndOf="@+id/txtText00"
+                            app:layout_constraintTop_toTopOf="@+id/txtText00" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/circle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/circle_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtNumber"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:gravity="center"
+                                android:text="2"
+                                android:textColor="@color/blue"
+                                android:textSize="15sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/txtText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="center"
+                            android:text="Chọn điểm đón"
+                            android:textColor="#8BBDF2"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/circle"
+                            app:layout_constraintStart_toEndOf="@+id/circle"
+                            app:layout_constraintTop_toTopOf="@+id/circle" />
+
+
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="10dp"
+                            android:background="#8BBDF2"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtText"
+                            app:layout_constraintStart_toEndOf="@+id/txtText"
+                            app:layout_constraintTop_toTopOf="@+id/txtText" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/circle2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/circle_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtNumber2"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:gravity="center"
+                                android:text="3"
+                                android:textColor="@color/blue"
+                                android:textSize="15sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/txtText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="center"
+                            android:text="Chọn điểm trả"
+                            android:textColor="#8BBDF2"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/circle2"
+                            app:layout_constraintStart_toEndOf="@+id/circle2"
+                            app:layout_constraintTop_toTopOf="@+id/circle2" />
+
+
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="10dp"
+                            android:background="#8BBDF2"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtText2"
+                            app:layout_constraintStart_toEndOf="@+id/txtText2"
+                            app:layout_constraintTop_toTopOf="@+id/txtText2" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/circle3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/circle_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtNumber3"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:gravity="center"
+                                android:text="4"
+                                android:textColor="@color/blue"
+                                android:textSize="15sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/txtText3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="center"
+                            android:text="Nhập thông tin"
+                            android:textColor="#8BBDF2"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/circle3"
+                            app:layout_constraintStart_toEndOf="@+id/circle3"
+                            app:layout_constraintTop_toTopOf="@+id/circle3" />
+
+
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="10dp"
+                            android:background="#8BBDF2"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtText3"
+                            app:layout_constraintStart_toEndOf="@+id/txtText3"
+                            app:layout_constraintTop_toTopOf="@+id/txtText3" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/circle4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/circle_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtNumber4"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:gravity="center"
+                                android:text="5"
+                                android:textColor="@color/blue"
+                                android:textSize="15sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/txtText4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="center"
+                            android:text="Xác nhận thông tin"
+                            android:textColor="#8BBDF2"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/circle4"
+                            app:layout_constraintStart_toEndOf="@+id/circle4"
+                            app:layout_constraintTop_toTopOf="@+id/circle4" />
+
+
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="10dp"
+                            android:background="#8BBDF2"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtText4"
+                            app:layout_constraintStart_toEndOf="@+id/txtText4"
+                            app:layout_constraintTop_toTopOf="@+id/txtText4" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/circle5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/circle_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/txtNumber5"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:gravity="center"
+                                android:text="6"
+                                android:textColor="@color/blue"
+                                android:textSize="15sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/txtText5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="center"
+                            android:text="Thanh toán"
+                            android:textColor="#8BBDF2"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/circle5"
+                            app:layout_constraintStart_toEndOf="@+id/circle5"
+                            app:layout_constraintTop_toTopOf="@+id/circle5" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Chuyến này không hỗ trợ chọn chỗ.\n Quý khách vui lòng chọn số khách."
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/headerContainer"
+        app:layout_constraintTop_toBottomOf="@+id/headerContainer" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtMessage">
+
+        <ImageView
+            android:id="@+id/imgSeat"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginVertical="20dp"
+            android:src="@drawable/baseline_event_seat_32"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/txtType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginStart="15dp"
+            android:gravity="center"
+            android:text="Ghế thường"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintStart_toEndOf="@+id/imgSeat"
+            app:layout_constraintTop_toTopOf="@+id/imgSeat" />
+
+        <TextView
+            android:id="@+id/txtPricePerSeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:text="120.000đ/ghế"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/imgSeat"
+            app:layout_constraintStart_toStartOf="@+id/txtType"
+            app:layout_constraintTop_toBottomOf="@+id/txtType" />
+
+        <ImageButton
+            android:id="@+id/imgMinus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txtNumOfSeats"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/minus_circle_1442_svgrepo_com" />
+
+        <TextView
+            android:id="@+id/txtNumOfSeats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:text="0"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgPlus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imgPlus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/plus_circle_1441_svgrepo_com" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/light_gray"
+            android:layout_marginBottom="120dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDaChon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Đã chọn 0 chỗ"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+
+    <TextView
+        android:id="@+id/txtTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:text="0đ"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/continueBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/grey_panel"
+            android:fontFamily="@font/montserrat"
+            android:paddingVertical="10dp"
+            android:text="Tiếp tục"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDaChon" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

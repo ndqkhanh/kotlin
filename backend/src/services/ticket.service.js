@@ -52,7 +52,7 @@ const payTicket = async (userId, ticketIds) => {
   return { message: 'Pay ticket successfully' };
 };
 
-const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOfSeats, pickUpPont, dropDownPoint) => {
+const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOfSeats, pickUpPont, dropDownPoint, note) => {
   const checkBusIDExist = await prisma.buses.findUnique({
     where: {
       id: busId,
@@ -120,6 +120,7 @@ const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOf
       seat: allSeatPosArr[i],
       pick_up_point: pickUpPont,
       drop_down_point: dropDownPoint,
+      note,
     });
   }
 

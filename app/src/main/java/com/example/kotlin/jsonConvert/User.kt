@@ -1,16 +1,17 @@
 package com.example.kotlin.jsonConvert
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class User(
     val avatar_url: String?,
     val boid: String?,
-    val create_time: String,
-    val display_name: String?,
+    var display_name: String?,
     @SerializedName("email")
-    val fbID: String,
-    val id: String,
+    val accountName: String,
+    val id: String? = null,
     val role: Int,
-    val update_time: String,
+    var email_contact: String? = null, //email của user lấy ở đây
     val verification: Boolean
 )
