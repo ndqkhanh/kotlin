@@ -18,7 +18,6 @@ import retrofit2.awaitResponse
 class Point(val id: String, val time: String, val name: String, val location: String)
 
 class ChoosePickUpLocationActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_pick_up_location)
@@ -29,8 +28,6 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
         }
 
         val retrofit = APIServiceImpl()
-
-//        val busId = "14d873d4-f8e2-4ff4-bb0f-6b68fd7a4986"
 
         val busId = intent.getStringExtra("busId")
 
@@ -87,14 +84,14 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
                                     }
                                 }
                             }catch (e: Exception) {
-                                Toast.makeText(this@ChoosePickUpLocationActivity, "Lỗi kết nối", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@ChoosePickUpLocationActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 }
             }
         } catch (e: Exception) {
-            Toast.makeText(this@ChoosePickUpLocationActivity, "Lỗi kết nối", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ChoosePickUpLocationActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
         }
     }
 }

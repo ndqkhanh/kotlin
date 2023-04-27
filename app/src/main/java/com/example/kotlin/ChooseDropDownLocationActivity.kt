@@ -84,14 +84,14 @@ class ChooseDropDownLocationActivity : AppCompatActivity() {
                                     }
                                 }
                             }catch (e: Exception) {
-                                Toast.makeText(this@ChooseDropDownLocationActivity, "Lỗi kết nối", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@ChooseDropDownLocationActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 }
             }
         } catch (e: Exception) {
-            Toast.makeText(this@ChooseDropDownLocationActivity, "Lỗi kết nối", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ChooseDropDownLocationActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
         }
     }
 }

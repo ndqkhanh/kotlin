@@ -143,9 +143,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                 launch(Dispatchers.Main) {
                                                     Toast.makeText(
                                                         this@ConfirmInformationActivity,
-                                                        "Đặt vé thất bại",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
+                                                        "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                                                 }
                                         }else{
                                             launch(Dispatchers.Main) {
@@ -165,9 +163,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                     launch(Dispatchers.Main) {
                                         Toast.makeText(
                                             this@ConfirmInformationActivity,
-                                            "Đặt vé thất bại",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                            "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             }
@@ -178,9 +174,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(
                 this@ConfirmInformationActivity,
-                "Đặt vé thất bại",
-                Toast.LENGTH_SHORT
-            ).show()
+                "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
         }
     }
 }

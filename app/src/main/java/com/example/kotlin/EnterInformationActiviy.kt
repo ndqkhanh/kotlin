@@ -91,7 +91,7 @@ class EnterInformationActiviy : AppCompatActivity() {
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Toast.makeText(this, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
         }
     }
 }
