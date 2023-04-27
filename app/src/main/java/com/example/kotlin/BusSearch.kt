@@ -1,34 +1,24 @@
 package com.example.kotlin
 
-import android.app.Activity
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.ArrayList
 
 class BusSearch : AppCompatActivity() {
     var listBuses = ArrayList<Bus>()
@@ -106,8 +96,11 @@ class BusSearch : AppCompatActivity() {
     lateinit var departureId: String
     lateinit var destinationId: String
     lateinit var outputDateString: String
+    lateinit var loading: LottieAnimationView
 
     private fun loadMoreResult(page: Int = 0, limit: Int = 10){
+        if(page == 0) loading.visibility = View.VISIBLE
+
         val busOperatorId = if(currentBusOperator == "") null else currentBusOperator
         val pricing = currentBusPricing
         var typeOfSeatValue = if(currentBusType == "") null else currentBusType.toInt()
@@ -134,6 +127,7 @@ class BusSearch : AppCompatActivity() {
                     rv_bus_search.destroyDrawingCache()
                     rv_bus_search.visibility = View.INVISIBLE
                     rv_bus_search.visibility = View.VISIBLE
+                    if(page == 0) loading.visibility = View.GONE
 
 
                 }
@@ -141,11 +135,16 @@ class BusSearch : AppCompatActivity() {
         }
     }
 
+    var currentPage = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bus_search)
-
-        // get data from intent
+        loading = findViewById(R.id.loading)
+        // load json to loading
+//        val resources = resources.getIdentifier("bus-loader", "raw", packageName)
+//        loading.setAnimation(resources)
+//        loading.playAnimation()
+//        loading.loop(true)
         departureId = intent.getStringExtra("departureId") ?: ""
         destinationId = intent.getStringExtra("destinationId") ?: ""
         outputDateString = intent.getStringExtra("outputDateString") ?: ""
@@ -161,6 +160,16 @@ class BusSearch : AppCompatActivity() {
         rv_bus_search = findViewById<RecyclerView>(R.id.rv_bus_search)
         rv_bus_search.layoutManager = LinearLayoutManager(this)
         loadMoreResult()
+
+        rv_bus_search.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    currentPage++
+                    loadMoreResult(currentPage)
+                }
+            }
+        })
 
         val filterBusType = findViewById<Button>(R.id.filterBusType)
         filterBusType.setOnClickListener {
