@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.*
@@ -97,11 +98,7 @@ class LogInUp: AppCompatActivity() {
         buttonFacebookLogin.registerCallback(callbackManager, object :
             FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
-                    var check = handleFacebookAccessToken(loginResult.accessToken)
-                    if(check)
-                    {
-                        finish()
-                    }
+                    handleFacebookAccessTokenAndLogIn(loginResult.accessToken)
 
                 }
 
@@ -114,12 +111,10 @@ class LogInUp: AppCompatActivity() {
                 }
             })
     }
-    private fun handleFacebookAccessToken(token: AccessToken): Boolean {
-        var success = false
+    private fun handleFacebookAccessTokenAndLogIn(token: AccessToken) {
 
         val credential = FacebookAuthProvider.getCredential(token.token)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
+        auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     //Log.d(TAG, "signInWithCredential:success")
@@ -148,7 +143,7 @@ class LogInUp: AppCompatActivity() {
                             respone.user.email_contact = email
                             respone.user.display_name = name
                             storeLocally(respone.user, respone.token.token)
-                            success = true
+                            finish()
                         }else{
                             doRedNote(failure)
                         }
@@ -161,7 +156,7 @@ class LogInUp: AppCompatActivity() {
                             newAccount.user.email_contact = email
                             newAccount.user.display_name = name
                             storeLocally(newAccount.user, newAccount.token.token)
-                            success = true
+                            finish()
                         }else{
                             doRedNote(failure)
                         }
@@ -174,8 +169,7 @@ class LogInUp: AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }.wait()
-        return success
+            }
     }
     private fun bassAppLogIn(){
         var email_str = email.text.toString()
