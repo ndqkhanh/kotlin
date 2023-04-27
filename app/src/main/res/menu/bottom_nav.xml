@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Tìm vé"
+        android:id="@+id/search"
+        android:icon="@drawable/ic_magnifying_glass_solid"/>
+    <item android:title="Tin tức"
+        android:id="@+id/blog"
+        android:icon="@drawable/ic_newspaper_solid"/>
+    <item android:title="Vé của tôi"
+        android:id="@+id/ticket"
+        android:icon="@drawable/ic_ticket_solid"/>
+    <item android:title="Cá nhân"
+        android:id="@+id/user"
+        android:icon="@drawable/ic_user_solid"/>
+</menu>

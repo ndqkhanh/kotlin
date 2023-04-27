@@ -135,6 +135,11 @@ const getMyQuestionsPagination = async (req) => {
   return questions;
 };
 const getHistoryByUId = async (req) => {
+  let condition = {user_id: req.user.id}
+  if(req.query.type == "discard"){
+    condition.status = 2
+  }
+
   const historyList = await prisma.bus_tickets.findMany({
     orderBy: {
       buses: {
@@ -143,9 +148,8 @@ const getHistoryByUId = async (req) => {
     },
     skip: req.params.page * req.params.limit,
     take: req.params.limit,
-    where: {
-      user_id: req.user.id,
-    },
+    where: condition
+    ,
     include: {
       buses: {
         include: {

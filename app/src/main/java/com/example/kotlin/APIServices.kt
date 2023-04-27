@@ -59,7 +59,14 @@ data class TicketResponse(
     val data: TicketCreateResponse,
 )
 
+
 data class BusStation(
+    val id: String,
+    val name: String,
+    val location: String
+)
+
+data class PointStation(
     val id: String,
     val name: String,
     val location: String
@@ -89,9 +96,12 @@ data class Bus(
     val num_of_seats: Int,
     val price: Int,
     val bus_operators: BusOperator,
-    val pricingFormat: String,
+    val pricing_format: String,
     val duration: String,
-    val left_seats: Int
+    val left_seats: Int,
+    var start_time_hour: String,
+    var end_time_hour: String,
+    val rating: Float
 )
 
 data class BusResponse(
@@ -105,14 +115,29 @@ data class BusSearchRequest(
     var page: Int,
     var limit: Int,
     var startTime: String,
-    var price: Int,
-    var type: Int,
+    var price: Int?,
+    var type: Int?,
     var boId: String?
     )
 
 
 data class BusStationResponse(
     val data: List<BusStation>
+)
+
+data class PointResponse(
+    val data: List<PointStation>
+)
+
+data class PointsByBsId(
+    val point_id: String,
+    val bs_id: String,
+    val points: PointStation,
+    val bus_stations: BusStation
+)
+
+data class PointsByBsIdResponse(
+    val data: List<PointsByBsId>
 )
 
 data class BusOperatorResponse(
@@ -231,6 +256,14 @@ interface BusStationService {
     fun getBusStations(): Call<BusStationResponse>
 }
 
+interface PointService {
+    @GET("point/list")
+    fun getPoints(): Call<PointResponse>
+
+    @GET("point/list-point/{bsId}")
+    fun getPointsByBsId(@Path("bsId") bsId: String): Call<PointsByBsIdResponse>
+}
+
 interface TicketService {
     @POST("ticket/create/{busId}")
     fun createTicketByNumOfSeats(
@@ -290,7 +323,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.22:3000/v1/"
+    private val BASE_URL = "http://10.123.1.142:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -312,19 +345,20 @@ class APIServiceImpl {
         return api.create(BusStationService::class.java)
     }
 
+    fun point(): PointService {
+        return api.create(PointService::class.java)
+    }
+
     fun bus(): BusService {
         return api.create(BusService::class.java)
     }
     fun getAllBusOperators(): BusOperatorService {
         return api.create(BusOperatorService::class.java)
     }
-
     // Admin create bus
     fun adminDeleteBuses(): BusService {
         return api.create(BusService::class.java)
     }
-
-
 
     fun adminGetBuses(): BusService {
         return api.create(BusService::class.java)

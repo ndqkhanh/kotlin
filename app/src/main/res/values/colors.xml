@@ -15,11 +15,13 @@
     <color name="attribute_gray">#20706060</color>
     <color name="blank">#00FFFFFF</color>
     <color name="light_gray">#F0F0F0</color>
-    <color name="button_color">#0d2e5b</color>
-    <color name="yellow">#FED434</color>
-
     <!-- new -->
+    <color name="button_color">#0d2e5b</color>
+    <color name="primary_color">#2675e6</color>
+    <color name="secondary_color">#ececec</color>
+    <color name="yellow">#FED434</color>
     <color name="progress">#2CAC62</color>
     <color name="progress_background">#E6E6E6</color>
     <color name="golden">#FCD23E</color>
+    <color name="app_background">#F4F4F4</color>
 </resources>

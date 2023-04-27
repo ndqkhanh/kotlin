@@ -7,6 +7,11 @@ const getPointById = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getPointsByBsId = catchAsync(async (req, res) => {
+  const result = await pointService.getPointsByBsId(req.params.bsId);
+  res.send(result);
+});
+
 const getPoints = catchAsync(async (req, res) => {
   const result = await pointService.getPoints();
   res.send(result);
@@ -14,5 +19,6 @@ const getPoints = catchAsync(async (req, res) => {
 
 module.exports = {
   getPointById,
+  getPointsByBsId,
   getPoints,
 };
