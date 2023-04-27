@@ -6,15 +6,19 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.jsonConvert.*
+import com.facebook.*
+import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -44,6 +48,7 @@ class LogInUp: AppCompatActivity() {
     private val UserAPI = APIServiceImpl().userService()
     private lateinit var localEditor: SharedPreferences.Editor
     private val gson = Gson()
+    private lateinit var auth: FirebaseAuth
 
     private val invaliteEmailFormat = "Không đúng định dạng email !!"
     private val notMatchPassword = "Mật khẩu nhập lại không khớp."
@@ -81,7 +86,96 @@ class LogInUp: AppCompatActivity() {
         dangKy.setOnClickListener { baseApplogUp() }
         dangNhap.setOnClickListener { bassAppLogIn() }
 
+        loginByFacebook()
 
+    }
+    private fun loginByFacebook(){
+        auth = Firebase.auth
+        FacebookSdk.sdkInitialize(applicationContext)
+        var callbackManager = CallbackManager.Factory.create()
+        buttonFacebookLogin.setReadPermissions("email", "public_profile")
+        buttonFacebookLogin.registerCallback(callbackManager, object :
+            FacebookCallback<LoginResult> {
+                override fun onSuccess(loginResult: LoginResult) {
+                    var check = handleFacebookAccessToken(loginResult.accessToken)
+                    if(check)
+                    {
+                        finish()
+                    }
+
+                }
+
+                override fun onCancel() {
+                    //Log.d(TAG, "facebook:onCancel")
+                }
+
+                override fun onError(error: FacebookException) {
+                    //Log.d(TAG, "facebook:onError", error)
+                }
+            })
+    }
+    private fun handleFacebookAccessToken(token: AccessToken): Boolean {
+        var success = false
+
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    //Log.d(TAG, "signInWithCredential:success")
+                    var user: FirebaseUser = auth.currentUser!!
+                    var id: String = ""
+                    var email: String = ""
+                    var name: String = ""
+                    for (profile in user.providerData) {
+                        if (FacebookAuthProvider.PROVIDER_ID == profile.providerId) {
+                            id = Profile.getCurrentProfile()?.id!!
+                            profile.email?.let {
+                                email = profile.email!!
+                            }
+                            profile.displayName?.let {
+                                name = profile.displayName!!
+                            }
+                        }
+                    }
+                    var callUser: Call<User> = UserAPI.getUserByAccountName(id)
+                    var systemUser: User? = WaitingAsyncClass(callUser).execute().get()
+                    if(systemUser != null){
+
+                        var callLogIn: Call<UserLogInRespone> = UserAPI.signIn(UserLogin(username = id))
+                        var respone: UserLogInRespone? = WaitingAsyncClass(callLogIn).execute().get()
+                        if(respone != null){
+                            respone.user.email_contact = email
+                            respone.user.display_name = name
+                            storeLocally(respone.user, respone.token.token)
+                            success = true
+                        }else{
+                            doRedNote(failure)
+                        }
+
+                    }else{
+                        var newUser = AccountSignUp(username = id ,display_name = name )
+                        var callSignUp: Call<UserSignUpRespone> = UserAPI.signUp(newUser)
+                        var newAccount: UserSignUpRespone? = WaitingAsyncClass(callSignUp).execute().get()
+                        if(newAccount != null){
+                            newAccount.user.email_contact = email
+                            newAccount.user.display_name = name
+                            storeLocally(newAccount.user, newAccount.token.token)
+                            success = true
+                        }else{
+                            doRedNote(failure)
+                        }
+                    }
+                }else {
+                    // If sign in fails, display a message to the user.
+                    //Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(
+                        this, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }.wait()
+        return success
     }
     private fun bassAppLogIn(){
         var email_str = email.text.toString()
@@ -90,6 +184,7 @@ class LogInUp: AppCompatActivity() {
         var callLogIn: Call<UserLogInRespone> = UserAPI.signIn(UserLogin(email_str,pass_str))
         var respone: UserLogInRespone? = WaitingAsyncClass(callLogIn).execute().get()
         if(respone != null){
+            respone.user.email_contact = respone.user.accountName
             storeLocally(respone.user, respone.token.token)
             finish()
         }else{
@@ -133,6 +228,7 @@ class LogInUp: AppCompatActivity() {
         var callSignUp: Call<UserSignUpRespone> = UserAPI.signUp(newUser)
         var newAccount: UserSignUpRespone? = WaitingAsyncClass(callSignUp).execute().get()
         if(newAccount != null){
+            newAccount.user.email_contact = newAccount.user.accountName
             storeLocally(newAccount.user, newAccount.token.token)
             finish()
         }else{

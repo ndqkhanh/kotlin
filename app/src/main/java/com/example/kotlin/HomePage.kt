@@ -12,12 +12,16 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
+import com.example.kotlin.jsonConvert.UserLogInRespone
+import com.example.kotlin.jsonConvert.UserLogin
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Call
 import retrofit2.awaitResponse
 import java.lang.reflect.Type
 
@@ -36,6 +40,7 @@ class HomePage : AppCompatActivity() {
     var fileUpload = UploadFile()
     var currentBusStartPoint = ""
     var currentBusEndPoint = ""
+    private val UserAPI = APIServiceImpl().userService()
     private fun selectImage(){
         // select image from local storage
         val intent = Intent(Intent.ACTION_PICK)
@@ -247,11 +252,18 @@ class HomePage : AppCompatActivity() {
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         var str_json_user = localStore.getString("user", null)
         var token = localStore.getString("token", null)
+
         token?.let {
-            val userType: Type = object : TypeToken<User?>() {}.type
-            UserInformation.USER = gson.fromJson(str_json_user, userType)
-            UserInformation.TOKEN = token
-            Log.i("!23", UserInformation.USER!!.display_name!!)
+            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1)
+            var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
+
+            //token còn dùng được
+            if(respone != null) {
+                val userType: Type = object : TypeToken<User?>() {}.type
+                UserInformation.USER = gson.fromJson(str_json_user, userType)
+                UserInformation.TOKEN = token
+                Log.i("!23", UserInformation.USER!!.display_name!!)
+            }
         }
 
     }

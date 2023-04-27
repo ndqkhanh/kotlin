@@ -208,7 +208,7 @@ interface UserService {
     @POST("auth/signin")
     fun signIn(@Body signInData: UserLogin): Call<UserLogInRespone>
 
-    @POST("user/history/{page}/{limit}")
+    @GET("user/history/{page}/{limit}")
     fun ticketHistory(
         @Header("Authorization") token: String,
         @Path("page") page: Int,

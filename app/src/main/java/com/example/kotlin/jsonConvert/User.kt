@@ -7,10 +7,11 @@ import kotlinx.serialization.Serializable
 data class User(
     val avatar_url: String?,
     val boid: String?,
-    val display_name: String?,
+    var display_name: String?,
     @SerializedName("email")
     val accountName: String,
     val id: String? = null,
     val role: Int,
+    var email_contact: String? = null,
     val verification: Boolean
 )
