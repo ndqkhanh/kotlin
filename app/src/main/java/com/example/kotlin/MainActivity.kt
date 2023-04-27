@@ -71,13 +71,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         getLocalData()
 
         val userIntent = Intent(this, HomePage::class.java)
-        //val adminIntent = Intent(this, ....)
+        val adminIntent = Intent(this, AdminActivity::class.java)
+        Log.d("UserInformation", UserInformation.USER?.accountName.toString())
 
         if(UserInformation.USER != null){
             if(UserInformation.USER?.role == 2){
@@ -85,7 +88,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(userIntent)
             }else{
                 finish()
-                //qua admin ở đây
+                // TODO qua admin ở đây
+                startActivity(adminIntent)
             }
         }else{
             finish()

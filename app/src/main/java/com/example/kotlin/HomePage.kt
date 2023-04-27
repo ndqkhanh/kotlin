@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
 import com.example.kotlin.jsonConvert.UserLogInRespone
@@ -37,6 +38,7 @@ class HomePage : AppCompatActivity() {
     lateinit var startPointEdit: EditText
     lateinit var endPointEdit: EditText
     lateinit var departureDateEdit: EditText
+    lateinit var bottomNavigationView: BottomNavigationView
     var fileUpload = UploadFile()
     var currentBusStartPoint = ""
     var currentBusEndPoint = ""
@@ -242,6 +244,50 @@ class HomePage : AppCompatActivity() {
             }
         } catch (e: Exception) {
             Log.d("Error", e.toString())
+        }
+
+
+        /*Bottom Navigation Tab*/
+        // Initialize and assign variable
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        // Set Home selected
+        bottomNavigationView.selectedItemId = R.id.search
+        // Perform item selected listener
+        var intent: Intent
+        bottomNavigationView.setOnNavigationItemSelectedListener{ menuItem ->
+            when (menuItem.itemId) {
+                R.id.search -> {
+                    finish()
+                    intent = Intent(this, HomePage::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.blog -> {
+                    finish()
+                    intent = Intent(this, BlogSeeAllActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.ticket -> {
+                    finish()
+                    intent = Intent(this, PersonalInformation::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.user -> {
+                    finish()
+                    intent = Intent(this, CaNhanActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
+
+
         }
     }
 }
