@@ -42,7 +42,7 @@ class HomePage : AppCompatActivity() {
     var fileUpload = UploadFile()
     var currentBusStartPoint = ""
     var currentBusEndPoint = ""
-    private val UserAPI = APIServiceImpl().userService()
+
     private fun selectImage(){
         // select image from local storage
         val intent = Intent(Intent.ACTION_PICK)
@@ -137,12 +137,10 @@ class HomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
-        getLocalData()
-
         val loginBtn = findViewById<TextView>(R.id.loginBtn)
         loginBtn.setOnClickListener {
-            intent = Intent(this, LogInUp::class.java)
-            startActivity(intent)
+            var intentLogIn = Intent(this, LogInUp::class.java)
+            startActivity(intentLogIn)
         }
 
         val startPointSelect = findViewById<LinearLayout>(R.id.startPointSelect)
@@ -291,26 +289,5 @@ class HomePage : AppCompatActivity() {
 
 
         }
-    }
-
-    private fun getLocalData(){
-        var gson = Gson()
-        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
-        var str_json_user = localStore.getString("user", null)
-        var token = localStore.getString("token", null)
-
-        token?.let {
-            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1)
-            var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
-
-            //token còn dùng được
-            if(respone != null) {
-                val userType: Type = object : TypeToken<User?>() {}.type
-                UserInformation.USER = gson.fromJson(str_json_user, userType)
-                UserInformation.TOKEN = token
-                Log.i("!23", UserInformation.USER!!.display_name!!)
-            }
-        }
-
     }
 }

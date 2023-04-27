@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.example.kotlin.jsonConvert.AccountSignUp
+import com.example.kotlin.jsonConvert.HistoryList
+import com.example.kotlin.jsonConvert.User
 import com.example.kotlin.jsonConvert.UserLogin
 import com.facebook.*
 import com.facebook.internal.CallbackManagerImpl
@@ -29,11 +31,15 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Call
 import retrofit2.awaitResponse
+import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
@@ -42,59 +48,59 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var localEditor: SharedPreferences.Editor
     private val retrofit = APIServiceImpl()
+    private val UserAPI = APIServiceImpl().userService()
 
+    private fun getLocalData(){
+        var gson = Gson()
+        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
+        var str_json_user = localStore.getString("user", null)
+        var token = localStore.getString("token", null)
+
+        token?.let {
+            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1)
+            var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
+
+            //token còn dùng được
+            if(respone != null) {
+                val userType: Type = object : TypeToken<User?>() {}.type
+                UserInformation.USER = gson.fromJson(str_json_user, userType)
+                UserInformation.TOKEN = token
+                Log.i("!23", UserInformation.USER!!.display_name!!)
+            }
+        }
+
+    }
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent = Intent(this, HomePage::class.java)
-        startActivity(intent)
+        getLocalData()
 
-//        toHomeScreen()
-//        val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
-//        localEditor = localStore.edit()
-//        var token: String? = localStore.getString("token", null)
-//
-//
-//        GlobalScope.launch(Dispatchers.IO) {
-//            //check valid token
-//            var validToken: Boolean = false
-//            if (token != null) {
-//
-//                val response = UserApi.ticketHistory("Bearer ${token}", 0, 1).awaitResponse()
-//                if (response.isSuccessful) {
-//                    validToken = true
-//                } else {
-//                    localEditor.apply {
-//                        putString("token", null)
-//                        commit()
-//                    }// remove token
-//                    launch(Dispatchers.Main) {
-//                        //error message here
-//                    }
-//                }
-//            }
-//
-//            //update UI
-//            if (!validToken) {
-//                withContext(Dispatchers.Main) {
-//                    setContentView(R.layout.activity_main)
-//                    login()
-//                }
-//            } else {
-//                withContext(Dispatchers.Main) {
-//                    FBInfor.TOKEN = token
-//                    FBInfor.ID = localStore.getString("id", "").toString()
-//                    FBInfor.NAME = localStore.getString("name", "").toString()
-//                    FBInfor.EMAIL = localStore.getString("email", "N/A").toString()
-//                    FBInfor.PHOTO_URL = localStore.getString("photo", null)?.toUri()
-//                    FBInfor.ROLE = localStore.getInt("role", 2)
-//                    toHomeScreen()
-//                }
-//            }
-//        }
+        val userIntent = Intent(this, HomePage::class.java)
+        val adminIntent = Intent(this, AdminActivity::class.java)
+        Log.d("UserInformation", UserInformation.USER?.accountName.toString())
+
+        if(UserInformation.USER != null){
+            if(UserInformation.USER?.role == 2){
+                finish()
+                startActivity(userIntent)
+            }else{
+                finish()
+                // TODO qua admin ở đây
+                startActivity(adminIntent)
+            }
+        }else{
+            finish()
+            startActivity(userIntent)
+        }
+
+
+
+
+
+
 //    }
 //
 //    private fun login() {
