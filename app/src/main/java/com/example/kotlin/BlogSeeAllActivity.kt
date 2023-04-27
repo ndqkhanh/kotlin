@@ -84,6 +84,8 @@ class BlogSeeAllActivity : AppCompatActivity() {
                     launch(Dispatchers.Main) {
                         if (body != null && body.count > 0) {
                             val adapter = BlogSeeAllAdapter(this@BlogSeeAllActivity, body.data)
+                            lvTinTuc.divider = null;
+                            lvTinTuc.dividerHeight = 0;
                             lvTinTuc.adapter = adapter
                             lvTinTuc.onItemClickListener =
                                 AdapterView.OnItemClickListener { _, _, position, _ ->

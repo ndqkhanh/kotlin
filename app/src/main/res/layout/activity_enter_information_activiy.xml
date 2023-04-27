@@ -312,56 +312,99 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerContainer" />
 
-    <EditText
-        android:id="@+id/edtPersonName"
+<!--    <EditText-->
+<!--        android:id="@+id/edtPersonName"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:layout_marginEnd="15dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Tên người đi"-->
+<!--        android:fontFamily="@font/montserrat"-->
+<!--        android:padding="12dp"-->
+<!--        android:background="@drawable/custom_form_input"-->
+<!--        android:inputType="textPersonName"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/textView10"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView10" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutPersonName"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:ems="10"
-        android:hint="Tên người đi"
         android:fontFamily="@font/montserrat"
-        android:padding="12dp"
-        android:background="@drawable/custom_form_input"
-        android:inputType="textPersonName"
+        android:hint="Tên người đi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
         android:id="@+id/edtVietNamFlag"
         android:layout_width="90dp"
-        android:layout_height="50dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
-        android:layout_marginTop="20dp"
+        android:layout_height="57dp"
         android:background="@drawable/custom_form_input"
+        android:clickable="false"
         android:drawableStart="@drawable/vietnam_flag"
         android:drawablePadding="10dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:fontFamily="@font/montserrat"
         android:hint="+84"
         android:inputType="phone"
         android:padding="12dp"
-        app:layout_constraintStart_toStartOf="@+id/edtPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/edtPersonName" />
+        app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
+        app:layout_constraintStart_toStartOf="@+id/layoutPersonName"
+        app:layout_constraintTop_toTopOf="@+id/layoutPhone" />
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/edtPhone"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/custom_form_input"-->
+<!--        android:ems="10"-->
+<!--        android:fontFamily="@font/montserrat"-->
+<!--        android:hint="Số điện thoại của bạn"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:inputType="phone"-->
+<!--        android:padding="12dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/layoutPersonName"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/edtVietNamFlag"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/layoutPersonName" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/layoutPhone"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:fontFamily="@font/montserrat"
+    android:layout_marginStart="15dp"
+    android:hint="Số điện thoại của bạn"
+    app:layout_constraintEnd_toEndOf="@+id/layoutPersonName"
+    app:layout_constraintStart_toEndOf="@+id/edtVietNamFlag"
+    app:layout_constraintTop_toBottomOf="@+id/layoutPersonName"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    >
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edtPhone"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_form_input"
-        android:ems="10"
-        android:fontFamily="@font/montserrat"
-        android:hint="Số điện thoại của bạn"
-        android:layout_marginStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:inputType="phone"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/edtPersonName"
-        app:layout_constraintStart_toEndOf="@+id/edtVietNamFlag"
-        app:layout_constraintTop_toBottomOf="@+id/edtPersonName" />
+        />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/txtSoLuongGheTrong"
@@ -374,40 +417,61 @@
         android:fontFamily="@font/montserrat_bold"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutPhone" />
 
-    <EditText
-        android:id="@+id/edtNumOfSeats"
+<!--    <EditText-->
+<!--        android:id="@+id/edtNumOfSeats"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/custom_form_input"-->
+<!--        android:ems="10"-->
+<!--        android:fontFamily="@font/montserrat"-->
+<!--        android:hint="Số lượng ghế mà bạn muốn đặt"-->
+<!--        android:inputType="number"-->
+<!--        android:padding="12dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/layoutPersonName"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/layoutPersonName"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/txtSoLuongGheTrong" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutNumOfSeats"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_form_input"
-        android:ems="10"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/montserrat"
         android:hint="Số lượng ghế mà bạn muốn đặt"
-        android:inputType="number"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/edtPersonName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edtPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/txtSoLuongGheTrong" />
+        app:layout_constraintEnd_toEndOf="@+id/layoutPersonName"
+        app:layout_constraintStart_toStartOf="@+id/layoutPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/txtSoLuongGheTrong"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtNumOfSeats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/chinhSach"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="30dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="30dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/chinh_sach_dat_ve"
-        app:layout_constraintEnd_toEndOf="@+id/edtNumOfSeats"
+        app:layout_constraintEnd_toEndOf="@+id/layoutNumOfSeats"
         android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/edtNumOfSeats"
-        app:layout_constraintTop_toBottomOf="@+id/edtNumOfSeats" />
+        app:layout_constraintStart_toStartOf="@+id/layoutNumOfSeats"
+        app:layout_constraintTop_toBottomOf="@+id/layoutNumOfSeats" />
 
     <View
         android:id="@+id/view5"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
+        android:background="@color/light_gray"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -419,11 +483,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/yellow_panel"
-        android:fontFamily="@font/montserrat_bold"
+        android:fontFamily="@font/montserrat"
         android:paddingVertical="10dp"
         android:text="Tiếp tục"
+        android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5" />

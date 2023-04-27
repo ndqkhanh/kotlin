@@ -39,9 +39,9 @@ class PersonalInformation : AppCompatActivity() {
         var avt = findViewById<ProfilePictureView>(R.id.fb_avt_user)
         var back = findViewById<ImageButton>(R.id.back_button)
 
-        email.text = FBInfor.EMAIL
-        name.text = FBInfor.NAME
-        avt.profileId = FBInfor.ID
+        email.text = UserInformation.USER?.accountName
+        name.text = UserInformation.USER?.display_name!!
+        avt.profileId = UserInformation.USER?.id
 
         var TicketHisListView = findViewById<ListView>(R.id.ticket_lv)
 

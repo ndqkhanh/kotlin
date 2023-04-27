@@ -53,7 +53,7 @@ const getHistoryByUId = catchAsync(async (req, res) => {
   res.send({ history_list });
 });
 const getUserByUsername = catchAsync(async (req, res) => {
-  const user = await userService.getUserByUsername(req.body.username);
+  const user = await userService.getUserByUsername(req.query.username);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
