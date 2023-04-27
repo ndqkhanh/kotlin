@@ -1,21 +1,15 @@
 package com.example.kotlin
 
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -54,7 +48,7 @@ class AdminBlogCreateActivity : AppCompatActivity() {
                 Toast.makeText(this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val title = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtTitle).text.toString()
+            val title = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.adminBusOperatorNameCreateEt).text.toString()
             val content = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtContent).text.toString()
             if(title.isEmpty() || content.isEmpty()){
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()

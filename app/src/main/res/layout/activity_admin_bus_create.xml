@@ -5,236 +5,309 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adminBusListHeader"
+        android:layout_width="411dp"
+        android:layout_height="68dp"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/adminBusListBackBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/baseline_arrow_back_10"
+            android:contentDescription="@string/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/adminBusOperatorTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="Tạo mới chuyến xe"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintStart_toEndOf="@+id/adminBusListBackBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="406dp"
+        android:layout_height="567dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusListHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvAdminBusThumbnail"
+                    android:layout_width="382dp"
+                    android:layout_height="214dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageAdminBusThumbnail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:srcCompat="@drawable/image_photo_svgrepo_com" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/adminBusBtnUpload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_panel"
+                    android:fontFamily="@font/montserrat"
+                    android:drawableStart="@drawable/baseline_file_upload_24"
+                    android:layout_marginTop="15dp"
+                    android:drawablePadding="5dp"
+                    android:padding="10dp"
+                    android:textAllCaps="false"
+                    android:text="Chọn một ảnh"
+                    android:textColor="#fff"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cvAdminBusThumbnail" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/busOperatorLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Nhà xe"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adminBusBtnUpload">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/busOperatorAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/startPointLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Điểm đón"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/busOperatorLayout">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/startPointAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/endPointLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Điểm trả"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/startPointLayout">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/endPointAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/adminBusStartTimeCreateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Giờ bắt đầu"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/endPointLayout" />
+
+                <Button
+                    android:id="@+id/adminCreateBusStartTimeDatePickerBtn"
+                    style="?android:spinnerStyle"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:onClick="openStartDatePicker"
+                    android:text="JAN 21 2023"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/adminCreateBusStartTimeTimePickerBtn"
+                    app:layout_constraintTop_toTopOf="@+id/adminCreateBusStartTimeTimePickerBtn" />
+
+                <Button
+                    android:id="@+id/adminCreateBusStartTimeTimePickerBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:onClick="openStartTimePicker"
+                    android:text="00:00"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adminBusStartTimeCreateTitle" />
+
+                <TextView
+                    android:id="@+id/adminBusEndTimeCreateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Giời kết thúc"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adminCreateBusStartTimeTimePickerBtn" />
+
+                <Button
+                    android:id="@+id/adminCreateBusEndTimeDatePickerBtn"
+                    style="?android:spinnerStyle"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:onClick="openEndDatePicker"
+                    android:text="AUG 16 2023"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/adminCreateBusEndTimeTimePickerBtn"
+                    app:layout_constraintTop_toTopOf="@+id/adminCreateBusEndTimeTimePickerBtn" />
+
+                <Button
+                    android:id="@+id/adminCreateBusEndTimeTimePickerBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:onClick="openEndTimePicker"
+                    android:text="00:00"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adminBusEndTimeCreateTitle" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/busTypeLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Loại xe"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adminCreateBusEndTimeTimePickerBtn">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/busTypeAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutBusSeat"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="386dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Số lượng ghế"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/busTypeLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/adminBusSeatCreateET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutBusPrice"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="386dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Giá tiền"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutBusSeat">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/adminBusPriceCreateET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <Button
         android:id="@+id/addBtnAdminBusCreateBtn"
         android:layout_width="336dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="24dp"
-        android:text="ADD"
+        android:background="@drawable/yellow_panel"
+        android:fontFamily="@font/montserrat"
+        android:paddingVertical="10dp"
+        android:text="Thêm chuyến xe"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/logOutAdminBusCreateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Log out"
+    <View
+        android:id="@+id/view10"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/adminBusListHeader"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.883"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/adminBusInfoCreateTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Thông tin chuyến xe"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logOutAdminBusCreateBtn" />
-
-    <TextView
-        android:id="@+id/adminBusStartTimeCreateTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Bắt đầu"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateEt"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointCreateEt" />
-
-    <TextView
-        android:id="@+id/adminBusEndTimeCreateTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="End Time"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartTimeCreateTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartTimeCreateTitle" />
-
-    <EditText
-        android:id="@+id/adminBusImageCreateET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_form_input"
-        android:drawableStart="@drawable/baseline_person_32"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:enabled="true"
-        android:hint="Image URL"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/adminBusEndPointCreateEt"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateEt"
-        app:layout_constraintTop_toBottomOf="@+id/adminCreateBusEndTimeTimePickerBtn" />
-
-    <EditText
-        android:id="@+id/adminBusSeatCreateET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/custom_form_input"
-        android:drawableStart="@drawable/baseline_person_32"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:enabled="true"
-        android:hint="Sô lượng ghế"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/adminBusImageCreateET"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusTypeCreateSpinner" />
-
-    <TextView
-        android:id="@+id/adminBusTypeCreateTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Type"
-        app:layout_constraintStart_toStartOf="@+id/adminBusEndTimeCreateTitle"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusImageCreateET" />
-
-    <Spinner
-        android:id="@+id/adminBusTypeCreateSpinner"
-        android:layout_width="250dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/adminBusTypeCreateTitle"
-        app:layout_constraintTop_toTopOf="@+id/adminBusTypeCreateTitle" />
-
-    <EditText
-        android:id="@+id/adminBusPriceCreateET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/custom_form_input"
-        android:drawableStart="@drawable/baseline_person_32"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:enabled="true"
-        android:hint="Giá xe"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/adminBusSeatCreateET"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusSeatCreateET" />
-
-    <Button
-        android:id="@+id/adminCreateBusStartTimeDatePickerBtn"
-        style="?android:spinnerStyle"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="-8dp"
-        android:onClick="openStartDatePicker"
-        android:text="JAN 21 2023"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/adminCreateBusStartTimeTimePickerBtn"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateTitle" />
-
-    <Button
-        android:id="@+id/adminCreateBusEndTimeDatePickerBtn"
-        style="?android:spinnerStyle"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="-8dp"
-        android:onClick="openEndDatePicker"
-        android:text="AUG 16 2023"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/adminCreateBusEndTimeTimePickerBtn"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeCreateTitle" />
-
-    <Button
-        android:id="@+id/adminCreateBusStartTimeTimePickerBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="-8dp"
-        android:onClick="openStartTimePicker"
-        android:text="00:00"
-        app:layout_constraintStart_toEndOf="@+id/adminBusStartTimeCreateTitle"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartTimeCreateTitle" />
-
-    <Button
-        android:id="@+id/adminCreateBusEndTimeTimePickerBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-8dp"
-        android:onClick="openEndTimePicker"
-        android:text="00:00"
-        app:layout_constraintStart_toStartOf="@+id/adminCreateBusStartTimeTimePickerBtn"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndTimeCreateTitle" />
-
-    <EditText
-        android:id="@+id/adminBusBOCreateEt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/custom_form_input"
-        android:drawableStart="@drawable/bus_operator_32"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:enabled="false"
-        android:hint="Nhà xe"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusInfoCreateTV" />
-
-    <Button
-        android:id="@+id/adminBusBOCreateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-8dp"
-        android:layout_marginEnd="16dp"
-        android:text="Chọn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/adminBusBOCreateEt" />
-
-    <EditText
-        android:id="@+id/adminBusStartPointCreateEt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/custom_form_input"
-        android:drawableStart="@drawable/baseline_person_32"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:enabled="false"
-        android:hint="Khởi hành"
-        app:layout_constraintStart_toStartOf="@+id/adminBusBOCreateEt"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusBOCreateEt" />
-
-    <Button
-        android:id="@+id/adminBusStartPointCreateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-8dp"
-        android:text="Chọn"
-        app:layout_constraintStart_toStartOf="@+id/adminBusBOCreateBtn"
-        app:layout_constraintTop_toTopOf="@+id/adminBusStartPointCreateEt" />
-
-    <EditText
-        android:id="@+id/adminBusEndPointCreateEt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/custom_form_input"
-        android:drawableStart="@drawable/baseline_person_32"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:enabled="false"
-        android:hint="Kết thúc"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartPointCreateEt"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusStartPointCreateEt" />
-
-    <Button
-        android:id="@+id/adminBusEndPointCreateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-8dp"
-        android:text="Chọn"
-        app:layout_constraintStart_toStartOf="@+id/adminBusStartPointCreateBtn"
-        app:layout_constraintTop_toTopOf="@+id/adminBusEndPointCreateEt" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
