@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Start Time"
+        android:text="Bắt đầu"
         app:layout_constraintStart_toStartOf="@+id/adminBusEndPointCreateEt"
         app:layout_constraintTop_toBottomOf="@+id/adminBusEndPointCreateEt" />
 
@@ -81,7 +81,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:enabled="true"
-        android:hint="Number of Seat"
+        android:hint="Sô lượng ghế"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/adminBusImageCreateET"
         app:layout_constraintTop_toBottomOf="@+id/adminBusTypeCreateSpinner" />
@@ -113,7 +113,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:enabled="true"
-        android:hint="Price"
+        android:hint="Giá xe"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/adminBusSeatCreateET"
         app:layout_constraintTop_toBottomOf="@+id/adminBusSeatCreateET" />
@@ -172,7 +172,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/custom_form_input"
-        android:drawableStart="@drawable/baseline_person_32"
+        android:drawableStart="@drawable/bus_operator_32"
         android:drawablePadding="10dp"
         android:ems="10"
         android:enabled="false"

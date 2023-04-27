@@ -48,7 +48,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="Phương Trang"
-                    android:textSize="36sp"
+                    android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,16 +78,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/adminBusOperatorFooterConstraintLayout"
-        android:layout_width="407dp"
-        android:layout_height="56dp"
+        android:layout_width="411dp"
+        android:layout_height="42dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorHeaderConstraintLayout">
 
         <Button
             android:id="@+id/adminBusOperatorDeleteBtn"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="406dp"
+            android:layout_height="40dp"
             android:text="Xóa"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

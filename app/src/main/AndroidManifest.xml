@@ -15,8 +15,11 @@
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".BottomNavigation"
+            android:exported="false" />
+        <activity
             android:name=".BusSearch"
-        android:exported="false" />
+            android:exported="false" />
         <activity
             android:name=".BlogSeeAllActivity"
             android:exported="false" />
@@ -43,6 +46,9 @@
             android:exported="false" />
         <activity
             android:name=".PersonalInformation"
+            android:exported="false" />
+        <activity
+            android:name=".CaNhanActivity"
             android:exported="false" />
         <activity
             android:name=".BlogManagementActivity"
