@@ -12,6 +12,6 @@ data class User(
     val accountName: String,
     val id: String? = null,
     val role: Int,
-    var email_contact: String? = null,
+    var email_contact: String? = null, //email của user lấy ở đây
     val verification: Boolean
 )
