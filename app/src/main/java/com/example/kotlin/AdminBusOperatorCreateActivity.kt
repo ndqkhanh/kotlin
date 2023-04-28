@@ -25,7 +25,6 @@ class AdminBusOperatorCreateActivity:AppCompatActivity() {
 
         busOperatorNameEt = findViewById(R.id.adminBusOperatorNameCreateEt)
         busOperatorPhoneEt = findViewById(R.id.adminBusOperatorPhoneCreateEt)
-        busOperatorImageEt = findViewById(R.id.adminBusOperatorImageCreateEt)
         createBtn = findViewById(R.id.adminBusOperatorCreateBtn)
 
 
