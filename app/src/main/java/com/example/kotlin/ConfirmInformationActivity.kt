@@ -41,10 +41,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
         Log.i("busPickUpPointId", busPickUpPointId.toString())
         Log.i("busDropDownPointId", busDropDownPointId.toString())
 
-//        val token = this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
-
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODI2MDI2MzAsImV4cCI6MTY4MjYwNDQzMCwidHlwZSI6ImFjY2VzcyJ9.G9YgkatdMObrMR02CkzrL9chy6Qc9ZBdt_YJHS1-bsE"
-
+        val token = UserInformation.TOKEN
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
@@ -84,26 +81,32 @@ class ConfirmInformationActivity : AppCompatActivity() {
 
                             val txtPickUpName = findViewById<TextView>(R.id.txtPickUpName)
                             txtPickUpName.text = busPickUpPointName
+
                             val txtPickUpLocation = findViewById<TextView>(R.id.txtPickUpLocation)
                             txtPickUpLocation.text = busPickUpPointLocation
+
                             val txtPickUpTime = findViewById<TextView>(R.id.txtPickUpTime)
                             val temp3 = "Dự kiến đón lúc " + body2.start_time
                             txtPickUpTime.text = temp3
 
                             val txtDropDownName = findViewById<TextView>(R.id.txtDropDownName)
                             txtDropDownName.text = busDropDownPointName
+
                             val txtDropDownLocation = findViewById<TextView>(R.id.txtDropDownLocation)
                             txtDropDownLocation.text = busDropDownPointLocation
+
                             val txtDropDownTime = findViewById<TextView>(R.id.txtDropDownTime)
                             val temp4 = "Dự kiến trả lúc " + body2.end_time
                             txtDropDownTime.text = temp4
 
                             val txtHoTen = findViewById<TextView>(R.id.txtHoTen)
                             txtHoTen.text = personName
+
                             val txtDienThoai = findViewById<TextView>(R.id.txtDienThoai)
                             txtDienThoai.text = phoneNumber
+
                             val txtEmail = findViewById<TextView>(R.id.txtEmail)
-                            txtEmail.text = UserInformation.USER?.accountName
+                            txtEmail.text = UserInformation.USER?.email_contact
 
                             val txtNote = findViewById<TextView>(R.id.txtNote)
                             txtNote.text = note

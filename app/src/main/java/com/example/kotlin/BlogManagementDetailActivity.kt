@@ -29,7 +29,9 @@ class BlogManagementDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blog_management_detail)
 
-        val token = ""
+//        val token = UserInformation.TOKEN
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODI2NDU2NzksImV4cCI6MTg2MjY0NTY3OSwidHlwZSI6ImFjY2VzcyJ9.CfPy4FMZvqM3tbNV4E3z4dy6_tkv0scMJF3ynM5Lw4I"
+
 
         imgBlogDetail = findViewById(R.id.imgBlogDetail)
         txtTitle = findViewById(R.id.txtTitle)
@@ -52,7 +54,8 @@ class BlogManagementDetailActivity : AppCompatActivity() {
                     launch(Dispatchers.Main) {
                         val blog = response.body()
                         txtTitle.text = blog?.title
-                        val htmlContent = blog?.content
+                        // replace all '&lt;' with '<'
+                        val htmlContent = blog?.content?.replace("&lt;", "<")
                         txtContent.text = htmlContent?.let {
                             HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY)
                         }
@@ -91,14 +94,26 @@ class BlogManagementDetailActivity : AppCompatActivity() {
                 try {
                     GlobalScope.launch(Dispatchers.IO) {
                         val response =
-                            retrofit.manipulateBlog(token).deleteBlogById(blogId!!).awaitResponse()
+                            retrofit.manipulateBlog(token.toString()).deleteBlogById(blogId!!).awaitResponse()
                         // debug response
                         Log.d("Response", response.toString())
                         if (response.isSuccessful) {
                             Log.d("Response", response.body().toString())
-                            Toast.makeText(this@BlogManagementDetailActivity, "Xóa tin tức thành công", Toast.LENGTH_SHORT).show()
-                            bottomSheetDialog.dismiss()
-                            finish()
+                            launch(Dispatchers.Main) {
+                                Toast.makeText(this@BlogManagementDetailActivity, "Xóa tin tức thành công", Toast.LENGTH_SHORT).show()
+                                bottomSheetDialog.dismiss()
+                                finish()
+                            }
+                        }else{
+                            launch(Dispatchers.Main) {
+                                if(response.code() == 401){
+                                    Toast.makeText(
+                                        this@BlogManagementDetailActivity,
+                                        "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
                         }
                     }
                 }catch (e: Exception){
