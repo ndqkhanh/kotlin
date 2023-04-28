@@ -5,40 +5,16 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
-import com.bumptech.glide.Glide
-import com.example.kotlin.jsonConvert.AccountSignUp
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
-import com.example.kotlin.jsonConvert.UserLogin
-import com.facebook.*
-import com.facebook.internal.CallbackManagerImpl
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
-import com.google.firebase.auth.FacebookAuthProvider
+import com.facebook.CallbackManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
-import retrofit2.awaitResponse
 import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity() {
@@ -78,23 +54,25 @@ class MainActivity : AppCompatActivity() {
 
         getLocalData()
 
-        val userIntent = Intent(this, HomePage::class.java)
-        val adminIntent = Intent(this, AdminActivity::class.java)
-        Log.d("UserInformation", UserInformation.USER?.accountName.toString())
+        startActivity(Intent(this, BlogManagementActivity::class.java))
 
-        if(UserInformation.USER != null){
-            if(UserInformation.USER?.role == 2){
-                finish()
-                startActivity(userIntent)
-            }else{
-                finish()
-                // TODO qua admin ở đây
-                startActivity(adminIntent)
-            }
-        }else{
-            finish()
-            startActivity(userIntent)
-        }
+//        val userIntent = Intent(this, HomePage::class.java)
+//        val adminIntent = Intent(this, AdminActivity::class.java)
+//        Log.d("UserInformation", UserInformation.USER?.accountName.toString())
+//
+//        if(UserInformation.USER != null){
+//            if(UserInformation.USER?.role == 2){
+//                finish()
+//                startActivity(userIntent)
+//            }else{
+//                finish()
+//                // TODO qua admin ở đây
+//                startActivity(adminIntent)
+//            }
+//        }else{
+//            finish()
+//            startActivity(userIntent)
+//        }
 
 
 
