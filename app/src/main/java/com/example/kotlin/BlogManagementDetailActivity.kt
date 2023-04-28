@@ -82,7 +82,7 @@ class BlogManagementDetailActivity : AppCompatActivity() {
 
             bottomSheetView.findViewById<TextView>(R.id.txtTitle).text = "Bạn có chắc xóa tin tức này không?"
 
-            bottomSheetView.findViewById<TextView>(R.id.txtMessage).text = "Hanh động này không thể hoàn tác. Hãy chắc chắn rằng bạn đã kiểm tra kỹ thông tin trước khi xóa tin tức này."
+            bottomSheetView.findViewById<TextView>(R.id.txtMessage).text = "Hành động này không thể hoàn tác. Hãy chắc chắn rằng bạn đã kiểm tra kỹ thông tin trước khi xóa tin tức này."
 
             bottomSheetView.findViewById<Button>(R.id.btnBack).setOnClickListener {
                 bottomSheetDialog.dismiss()
