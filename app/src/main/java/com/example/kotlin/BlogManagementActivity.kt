@@ -1,9 +1,14 @@
 package com.example.kotlin
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +17,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class BlogManagementActivity : AppCompatActivity() {
     val retrofit = APIServiceImpl()

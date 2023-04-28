@@ -1,5 +1,6 @@
 package com.example.kotlin
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -7,6 +8,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
+import android.text.Spanned
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +22,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.text.HtmlCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -32,6 +36,8 @@ class AdminBlogCreateActivity : AppCompatActivity() {
     private var photoUri: Uri? = null
     private lateinit var imgThumbnail : ImageView
     private var fileUpload = UploadFile()
+    private lateinit var edtTitle : com.google.android.material.textfield.TextInputEditText
+    private lateinit var edtContent : com.google.android.material.textview.MaterialTextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_blog_create)
@@ -54,14 +60,24 @@ class AdminBlogCreateActivity : AppCompatActivity() {
             selectImage()
         }
 
+        edtTitle = findViewById(R.id.edtTitle)
+        edtContent = findViewById(R.id.edtContent)
+
+        // intent to EditText Detail Activity when click on edtContent
+        edtContent.setOnClickListener {
+            val intent = Intent(this, EditTextDetailActivity::class.java)
+            intent.putExtra("content", HtmlCompat.toHtml(edtContent.text as Spanned, HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE))
+            startActivityForResult(intent, 567)
+        }
+
         val btnAdd = findViewById<Button>(R.id.btnAdd)
         btnAdd.setOnClickListener {
             if (!photoChosen || photoUri == null) {
                 Toast.makeText(this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val title = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtTitle).text.toString()
-            val content = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtContent).text.toString()
+            val title = edtTitle.text.toString()
+            val content = HtmlCompat.toHtml(edtContent.text as Spanned, HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE)
             if(title.isEmpty() || content.isEmpty()){
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -124,6 +140,12 @@ class AdminBlogCreateActivity : AppCompatActivity() {
             bottomSheetDialog.show()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        edtTitle.clearFocus()
+    }
+
     private fun selectImage(){
         // select image from local storage
         val intent = Intent(Intent.ACTION_PICK)
@@ -141,6 +163,12 @@ class AdminBlogCreateActivity : AppCompatActivity() {
                 imgThumbnail.setImageURI(imageUri)
                 photoUri = imageUri
                 photoChosen = true
+            }
+        }else if(requestCode == 567){
+            if (resultCode == Activity.RESULT_OK) {
+                // get content from EditTextDetailActivity
+                val content = data?.getStringExtra("content")
+                edtContent.setText(content?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) })
             }
         }
     }
