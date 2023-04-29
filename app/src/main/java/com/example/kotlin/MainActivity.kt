@@ -12,6 +12,7 @@ import com.facebook.CallbackManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import retrofit2.Call
@@ -52,9 +53,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getLocalData()
+        FirebaseMessaging.getInstance().subscribeToTopic("FCM")
+            .addOnCompleteListener { task ->
+                var msg = "Done"
+                if (!task.isSuccessful) {
+                    msg = "Failed"
+                }
+                Log.d("Received FCM", msg)
+            }
 
-        startActivity(Intent(this, BlogManagementActivity::class.java))
+//        getLocalData()
+
+//        startActivity(Intent(this, BlogManagementActivity::class.java))
 
 //        val userIntent = Intent(this, HomePage::class.java)
 //        val adminIntent = Intent(this, AdminActivity::class.java)

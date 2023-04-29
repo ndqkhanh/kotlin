@@ -14,11 +14,16 @@ import com.google.firebase.messaging.RemoteMessage
 const val channelID = "notification_channel"
 const val channelName = "com.example.kotlin"
 
-@SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class MyFirebaseMessagingService :FirebaseMessagingService(){
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        Log.i("MyFirebaseMessagingService", "onNewToken: $token")
+    }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
+        Log.d("FCM", "From: ${remoteMessage.from}")
         if (remoteMessage.notification != null){
-            Log.d("FCM", "Message Notification Body: ${remoteMessage.notification!!.body}")
             val title = remoteMessage.notification!!.title
             val message = remoteMessage.notification!!.body
             generateNotification(title!!, message!!)
@@ -53,10 +58,8 @@ class MyFirebaseMessagingService :FirebaseMessagingService(){
 
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
-            val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_HIGH)
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_HIGH)
+        notificationManager.createNotificationChannel(channel)
 
         notificationManager.notify(0, builder.build())
 
