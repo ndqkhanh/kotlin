@@ -56,7 +56,7 @@ class AdminBlogCreateActivity : AppCompatActivity() {
             selectImage()
         }
 
-        edtTitle = findViewById(R.id.edtTitle)
+//        edtTitle = findViewById(R.id.edtTitle)
         edtContent = findViewById(R.id.edtContent)
 
         // intent to EditText Detail Activity when click on edtContent

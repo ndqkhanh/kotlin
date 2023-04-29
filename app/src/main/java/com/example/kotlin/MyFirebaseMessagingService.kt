@@ -22,7 +22,7 @@ class MyFirebaseMessagingService :FirebaseMessagingService(){
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        Log.d("FCM", "From: ${remoteMessage.from}")
+        Log.d("FCM", "${remoteMessage.notification?.title}\n${remoteMessage.notification?.body}")
         if (remoteMessage.notification != null){
             val title = remoteMessage.notification!!.title
             val message = remoteMessage.notification!!.body
@@ -31,37 +31,43 @@ class MyFirebaseMessagingService :FirebaseMessagingService(){
     }
 
     @SuppressLint("RemoteViewLayout")
-    fun getRemoteView(title: String, message: String): RemoteViews {
-        val remoteView = RemoteViews("com.example.kotlin", R.layout.notification)
-        remoteView.setTextViewText(R.id.txtTitle, title)
-        remoteView.setTextViewText(R.id.txtMessage, message)
-        remoteView.setImageViewResource(R.id.imgLogo, R.drawable.logo)
-        return remoteView
-    }
-
-    @SuppressLint("UnspecifiedImmutableFlag")
-    fun generateNotification(title: String, message: String){
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
-
-        // channel id, channel name
-        var builder : NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channelID)
-            .setSmallIcon(R.drawable.logo)
-            .setAutoCancel(true)
-            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-            .setOnlyAlertOnce(true)
-            .setContentIntent(pendingIntent)
-
-        builder = builder.setContent(getRemoteView(title, message))
-
+    private fun generateNotification(title: String, message: String) {
+        Log.d("generateNotification", "generateNotification: $title\n$message")
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        Log.d("1","1")
 
         val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_HIGH)
         notificationManager.createNotificationChannel(channel)
 
+        Log.d("2","2")
+
+        // Create custom notification layout
+        val contentView = RemoteViews(packageName, R.layout.notification)
+        contentView.setTextViewText(R.id.txtTitle, title)
+        contentView.setTextViewText(R.id.txtMessage, message)
+
+        Log.d("3","3")
+
+        // Create intent for when notification is clicked
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        Log.d("4","4")
+
+        // Build notification
+        val builder = NotificationCompat.Builder(this, channelID)
+            .setSmallIcon(R.drawable.logo)
+            .setContent(contentView)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        Log.d("5","5")
+
+        // Show notification
         notificationManager.notify(0, builder.build())
 
+        Log.d("6","6")
     }
+
 }
