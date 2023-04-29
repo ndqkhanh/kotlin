@@ -64,26 +64,25 @@ class MainActivity : AppCompatActivity() {
 
 
 
-//        getLocalData()
-//        startActivity(Intent(this, BlogManagementActivity::class.java))
+        getLocalData()
 
-//        val userIntent = Intent(this, BottomNavigation::class.java)
-//        val adminIntent = Intent(this, AdminActivity::class.java)
-//        Log.d("UserInformation", UserInformation.USER?.accountName.toString())
-//
-//        if(UserInformation.USER != null){
-//            if(UserInformation.USER?.role == 2){
-//                finish()
-//                startActivity(userIntent)
-//            }else{
-//                finish()
-//                // TODO qua admin ở đây
-//                startActivity(adminIntent)
-//            }
-//        }else{
-//            finish()
-//            startActivity(userIntent)
-//        }
+        val userIntent = Intent(this, BottomNavigation::class.java)
+        val adminIntent = Intent(this, AdminActivity::class.java)
+        Log.d("UserInformation", UserInformation.USER?.accountName.toString())
+
+        if(UserInformation.USER != null){
+            if(UserInformation.USER?.role == 2){
+                finish()
+                startActivity(userIntent)
+            }else{
+                finish()
+                // TODO qua admin ở đây
+                startActivity(adminIntent)
+            }
+        }else{
+            finish()
+            startActivity(userIntent)
+        }
 
 
 
