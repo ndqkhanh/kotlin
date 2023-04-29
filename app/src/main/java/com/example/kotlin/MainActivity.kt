@@ -62,8 +62,10 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Received FCM", msg)
             }
 
-        getLocalData()
-        startActivity(Intent(this, BlogManagementActivity::class.java))
+
+
+//        getLocalData()
+//        startActivity(Intent(this, BlogManagementActivity::class.java))
 
 //        val userIntent = Intent(this, BottomNavigation::class.java)
 //        val adminIntent = Intent(this, AdminActivity::class.java)
