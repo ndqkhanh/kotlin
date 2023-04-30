@@ -34,8 +34,8 @@
             android:name=".ChooseSeatActivity"
             android:exported="false" />
         <activity
-            android:name=".BottomNavigation"
-            android:exported="false" />
+            android:name=".User.Screen.BottomNavigate.BottomNavigation"
+            android:exported="true"/>
         <activity
             android:name=".BusSearch"
             android:exported="false" />
@@ -58,16 +58,10 @@
             android:name=".ChoosePickUpLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
-            android:exported="false" />
-        <activity
             android:name=".LogInUp"
             android:exported="false" />
         <activity
             android:name=".PersonalInformation"
-            android:exported="false" />
-        <activity
-            android:name=".CaNhanActivity"
             android:exported="false" />
         <activity
             android:name=".BlogManagementActivity"

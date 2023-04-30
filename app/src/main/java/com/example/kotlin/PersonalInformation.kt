@@ -69,50 +69,6 @@ class PersonalInformation : AppCompatActivity() {
             finish()
         }
 
-
-        /*Bottom Navigation Code*/
-        // Initialize and assign variable
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        // Set Home selected
-        bottomNavigationView.selectedItemId = R.id.ticket
-        // Perform item selected listener
-        var intent: Intent
-        bottomNavigationView.setOnNavigationItemSelectedListener{ menuItem ->
-            when (menuItem.itemId) {
-                R.id.search -> {
-                    finish()
-                    intent = Intent(this, HomePage::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.blog -> {
-                    finish()
-                    intent = Intent(this, BlogSeeAllActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.ticket -> {
-                    finish()
-                    intent = Intent(this, PersonalInformation::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.user -> {
-                    finish()
-                    intent = Intent(this, CaNhanActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                else -> false
-            }
-
-
-        }
-
     }
     private fun loadData(){
         GlobalScope.launch(Dispatchers.IO)   {

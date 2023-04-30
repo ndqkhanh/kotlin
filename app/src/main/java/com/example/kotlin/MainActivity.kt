@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
 import com.facebook.CallbackManager
@@ -72,14 +73,17 @@ class MainActivity : AppCompatActivity() {
 
         if(UserInformation.USER != null){
             if(UserInformation.USER?.role == 2){
+//                Log.d("!@#","2")
                 finish()
                 startActivity(userIntent)
             }else{
+//                Log.d("!@#","3")
                 finish()
                 // TODO qua admin ở đây
                 startActivity(adminIntent)
             }
         }else{
+//            Log.d("!@#","4")
             finish()
             startActivity(userIntent)
         }
