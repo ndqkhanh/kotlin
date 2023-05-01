@@ -1,6 +1,7 @@
 package com.example.kotlin
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
@@ -143,7 +144,7 @@ class LogInUp: AppCompatActivity() {
                             respone.user.email_contact = email
                             respone.user.display_name = name
                             storeLocally(respone.user, respone.token.token)
-                            finish()
+                            navigateBaseOnRole(respone.user.role)
                         }else{
                             doRedNote(failure)
                         }
@@ -156,7 +157,7 @@ class LogInUp: AppCompatActivity() {
                             newAccount.user.email_contact = email
                             newAccount.user.display_name = name
                             storeLocally(newAccount.user, newAccount.token.token)
-                            finish()
+                            navigateBaseOnRole(newAccount.user.role)
                         }else{
                             doRedNote(failure)
                         }
@@ -180,7 +181,7 @@ class LogInUp: AppCompatActivity() {
         if(respone != null){
             respone.user.email_contact = respone.user.accountName
             storeLocally(respone.user, respone.token.token)
-            finish()
+            navigateBaseOnRole(respone.user.role)
         }else{
             doRedNote(failure)
             return
@@ -224,7 +225,7 @@ class LogInUp: AppCompatActivity() {
         if(newAccount != null){
             newAccount.user.email_contact = newAccount.user.accountName
             storeLocally(newAccount.user, newAccount.token.token)
-            finish()
+            navigateBaseOnRole(newAccount.user.role)
         }else{
             doRedNote(failure)
             return
@@ -232,11 +233,28 @@ class LogInUp: AppCompatActivity() {
 
 
     }
+    private fun navigateBaseOnRole(role: Int?){
+        if (role != null){
+            if(role == 2) {
+                setResult(1)
+                finish()
+            }
+            else{
+                finishAffinity()
+                val adminIntent = Intent(this, AdminActivity::class.java)
+                startActivity(adminIntent)
+            }
+        }else{
+            setResult(0)
+            finish()
+        }
+    }
     private fun doRedNote(str: String){
         redNotice.visibility = VISIBLE
         redNotice.text = str
     }
     private fun backToPrevious(){
+        setResult(0)
         finish()
     }
     private fun startLogin(){

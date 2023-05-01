@@ -44,12 +44,17 @@ class MainActivity : AppCompatActivity() {
                 UserInformation.USER = gson.fromJson(str_json_user, userType)
                 UserInformation.TOKEN = token
                 Log.i("!23", UserInformation.USER!!.display_name!!)
+            }else{
+                UserInformation.USER = null
+                UserInformation.TOKEN = null
             }
+        }
+        if(token == null){
+            UserInformation.USER = null
+            UserInformation.TOKEN = null
         }
 
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

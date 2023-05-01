@@ -50,4 +50,6 @@
     <string name="logup"><u>Đăng ký</u></string>
     <string name="close"><u>Đóng</u></string>
     <string name="image">Image</string>
+    <string name="Intro">Trở thành thành viên</string>
+    <string name="service_sentence">Để trải nghiệm dịch vụ</string>
 </resources>

@@ -17,6 +17,7 @@
     <color name="light_gray">#F0F0F0</color>
     <!-- new -->
     <color name="button_color">#0d2e5b</color>
+    <color name="linear_layout_button_color">#AB0D2E5B</color>
     <color name="primary_color">#2675e6</color>
     <color name="secondary_color">#ececec</color>
     <color name="yellow">#FED434</color>
