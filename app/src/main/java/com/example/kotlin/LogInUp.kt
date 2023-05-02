@@ -1,5 +1,6 @@
 package com.example.kotlin
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -81,12 +82,23 @@ class LogInUp: AppCompatActivity() {
 
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         localEditor = localStore.edit()
+        val dialog = ProgressDialog(this)
+        dialog.setCancelable(false)
+
 
         switchToLogIn.setOnClickListener { startLogin() }
         switchToLogUp.setOnClickListener { startLogup() }
         back.setOnClickListener { backToPrevious() }
-        dangKy.setOnClickListener { baseApplogUp() }
-        dangNhap.setOnClickListener { bassAppLogIn() }
+        dangKy.setOnClickListener {
+            dialog.show()
+            baseApplogUp()
+            dialog.dismiss()
+        }
+        dangNhap.setOnClickListener {
+            dialog.show()
+            bassAppLogIn()
+            dialog.dismiss()
+        }
 
         loginByFacebook()
 
@@ -113,10 +125,14 @@ class LogInUp: AppCompatActivity() {
             })
     }
     private fun handleFacebookAccessTokenAndLogIn(token: AccessToken) {
-
+        val dialog = ProgressDialog(this)
+        dialog.setCancelable(false)
+        dialog.show()
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
+
                 if (task.isSuccessful) {
+
                     // Sign in success, update UI with the signed-in user's information
                     //Log.d(TAG, "signInWithCredential:success")
                     var user: FirebaseUser = auth.currentUser!!
@@ -170,7 +186,9 @@ class LogInUp: AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            dialog.dismiss()
             }
+
     }
     private fun bassAppLogIn(){
         var email_str = email.text.toString()
@@ -188,6 +206,7 @@ class LogInUp: AppCompatActivity() {
         }
     }
     private fun baseApplogUp(){
+
         var email_str = email.text.toString()
         var pass_str = password.text.toString()
         var repass_str = repassword.text.toString()

@@ -6,6 +6,7 @@
     tools:context=".User.Screen.BottomNavigate.TicketHistoryFragment">
 
     <TabHost
+        android:id="@+id/tabHostVe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -30,6 +31,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <include layout="@layout/ve_hien_tai" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -38,6 +41,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <include layout="@layout/ve_da_di" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -45,7 +50,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <include layout = "@layout/ve_da_huy"/>
+
+                    <include layout="@layout/ve_da_huy" />
 
                 </LinearLayout>
             </FrameLayout>
