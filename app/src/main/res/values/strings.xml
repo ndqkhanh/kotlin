@@ -52,4 +52,7 @@
     <string name="image">Image</string>
     <string name="Intro">Trở thành thành viên</string>
     <string name="service_sentence">Để trải nghiệm dịch vụ</string>
+    <string name="ve_huy">Đã hủy</string>
+    <string name="ve_chua_thanh_toan">Chưa thanh toán</string>
+    <string name="ve_da_thanh_toan">Đã thanh toán</string>
 </resources>

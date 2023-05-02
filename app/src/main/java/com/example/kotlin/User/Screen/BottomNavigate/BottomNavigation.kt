@@ -2,6 +2,8 @@ package com.example.kotlin.User.Screen.BottomNavigate
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.GONE
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.kotlin.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,7 +13,7 @@ class BottomNavigation : AppCompatActivity() {
     private val homepageFragment = HomepageFragment()
     private val personalFragment = CaNhanFragment()
     private val blogFragment = BlogFragment()
-    private val ticketFrament = PersonalInformationFragment()
+    private val ticketFrament = TicketHistoryFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

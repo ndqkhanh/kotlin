@@ -40,7 +40,7 @@ class CaNhanFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_ca_nhan, container, false)
-        loginBtn = rootView.findViewById(R.id.Login_buton_in_person)
+        loginBtn = rootView.findViewById(R.id.loginBtn)
         username = rootView.findViewById(R.id.user_name)
         email = rootView.findViewById(R.id.service_sentence_or_email)
         logout = rootView.findViewById(R.id.log_out)
@@ -51,19 +51,6 @@ class CaNhanFragment : Fragment() {
         fb_avt_card = rootView.findViewById(R.id.fb_avt_card)
 
         return rootView
-    }
-    private val loginCode = 12345
-    private val updateAvtCode = 23456
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode){
-            loginCode -> {
-                if(resultCode == 1)
-                    loginState()
-            }
-            updateAvtCode -> {}
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,12 +63,32 @@ class CaNhanFragment : Fragment() {
         }
 
     }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if(UserInformation.USER == null) {
+            logoutState()
+        }
+        else {
+            loginState()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(UserInformation.USER == null) {
+            logoutState()
+        }
+        else {
+            loginState()
+        }
+    }
     private fun logoutState(){
         logoutVisibility()
 
         val toLogInListener = View.OnClickListener{
             var intentLogIn = Intent(requireContext(), LogInUp::class.java)
-            startActivityForResult(intentLogIn, loginCode)
+            startActivity(intentLogIn)
         }
 
         loginBtn.setOnClickListener(toLogInListener)

@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -154,6 +156,22 @@ class HomepageFragment : Fragment() {
         blogList = rootView.findViewById(R.id.news)
 
         return rootView
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if(UserInformation.TOKEN != null)
+            loginBtn.visibility = GONE
+        else
+            loginBtn.visibility = VISIBLE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(UserInformation.TOKEN != null)
+            loginBtn.visibility = GONE
+        else
+            loginBtn.visibility = VISIBLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

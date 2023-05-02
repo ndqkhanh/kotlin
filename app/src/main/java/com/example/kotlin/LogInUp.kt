@@ -236,7 +236,6 @@ class LogInUp: AppCompatActivity() {
     private fun navigateBaseOnRole(role: Int?){
         if (role != null){
             if(role == 2) {
-                setResult(1)
                 finish()
             }
             else{
@@ -245,7 +244,6 @@ class LogInUp: AppCompatActivity() {
                 startActivity(adminIntent)
             }
         }else{
-            setResult(0)
             finish()
         }
     }
@@ -254,7 +252,6 @@ class LogInUp: AppCompatActivity() {
         redNotice.text = str
     }
     private fun backToPrevious(){
-        setResult(0)
         finish()
     }
     private fun startLogin(){
