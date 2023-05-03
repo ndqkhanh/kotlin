@@ -144,8 +144,8 @@ class Home : AppCompatActivity() {
         findViewById<ImageButton>(R.id.home_logout).setOnClickListener(logOutListener)
         findViewById<TextView>(R.id.log_out_text_view).setOnClickListener(logOutListener)
         findViewById<ImageButton>(R.id.person_infor).setOnClickListener{
-            val intent = Intent(this, PersonalInformation::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, PersonalInformation::class.java)
+//            startActivity(intent)
         }
 
         val adapter = CustomTicketItem(this, busses, supportFragmentManager, lifecycle)

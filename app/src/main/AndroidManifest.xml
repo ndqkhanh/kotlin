@@ -16,7 +16,6 @@
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
 
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="notification_channel" />
@@ -59,9 +58,6 @@
             android:exported="false" />
         <activity
             android:name=".LogInUp"
-            android:exported="false" />
-        <activity
-            android:name=".PersonalInformation"
             android:exported="false" />
         <activity
             android:name=".BlogManagementActivity"

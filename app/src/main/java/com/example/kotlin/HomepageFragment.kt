@@ -83,7 +83,7 @@ class HomepageFragment : Fragment() {
                     putString("defaultId", currentBusEndPoint)
                 }
             }
-            show(this.childFragmentManager, FragmentOperatorFilter.TAG)
+            show(this.parentFragmentManager, FragmentOperatorFilter.TAG)
 
             // onItemClick with data
             onItemClick = onItemClick@{item ->
@@ -115,7 +115,7 @@ class HomepageFragment : Fragment() {
                     putString("defaultId", currentBusStartPoint)
                 }
             }
-            show(this.childFragmentManager, FragmentOperatorFilter.TAG)
+            show(this.parentFragmentManager, FragmentOperatorFilter.TAG)
 
             // onItemClick with data
             onItemClick = onItemClick@{item ->
@@ -158,28 +158,16 @@ class HomepageFragment : Fragment() {
         return rootView
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        if(UserInformation.TOKEN != null)
-            loginBtn.visibility = GONE
-        else
-            loginBtn.visibility = VISIBLE
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if(UserInformation.TOKEN != null)
-            loginBtn.visibility = GONE
-        else
-            loginBtn.visibility = VISIBLE
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loginBtn.setOnClickListener {
             var intentLogIn = Intent(requireContext(), LogInUp::class.java)
             startActivity(intentLogIn)
         }
+        if(UserInformation.TOKEN != null)
+            loginBtn.visibility = GONE
+        else
+            loginBtn.visibility = VISIBLE
 
         // onClickListener for startPointSelect
         startPointSelect.setOnClickListener {

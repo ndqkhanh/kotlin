@@ -22,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="10dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tinh_trang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -36,7 +36,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/gia_ve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -64,10 +64,11 @@
                 app:cardCornerRadius="4dp">
 
                 <LinearLayout
+                    android:id="@+id/the_thoi_gian"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
-                    android:background="@color/green_panel"
+                    android:background="@color/blue_panel"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
@@ -78,13 +79,13 @@
                         app:cardCornerRadius="15dp">
 
                         <ImageView
-                            android:id="@+id/imageView10"
+                            android:id="@+id/bus_icon"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
-                            android:background="@color/green_icon"
-                            android:tint="@color/white"
-                            app:srcCompat="@drawable/ic_bus" />
+                            android:background="@color/primary_color"
+                            app:srcCompat="@drawable/ic_bus"
+                            app:tint="@color/white" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -125,7 +126,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView29"
+                        android:id="@+id/tinh_den"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_bold"
@@ -144,7 +145,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView39"
+                        android:id="@+id/tinh_di"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -159,8 +160,8 @@
                         android:layout_height="20dp"
                         android:layout_marginVertical="10dp"
                         android:scaleType="fitCenter"
-                        android:tint="@color/primary_color"
-                        app:srcCompat="@drawable/right_arrow" />
+                        app:srcCompat="@drawable/right_arrow"
+                        app:tint="@color/primary_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,6 +172,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -182,7 +184,7 @@
                             android:text="Nhà xe" />
 
                         <TextView
-                            android:id="@+id/textView42"
+                            android:id="@+id/ten_nha_xe"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat"
@@ -204,7 +206,7 @@
                             android:text="Mã đặt chỗ" />
 
                         <TextView
-                            android:id="@+id/textView43"
+                            android:id="@+id/ma_dat_cho"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat"
@@ -218,15 +220,16 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/thanh_chinh_sua_ve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="0.7"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_huy_ve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
@@ -239,7 +242,7 @@
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_thanh_toan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"

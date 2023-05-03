@@ -29,7 +29,7 @@
     <color name="gray_panel">#FBFBFB</color>
     <color name="gray_bold_text">#9A9A9A</color>
     <color name="gray_light_text">#C8C8C8</color>
-    <color name="blue_panel">#462675E6</color>
+    <color name="blue_panel">#172675E6</color>
     <color name="green_icon">#6BB514</color>
     <color name="green_panel">#6887F604</color>
 </resources>

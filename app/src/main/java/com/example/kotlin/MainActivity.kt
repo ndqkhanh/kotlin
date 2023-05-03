@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         var token = localStore.getString("token", null)
 
         token?.let {
-            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1)
+            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1, null)
             var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
 
             //token còn dùng được

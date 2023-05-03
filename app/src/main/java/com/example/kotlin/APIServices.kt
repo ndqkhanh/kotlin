@@ -209,11 +209,12 @@ interface UserService {
     @POST("auth/signin")
     fun signIn(@Body signInData: UserLogin): Call<UserLogInRespone>
 
-    @GET("user/history/{page}/{limit}")
+    @GET("user/history")
     fun ticketHistory(
         @Header("Authorization") token: String,
-        @Path("page") page: Int,
-        @Path("limit") limit: Int
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Query("type") type: String?
     ): Call<HistoryList>
 
     @GET("user/information")
