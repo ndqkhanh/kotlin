@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlin.Admin.Screen.AdminActivity
 import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         }else{
 //            Log.d("!@#","4")
             finish()
-            startActivity(userIntent)
+             startActivity(userIntent)
         }
 
 

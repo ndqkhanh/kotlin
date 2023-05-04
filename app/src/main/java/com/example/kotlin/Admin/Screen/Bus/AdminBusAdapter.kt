@@ -1,12 +1,12 @@
-package com.example.kotlin
+package com.example.kotlin.Admin.Screen.Bus
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlin.R
 import com.example.kotlin.jsonConvert.Buses
 
 class AdminBusAdapter(val buses: MutableList<Buses>): RecyclerView.Adapter<AdminBusAdapter.ViewHolder>() {

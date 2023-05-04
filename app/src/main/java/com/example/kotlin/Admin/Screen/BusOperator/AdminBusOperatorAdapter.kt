@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.Admin.Screen.BusOperator
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlin.BusOperator
+import com.example.kotlin.R
 
 class AdminBusOperatorAdapter (private val busOperators: MutableList<BusOperator>)
     :RecyclerView.Adapter<AdminBusOperatorAdapter.ViewHolder>(){

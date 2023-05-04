@@ -1,13 +1,10 @@
-package com.example.kotlin
+package com.example.kotlin.Admin.Screen
 
 import android.app.Activity
 import android.app.ProgressDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Html
 import android.text.Spanned
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,13 +16,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
+import com.example.kotlin.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import retrofit2.awaitResponse
-import java.util.concurrent.ExecutionException
 
 class AdminBlogCreateActivity : AppCompatActivity() {
     private var photoChosen = false

@@ -1,15 +1,13 @@
-package com.example.kotlin
+package com.example.kotlin.Admin.Screen.BusTicket
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlin.*
 import kotlinx.coroutines.*
-import retrofit2.await
 import retrofit2.awaitResponse
 
 class AdminBusTicketActivity:AppCompatActivity() {
