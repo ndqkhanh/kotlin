@@ -232,8 +232,6 @@ class HomepageFragment : Fragment() {
             startActivity(intent)
         }
 
-
-
         viewAllNews.setOnClickListener {
             replaceWithBlogFragment(requireContext() as AppCompatActivity, BlogFragment())
         }
