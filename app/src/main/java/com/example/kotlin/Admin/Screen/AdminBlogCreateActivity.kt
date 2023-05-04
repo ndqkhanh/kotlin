@@ -35,9 +35,7 @@ class AdminBlogCreateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_blog_create)
 
-//        val token = UserInformation.TOKEN
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODI2NDU2NzksImV4cCI6MTg2MjY0NTY3OSwidHlwZSI6ImFjY2VzcyJ9.CfPy4FMZvqM3tbNV4E3z4dy6_tkv0scMJF3ynM5Lw4I"
-
+        val token = UserInformation.TOKEN
 
         imgThumbnail = findViewById(R.id.imgThumbnail)
         val retrofit = APIServiceImpl()

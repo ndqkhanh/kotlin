@@ -15,11 +15,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.kotlin.*
+import com.example.kotlin.User.Screen.BottomNavigate.BlogFragment
+import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation.Companion.replaceWithBlogFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -155,6 +158,7 @@ class HomepageFragment : Fragment() {
         viewAllNews = rootView.findViewById(R.id.viewAllNews)
         blogList = rootView.findViewById(R.id.news)
 
+
         return rootView
     }
 
@@ -229,9 +233,9 @@ class HomepageFragment : Fragment() {
         }
 
 
+
         viewAllNews.setOnClickListener {
-            val intent = Intent(requireContext(), BlogSeeAllActivity::class.java)
-            startActivity(intent)
+            replaceWithBlogFragment(requireContext() as AppCompatActivity, BlogFragment())
         }
 
         var blogPage = 1

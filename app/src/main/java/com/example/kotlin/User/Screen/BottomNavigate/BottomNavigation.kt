@@ -7,7 +7,6 @@ import com.example.kotlin.*
 import com.example.kotlin.User.Screen.BottomNavigate.TicketHistory.TicketHistoryFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-
 class BottomNavigation : AppCompatActivity() {
     private val homepageFragment = HomepageFragment()
     private val personalFragment = CaNhanFragment()
@@ -30,53 +29,6 @@ class BottomNavigation : AppCompatActivity() {
             }
             true
         }
-
-
-
-//        setContentView(R.layout.activity_bottom_navigation)
-
-//        // Initialize and assign variable
-//        bottomNavigationView = findViewById(R.id.bottomNavigationView)
-//        // Set Home selected
-//        bottomNavigationView.selectedItemId = R.id.search
-//        // Perform item selected listener
-//        var intent: Intent
-//        bottomNavigationView.setOnNavigationItemSelectedListener{ menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.search -> {
-//                    finish()
-//                    intent = Intent(this, HomePage::class.java)
-//                    startActivity(intent)
-//                    true
-//                }
-//
-//                R.id.blog -> {
-//                    finish()
-//                    intent = Intent(this, BlogSeeAllActivity::class.java)
-//                    startActivity(intent)
-//                    true
-//                }
-//
-//                R.id.ticket -> {
-//                    finish()
-//                    intent = Intent(this, PersonalInformation::class.java)
-//                    startActivity(intent)
-//                    true
-//                }
-//
-//                R.id.user -> {
-//                    finish()
-//                    intent = Intent(this, CaNhanActivity::class.java)
-//                    startActivity(intent)
-//                    true
-//                }
-//
-//                else -> false
-//            }
-//
-//
-//        }
-
     }
 
     private fun replaceFragment(fragment : Fragment){
@@ -88,6 +40,13 @@ class BottomNavigation : AppCompatActivity() {
         }
     }
 
-
+    companion object {
+        @JvmStatic
+        fun replaceWithBlogFragment(activity: AppCompatActivity, fragment: Fragment) {
+            // set bottom navigation to blog
+            val bottomNavView = activity.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+            bottomNavView.selectedItemId = R.id.blog
+        }
+    }
 
 }

@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Received FCM", msg)
             }
 
-
-
         getLocalData()
 
         val userIntent = Intent(this, BottomNavigation::class.java)
