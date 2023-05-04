@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, sql } = require('@prisma/client');
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
@@ -135,31 +135,47 @@ const getMyQuestionsPagination = async (req) => {
   return questions;
 };
 const getHistoryByUId = async (req) => {
-  let condition = {user_id: req.user.id}
-  if(req.query.type == "discard"){
-    condition.status = 2
-  }
+  var updateQuery = sql`update bus_tickets bt
+                        set status = 2
+                        where bt.id in (select bt2.id from bus_tickets bt2 join buses b on bt2.bus_id = b.id
+                        				where b.start_time < current_timestamp and bt2.status = 0 and bt2.user_id = ${req.user.id})`
+  var condition = sql``
+  if(req.query.type == 'discard'){
+    await prisma.$queryRaw(updateQuery)
+    condition = sql`bt.status = 2 and `
+    }
+  else if(req.query.type == 'current'){
+    await prisma.$queryRaw(updateQuery)
+    condition = sql`b.start_time >= current_timestamp and bt.status != 2 and `
+    }
+  else if(req.query.type == 'done')
+    condition = sql`b.start_time < current_timestamp and bt.status = 1 and `
 
-  const historyList = await prisma.bus_tickets.findMany({
-    orderBy: {
-      buses: {
-        start_point: 'desc',
-      },
-    },
-    skip: req.params.page * req.params.limit,
-    take: req.params.limit,
-    where: condition
-    ,
-    include: {
-      buses: {
-        include: {
-          bus_stations_bus_stationsTobuses_end_point: true,
-          bus_stations_bus_stationsTobuses_start_point: true,
-          bus_operators: true,
-        },
-      },
-    },
-  });
+  var historyList = null
+
+  const querySQL = sql`select bt.id, bt.bus_id, bt.phone, bt.seat, bt.status, b.start_time, b.end_time,
+                           		b.price, bo.name ten_nha_xe, p.name ten_diem_don,
+                           		p.location dia_chi_diem_don, p2.name ten_diem_tra, p2.location dia_chi_diem_tra,
+                           		bs.name tinh_don, bs2.name tinh_tra, bt.note
+                                             from bus_tickets bt
+                                             	join buses b
+                                             	on b.id = bt.bus_id
+                                             	join points p
+                                             	on bt.drop_down_point = p.id
+                                             	join points p2
+                                             	on bt.pick_up_point = p2.id
+                                             	join bus_operators bo
+                                             	on bo.id = b.bo_id
+                                             	join bus_stations bs
+                                             	on bs.id = b.start_point
+                                             	join bus_stations bs2
+                                             	on bs2.id = b.end_point
+                                             where ${condition} bt.user_id = ${req.user.id}
+                                             order by b.start_time desc
+                  offset ${req.query.limit * req.query.page} rows fetch next ${req.query.limit} rows only`
+
+    historyList = await prisma.$queryRaw(querySQL)
+
   return historyList;
 };
 

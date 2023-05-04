@@ -6,12 +6,14 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
 import com.facebook.CallbackManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import retrofit2.Call
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         var token = localStore.getString("token", null)
 
         token?.let {
-            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1)
+            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1, null)
             var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
 
             //token còn dùng được
@@ -42,18 +44,33 @@ class MainActivity : AppCompatActivity() {
                 UserInformation.USER = gson.fromJson(str_json_user, userType)
                 UserInformation.TOKEN = token
                 Log.i("!23", UserInformation.USER!!.display_name!!)
+            }else{
+                UserInformation.USER = null
+                UserInformation.TOKEN = null
             }
+        }
+        if(token == null){
+            UserInformation.USER = null
+            UserInformation.TOKEN = null
         }
 
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getLocalData()
+        FirebaseMessaging.getInstance().subscribeToTopic("FCM")
+            .addOnCompleteListener { task ->
+                var msg = "Done"
+                if (!task.isSuccessful) {
+                    msg = "Failed"
+                }
+                Log.d("Received FCM", msg)
+            }
 
+
+
+        getLocalData()
 
         val userIntent = Intent(this, BottomNavigation::class.java)
         val adminIntent = Intent(this, AdminActivity::class.java)
@@ -61,14 +78,17 @@ class MainActivity : AppCompatActivity() {
 
         if(UserInformation.USER != null){
             if(UserInformation.USER?.role == 2){
+//                Log.d("!@#","2")
                 finish()
                 startActivity(userIntent)
             }else{
+//                Log.d("!@#","3")
                 finish()
                 // TODO qua admin ở đây
                 startActivity(adminIntent)
             }
         }else{
+//            Log.d("!@#","4")
             finish()
             startActivity(userIntent)
         }

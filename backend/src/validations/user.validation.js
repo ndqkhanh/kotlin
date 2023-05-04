@@ -30,9 +30,10 @@ const getMyQuestions = {
 };
 
 const getHistoryByUId = {
-  params: {
+  query: {
     page: Joi.number().required(),
     limit: Joi.number().required(),
+    type: Joi.string()
   },
 };
 

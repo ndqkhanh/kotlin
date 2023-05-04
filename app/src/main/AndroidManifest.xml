@@ -15,27 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".EditTextDetailActivity"
-            android:exported="false" />
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="notification_channel" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/logo" />
-        <!--
- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more.
-        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/blue" />
 
         <activity
+            android:name=".EditTextDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChooseSeatActivity"
             android:exported="false" />
         <activity
-            android:name=".BottomNavigation"
-            android:exported="false" />
+            android:name=".User.Screen.BottomNavigate.BottomNavigation"
+            android:exported="true"/>
         <activity
             android:name=".BusSearch"
             android:exported="false" />
@@ -58,16 +57,7 @@
             android:name=".ChoosePickUpLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
-            android:exported="false" />
-        <activity
             android:name=".LogInUp"
-            android:exported="false" />
-        <activity
-            android:name=".PersonalInformation"
-            android:exported="false" />
-        <activity
-            android:name=".CaNhanActivity"
             android:exported="false" />
         <activity
             android:name=".BlogManagementActivity"
@@ -133,8 +123,7 @@
 
         <service
             android:name=".MyFirebaseMessagingService"
-            android:exported="false"
-            tools:ignore="Instantiatable">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
