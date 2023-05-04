@@ -1,4 +1,48 @@
 import fetch from 'node-fetch';
+import { faker } from '@faker-js/faker';
+
+export const blogList = [
+  {
+    id: faker.datatype.uuid(),
+    thumbnail: 'https://storage.googleapis.com/vex-config/cms-tool/post/images/163/img_card.png',
+    title: 'Ưu đãi các tuyến đường HOT giảm đến 50%',
+    content: faker.lorem.paragraph(),
+    create_time: '2022-03-22T12:26:44.480Z',
+    update_time: '2022-08-27T14:43:55.772Z',
+  },
+  {
+    id: faker.datatype.uuid(),
+    thumbnail: 'https://storage.googleapis.com/vex-config/cms-tool/post/images/161/img_hero.png',
+    title: 'Dành cho KH mới - Giảm đến 25% khi đặt VeXeRe',
+    content: faker.lorem.paragraph(),
+    create_time: '2022-03-22T12:26:44.480Z',
+    update_time: '2022-08-27T14:43:55.772Z',
+  },
+  {
+    id: faker.datatype.uuid(),
+    thumbnail: 'https://storage.googleapis.com/vex-config/cms-tool/post/images/137/img_card.png',
+    title: 'Tổng hợp chương trình khuyến mãi trong tháng',
+    content: faker.lorem.paragraph(),
+    create_time: '2022-03-22T12:26:44.480Z',
+    update_time: '2022-08-27T14:43:55.772Z',
+  },
+  {
+    id: faker.datatype.uuid(),
+    thumbnail: 'https://storage.googleapis.com/vex-config/cms-tool/post/images/166/img_card.png',
+    title: 'Giới thiệu bạn mới - Nhận quà khủng từ VeXeRe',
+    content: faker.lorem.paragraph(),
+    create_time: '2022-03-22T12:26:44.480Z',
+    update_time: '2022-08-27T14:43:55.772Z',
+  },
+  {
+    id: faker.datatype.uuid(),
+    thumbnail: 'https://storage.googleapis.com/vex-config/cms-tool/post/images/152/img_card.png',
+    title: 'Ưu đãi bất ngờ khi đặt VeXeRe',
+    content: faker.lorem.paragraph(),
+    create_time: '2022-03-22T12:26:44.480Z',
+    update_time: '2022-08-27T14:43:55.772Z',
+  },
+];
 
 export const pointList = [
   'Bến xe buýt Chợ Bến Thành',
