@@ -63,13 +63,13 @@
             android:name=".BlogManagementActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBusTicketActivity"
+            android:name=".Admin.Screen.BusTicket.AdminBusTicketActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".Admin.Screen.AdminActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBlogCreateActivity"
+            android:name=".Admin.Screen.AdminBlogCreateActivity"
             android:exported="false" />
         <activity
             android:name=".BlogDetailActivity"
@@ -78,7 +78,7 @@
             android:name=".BlogManagementDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBusActivity"
+            android:name=".Admin.Screen.Bus.AdminBusActivity"
             android:exported="false" />
         <activity
             android:name=".AdminBusCreateActivity"
@@ -96,10 +96,10 @@
             android:name=".Home"
             android:exported="false" />
         <activity
-            android:name=".AdminBusOperatorActivity"
+            android:name=".Admin.Screen.BusOperator.AdminBusOperatorActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBusOperatorCreateActivity"
+            android:name=".Admin.Screen.BusOperator.AdminBusOperatorCreateActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

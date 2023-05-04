@@ -1,12 +1,15 @@
-package com.example.kotlin
+package com.example.kotlin.Admin.Screen
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlin.*
+import com.example.kotlin.Admin.Screen.Bus.AdminBusActivity
+import com.example.kotlin.Admin.Screen.BusOperator.AdminBusOperatorActivity
+import com.example.kotlin.Admin.Screen.BusTicket.AdminBusTicketActivity
 
 class AdminActivity: AppCompatActivity() {
     lateinit var backBtn: ImageButton
