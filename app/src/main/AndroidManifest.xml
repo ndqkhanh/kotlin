@@ -81,7 +81,7 @@
             android:name=".Admin.Screen.Bus.AdminBusActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBusCreateActivity"
+            android:name=".Admin.Screen.Bus.AdminBusCreateActivity"
             android:exported="false" />
         <activity
             android:name=".ticket_item"

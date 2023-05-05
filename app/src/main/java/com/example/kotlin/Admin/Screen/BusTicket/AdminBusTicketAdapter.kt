@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.kotlin.BusTicket
 import com.example.kotlin.R
 
@@ -76,6 +77,5 @@ class AdminBusTicketAdapter (private val busTickets: MutableList<BusTicket>)
             "1" -> status.setText("Chờ thanh toán")
             "2" -> status.setText("Đã thanh toán")
         }
-        image.setImageResource(R.drawable.avatar_shape)
     }
 }

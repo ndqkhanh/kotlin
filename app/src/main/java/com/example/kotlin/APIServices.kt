@@ -315,7 +315,7 @@ interface BusOperatorService {
     fun getBusOperators(): Call<BusOperatorResponse>
 
     @DELETE("bus-operator/{bid}")
-    fun deleteBooking(
+    fun deleteBusOperator(
         @Header("Authorization") token: String,
         @Path("bid") bid: String
     ): Call<DeleteBusOperatorResponse>
@@ -324,6 +324,11 @@ interface BusOperatorService {
     fun createBusOperator(
         @Header("Authorization") token: String,
         @Body busOperator: BusOperatorBody): Call<BusOperator>
+
+    @GET("bus-operator/{boId}")
+    fun getBusOperator(
+        @Header("Authorization") token: String,
+        @Path("boId") bid: String): Call<BusOperator>
 }
 
 

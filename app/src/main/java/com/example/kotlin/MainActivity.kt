@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.Admin.Screen.AdminActivity
+import com.example.kotlin.Admin.Screen.Bus.AdminBusActivity
 import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         val userIntent = Intent(this, BottomNavigation::class.java)
         val adminIntent = Intent(this, AdminActivity::class.java)
-        Log.d("UserInformation", UserInformation.USER?.accountName.toString())
+        Log.d("UserInformation", UserInformation.USER?.role.toString())
 
         if(UserInformation.USER != null){
             if(UserInformation.USER?.role == 2){

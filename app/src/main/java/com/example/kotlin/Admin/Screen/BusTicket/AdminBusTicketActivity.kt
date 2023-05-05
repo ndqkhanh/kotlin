@@ -18,8 +18,7 @@ class AdminBusTicketActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus_ticket)
-//        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
-        val token = "BEARER " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODIyNjAzNTQsImV4cCI6MTY4MjI2MjE1NCwidHlwZSI6ImFjY2VzcyJ9.7VONghbu3oG1A7qidhmVfyLOGbz0UN3bW7t842wJEw0"
+        val token = "BEARER " + UserInformation.TOKEN
         val retrofit = APIServiceImpl()
         busTickets = mutableListOf()
 
@@ -43,7 +42,7 @@ class AdminBusTicketActivity:AppCompatActivity() {
                 Log.d("busTickets vui 1: ", busTickets.size.toString())
 
                 withContext(Dispatchers.Main){
-                    val space = 5
+                    val space = 50
                     val itemDecoration = SpaceItemDecoration(space)
 
                     busTicketAdapter = AdminBusTicketAdapter(busTickets)

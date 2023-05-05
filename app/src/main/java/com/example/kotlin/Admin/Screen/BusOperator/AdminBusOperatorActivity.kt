@@ -1,9 +1,10 @@
 package com.example.kotlin.Admin.Screen.BusOperator
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,17 +15,34 @@ import retrofit2.awaitResponse
 class AdminBusOperatorActivity:AppCompatActivity() {
     lateinit var busOperatorRV: RecyclerView
     lateinit var busOperators: MutableList<BusOperator>
-
-    lateinit var addBusOperatorBtn: Button
+    lateinit var backBtn: ImageButton
+    lateinit var addBusOperatorBtn: ImageButton
     var busOperatorAdapter: AdminBusOperatorAdapter? = null
+    val REQUEST_CODE = 1111
+    val retrofit = APIServiceImpl()
+    val token = "BEARER " + UserInformation.TOKEN
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus_operator)
 
-        val retrofit = APIServiceImpl()
         busOperators = mutableListOf()
 
-        val token = " BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODIyNjAzNTQsImV4cCI6MTY4MjI2MjE1NCwidHlwZSI6ImFjY2VzcyJ9.7VONghbu3oG1A7qidhmVfyLOGbz0UN3bW7t842wJEw0"
+
+        addBusOperatorBtn = findViewById(R.id.adminBusOperatorAddBtn)
+        backBtn = findViewById(R.id.adminBusOperatorListBackBtn)
+        val intent = Intent(this, AdminBusOperatorCreateActivity::class.java)
+        addBusOperatorBtn.setOnClickListener {
+                startActivityForResult(intent, REQUEST_CODE)
+            }
+
+        backBtn.setOnClickListener{
+            finish()
+        }
+        }
+
+    override fun onResume() {
+        super.onResume()
         val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
             throwable.printStackTrace()
         }
@@ -45,8 +63,8 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                 Log.d("busTickets vui 1: ", busOperators.size.toString())
 
                 withContext(Dispatchers.Main){
-                    val space = 15
-                    val itemDecoration = SpaceItemDecoration(space)
+//                    val space = 50
+//                    val itemDecoration = SpaceItemDecoration(space)
 
                     busOperatorAdapter = AdminBusOperatorAdapter(busOperators)
                     busOperatorRV = findViewById(R.id.adminBusOperatorRV)
@@ -54,7 +72,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                     busOperatorRV.layoutManager = LinearLayoutManager(this@AdminBusOperatorActivity,
                         LinearLayoutManager.VERTICAL,false)
 
-                    busOperatorRV.addItemDecoration(itemDecoration)
+//                    busOperatorRV.addItemDecoration(itemDecoration)
 
                 }
 
@@ -65,7 +83,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                 GlobalScope.launch (Dispatchers.IO) {
                     Log.d("Button clicked" , busOperator.id)
 
-                    val result = retrofit.adminDeleteBooking().deleteBooking(token, busOperator.id).awaitResponse()
+                    val result = retrofit.getAllBusOperators().deleteBusOperator(token, busOperator.id).awaitResponse()
 
                     withContext(Dispatchers.Main){
                         val pos = busOperators.indexOf(busOperator)
@@ -77,12 +95,40 @@ class AdminBusOperatorActivity:AppCompatActivity() {
             }
 
         }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val id = data?.getStringExtra("id")
 
-        addBusOperatorBtn = findViewById(R.id.adminBusOperatorAddBtn)
+            // Do something with the user input
+            val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
+                throwable.printStackTrace()
+            }
 
-        val intent = Intent(this, AdminBusOperatorCreateActivity::class.java)
-        addBusOperatorBtn.setOnClickListener {
-                startActivity(intent)
+
+            GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
+                Log.d("token", token!!)
+                var response = retrofit.getAllBusOperators().getBusOperator(token!!,id!!).awaitResponse() // CHANGE
+                Log.d("Response", "vui 1" + response.message())
+                // debug response
+                Log.d("Response", response.toString())
+                if(response.isSuccessful){
+                    Log.d("Response", "vui 2")
+                    val data = response.body()!!
+                    Log.d("Response", data.toString())
+                    busOperators.add(0,data)
+
+                    Log.d("busTickets vui 1: ", busOperators.size.toString())
+
+                    withContext(Dispatchers.Main){
+                        busOperatorAdapter?.notifyItemInserted(0)
+
+                    }
+
+                }
+
             }
         }
+    }
     }
