@@ -75,7 +75,8 @@ class TicketHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        
+        if(UserInformation.TOKEN != null){
         pageHT = 0
         veHT.clear()
         veHienTai.adapter = veHTAdapter
@@ -117,7 +118,7 @@ class TicketHistoryFragment : Fragment() {
                 }
             }
         })
-
+        }
 
     }
     private fun loadCurrent(){
