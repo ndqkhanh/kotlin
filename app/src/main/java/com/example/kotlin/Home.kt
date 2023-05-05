@@ -11,11 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.content.SharedPreferences
-import android.provider.MediaStore.Audio.Radio
-import android.view.View.VISIBLE
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.facebook.login.widget.LoginButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -100,8 +96,6 @@ class Home : AppCompatActivity() {
                             startActivity(intent)
                         }
 
-
-
                         searchResult!!.adapter = adapter
 
                         Utility.setListViewHeightBasedOnChildren(searchResult)
@@ -119,7 +113,7 @@ class Home : AppCompatActivity() {
         /*Admin Nav Button*/
         val adminButtonLayout = findViewById<LinearLayout>(R.id.admin_button_layout)
         adminBtn = findViewById(R.id.admin_button)
-        if (FBInfor.ROLE == 0 || FBInfor.ROLE == 1) {
+        if (UserInformation.USER != null && (UserInformation.USER!!.role == 0 || UserInformation.USER!!.role == 1)) {
             adminButtonLayout.visibility = View.VISIBLE
         }else{
             adminButtonLayout.visibility = View.GONE

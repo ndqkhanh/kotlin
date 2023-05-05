@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -52,7 +53,7 @@ class BusSearch : AppCompatActivity() {
             val busItemOperatorType = listItemView.findViewById(R.id.busItemOperatorType) as TextView
             val busItemOperatorRating = listItemView.findViewById(R.id.busItemOperatorRating) as TextView
             val detailsButton = listItemView.findViewById(R.id.detailsButton) as Button
-            val buyButton = listItemView.findViewById(R.id.buyButton) as Button
+            val bookButton = listItemView.findViewById(R.id.buyButton) as Button
 //            init {
 //                listItemView.setOnClickListener {
 //                    onItemClick?.invoke(items[adapterPosition])
@@ -88,6 +89,12 @@ class BusSearch : AppCompatActivity() {
                 .load(items[position].bus_operators.image_url)
                 .into(holder.busItemOperatorThumbnail)
 
+            holder.bookButton.setOnClickListener {
+                // Intent to ChoosePickUpLocationActivity
+                val intent = Intent(holder.itemView.context, ChoosePickUpLocationActivity::class.java)
+                intent.putExtra("busId", items[position].id)
+                startActivity(holder.itemView.context, intent, null)
+            }
         }
     }
     var currentBusType: String = ""

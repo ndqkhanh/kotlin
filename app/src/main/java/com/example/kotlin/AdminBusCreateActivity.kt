@@ -136,9 +136,9 @@ class AdminBusCreateActivity: AppCompatActivity() {
                  image_url = imageET.text.toString()
                  policy = "Hello"
                 if (numOfSeatET.text.toString() != "")
-                 num_of_seats = numOfSeatET.text.toString()?.toInt()
+                 num_of_seats = Integer.parseInt(numOfSeatET.text.toString())
                 if (priceET.text.toString() != "")
-                    price = priceET.text.toString()?.toInt()
+                    price = Integer.parseInt(priceET.text.toString())
                 when ( busTypeSpinner.selectedItem?.toString()){
                     "Bus 1" -> type = 1
                     "Bus 2" -> type = 2

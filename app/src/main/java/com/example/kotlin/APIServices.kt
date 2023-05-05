@@ -208,12 +208,15 @@ interface UserService {
     @POST("auth/signin")
     fun signIn(@Body signInData: UserLogin): Call<UserLogInRespone>
 
-    @POST("user/history/{page}/{limit}")
+    @GET("user/history/{page}/{limit}")
     fun ticketHistory(
         @Header("Authorization") token: String,
         @Path("page") page: Int,
         @Path("limit") limit: Int
     ): Call<HistoryList>
+
+    @GET("user/information")
+    fun getUserByAccountName(@Query("username") username: String): Call<User>
 }
 
 interface BusService {
@@ -323,8 +326,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://10.124.7.76:3000/v1/"
-
+    private val BASE_URL = "http://10.123.1.142:3000/v1/"
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())

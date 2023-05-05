@@ -6,6 +6,6 @@ import com.google.gson.annotations.SerializedName
 
 data class UserLogin(
     @SerializedName("email")
-    val fbId: String,
+    val username: String,
     val password: String = "vexeREvexeRE123"
 )

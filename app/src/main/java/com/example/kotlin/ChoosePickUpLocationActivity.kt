@@ -30,14 +30,16 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
 
         val retrofit = APIServiceImpl()
 
-        val busId = "ffe0ffaa-7d1c-4a2e-b812-46674ba8c85d";
+//        val busId = "14d873d4-f8e2-4ff4-bb0f-6b68fd7a4986"
+
+        val busId = intent.getStringExtra("busId")
 
         val busPickUpPoints = ArrayList<Point>()
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
                 val response =
-                    retrofit.bus().getBusById(busId).awaitResponse()
+                    retrofit.bus().getBusById(busId!!).awaitResponse()
                 if (response.isSuccessful){
                     val body = response.body()
                     Log.i("body", body.toString())

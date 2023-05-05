@@ -5,95 +5,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/btnBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="5dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back_icon" />
-
-    <LinearLayout
-        android:id="@+id/logOutBtnAdminBlog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/blue"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/btnLogOut"
-            android:layout_width="match_parent"
-            android:layout_height="26dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:background="@color/blank"
-            android:contentDescription="@string/this_is_logout_button"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/logout_icon"
-            app:tint="@color/button_color" />
-
         <TextView
-            android:id="@+id/log_out_text_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/log_out"
-            android:textColor="@color/button_color"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:layout_marginStart="12dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_bold"
+            android:maxLines="1"
+            android:text="Quản lý tin tức"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
-    <Button
-        android:id="@+id/btnAddBlog"
-        android:layout_width="282dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/add_blog"
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/baseline_arrow_back_10"
+            android:contentDescription="@string/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoTinTuc"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:completionThreshold="1"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="5dp"
+        android:padding="10dp"
+        android:hint="Tìm kiếm dựa trên tiêu đề"
+        android:textColorHint="#C6C6C6"
+        android:background="@drawable/custom_form_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerContainer" />
+
+    <ListView
+        android:id="@+id/lvTinTuc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/autoTinTuc" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/light_gray"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/adminBlogTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/blog_management"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logOutBtnAdminBlog" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/blogList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginVertical="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnNext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminBlogTV" />
-
     <Button
-        android:id="@+id/btnPrevious"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnAddBlog"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="8dp"
-        android:layout_marginHorizontal="10dp"
-        android:text="@string/prev"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddBlog"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/panel"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingVertical="10dp"
+        android:textAllCaps="false"
+        android:text="Tạo tin tức mới"
+        android:textSize="17sp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
 
-    <Button
-        android:id="@+id/btnNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="8dp"
-        android:text="@string/next"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddBlog"
-        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

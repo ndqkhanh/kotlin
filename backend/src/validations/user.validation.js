@@ -37,9 +37,9 @@ const getHistoryByUId = {
 };
 
 const getUserByUsername = {
-  body: Joi.object().keys({
+  query: {
     username: Joi.string().required(),
-  }),
+  },
 }
 
 module.exports = {

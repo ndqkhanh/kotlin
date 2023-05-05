@@ -74,9 +74,9 @@ class BusDetailActivity : AppCompatActivity() {
         // call API to get bus detail by id (getBusById)
         GlobalScope.launch (Dispatchers.IO) {
             val response = APIServiceImpl()?.bus()?.getBusById(busId)?.awaitResponse()
-            if (response.isSuccessful) {
+            if (response!!.isSuccessful) {
                 Log.d("Search", response.body().toString())
-                var data = response.body()
+                var data = response!!.body()
                 bus = data
 
                 val arr = ArrayList<String>()

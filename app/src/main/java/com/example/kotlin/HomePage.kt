@@ -1,31 +1,31 @@
 package com.example.kotlin
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.firebase.storage.FirebaseStorage
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.kotlin.jsonConvert.HistoryList
+import com.example.kotlin.jsonConvert.User
+import com.example.kotlin.jsonConvert.UserLogInRespone
+import com.example.kotlin.jsonConvert.UserLogin
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import retrofit2.Call
 import retrofit2.awaitResponse
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.Locale
+import java.lang.reflect.Type
+
 
 data class ListItemFormat(
     val id: String,
@@ -38,9 +38,11 @@ class HomePage : AppCompatActivity() {
     lateinit var startPointEdit: EditText
     lateinit var endPointEdit: EditText
     lateinit var departureDateEdit: EditText
+    lateinit var bottomNavigationView: BottomNavigationView
     var fileUpload = UploadFile()
     var currentBusStartPoint = ""
     var currentBusEndPoint = ""
+
     private fun selectImage(){
         // select image from local storage
         val intent = Intent(Intent.ACTION_PICK)
@@ -137,7 +139,8 @@ class HomePage : AppCompatActivity() {
 
         val loginBtn = findViewById<TextView>(R.id.loginBtn)
         loginBtn.setOnClickListener {
-            selectImage()
+            var intentLogIn = Intent(this, LogInUp::class.java)
+            startActivity(intentLogIn)
         }
 
         val startPointSelect = findViewById<LinearLayout>(R.id.startPointSelect)
@@ -241,6 +244,50 @@ class HomePage : AppCompatActivity() {
             }
         } catch (e: Exception) {
             Log.d("Error", e.toString())
+        }
+
+
+        /*Bottom Navigation Tab*/
+        // Initialize and assign variable
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        // Set Home selected
+        bottomNavigationView.selectedItemId = R.id.search
+        // Perform item selected listener
+        var intent: Intent
+        bottomNavigationView.setOnNavigationItemSelectedListener{ menuItem ->
+            when (menuItem.itemId) {
+                R.id.search -> {
+                    finish()
+                    intent = Intent(this, HomePage::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.blog -> {
+                    finish()
+                    intent = Intent(this, BlogSeeAllActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.ticket -> {
+                    finish()
+                    intent = Intent(this, PersonalInformation::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.user -> {
+                    finish()
+                    intent = Intent(this, CaNhanActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
+
+
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.kotlin
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View.INVISIBLE
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.kotlin.jsonConvert.History
 import com.facebook.login.widget.ProfilePictureView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,6 +28,8 @@ class PersonalInformation : AppCompatActivity() {
     private var items = mutableListOf<History>()
     private lateinit var bookedTicketAdapter: BookedTicketAdapter
 
+    lateinit var bottomNavigationView: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_infor_ticket_history)
@@ -35,9 +39,9 @@ class PersonalInformation : AppCompatActivity() {
         var avt = findViewById<ProfilePictureView>(R.id.fb_avt_user)
         var back = findViewById<ImageButton>(R.id.back_button)
 
-        email.text = FBInfor.EMAIL
-        name.text = FBInfor.NAME
-        avt.profileId = FBInfor.ID
+        email.text = UserInformation.USER?.accountName
+        name.text = UserInformation.USER?.display_name!!
+        avt.profileId = UserInformation.USER?.id
 
         var TicketHisListView = findViewById<ListView>(R.id.ticket_lv)
 
@@ -63,6 +67,50 @@ class PersonalInformation : AppCompatActivity() {
 
         back.setOnClickListener {
             finish()
+        }
+
+
+        /*Bottom Navigation Code*/
+        // Initialize and assign variable
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        // Set Home selected
+        bottomNavigationView.selectedItemId = R.id.ticket
+        // Perform item selected listener
+        var intent: Intent
+        bottomNavigationView.setOnNavigationItemSelectedListener{ menuItem ->
+            when (menuItem.itemId) {
+                R.id.search -> {
+                    finish()
+                    intent = Intent(this, HomePage::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.blog -> {
+                    finish()
+                    intent = Intent(this, BlogSeeAllActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.ticket -> {
+                    finish()
+                    intent = Intent(this, PersonalInformation::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.user -> {
+                    finish()
+                    intent = Intent(this, CaNhanActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
+
+
         }
 
     }
