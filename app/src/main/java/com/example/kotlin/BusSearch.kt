@@ -74,6 +74,7 @@ class BusSearch : AppCompatActivity() {
         }
 
 
+
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.busTimeStartText.text = items[position].start_time_hour
             holder.busTimeEndText.text = items[position].end_time_hour
@@ -97,15 +98,19 @@ class BusSearch : AppCompatActivity() {
                 startActivity(holder.itemView.context, intent, null)
             }
         }
+
+        // loadingHolder
+
     }
     var currentBusType: String = ""
     var currentBusOperator: String? = ""
     var currentBusPricing: Int = 0
+    var countMax: Int = 0
     lateinit var departureId: String
     lateinit var destinationId: String
     lateinit var outputDateString: String
     lateinit var loading: LottieAnimationView
-
+    lateinit var busAdapter: CustomItem
     private fun loadMoreResult(page: Int = 0, limit: Int = 10){
         if(page == 0) loading.visibility = View.VISIBLE
 
@@ -125,16 +130,13 @@ class BusSearch : AppCompatActivity() {
                 else
                     listBuses.addAll(data)
                 withContext(Dispatchers.Main) {
-                    var adapter = CustomItem(listBuses)
 
-                    rv_bus_search!!.adapter = adapter
-                    // reset adapter
-                    adapter.notifyDataSetChanged()
+                    if(page == 0){
+                        busAdapter = CustomItem(listBuses)
+                        rv_bus_search!!.adapter = busAdapter
+                    }
 
-                    // reload rv_bus_search
-                    rv_bus_search.destroyDrawingCache()
-                    rv_bus_search.visibility = View.INVISIBLE
-                    rv_bus_search.visibility = View.VISIBLE
+                    busAdapter.notifyItemRangeInserted(busAdapter.itemCount, listBuses.size - 1)
                     if(page == 0) loading.visibility = View.GONE
 
 
@@ -172,12 +174,16 @@ class BusSearch : AppCompatActivity() {
         rv_bus_search.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     currentPage++
+                    Log.d("test2", currentPage.toString())
                     loadMoreResult(currentPage)
                 }
             }
+
+
         })
+
 
         val filterBusType = findViewById<Button>(R.id.filterBusType)
         filterBusType.setOnClickListener {
