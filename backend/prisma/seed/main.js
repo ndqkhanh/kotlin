@@ -178,7 +178,7 @@ async function main() {
   Array.from({ length: 30 }).forEach(() => {
     POINT_BS.push(createPointBs());
   });
-  Array.from({ length: 1000 }).forEach(() => {
+  Array.from({ length: 10000 }).forEach(() => {
     BUSES.push(createBuses());
   });
 
