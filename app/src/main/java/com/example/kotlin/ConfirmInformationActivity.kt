@@ -36,14 +36,12 @@ class ConfirmInformationActivity : AppCompatActivity() {
         val personName = intent.getStringExtra("personName")
         val phoneNumber = intent.getStringExtra("phoneNumber")
         val numOfSeats = intent.getStringExtra("numOfSeats")
+        val note = intent.getStringExtra("note")
 
         Log.i("busPickUpPointId", busPickUpPointId.toString())
         Log.i("busDropDownPointId", busDropDownPointId.toString())
 
-//        val token = this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
-
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2ODIxNDMzMDUsImV4cCI6MTY4MjE0NTEwNSwidHlwZSI6ImFjY2VzcyJ9.NcSNJN-oklIicwSVk7m1ujOPI1ln7HHH_mYkyrh58WI"
-
+        val token = UserInformation.TOKEN
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
@@ -83,33 +81,42 @@ class ConfirmInformationActivity : AppCompatActivity() {
 
                             val txtPickUpName = findViewById<TextView>(R.id.txtPickUpName)
                             txtPickUpName.text = busPickUpPointName
+
                             val txtPickUpLocation = findViewById<TextView>(R.id.txtPickUpLocation)
                             txtPickUpLocation.text = busPickUpPointLocation
+
                             val txtPickUpTime = findViewById<TextView>(R.id.txtPickUpTime)
                             val temp3 = "Dự kiến đón lúc " + body2.start_time
                             txtPickUpTime.text = temp3
 
                             val txtDropDownName = findViewById<TextView>(R.id.txtDropDownName)
                             txtDropDownName.text = busDropDownPointName
+
                             val txtDropDownLocation = findViewById<TextView>(R.id.txtDropDownLocation)
                             txtDropDownLocation.text = busDropDownPointLocation
+
                             val txtDropDownTime = findViewById<TextView>(R.id.txtDropDownTime)
                             val temp4 = "Dự kiến trả lúc " + body2.end_time
                             txtDropDownTime.text = temp4
 
                             val txtHoTen = findViewById<TextView>(R.id.txtHoTen)
                             txtHoTen.text = personName
+
                             val txtDienThoai = findViewById<TextView>(R.id.txtDienThoai)
                             txtDienThoai.text = phoneNumber
+
                             val txtEmail = findViewById<TextView>(R.id.txtEmail)
-                            txtEmail.text = UserInformation.USER?.accountName
+                            txtEmail.text = UserInformation.USER?.email_contact
+
+                            val txtNote = findViewById<TextView>(R.id.txtNote)
+                            txtNote.text = note
 
                             val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
                             continueBtn.setOnClickListener {
                                 try {
                                     GlobalScope.launch(Dispatchers.IO) {
                                         val response =
-                                            retrofit.createTicket(token!!)
+                                            retrofit.createTicket(token.toString())
                                                 .createTicketByNumOfSeats(
                                                     busId,
                                                     TicketData(
@@ -117,7 +124,8 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                         busPickUpPointId!!,
                                                         busDropDownPointId!!,
                                                         phoneNumber!!,
-                                                        numOfSeats.toInt()
+                                                        numOfSeats.toInt(),
+                                                        note.toString()
                                                     )
                                                 ).awaitResponse()
                                         // debug response
@@ -143,9 +151,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                 launch(Dispatchers.Main) {
                                                     Toast.makeText(
                                                         this@ConfirmInformationActivity,
-                                                        "Đặt vé thất bại",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
+                                                        "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                                                 }
                                         }else{
                                             launch(Dispatchers.Main) {
@@ -165,9 +171,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                     launch(Dispatchers.Main) {
                                         Toast.makeText(
                                             this@ConfirmInformationActivity,
-                                            "Đặt vé thất bại",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                            "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             }
@@ -178,9 +182,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(
                 this@ConfirmInformationActivity,
-                "Đặt vé thất bại",
-                Toast.LENGTH_SHORT
-            ).show()
+                "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
         }
     }
 }

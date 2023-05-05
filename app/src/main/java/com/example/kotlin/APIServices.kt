@@ -46,7 +46,8 @@ data class TicketData(
     val pick_up_point: String,
     val drop_down_point: String,
     val phone: String,
-    val num_of_seats: Int
+    val num_of_seats: Int,
+    val note: String,
 )
 
 data class TicketCreateResponse(
@@ -208,11 +209,12 @@ interface UserService {
     @POST("auth/signin")
     fun signIn(@Body signInData: UserLogin): Call<UserLogInRespone>
 
-    @GET("user/history/{page}/{limit}")
+    @GET("user/history")
     fun ticketHistory(
         @Header("Authorization") token: String,
-        @Path("page") page: Int,
-        @Path("limit") limit: Int
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Query("type") type: String?
     ): Call<HistoryList>
 
     @GET("user/information")
@@ -326,7 +328,8 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://10.123.1.142:3000/v1/"
+    private val BASE_URL = "http://192.168.1.9:3000/v1/"
+
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())

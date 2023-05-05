@@ -1,5 +1,6 @@
 package com.example.kotlin
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,10 +16,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
 
-class Point(val id: String, val time: String, val name: String, val location: String)
-
 class ChoosePickUpLocationActivity : AppCompatActivity() {
-
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_pick_up_location)
@@ -30,9 +29,8 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
 
         val retrofit = APIServiceImpl()
 
-//        val busId = "14d873d4-f8e2-4ff4-bb0f-6b68fd7a4986"
-
         val busId = intent.getStringExtra("busId")
+        val numOfSeats = intent.getStringExtra("numOfSeats")
 
         val busPickUpPoints = ArrayList<Point>()
 
@@ -57,6 +55,9 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
                                         val body2 = response2.body()
                                         launch(Dispatchers.Main) {
                                             if (body2 != null) {
+                                                val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
+                                                continueBtn.isClickable = false
+                                                continueBtn.isEnabled = false
                                                 for (i in 0 until body2.data.size) {
                                                     busPickUpPoints.add(Point(body2.data[i].point_id, body.start_time,
                                                         body2.data[i].points.name, body2.data[i].points.location))
@@ -65,9 +66,14 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
                                                 val adapter = PickUpPointAdapter(this@ChoosePickUpLocationActivity, busPickUpPoints)
                                                 listView.adapter = adapter
                                                 listView.onItemClickListener =
-                                                    AdapterView.OnItemClickListener { _, _, position, _ -> adapter.setSelectedItem(position) }
+                                                    AdapterView.OnItemClickListener { _, _, position, _ ->
+                                                        adapter.setSelectedItem(position)
+                                                        continueBtn.isClickable = true
+                                                        continueBtn.isEnabled = true
+                                                        continueBtn.setBackgroundDrawable(getDrawable(R.drawable.yellow_panel))
+                                                    }
 
-                                                val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
+
                                                 continueBtn.setOnClickListener {
                                                     if(adapter.getSelectedPosition() == -1) {
                                                         Toast.makeText(this@ChoosePickUpLocationActivity, "Hãy chọn điếm đón bạn muốn", Toast.LENGTH_SHORT).show()
@@ -75,6 +81,7 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
                                                     else {
                                                         intent = Intent(this@ChoosePickUpLocationActivity, ChooseDropDownLocationActivity::class.java)
                                                         intent.putExtra("busId", busId)
+                                                        intent.putExtra("numOfSeats", numOfSeats)
                                                         intent.putExtra("busPickUpPointId", busPickUpPoints[adapter.getSelectedPosition()].id)
                                                         intent.putExtra("busPickUpPointName", busPickUpPoints[adapter.getSelectedPosition()].name)
                                                         intent.putExtra("busPickUpPointLocation", busPickUpPoints[adapter.getSelectedPosition()].location)
@@ -87,14 +94,14 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
                                     }
                                 }
                             }catch (e: Exception) {
-                                Toast.makeText(this@ChoosePickUpLocationActivity, "Lỗi kết nối", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@ChoosePickUpLocationActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 }
             }
         } catch (e: Exception) {
-            Toast.makeText(this@ChoosePickUpLocationActivity, "Lỗi kết nối", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ChoosePickUpLocationActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
         }
     }
 }

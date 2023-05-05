@@ -1,14 +1,15 @@
 package com.example.kotlin
 
+import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlin.Admin.Screen.AdminActivity
 import com.example.kotlin.jsonConvert.*
 import com.facebook.*
 import com.facebook.login.LoginResult
@@ -21,12 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import okhttp3.internal.wait
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.regex.Pattern
 
 class LogInUp: AppCompatActivity() {
@@ -80,12 +76,23 @@ class LogInUp: AppCompatActivity() {
 
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         localEditor = localStore.edit()
+        val dialog = ProgressDialog(this)
+        dialog.setCancelable(false)
+
 
         switchToLogIn.setOnClickListener { startLogin() }
         switchToLogUp.setOnClickListener { startLogup() }
         back.setOnClickListener { backToPrevious() }
-        dangKy.setOnClickListener { baseApplogUp() }
-        dangNhap.setOnClickListener { bassAppLogIn() }
+        dangKy.setOnClickListener {
+            dialog.show()
+            baseApplogUp()
+            dialog.dismiss()
+        }
+        dangNhap.setOnClickListener {
+            dialog.show()
+            bassAppLogIn()
+            dialog.dismiss()
+        }
 
         loginByFacebook()
 
@@ -112,10 +119,14 @@ class LogInUp: AppCompatActivity() {
             })
     }
     private fun handleFacebookAccessTokenAndLogIn(token: AccessToken) {
-
+        val dialog = ProgressDialog(this)
+        dialog.setCancelable(false)
+        dialog.show()
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
+
                 if (task.isSuccessful) {
+
                     // Sign in success, update UI with the signed-in user's information
                     //Log.d(TAG, "signInWithCredential:success")
                     var user: FirebaseUser = auth.currentUser!!
@@ -143,7 +154,7 @@ class LogInUp: AppCompatActivity() {
                             respone.user.email_contact = email
                             respone.user.display_name = name
                             storeLocally(respone.user, respone.token.token)
-                            finish()
+                            navigateBaseOnRole(respone.user.role)
                         }else{
                             doRedNote(failure)
                         }
@@ -156,7 +167,7 @@ class LogInUp: AppCompatActivity() {
                             newAccount.user.email_contact = email
                             newAccount.user.display_name = name
                             storeLocally(newAccount.user, newAccount.token.token)
-                            finish()
+                            navigateBaseOnRole(newAccount.user.role)
                         }else{
                             doRedNote(failure)
                         }
@@ -169,7 +180,9 @@ class LogInUp: AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            dialog.dismiss()
             }
+
     }
     private fun bassAppLogIn(){
         var email_str = email.text.toString()
@@ -180,13 +193,14 @@ class LogInUp: AppCompatActivity() {
         if(respone != null){
             respone.user.email_contact = respone.user.accountName
             storeLocally(respone.user, respone.token.token)
-            finish()
+            navigateBaseOnRole(respone.user.role)
         }else{
             doRedNote(failure)
             return
         }
     }
     private fun baseApplogUp(){
+
         var email_str = email.text.toString()
         var pass_str = password.text.toString()
         var repass_str = repassword.text.toString()
@@ -224,13 +238,27 @@ class LogInUp: AppCompatActivity() {
         if(newAccount != null){
             newAccount.user.email_contact = newAccount.user.accountName
             storeLocally(newAccount.user, newAccount.token.token)
-            finish()
+            navigateBaseOnRole(newAccount.user.role)
         }else{
             doRedNote(failure)
             return
         }
 
 
+    }
+    private fun navigateBaseOnRole(role: Int?){
+        if (role != null){
+            if(role == 2) {
+                finish()
+            }
+            else{
+                finishAffinity()
+                val adminIntent = Intent(this, AdminActivity::class.java)
+                startActivity(adminIntent)
+            }
+        }else{
+            finish()
+        }
     }
     private fun doRedNote(str: String){
         redNotice.visibility = VISIBLE

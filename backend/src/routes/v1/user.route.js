@@ -15,7 +15,7 @@ router
 router.route('/information').get(validate(userValidation.getUserByUsername), userController.getUserByUsername);
 
 router
-  .route('/history/:page/:limit')
+  .route('/history')
   .get(auth('seeHistory'), validate(userValidation.getHistoryByUId), userController.getHistoryByUId);
 
 router.route('/:userId').get(auth('getUser'), validate(userValidation.getUser), userController.getUser);

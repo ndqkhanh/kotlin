@@ -49,8 +49,19 @@ const getMyQuestions = catchAsync(async (req, res) => {
 
 const getHistoryByUId = catchAsync(async (req, res) => {
   //console.log('req.user.id', req);
-  const history_list = await userService.getHistoryByUId(req);
-  res.send({ history_list });
+  let history_list = await userService.getHistoryByUId(req);
+
+  history_list.forEach((item, index) =>{
+    let timespan = new Date(item.start_time)
+    item.start_date = timespan.toLocaleDateString("vi",{year: "numeric", month: "2-digit", day: "2-digit",})
+    item.start_time = timespan.toLocaleTimeString("vi", { hour: "2-digit", minute: "2-digit" })
+
+    timespan = new Date(item.end_time)
+    item.end_date = timespan.toLocaleDateString("vi",{year: "numeric", month: "2-digit", day: "2-digit",})
+    item.end_time = timespan.toLocaleTimeString("vi", { hour: "2-digit", minute: "2-digit" })
+  })
+
+   res.send({ history_list });
 });
 const getUserByUsername = catchAsync(async (req, res) => {
   const user = await userService.getUserByUsername(req.query.username);

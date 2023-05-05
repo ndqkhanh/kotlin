@@ -1,27 +1,14 @@
+/* eslint-disable import/extensions */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
-const { PrismaClient } = require('@prisma/client');
-const { faker } = require('@faker-js/faker');
+import { pointList, wardList, districtList, streetList, blogList } from '../../data/index.js';
+
+import { PrismaClient } from '@prisma/client';
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
-
-const createBusOperator = () => {
-  return {
-    id: faker.datatype.uuid(),
-    image_url: faker.image.imageUrl(180, 180),
-    phone: faker.phone.number('##########'),
-    name: faker.name.fullName(),
-  };
-};
-
-const createBusStation = () => {
-  return {
-    id: faker.datatype.uuid(),
-    location: faker.address.cityName(),
-    name: faker.name.jobArea(),
-  };
-};
+faker.locale = 'vi';
 
 const USERS = [
   {
@@ -78,6 +65,48 @@ const BUS_STATIONS = [];
 const BUSES = [];
 const BUS_TICKETS = [];
 const REVIEWS = [];
+const POINTS = [];
+const POINT_BS = [];
+
+const createBusOperator = () => {
+  return {
+    id: faker.datatype.uuid(),
+    image_url: faker.image.imageUrl(180, 180),
+    phone: faker.phone.number('##########'),
+    name: faker.name.fullName(),
+  };
+};
+
+const createBusStation = () => {
+  const val = faker.address.cityName();
+  return {
+    id: faker.datatype.uuid(),
+    name: val,
+    location: val,
+  };
+};
+
+const createLocation = (wards, districts) => {
+  return `${faker.address.buildingNumber()} ${streetList[Math.floor(Math.random() * streetList.length)]}, ${
+    wards[Math.floor(Math.random() * wards.length)].name
+  }, ${districts[Math.floor(Math.random() * districts.length)].name} `;
+};
+
+const createPoint = (wards, districts) => {
+  return {
+    id: faker.datatype.uuid(),
+    name: pointList[Math.floor(Math.random() * pointList.length)],
+    location: createLocation(wards, districts),
+    // bs_id: BUS_STATIONS[Math.floor(Math.random() * BUS_STATIONS.length)].id,
+  };
+};
+
+const createPointBs = () => {
+  return {
+    point_id: POINTS[Math.floor(Math.random() * POINTS.length)].id,
+    bs_id: BUS_STATIONS[Math.floor(Math.random() * BUS_STATIONS.length)].id,
+  };
+};
 
 // select count(*) as sl, DATE(start_time), start_point, end_point
 // from buses
@@ -114,6 +143,9 @@ const createBusTickets = () => {
     phone: faker.phone.number('##########'),
     seat: faker.datatype.number({ min: 1, max: bus.num_of_seats }).toString(),
     status: faker.datatype.number({ min: 0, max: 2 }),
+    pick_up_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
+    drop_down_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
+    note: faker.lorem.paragraph(),
   };
 };
 
@@ -128,15 +160,25 @@ const createReview = () => {
 };
 
 async function main() {
+  const wards = await wardList();
+  const districts = await districtList();
+
   Array.from({ length: 15 }).forEach(() => {
     BUS_OPERATORS.push(createBusOperator());
   });
 
-  Array.from({ length: 10 }).forEach(() => {
+  Array.from({ length: 15 }).forEach(() => {
     BUS_STATIONS.push(createBusStation());
   });
 
-  Array.from({ length: 50000 }).forEach(() => {
+  Array.from({ length: 20 }).forEach(() => {
+    POINTS.push(createPoint(wards, districts));
+  });
+
+  Array.from({ length: 30 }).forEach(() => {
+    POINT_BS.push(createPointBs());
+  });
+  Array.from({ length: 1000 }).forEach(() => {
     BUSES.push(createBuses());
   });
 
@@ -151,8 +193,11 @@ async function main() {
     users: USERS,
     bus_operators: BUS_OPERATORS,
     bus_stations: BUS_STATIONS,
+    points: POINTS,
+    point_bs: POINT_BS,
     buses: BUSES,
     reviews: REVIEWS,
+    blogs: blogList,
     bus_tickets: BUS_TICKETS,
   };
 

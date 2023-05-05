@@ -61,13 +61,13 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="15dp">
+                android:layout_margin="14dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvThumbnail"
                     android:layout_width="0dp"
                     android:layout_height="300dp"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="30dp"
                     app:cardElevation="3dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -78,12 +78,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/background_login" />
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/image_photo_svgrepo_com" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button2"
+                    android:id="@+id/btnUpload"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/blue_panel"
@@ -105,13 +105,13 @@
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thông tin tin tức"
+                    android:text="Tiêu đề"
                     android:layout_margin="15dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/montserrat_bold"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button2" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnUpload" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutTitle"
@@ -134,33 +134,62 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layoutContent"
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTitle" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/edtContent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
+                    android:gravity="top"
+                    android:background="@drawable/black_stroke_and_transparent_solid_panel"
+                    android:inputType="textMultiLine"
                     android:fontFamily="@font/montserrat"
+                    android:padding="15dp"
                     android:hint="Nội dung"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView10"
-                    app:layout_constraintTop_toBottomOf="@+id/layoutTitle"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:lines="7"
-                        android:gravity="top"
-                        android:textSize="17sp"
-                        android:overScrollMode="always"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollHorizontally="false"
-                        android:scrollbars="vertical"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/layoutTitle"
+                    app:layout_constraintStart_toStartOf="@+id/layoutTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/layoutContent"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginEnd="15dp"-->
+<!--                    android:fontFamily="@font/montserrat"-->
+<!--                    android:hint="Nội dung"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/textView10"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/layoutTitle">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/edtContent"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="top"-->
+<!--                        android:inputType="textMultiLine"-->
+<!--                        android:lines="7"-->
+<!--                        android:overScrollMode="always"-->
+<!--                        android:scrollbarStyle="insideInset"-->
+<!--                        android:scrollbars="vertical"-->
+<!--                        android:scrollHorizontally="false"-->
+<!--                        android:textSize="17sp" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -179,7 +208,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/continueBtn"
+        android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"

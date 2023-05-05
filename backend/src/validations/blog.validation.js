@@ -9,7 +9,7 @@ const getBlogByID = {
 
 const createBlog = {
   body: Joi.object().keys({
-    thumbnail: Joi.string(),
+    thumbnail: Joi.any(),
     title: Joi.string().required(),
     content: Joi.string().required(),
   }),

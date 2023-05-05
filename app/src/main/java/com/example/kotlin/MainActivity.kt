@@ -5,40 +5,19 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
-import com.bumptech.glide.Glide
-import com.example.kotlin.jsonConvert.AccountSignUp
+import com.example.kotlin.Admin.Screen.AdminActivity
+import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
-import com.example.kotlin.jsonConvert.UserLogin
-import com.facebook.*
-import com.facebook.internal.CallbackManagerImpl
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
-import com.google.firebase.auth.FacebookAuthProvider
+import com.facebook.CallbackManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
-import retrofit2.awaitResponse
 import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity() {
@@ -57,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         var token = localStore.getString("token", null)
 
         token?.let {
-            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1)
+            var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1, null)
             var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
 
             //token còn dùng được
@@ -66,34 +45,51 @@ class MainActivity : AppCompatActivity() {
                 UserInformation.USER = gson.fromJson(str_json_user, userType)
                 UserInformation.TOKEN = token
                 Log.i("!23", UserInformation.USER!!.display_name!!)
+            }else{
+                UserInformation.USER = null
+                UserInformation.TOKEN = null
             }
+        }
+        if(token == null){
+            UserInformation.USER = null
+            UserInformation.TOKEN = null
         }
 
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        FirebaseMessaging.getInstance().subscribeToTopic("FCM")
+            .addOnCompleteListener { task ->
+                var msg = "Done"
+                if (!task.isSuccessful) {
+                    msg = "Failed"
+                }
+                Log.d("Received FCM", msg)
+            }
+
         getLocalData()
 
-        val userIntent = Intent(this, HomePage::class.java)
+        val userIntent = Intent(this, BottomNavigation::class.java)
         val adminIntent = Intent(this, AdminActivity::class.java)
         Log.d("UserInformation", UserInformation.USER?.accountName.toString())
 
         if(UserInformation.USER != null){
             if(UserInformation.USER?.role == 2){
+//                Log.d("!@#","2")
                 finish()
                 startActivity(userIntent)
             }else{
+//                Log.d("!@#","3")
                 finish()
                 // TODO qua admin ở đây
                 startActivity(adminIntent)
             }
         }else{
+//            Log.d("!@#","4")
             finish()
-            startActivity(userIntent)
+             startActivity(userIntent)
         }
 
 

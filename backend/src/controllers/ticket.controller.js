@@ -15,6 +15,7 @@ const createTicket = catchAsync(async (req, res) => {
     req.body.num_of_seats,
     req.body.pick_up_point,
     req.body.drop_down_point,
+    req.body.note
   );
   res.send(result);
 });

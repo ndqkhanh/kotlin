@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:srcCompat="@drawable/default_image" />
 
             <TextView
                 android:id="@+id/txtUpdateTime"
@@ -110,7 +110,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/continueBtn"
+        android:id="@+id/btnDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -119,7 +119,7 @@
         android:paddingVertical="10dp"
         android:textAllCaps="false"
         android:text="Xóa tin tức"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:textColor="#fff"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.kotlin.Admin.Screen.AdminActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -144,8 +145,8 @@ class Home : AppCompatActivity() {
         findViewById<ImageButton>(R.id.home_logout).setOnClickListener(logOutListener)
         findViewById<TextView>(R.id.log_out_text_view).setOnClickListener(logOutListener)
         findViewById<ImageButton>(R.id.person_infor).setOnClickListener{
-            val intent = Intent(this, PersonalInformation::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, PersonalInformation::class.java)
+//            startActivity(intent)
         }
 
         val adapter = CustomTicketItem(this, busses, supportFragmentManager, lifecycle)

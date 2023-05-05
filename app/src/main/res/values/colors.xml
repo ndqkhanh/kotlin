@@ -17,11 +17,19 @@
     <color name="light_gray">#F0F0F0</color>
     <!-- new -->
     <color name="button_color">#0d2e5b</color>
+    <color name="linear_layout_button_color">#AB0D2E5B</color>
     <color name="primary_color">#2675e6</color>
     <color name="secondary_color">#ececec</color>
     <color name="yellow">#FED434</color>
     <color name="progress">#2CAC62</color>
     <color name="progress_background">#E6E6E6</color>
     <color name="golden">#FCD23E</color>
-    <color name="app_background">#F4F4F4</color>
+    <color name="app_background">#F6F6F6</color>
+    <color name="gray_icon">#D8D8D8</color>
+    <color name="gray_panel">#FBFBFB</color>
+    <color name="gray_bold_text">#9A9A9A</color>
+    <color name="gray_light_text">#C8C8C8</color>
+    <color name="blue_panel">#172675E6</color>
+    <color name="green_icon">#6BB514</color>
+    <color name="green_panel">#6887F604</color>
 </resources>

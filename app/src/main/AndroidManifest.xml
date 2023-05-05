@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.kotlin">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,9 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="notification_channel" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/blue" />
+
         <activity
-            android:name=".BottomNavigation"
+            android:name=".EditTextDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".ChooseSeatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.Screen.BottomNavigate.BottomNavigation"
+            android:exported="true"/>
         <activity
             android:name=".BusSearch"
             android:exported="false" />
@@ -39,28 +57,19 @@
             android:name=".ChoosePickUpLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
-            android:exported="false"/>
-        <activity
             android:name=".LogInUp"
-            android:exported="false" />
-        <activity
-            android:name=".PersonalInformation"
-            android:exported="false" />
-        <activity
-            android:name=".CaNhanActivity"
             android:exported="false" />
         <activity
             android:name=".BlogManagementActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBusTicketActivity"
+            android:name=".Admin.Screen.BusTicket.AdminBusTicketActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".Admin.Screen.AdminActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBlogCreateActivity"
+            android:name=".Admin.Screen.AdminBlogCreateActivity"
             android:exported="false" />
         <activity
             android:name=".BlogDetailActivity"
@@ -69,7 +78,7 @@
             android:name=".BlogManagementDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBusActivity"
+            android:name=".Admin.Screen.Bus.AdminBusActivity"
             android:exported="false" />
         <activity
             android:name=".AdminBusCreateActivity"
@@ -85,12 +94,12 @@
             android:exported="false" />
         <activity
             android:name=".Home"
-            android:exported="false"/>
-        <activity
-            android:name=".AdminBusOperatorActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminBusOperatorCreateActivity"
+            android:name=".Admin.Screen.BusOperator.AdminBusOperatorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Screen.BusOperator.AdminBusOperatorCreateActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -111,6 +120,14 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
