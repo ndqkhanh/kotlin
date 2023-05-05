@@ -27,6 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 
 data class ListItemFormat(
@@ -72,7 +73,7 @@ class HomepageFragment : Fragment() {
     }
 
     private fun endPointEditHandle(){
-        FragmentOperatorFilter().apply {
+        val endPointFragment = FragmentOperatorFilter().apply {
             // convert listBusOperators to listFilter
             listFilter = ArrayList()
             for (i in listBusStations.indices) {
@@ -86,7 +87,6 @@ class HomepageFragment : Fragment() {
                     putString("defaultId", currentBusEndPoint)
                 }
             }
-            show(this.parentFragmentManager, FragmentOperatorFilter.TAG)
 
             // onItemClick with data
             onItemClick = onItemClick@{item ->
@@ -100,10 +100,12 @@ class HomepageFragment : Fragment() {
                 endPointEdit.setText(item.name)
             }
         }
+
+        endPointFragment.show(this.parentFragmentManager, FragmentOperatorFilter.TAG)
     }
 
     private fun startPointEditHandle(){
-        FragmentOperatorFilter().apply {
+        val startPointFragment = FragmentOperatorFilter().apply {
             // convert listBusOperators to listFilter
             listFilter = ArrayList()
             for (i in listBusStations.indices) {
@@ -118,7 +120,6 @@ class HomepageFragment : Fragment() {
                     putString("defaultId", currentBusStartPoint)
                 }
             }
-            show(this.parentFragmentManager, FragmentOperatorFilter.TAG)
 
             // onItemClick with data
             onItemClick = onItemClick@{item ->
@@ -132,6 +133,8 @@ class HomepageFragment : Fragment() {
                 startPointEdit.setText(item.name)
             }
         }
+
+        startPointFragment.show(this.parentFragmentManager, FragmentOperatorFilter.TAG)
     }
 
     private fun handleSelectDate(){
@@ -197,6 +200,18 @@ class HomepageFragment : Fragment() {
             val response = retrofit.getAllBusStations().getBusStations().awaitResponse()
             if(response.isSuccessful){
                 listBusStations = response.body()?.data as ArrayList<BusStation>
+
+                withContext(Dispatchers.Main){
+                    // push all bus station to list
+                    if(listBusStations.size > 1){
+                        currentBusStartPoint = listBusStations[0].id
+                        startPointEdit.setText(listBusStations[0].name)
+
+                        currentBusEndPoint = listBusStations[1].id
+                        endPointEdit.setText(listBusStations[1].name)
+                    }
+                }
+
             }
 
             val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
@@ -204,6 +219,7 @@ class HomepageFragment : Fragment() {
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list
                 listBusOperators.add(0, BusOperator("all", "", "", "All"))
+
 
             }
         }

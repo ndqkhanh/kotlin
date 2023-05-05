@@ -1,5 +1,6 @@
 package com.example.kotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -200,10 +201,11 @@ class BusSearch : AppCompatActivity() {
                 // onItemClick with data
                 onItemClick = onItemClick@{item ->
                     if(item.id == ""){
-                        currentBusOperator = null
+                        currentBusType = ""
                         filterBusType.text = "LOẠI XE"
                         filterBusType.backgroundTintList = getColorStateList(R.color.white)
 
+                        loadMoreResult()
                         return@onItemClick
                     }
                     currentBusType = item.id
@@ -238,10 +240,11 @@ class BusSearch : AppCompatActivity() {
                 // onItemClick with data
                 onItemClick = onItemClick@{ item ->
                     if(item.id == ""){
-                        currentBusOperator = null
+                        currentBusOperator = ""
                         filterBusOperator.text = "NHÀ XE"
                         filterBusOperator.backgroundTintList = getColorStateList(R.color.white)
 
+                        loadMoreResult()
                         return@onItemClick
                     }
                     currentBusOperator = item.id
@@ -268,6 +271,7 @@ class BusSearch : AppCompatActivity() {
                         filterBusPricing.text = "GIÁ"
                         filterBusPricing.backgroundTintList = getColorStateList(R.color.white)
 
+                        loadMoreResult()
                         return@onApply
                     }
                     currentBusPricing = pricing
