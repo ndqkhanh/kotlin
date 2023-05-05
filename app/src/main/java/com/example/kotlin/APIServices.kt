@@ -315,7 +315,7 @@ interface BusOperatorService {
     fun getBusOperators(): Call<BusOperatorResponse>
 
     @DELETE("bus-operator/{bid}")
-    fun deleteBooking(
+    fun deleteBusOperator(
         @Header("Authorization") token: String,
         @Path("bid") bid: String
     ): Call<DeleteBusOperatorResponse>
@@ -324,11 +324,16 @@ interface BusOperatorService {
     fun createBusOperator(
         @Header("Authorization") token: String,
         @Body busOperator: BusOperatorBody): Call<BusOperator>
+
+    @GET("bus-operator/{boId}")
+    fun getBusOperator(
+        @Header("Authorization") token: String,
+        @Path("boId") bid: String): Call<BusOperator>
 }
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://10.123.1.82:3000/v1/"
+    private val BASE_URL = "http://192.168.1.9:3000/v1/"
 
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

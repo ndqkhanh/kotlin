@@ -9,21 +9,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/adminBusRV"
         android:layout_width="407dp"
-        android:layout_height="550dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusListHeader" />
-
-    <Button
-        android:id="@+id/adminBusAddBtn"
-        android:layout_width="299dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="16dp"
-        android:text="Thêm mới"
+        android:layout_height="663dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusListHeader"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/adminBusListHeader"
@@ -59,6 +50,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.063"
             app:layout_constraintStart_toEndOf="@+id/adminBusListBackBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/adminBusAddBtn"
+            android:layout_width="27dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/ic_plus_solid"
+            android:contentDescription="@string/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

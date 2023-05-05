@@ -18,7 +18,7 @@ import retrofit2.awaitResponse
 class AdminBusActivity:AppCompatActivity() {
     lateinit var busRV: RecyclerView
     lateinit var buses: MutableList<Buses>
-    lateinit var addBtn: Button
+    lateinit var addBtn: ImageButton
     lateinit var backBtn: ImageButton
     var busAdapter: AdminBusAdapter? = null
     val retrofit = APIServiceImpl()
@@ -49,8 +49,7 @@ class AdminBusActivity:AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-//        val token = "BEARER " + this.getSharedPreferences("vexere", MODE_PRIVATE).getString("token", "")
-        val token = "BEARER " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmU0YTNlZS0zMjRiLTQ0NWQtODYzYy0wN2ZjNzAyYmQ4NDQiLCJpYXQiOjE2ODIyNjI2NzcsImV4cCI6MTY4MjI2NDQ3NywidHlwZSI6ImFjY2VzcyJ9.UOt4O_i1oz9-92d7sDIK_a_IZcvl7J4Y_Hr0gcVXLLk"
+        val token = "BEARER " + UserInformation.TOKEN
         val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
             throwable.printStackTrace()
         }
