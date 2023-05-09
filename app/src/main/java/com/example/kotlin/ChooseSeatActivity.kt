@@ -41,6 +41,11 @@ class ChooseSeatActivity : AppCompatActivity() {
                     Log.i("body", body2.toString())
                     launch(Dispatchers.Main) {
                         if (body2 != null) {
+                            val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
+                            txtBusOperatorName.text = body2.bus_operators.name
+                            val txtTime = findViewById<TextView>(R.id.txtTime)
+                            txtTime.text = body2.start_time
+
                             val useDf = DecimalFormat("###,###,###")
                             val txtType = findViewById<TextView>(R.id.txtType)
                             txtType.text = if (body2.type == 0) "Ghế ngồi"

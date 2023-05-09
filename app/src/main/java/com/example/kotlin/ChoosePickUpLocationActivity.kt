@@ -40,7 +40,6 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
                     retrofit.bus().getBusById(busId!!).awaitResponse()
                 if (response.isSuccessful){
                     val body = response.body()
-                    Log.i("body", body.toString())
                     launch(Dispatchers.Main) {
                         if (body != null) {
                             val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)

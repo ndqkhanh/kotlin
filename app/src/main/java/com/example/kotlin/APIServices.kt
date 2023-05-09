@@ -51,8 +51,14 @@ data class TicketData(
 )
 
 data class TicketCreateResponse(
-    val seat_positions: List<Int>,
-    val ticket_ids: List<String>,
+    val id: String,
+    val name: String,
+    val pick_up_point: String,
+    val drop_down_point: String,
+    val phone: String,
+    val seats: String,
+    val num_seats: Int,
+    val note: String,
 )
 
 data class TicketResponse(
@@ -333,7 +339,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.10:3000/v1/"
+    private val BASE_URL = "http://192.168.1.3:3000/v1/"
 
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
