@@ -153,17 +153,26 @@ const getBusInformation = async (busId) => {
   delete data.bus_stations_bus_stationsTobuses_start_point;
   delete data.bus_stations_bus_stationsTobuses_end_point;
 
+  const numOfSeatsBookedOrPayed = await prisma.bus_tickets.aggregate({
+    where: {
+      bus_id: busId,
+      status: { not: 2 },
+    },
+    _sum: {
+      num_seats: true,
+    },
+  });
+
   // get the number of seats left
-  data.left_seats =
-    data.num_of_seats -
-    (await prisma.bus_tickets.count({
-      where: {
-        bus_id: data.id,
-        status: {
-          in: [0, 2],
-        },
-      },
-    }));
+  data.left_seats = data.num_of_seats - numOfSeatsBookedOrPayed._sum.num_seats;
+  // (await prisma.bus_tickets.count({
+  //   where: {
+  //     bus_id: data.id,
+  //     status: {
+  //       in: [0, 2],
+  //     },
+  //   },
+  // }));
 
   return data;
 };
