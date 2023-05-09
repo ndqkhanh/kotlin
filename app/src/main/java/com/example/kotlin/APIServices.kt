@@ -51,8 +51,14 @@ data class TicketData(
 )
 
 data class TicketCreateResponse(
-    val seat_positions: List<Int>,
-    val ticket_ids: List<String>,
+    val id: String,
+    val name: String,
+    val pick_up_point: String,
+    val drop_down_point: String,
+    val phone: String,
+    val seats: String,
+    val num_seats: Int,
+    val note: String,
 )
 
 data class TicketResponse(

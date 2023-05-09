@@ -6,7 +6,6 @@ const userController = require('../../controllers/user.controller');
 
 const router = express.Router();
 
-
 router
   .route('/')
   .get(auth('getProfile'), userController.getProfile)
@@ -14,9 +13,7 @@ router
 
 router.route('/information').get(validate(userValidation.getUserByUsername), userController.getUserByUsername);
 
-router
-  .route('/history')
-  .get(auth('seeHistory'), validate(userValidation.getHistoryByUId), userController.getHistoryByUId);
+router.route('/history').get(auth('seeHistory'), validate(userValidation.getHistoryByUId), userController.getHistoryByUId);
 
 router.route('/:userId').get(auth('getUser'), validate(userValidation.getUser), userController.getUser);
 
