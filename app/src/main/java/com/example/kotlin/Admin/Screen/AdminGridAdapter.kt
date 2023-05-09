@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.kotlin.Admin.Screen.AdminActivity
-import com.example.kotlin.Admin.Screen.BottomNavigation.AdminFragment
 
 class AdminItem {
     var id: Int? = 0

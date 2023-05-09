@@ -119,7 +119,8 @@ class AdminBusCreateActivity: AppCompatActivity() {
 //            53000
 //        )
 
-
+        var page = 0
+        var limit = 50
         // get type of bus
         val busTypeAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, busType)

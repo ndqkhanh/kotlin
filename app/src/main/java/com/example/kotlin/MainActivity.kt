@@ -6,9 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kotlin.Admin.Screen.AdminActivity
 import com.example.kotlin.Admin.Screen.BottomNavigation.BottomAdminNavigation
-import com.example.kotlin.Admin.Screen.Bus.AdminBusActivity
 import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
@@ -85,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             }else{
 //                Log.d("!@#","3")
                 finish()
-                // TODO qua admin ở đây
+                // qua admin ở đây
                 startActivity(adminIntent)
             }
         }else{
