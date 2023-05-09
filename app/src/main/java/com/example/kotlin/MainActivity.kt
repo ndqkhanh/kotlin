@@ -12,9 +12,12 @@ import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
 import com.example.kotlin.jsonConvert.HistoryList
 import com.example.kotlin.jsonConvert.User
 import com.facebook.CallbackManager
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -22,13 +25,7 @@ import retrofit2.Call
 import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var callbackManager: CallbackManager
-    private lateinit var auth: FirebaseAuth
-    private lateinit var user: FirebaseUser
-    private lateinit var db: FirebaseDatabase
-    private lateinit var localEditor: SharedPreferences.Editor
-    private val retrofit = APIServiceImpl()
-    private val UserAPI = APIServiceImpl().userService()
+    private val UserAPI = APIServiceImpl.userService()
 
     private fun getLocalData(){
         var gson = Gson()
@@ -47,11 +44,15 @@ class MainActivity : AppCompatActivity() {
                 UserInformation.TOKEN = token
                 Log.i("!23", UserInformation.USER!!.display_name!!)
             }else{
+                Firebase.auth.signOut()
+                LoginManager.getInstance().logOut()
                 UserInformation.USER = null
                 UserInformation.TOKEN = null
             }
         }
         if(token == null){
+            Firebase.auth.signOut()
+            LoginManager.getInstance().logOut()
             UserInformation.USER = null
             UserInformation.TOKEN = null
         }

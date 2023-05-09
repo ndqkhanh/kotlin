@@ -17,8 +17,10 @@ import java.text.DecimalFormat
 
 class TicketHistoryAdapter(private var type: Int, private var items: MutableList<History>)
     : RecyclerView.Adapter<TicketHistoryAdapter.TicketViewHolder>(){
+    var onItemClick: ((History) -> Unit)? = null
+    var onDiscard: ((History, Int) -> Unit)? = null
 
-    class TicketViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class TicketViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val tinh_trang: TextView = itemView.findViewById(R.id.tinh_trang)
         val gia_ve: TextView = itemView.findViewById(R.id.gia_ve)
         val bus_icon: ImageView = itemView.findViewById(R.id.bus_icon)
@@ -32,7 +34,13 @@ class TicketHistoryAdapter(private var type: Int, private var items: MutableList
         val thanh_btn: LinearLayout = itemView.findViewById(R.id.thanh_chinh_sua_ve)
         val huy: Button = itemView.findViewById(R.id.btn_huy_ve)
         val thanh_toan: Button = itemView.findViewById(R.id.btn_thanh_toan)
+        val ve: LinearLayout = itemView.findViewById(R.id.item_ve_id)
+        val showMaDatCho: LinearLayout = itemView.findViewById(R.id.show_ma_dat_cho)
+        init{
+            ve.setOnClickListener{onItemClick?.invoke(items[adapterPosition])}
+            huy.setOnClickListener { onDiscard?.invoke(items[adapterPosition], adapterPosition) }
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
         val context = parent.context
@@ -61,6 +69,7 @@ class TicketHistoryAdapter(private var type: Int, private var items: MutableList
             holder.bus_icon.setBackgroundColor(holder.bus_icon.context.resources.getColor(R.color.gray_icon))
             holder.the_thoi_gian.setBackgroundColor(holder.the_thoi_gian.context.resources.getColor(R.color.gray_panel))
             holder.tinh_trang.text = "Đã hủy"
+            holder.showMaDatCho.visibility = GONE
         }
 
         var format = DecimalFormat("#,###")

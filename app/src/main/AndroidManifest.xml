@@ -34,7 +34,10 @@
             android:exported="false" />
         <activity
             android:name=".User.Screen.BottomNavigate.BottomNavigation"
-            android:exported="true"/>
+            android:exported="false" />
+        <activity
+            android:name=".User.Screen.BottomNavigate.TicketHistory.ThongTinVeAcivity"
+            android:exported="false" />
         <activity
             android:name=".BusSearch"
             android:exported="false" />

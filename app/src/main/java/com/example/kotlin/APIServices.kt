@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.*
 import retrofit2.http.*
 
@@ -276,6 +277,13 @@ interface TicketService {
         @Body ticketData: TicketData
     ): Call<TicketResponse>
 
+    @POST("ticket/discard-ticket")
+    fun discardTicket(
+        @Query("tid") tid: String,
+        @Header("Authorization") token: String
+    ): Call<History>
+
+    //route là admin mà sao để ở ticket???
     @GET("admin/booking/list")
     fun getBookingList(@Header("Authorization") token: String): Call<BusTicketResponse>
 
@@ -284,6 +292,8 @@ interface TicketService {
         @Header("Authorization") token: String,
         @Path("bid") bid: String
     ): Call<DeleteBusTicketResponse>
+
+
 }
 
 interface PaymentService {
@@ -333,62 +343,81 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.10:3000/v1/"
 
-    private val api: Retrofit = Retrofit.Builder()
+    companion object{//singleton
+        private val BASE_URL = "http://192.168.173.211:3000/v1/"
+
+        private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun busOperatorService(): BusOperatorService {
-        return api.create(BusOperatorService::class.java)
+        val userService: UserService = api.create(UserService::class.java)
+        val busOperatorService: BusOperatorService = api.create(BusOperatorService::class.java)
+        val blogService: BlogService = api.create(BlogService::class.java)
+        val ticketService: TicketService = api.create(TicketService::class.java)
+        val busService: BusService = api.create(BusService::class.java)
+        val busStationService:  BusStationService = api.create(BusStationService::class.java)
+        val pointService: PointService = api.create(PointService::class.java)
+
+        fun ticketService(): TicketService{
+            return ticketService
+        }
+
+        fun userService(): UserService {
+            return userService
+        }
     }
 
-    fun userService(): UserService {
-        return api.create(UserService::class.java)
+    fun busOperatorService(): BusOperatorService {
+        return busOperatorService
     }
+
+
+
+
 
     fun searchBusses(): BusService {
-        return api.create(BusService::class.java)
+        return busService
     }
 
     fun getAllBusStations(): BusStationService {
-        return api.create(BusStationService::class.java)
+        return busStationService
     }
 
     fun point(): PointService {
-        return api.create(PointService::class.java)
+        return pointService
     }
 
     fun bus(): BusService {
-        return api.create(BusService::class.java)
+        return busService
     }
     fun getAllBusOperators(): BusOperatorService {
-        return api.create(BusOperatorService::class.java)
+        return busOperatorService
     }
     // Admin create bus
     fun adminDeleteBuses(): BusService {
-        return api.create(BusService::class.java)
+        return busService
     }
 
     fun adminGetBuses(): BusService {
-        return api.create(BusService::class.java)
+        return busService
     }
 
     fun adminCreateBus(): BusService {
-        return api.create(BusService::class.java)
+        return busService
     }
 
     fun adminBookingList(): TicketService {
-        return api.create(TicketService::class.java)
+        return ticketService
     }
 
     fun adminDeleteBooking(): TicketService {
-        return api.create(TicketService::class.java)
+        return ticketService
     }
 
     fun adminCreateBusOperator(): BusOperatorService {
-        return api.create(BusOperatorService::class.java)
+        return busOperatorService
     }
 
     fun createTicket(token: String): TicketService {
@@ -410,7 +439,7 @@ class APIServiceImpl {
             .build()
 
         return retrofit.create(TicketService::class.java)
-    }
+    } // code này sửa nhiều mới singleton được
 
     fun createPayment(token: String): PaymentService {
         val client = OkHttpClient.Builder()
@@ -431,10 +460,10 @@ class APIServiceImpl {
             .build()
 
         return retrofit.create(PaymentService::class.java)
-    }
+    }// code này sửa nhiều mới singleton được
 
     fun getBlog(): BlogService {
-        return api.create(BlogService::class.java)
+        return blogService
     }
 
     fun manipulateBlog(token: String): BlogService {
@@ -456,5 +485,5 @@ class APIServiceImpl {
             .build()
 
         return retrofit.create(BlogService::class.java)
-    }
+    }// code này sửa nhiều mới singleton được
 }

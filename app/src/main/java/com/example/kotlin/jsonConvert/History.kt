@@ -1,5 +1,8 @@
 package com.example.kotlin.jsonConvert
 
+import java.io.Serializable
+
+
 data class History(
     val bus_id: String,
     val dia_chi_diem_don: String,
@@ -18,5 +21,6 @@ data class History(
     val ten_diem_tra: String,
     val ten_nha_xe: String,
     val tinh_don: String,
-    val tinh_tra: String
-)
+    val tinh_tra: String,
+    val type: Int,
+): Serializable

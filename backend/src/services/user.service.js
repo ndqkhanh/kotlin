@@ -156,7 +156,7 @@ const getHistoryByUId = async (req) => {
   const querySQL = sql`select bt.id, bt.bus_id, bt.phone, bt.seat, bt.status, b.start_time, b.end_time,
                            		b.price, bo.name ten_nha_xe, p.name ten_diem_don,
                            		p.location dia_chi_diem_don, p2.name ten_diem_tra, p2.location dia_chi_diem_tra,
-                           		bs.name tinh_don, bs2.name tinh_tra, bt.note
+                           		bs.name tinh_don, bs2.name tinh_tra, bt.note, b.type
                                              from bus_tickets bt
                                              	join buses b
                                              	on b.id = bt.bus_id
@@ -171,7 +171,7 @@ const getHistoryByUId = async (req) => {
                                              	join bus_stations bs2
                                              	on bs2.id = b.end_point
                                              where ${condition} bt.user_id = ${req.user.id}
-                                             order by b.start_time desc
+                                             order by bt.update_time desc
                   offset ${req.query.limit * req.query.page} rows fetch next ${req.query.limit} rows only`
 
     historyList = await prisma.$queryRaw(querySQL)

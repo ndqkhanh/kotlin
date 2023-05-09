@@ -1,5 +1,9 @@
 package com.example.kotlin.User.Screen.BottomNavigate.TicketHistory
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +14,7 @@ import android.widget.TabHost.TabSpec
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.kotlin.APIServiceImpl
 import com.example.kotlin.R
 import com.example.kotlin.UserInformation
@@ -29,7 +34,7 @@ class TicketHistoryFragment : Fragment() {
     private var pageHT = 0
     private var pageD = 0
     private var pageH = 0
-    private val UserAPI = APIServiceImpl().userService()
+    private val UserAPI = APIServiceImpl.userService()
     private lateinit var veHienTai: RecyclerView
     private lateinit var veHuy: RecyclerView
     private lateinit var veDaDi: RecyclerView
@@ -39,6 +44,10 @@ class TicketHistoryFragment : Fragment() {
     private var veHTAdapter = TicketHistoryAdapter(0, veHT)
     private var veHAdapter = TicketHistoryAdapter(1, veH)
     private val veDAdapter = TicketHistoryAdapter(2, veD)
+    private lateinit var srl_HT: SwipeRefreshLayout
+    private lateinit var srl_H: SwipeRefreshLayout
+    private lateinit var srl_D: SwipeRefreshLayout
+    private var ticketAPI = APIServiceImpl.ticketService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,13 +79,72 @@ class TicketHistoryFragment : Fragment() {
         veDaDi = root.findViewById(R.id.rclView_ve_da_di)
         veDaDi.layoutManager = LinearLayoutManager(requireActivity())
 
+        srl_HT = root.findViewById(R.id.srl_ve_hien_tai)
+        srl_D = root.findViewById(R.id.srl_ve_da_di)
+        srl_H = root.findViewById(R.id.srl_ve_huy)
+
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
+        val dialog = ProgressDialog(requireContext())
+        dialog.setCancelable(false)
+
+        var itemEvent: (History)->Unit = { item->
+            val intentCTVe = Intent(requireActivity(), ThongTinVeAcivity::class.java)
+            intentCTVe.putExtra("item", item)
+            startActivity(intentCTVe)
+        }
+        var discardEvent: (History, Int) -> Unit = { item, id->
+            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Hủy vé").setMessage("Lưu ý rằng khi hủy vé, bạn sẽ không được hoàn tiền")
+            .setPositiveButton("Hủy vé") { dialogInterface, i ->
+                val callDiscard: Call<History> = ticketAPI.discardTicket(item.id, "Bearer ${UserInformation.TOKEN!!}")
+                dialog.show()
+                var respone: History? = WaitingAsyncClass(callDiscard).execute().get()
+                dialog.dismiss()
+                if(respone != null) {
+                    veHT.removeAt(id)
+                    veHTAdapter.notifyItemRemoved(id)
+                    startDiscard()
+                }else builder.setMessage("Hủy vé thất bại")
+
+            }
+            .setNegativeButton("Đóng"
+            ) { dialogInterface, i ->
+                dialogInterface.cancel()
+            }
+            val alert: AlertDialog = builder.create()
+            alert.show()
+        }
+        veHTAdapter.onItemClick = itemEvent
+        veHAdapter.onItemClick = itemEvent
+        veDAdapter.onItemClick = itemEvent
+
+        veHTAdapter.onDiscard = discardEvent
+
         if(UserInformation.TOKEN != null){
+            startCurrent()
+            startDone()
+            startDiscard()
+            srl_HT.setOnRefreshListener {
+                startCurrent()
+                srl_HT.isRefreshing = false
+            }
+            srl_D.setOnRefreshListener {
+                startDone()
+                srl_D.isRefreshing = false
+            }
+            srl_H.setOnRefreshListener {
+                startDiscard()
+                srl_H.isRefreshing = false
+            }
+        }
+
+    }
+    private fun startCurrent(){
         pageHT = 0
         veHT.clear()
         veHienTai.adapter = veHTAdapter
@@ -90,7 +158,8 @@ class TicketHistoryFragment : Fragment() {
                 }
             }
         })
-
+    }
+    private fun startDone(){
         pageD = 0
         veD.clear()
         veDaDi.adapter = veDAdapter
@@ -99,12 +168,13 @@ class TicketHistoryFragment : Fragment() {
             override fun onScrollStateChanged(view: RecyclerView, scrollState: Int) {
                 super.onScrollStateChanged(view, scrollState)
                 if(!view.canScrollVertically(1) && scrollState == RecyclerView.SCROLL_STATE_IDLE){
-                    pageHT += 1
+                    pageD += 1
                     loadDone()
                 }
             }
         })
-
+    }
+    private fun startDiscard(){
         pageH = 0
         veH.clear()
         veHuy.adapter = veHAdapter
@@ -113,12 +183,11 @@ class TicketHistoryFragment : Fragment() {
             override fun onScrollStateChanged(view: RecyclerView, scrollState: Int) {
                 super.onScrollStateChanged(view, scrollState)
                 if(!view.canScrollVertically(1) && scrollState == RecyclerView.SCROLL_STATE_IDLE){
-                    pageHT += 1
+                    pageH += 1
                     loadDiscard()
                 }
             }
         })
-        }
 
     }
     private fun loadCurrent(){
@@ -137,7 +206,7 @@ class TicketHistoryFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<HistoryList>, t: Throwable) {
-                TODO("Not yet implemented")
+                if(pageHT > 0) pageHT -= 1
             }
         })
     }
@@ -156,7 +225,8 @@ class TicketHistoryFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<HistoryList>, t: Throwable) {
-                TODO("Not yet implemented")
+                if(pageD > 0)
+                    pageD -= 1
             }
         })
     }
@@ -175,7 +245,8 @@ class TicketHistoryFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<HistoryList>, t: Throwable) {
-                TODO("Not yet implemented")
+                if(pageH > 0)
+                    pageH -= 1
             }
         })
     }

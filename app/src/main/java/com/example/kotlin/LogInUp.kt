@@ -42,7 +42,7 @@ class LogInUp: AppCompatActivity() {
     private lateinit var switchToLogUp: TextView
     private lateinit var redNotice: TextView
     private lateinit var buttonFacebookLogin: LoginButton
-    private val UserAPI = APIServiceImpl().userService()
+    private val UserAPI = APIServiceImpl.userService()
     private lateinit var localEditor: SharedPreferences.Editor
     private val gson = Gson()
     private lateinit var auth: FirebaseAuth
@@ -66,7 +66,7 @@ class LogInUp: AppCompatActivity() {
         enter_name_layout = findViewById(R.id.enter_name_layout)
         dangKy = findViewById(R.id.dang_ky)
         dangNhap = findViewById(R.id.dang_nhap)
-        back = findViewById(R.id.back_from_log_in)
+        back = findViewById(R.id.back_from_login)
         logInSuggest = findViewById(R.id.goi_y_dang_nhap)
         logUpSuggest = findViewById(R.id.goi_y_dang_ky)
         switchToLogIn = findViewById(R.id.change_to_dang_nhap)
