@@ -144,6 +144,8 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                     ).show()
                                                     val intent = Intent(this@ConfirmInformationActivity, PaymentActivity::class.java)
                                                     intent.putExtra("ticketId", body3.data.id)
+                                                    intent.putExtra("busOperatorName", txtBusOperatorName.text.toString())
+                                                    intent.putExtra("time", txtTime.text.toString())
                                                     intent.putExtra("totalPrice", totalPrice)
                                                     startActivity(intent)
                                                 }

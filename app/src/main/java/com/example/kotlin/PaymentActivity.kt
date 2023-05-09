@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -21,6 +22,15 @@ class PaymentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
+
+        val busOperatorName = intent.getStringExtra("busOperatorName")
+        val time = intent.getStringExtra("time")
+
+        val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
+        val txtTime = findViewById<TextView>(R.id.txtTime)
+
+        txtBusOperatorName.text = busOperatorName
+        txtTime.text = time
 
         val btnBack:ImageButton = findViewById(R.id.btnBack)
         btnBack.setOnClickListener {
