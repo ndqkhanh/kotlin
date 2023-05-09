@@ -9,7 +9,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kotlin.Admin.Screen.AdminActivity
+import com.example.kotlin.Admin.Screen.BottomNavigation.BottomAdminNavigation
 import com.example.kotlin.jsonConvert.*
 import com.facebook.*
 import com.facebook.login.LoginResult
@@ -253,7 +253,7 @@ class LogInUp: AppCompatActivity() {
             }
             else{
                 finishAffinity()
-                val adminIntent = Intent(this, AdminActivity::class.java)
+                val adminIntent = Intent(this, BottomAdminNavigation::class.java)
                 startActivity(adminIntent)
             }
         }else{

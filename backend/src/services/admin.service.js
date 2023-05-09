@@ -161,12 +161,14 @@ const bookingDelete = async (req) => {
   if (result) return true;
   return false;
 };
-const bookingList = async (req) => {
+const bookingList = async (page, limit, req) => {
   let data = null;
   console.log(req.user.role);
   if (req.user.role !== 'admin') return [];
 
   data = await prisma.bus_tickets.findMany({
+    skip: page * limit,
+    take: limit,
     include: {
       buses: {
         include: {

@@ -29,7 +29,8 @@ const busList = catchAsync(async (req, res) => {
 });
 
 const bookingList = catchAsync(async (req, res) => {
-  const bookings = await adminService.bookingList(req);
+  const { page, limit } = req.params;
+  const bookings = await adminService.bookingList(page, limit, req);
   res.send(bookings);
 });
 

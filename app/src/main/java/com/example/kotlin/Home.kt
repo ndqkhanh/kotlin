@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.kotlin.Admin.Screen.AdminActivity
+import com.example.kotlin.Admin.Screen.BottomNavigation.BottomAdminNavigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -120,7 +120,7 @@ class Home : AppCompatActivity() {
             adminButtonLayout.visibility = View.GONE
         }
         adminBtn.setOnClickListener {
-            Intent(this, AdminActivity::class.java).also {
+            Intent(this, BottomAdminNavigation::class.java).also {
                 startActivity(it)
             }
         }

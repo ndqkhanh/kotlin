@@ -232,9 +232,11 @@ interface BusService {
     fun searchBusses(): Call<BusResponse>
 
     // Admin
-    @GET("admin/bus/list/${page}/${limit}")
+    @GET("admin/bus/list/{page}/{limit}")
     fun adminGetBuses(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Path("page") page: Int,
+        @Path("limit") limit: Int
     ) : Call<AdminBusesResponse>
 
     @GET("admin/bus/{id}")
@@ -282,8 +284,11 @@ interface TicketService {
         @Body ticketData: TicketData
     ): Call<TicketResponse>
 
-    @GET("admin/booking/list")
-    fun getBookingList(@Header("Authorization") token: String): Call<BusTicketResponse>
+    @GET("admin/booking/list/{page}/{limit}")
+    fun getBookingList(
+        @Header("Authorization") token: String,
+        @Path("page") page: Int,
+        @Path("limit") limit: Int): Call<BusTicketResponse>
 
     @DELETE("admin/booking/{bid}")
     fun deleteBooking(
@@ -339,7 +344,7 @@ interface BusOperatorService {
 
 
 class APIServiceImpl {
-    private val BASE_URL = "http://192.168.1.3:3000/v1/"
+    private val BASE_URL = "http://10.123.0.105:3000/v1/"
 
     private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

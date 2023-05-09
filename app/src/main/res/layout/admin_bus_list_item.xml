@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="280dp"
+    android:layout_margin="10dp"
     android:background="@drawable/panel"
     android:elevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/adminBusListHeaderConstraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="386dp"
+        android:layout_height="78dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/startEndHeader"
-            android:layout_width="404dp"
-            android:layout_height="77dp"
+            android:layout_width="394dp"
+            android:layout_height="80dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,8 +93,8 @@
         app:layout_constraintTop_toBottomOf="@+id/adminBusListHeaderConstraintLayout">
 
         <LinearLayout
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
+            android:layout_width="393dp"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -141,8 +142,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:text="2 h 25 m"
                     android:fontFamily="@font/montserrat"
+                    android:text="2 h 25 m"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -191,8 +192,8 @@
         app:layout_constraintTop_toBottomOf="@+id/adminBusListBodyConstraintLayout">
 
         <LinearLayout
-            android:layout_width="408dp"
-            android:layout_height="48dp"
+            android:layout_width="392dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

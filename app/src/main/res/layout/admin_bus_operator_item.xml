@@ -1,92 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
-    android:background="@drawable/panel"
-    android:elevation="10dp">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/adminBusOperatorHeaderConstraintLayout"
-        android:layout_width="407dp"
-        android:layout_height="112dp"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="399dp"
-            android:layout_height="112dp"
-            android:orientation="horizontal"
+        <Button
+            android:id="@+id/adminBusOperatorDeleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Xóa"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/adminBusOperatorPhoneItemVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="0769597789"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/adminBusOperatorPhoneIconImgV"
+            app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorItemTitle" />
+
+        <ImageView
+            android:id="@+id/adminBusOperatorPhoneIconImgV"
+            android:layout_width="19dp"
+            android:layout_height="21dp"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorItemTitle"
+            app:srcCompat="@drawable/phone_icon" />
+
+        <TextView
+            android:id="@+id/adminBusOperatorItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Phương Trang"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="117dp"
-                android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/adminBusOperatorImgV"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
 
-                <ImageView
-                    android:id="@+id/adminBusOperatorImgV"
-                    android:layout_width="106dp"
-                    android:layout_height="86dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="284dp"
-                android:layout_height="110dp">
-
-                <TextView
-                    android:id="@+id/adminBusOperatorItemTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Phương Trang"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/adminBusOperatorPhoneIconImgV"
-                    android:layout_width="19dp"
-                    android:layout_height="21dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="@+id/adminBusOperatorItemTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorItemTitle"
-                    app:srcCompat="@drawable/phone_icon" />
-
-                <TextView
-                    android:id="@+id/adminBusOperatorPhoneItemVal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="0769597789"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/adminBusOperatorPhoneIconImgV"
-                    app:layout_constraintStart_toEndOf="@+id/adminBusOperatorPhoneIconImgV"
-                    app:layout_constraintTop_toTopOf="@+id/adminBusOperatorPhoneIconImgV" />
-
-                <Button
-                    android:id="@+id/adminBusOperatorDeleteBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Xóa"
-                    android:textAllCaps="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
