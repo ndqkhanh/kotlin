@@ -56,6 +56,13 @@ const busList = {
   }),
 };
 
+const bookingList = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
+
 const bookingUpdate = {
   params: Joi.object().keys({
     bid: Joi.string().uuid().required(),
@@ -83,4 +90,5 @@ module.exports = {
   bookingGet,
   busList,
   bookingDelete,
+  bookingList,
 };

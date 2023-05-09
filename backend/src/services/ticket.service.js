@@ -78,98 +78,115 @@ const createTicketByNumOfSeats = async (userId, email, busId, name, phone, numOf
     throw new ApiError(httpStatus.NOT_FOUND, `User ID ${userId} not found`);
   }
 
-  const numOfSeatsBookedOrPayed = await prisma.bus_tickets.count({
+  // const numOfSeatsBookedOrPayed = await prisma.bus_tickets.count({
+  //   where: {
+  //     bus_id: busId,
+  //     status: { not: 2 },
+  //   },
+  // });
+
+  // get sum of column num_of_seats of table bus_tickets where bus_id = busId and status = 0 or 1
+  const numOfSeatsBookedOrPayed = await prisma.bus_tickets.aggregate({
     where: {
       bus_id: busId,
       status: { not: 2 },
     },
+    _sum: {
+      num_seats: true,
+    },
   });
 
-  const numOfSeatsCanceled = await prisma.bus_tickets.count({
+  // const numOfSeatsCanceled = await prisma.bus_tickets.count({
+  //   where: {
+  //     bus_id: busId,
+  //     status: 2,
+  //   },
+  // });
+
+  // get sum of column num_of_seats of table bus_tickets where bus_id = busId and status = 2
+  const numOfSeatsCanceled = await prisma.bus_tickets.aggregate({
     where: {
       bus_id: busId,
       status: 2,
     },
+    _sum: {
+      num_seats: true,
+    },
   });
 
-  if (numOfSeats + numOfSeatsBookedOrPayed - numOfSeatsCanceled > checkBusIDExist.num_of_seats) {
+  if (
+    numOfSeats + numOfSeatsBookedOrPayed._sum.num_seats - numOfSeatsCanceled._sum.num_seats >
+    checkBusIDExist.num_of_seats
+  ) {
     return { error: ERROR_MESSAGE.NUM_OF_SEATS_EXCEED };
   }
 
-  const allSeatPosArr = [];
-  for (let i = 0; i < checkBusIDExist.num_of_seats; i++) {
-    const checkSeatPosExist = await prisma.bus_tickets.findFirst({
-      where: {
-        bus_id: busId,
-        seat: i.toString(),
-        status: { not: 2 },
-      },
-    });
-    if (!checkSeatPosExist) {
-      allSeatPosArr.push(i.toString());
+  // const allSeatPosArr = [];
+  // for (let i = 0; i < checkBusIDExist.num_of_seats; i++) {
+  //   const checkSeatPosExist = await prisma.bus_tickets.findFirst({
+  //     where: {
+  //       bus_id: busId,
+  //       seat: i.toString(),
+  //       status: { not: 2 },
+  //     },
+  //   });
+  //   if (!checkSeatPosExist) {
+  //     allSeatPosArr.push(i.toString());
+  //   }
+  // }
+
+  const getUnavailableSeats = await prisma.bus_tickets.findMany({
+    where: {
+      bus_id: busId,
+      status: { not: 2 },
+    },
+    select: {
+      seats: true,
+    },
+  });
+
+  const unavailableSeatsPos = [];
+  // const unavailableSeatsPos = getUnavailableSeats.map((item) => {
+
+  //   const seatsPos = item.seat.split(',');
+  //   for (let i = 0; i < seatsPos.length; ++i) {
+  //     result.push(seatsPos[i]);
+  //   }
+  // });
+
+  for (let i = 0; i < getUnavailableSeats.length; ++i) {
+    const seatsPos = getUnavailableSeats[i].seats.split(',');
+    for (let j = 0; j < seatsPos.length; ++j) {
+      if (seatsPos[j] !== '') unavailableSeatsPos.push(seatsPos[j]);
     }
   }
 
-  const availableSeatPosArr = [];
+  const allSeatPosArr = [];
+  for (let i = 0; i < checkBusIDExist.num_of_seats; ++i) {
+    if (!unavailableSeatsPos.includes(i.toString())) {
+      allSeatPosArr.push(i.toString());
+    }
+  }
+  const availableSeatPos = [];
   for (let i = 0; i < numOfSeats; ++i) {
-    availableSeatPosArr.push({
+    availableSeatPos.push(allSeatPosArr[i]);
+  }
+
+  const createTicket = await prisma.bus_tickets.create({
+    data: {
       bus_id: busId,
       user_id: userId,
       name,
       phone,
-      seat: allSeatPosArr[i],
+      seats: availableSeatPos.join(),
       pick_up_point: pickUpPont,
       drop_down_point: dropDownPoint,
       note,
-    });
-  }
+      num_seats: numOfSeats,
+    },
+  });
 
-  // const msToTime = (ms) => {
-  //   const seconds = (ms / 1000).toFixed(1);
-  //   const minutes = (ms / (1000 * 60)).toFixed(1);
-  //   const hours = (ms / (1000 * 60 * 60)).toFixed(1);
-  //   const days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-  //   if (seconds < 60) return `${seconds} Seconds`;
-  //   if (minutes < 60) return `${minutes} Minutes`;
-  //   if (hours < 24) return `${hours} Hours`;
-  //   return `${days} Days`;
-  // };
-
-  // const formatter = new Intl.NumberFormat('en-US', {
-  //   style: 'decimal',
-  //   minimumFractionDigits: 0,
-  //   maximumFractionDigits: 0,
-  // });
-
-  const result = { seat_positions: [], ticket_ids: [] };
-  // result.name = name;
-  // result.phone = phone;
-  // result.email = email;
-  // result.bo_name = checkBusIDExist.bus_operators.name;
-  // result.start_point = checkBusIDExist.bus_stations_bus_stationsTobuses_start_point.name;
-  // result.end_point = checkBusIDExist.bus_stations_bus_stationsTobuses_end_point.name;
-  // result.start_time = convertDateToTime(new Date(checkBusIDExist.start_time));
-  // result.end_time = convertDateToTime(new Date(checkBusIDExist.end_time));
-  // result.duration = Math.abs(checkBusIDExist.end_time.getTime() - checkBusIDExist.start_time.getTime());
-  // result.num_of_seats = numOfSeats;
-  // result.type = checkBusIDExist.type === 0 ? 'Limousine' : checkBusIDExist.type === 1 ? 'Normal Seat' : 'Sleeper Bus';
-  // result.ticket_cost = formatter.format(checkBusIDExist.price);
-  // result.total_cost = formatter.format(checkBusIDExist.price * numOfSeats);
-  // result.pick_up_point = pickUpPont;
-  // result.drop_down_point = dropDownPoint;
-  // result.status = 0;
-  // result.duration = await msToTime(result.duration);
-
-  for (let i = 0; i < availableSeatPosArr.length; ++i) {
-    const createTicket = await prisma.bus_tickets.create({
-      data: availableSeatPosArr[i],
-    });
-
-    result.seat_positions.push(createTicket.seat);
-    result.ticket_ids.push(createTicket.id);
-  }
-
-  return { status: result.ticket_ids.length > 0, data: result };
+  return { status: createTicket !== null, data: createTicket };
 };
 
 const getTicketByBusIdAndUserId = async (busId, userId) => {

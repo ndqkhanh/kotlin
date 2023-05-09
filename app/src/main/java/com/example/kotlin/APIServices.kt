@@ -52,8 +52,14 @@ data class TicketData(
 )
 
 data class TicketCreateResponse(
-    val seat_positions: List<Int>,
-    val ticket_ids: List<String>,
+    val id: String,
+    val name: String,
+    val pick_up_point: String,
+    val drop_down_point: String,
+    val phone: String,
+    val seats: String,
+    val num_seats: Int,
+    val note: String,
 )
 
 data class TicketResponse(
@@ -227,9 +233,11 @@ interface BusService {
     fun searchBusses(): Call<BusResponse>
 
     // Admin
-    @GET("admin/bus/list/${page}/${limit}")
+    @GET("admin/bus/list/{page}/{limit}")
     fun adminGetBuses(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Path("page") page: Int,
+        @Path("limit") limit: Int
     ) : Call<AdminBusesResponse>
 
     @GET("admin/bus/{id}")
@@ -284,8 +292,11 @@ interface TicketService {
     ): Call<History>
 
     //route là admin mà sao để ở ticket???
-    @GET("admin/booking/list")
-    fun getBookingList(@Header("Authorization") token: String): Call<BusTicketResponse>
+    @GET("admin/booking/list/{page}/{limit}")
+    fun getBookingList(
+        @Header("Authorization") token: String,
+        @Path("page") page: Int,
+        @Path("limit") limit: Int): Call<BusTicketResponse>
 
     @DELETE("admin/booking/{bid}")
     fun deleteBooking(

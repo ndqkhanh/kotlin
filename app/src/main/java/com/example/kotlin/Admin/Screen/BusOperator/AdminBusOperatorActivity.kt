@@ -47,7 +47,8 @@ class AdminBusOperatorActivity:AppCompatActivity() {
             throwable.printStackTrace()
         }
 
-
+        var page = 0
+        var limit = 10
         GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
 
             var response = retrofit.getAllBusOperators().getBusOperators().awaitResponse()

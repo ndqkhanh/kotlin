@@ -13,7 +13,7 @@ data class History(
     val note: String?,
     val phone: String,
     val price: Int,
-    val seat: String,
+    val seats: String,
     val start_date: String,
     val start_time: String,
     val status: Int,

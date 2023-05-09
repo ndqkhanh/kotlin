@@ -49,9 +49,9 @@ ArrayList<AdminItem>) : BaseAdapter(){
             view = p1
             viewHolder = view.tag as ViewHolder
         }
+
         var company = items[p0]
         viewHolder.nameTV?.text = company.name
-//        viewHolder.logoImgV?.setImageResource(company.logo!!)
         viewHolder.imageView?.setImageResource(company.image!!)
         return view as View
     }

@@ -106,10 +106,11 @@ class ConfirmInformationActivity : AppCompatActivity() {
                             txtDienThoai.text = phoneNumber
 
                             val txtEmail = findViewById<TextView>(R.id.txtEmail)
+                            Log.i("UserInformation.USER", UserInformation.USER.toString())
                             txtEmail.text = UserInformation.USER?.email_contact
 
                             val txtNote = findViewById<TextView>(R.id.txtNote)
-                            txtNote.text = note
+                            txtNote.text = if(note == "") "Không có ghi chú" else note
 
                             val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
                             continueBtn.setOnClickListener {
@@ -125,7 +126,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                         busDropDownPointId!!,
                                                         phoneNumber!!,
                                                         numOfSeats.toInt(),
-                                                        note.toString()
+                                                        txtNote.text.toString()
                                                     )
                                                 ).awaitResponse()
                                         // debug response
@@ -142,8 +143,9 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                         Toast.LENGTH_SHORT
                                                     ).show()
                                                     val intent = Intent(this@ConfirmInformationActivity, PaymentActivity::class.java)
-                                                    val ticketIdsJoin = body3.data.ticket_ids.joinToString(",")
-                                                    intent.putExtra("ticketIds", ticketIdsJoin)
+                                                    intent.putExtra("ticketId", body3.data.id)
+                                                    intent.putExtra("busOperatorName", txtBusOperatorName.text.toString())
+                                                    intent.putExtra("time", txtTime.text.toString())
                                                     intent.putExtra("totalPrice", totalPrice)
                                                     startActivity(intent)
                                                 }

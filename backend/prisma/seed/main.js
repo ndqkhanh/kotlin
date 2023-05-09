@@ -141,11 +141,12 @@ const createBusTickets = () => {
     user_id: USERS[Math.floor(Math.random() * USERS.length)].id,
     name: faker.name.fullName(),
     phone: faker.phone.number('##########'),
-    seat: faker.datatype.number({ min: 1, max: bus.num_of_seats }).toString(),
+    seats: '0,1,2,3,4',
     status: faker.datatype.number({ min: 0, max: 2 }),
     pick_up_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
     drop_down_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
     note: faker.lorem.paragraph(),
+    num_seats: 5,
   };
 };
 

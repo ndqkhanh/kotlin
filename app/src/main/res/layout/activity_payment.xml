@@ -42,20 +42,6 @@
             app:layout_constraintStart_toStartOf="@+id/txtBusOperatorName"
             app:layout_constraintTop_toBottomOf="@+id/txtBusOperatorName" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/txtBusOperatorDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/thong_tin_xe"
-            android:textAllCaps="false"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="#ffffff"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/txtTime"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txtBusOperatorName" />
-
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="30dp"

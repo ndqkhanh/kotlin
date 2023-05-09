@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Admin.Screen.BottomNavigation.BottomAdminNavigation"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
