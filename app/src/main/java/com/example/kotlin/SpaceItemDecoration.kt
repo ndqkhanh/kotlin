@@ -12,8 +12,8 @@ class SpaceItemDecoration(private val space: Int): RecyclerView.ItemDecoration()
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        outRect.left = space
-        outRect.right = space
+//        outRect.left = space
+//        outRect.right = space
         outRect.bottom = space
 
         // Add top margin only for the first item to avoid double space between items

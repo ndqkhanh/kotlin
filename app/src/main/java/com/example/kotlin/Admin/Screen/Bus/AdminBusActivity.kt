@@ -70,8 +70,8 @@ class AdminBusActivity:AppCompatActivity() {
                 Log.d("busTickets vui 1: ", buses.size.toString())
 
                 withContext(Dispatchers.Main){
-                    val space = 50
-                    val itemDecoration = SpaceItemDecoration(space)
+//                    val space = 50
+//                    val itemDecoration = SpaceItemDecoration(space)
 
                     busAdapter = AdminBusAdapter(buses)
                     busRV = findViewById(R.id.adminBusRV)
@@ -79,7 +79,7 @@ class AdminBusActivity:AppCompatActivity() {
                     busRV.layoutManager = LinearLayoutManager(this@AdminBusActivity,
                         LinearLayoutManager.VERTICAL,false)
 
-                    busRV.addItemDecoration(itemDecoration)
+//                    busRV.addItemDecoration(itemDecoration)
 
                 }
 
