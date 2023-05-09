@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.kotlin.Admin.Screen.AdminActivity
+import com.example.kotlin.Admin.Screen.BottomNavigation.AdminFragment
 
 class AdminItem {
     var id: Int? = 0
@@ -49,9 +51,9 @@ ArrayList<AdminItem>) : BaseAdapter(){
             view = p1
             viewHolder = view.tag as ViewHolder
         }
+
         var company = items[p0]
         viewHolder.nameTV?.text = company.name
-//        viewHolder.logoImgV?.setImageResource(company.logo!!)
         viewHolder.imageView?.setImageResource(company.image!!)
         return view as View
     }
