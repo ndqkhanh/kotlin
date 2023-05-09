@@ -138,22 +138,19 @@ const getHistoryByUId = async (req) => {
   var updateQuery = sql`update bus_tickets bt
                         set status = 2
                         where bt.id in (select bt2.id from bus_tickets bt2 join buses b on bt2.bus_id = b.id
-                        				where b.start_time < current_timestamp and bt2.status = 0 and bt2.user_id = ${req.user.id})`
-  var condition = sql``
-  if(req.query.type == 'discard'){
-    await prisma.$queryRaw(updateQuery)
-    condition = sql`bt.status = 2 and `
-    }
-  else if(req.query.type == 'current'){
-    await prisma.$queryRaw(updateQuery)
-    condition = sql`b.start_time >= current_timestamp and bt.status != 2 and `
-    }
-  else if(req.query.type == 'done')
-    condition = sql`b.start_time < current_timestamp and bt.status = 1 and `
+                        				where b.start_time < current_timestamp and bt2.status = 0 and bt2.user_id = ${req.user.id})`;
+  var condition = sql``;
+  if (req.query.type == 'discard') {
+    await prisma.$queryRaw(updateQuery);
+    condition = sql`bt.status = 2 and `;
+  } else if (req.query.type == 'current') {
+    await prisma.$queryRaw(updateQuery);
+    condition = sql`b.start_time >= current_timestamp and bt.status != 2 and `;
+  } else if (req.query.type == 'done') condition = sql`b.start_time < current_timestamp and bt.status = 1 and `;
 
-  var historyList = null
+  var historyList = null;
 
-  const querySQL = sql`select bt.id, bt.bus_id, bt.phone, bt.seat, bt.status, b.start_time, b.end_time,
+  const querySQL = sql`select bt.id, bt.bus_id, bt.phone, bt.seats, bt.status, b.start_time, b.end_time,
                            		b.price, bo.name ten_nha_xe, p.name ten_diem_don,
                            		p.location dia_chi_diem_don, p2.name ten_diem_tra, p2.location dia_chi_diem_tra,
                            		bs.name tinh_don, bs2.name tinh_tra, bt.note
@@ -172,15 +169,14 @@ const getHistoryByUId = async (req) => {
                                              	on bs2.id = b.end_point
                                              where ${condition} bt.user_id = ${req.user.id}
                                              order by b.start_time desc
-                  offset ${req.query.limit * req.query.page} rows fetch next ${req.query.limit} rows only`
+                  offset ${req.query.limit * req.query.page} rows fetch next ${req.query.limit} rows only`;
 
-    historyList = await prisma.$queryRaw(querySQL)
+  historyList = await prisma.$queryRaw(querySQL);
 
   return historyList;
 };
 
 const getUserByUsername = async (email) => {
-
   return await prisma.users.findUnique({
     where: {
       email,

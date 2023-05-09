@@ -106,7 +106,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                             txtDienThoai.text = phoneNumber
 
                             val txtEmail = findViewById<TextView>(R.id.txtEmail)
-                            Log.i("email", UserInformation.USER.toString())
+                            Log.i("UserInformation.USER", UserInformation.USER.toString())
                             txtEmail.text = UserInformation.USER?.email_contact
 
                             val txtNote = findViewById<TextView>(R.id.txtNote)

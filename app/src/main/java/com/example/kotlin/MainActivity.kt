@@ -34,18 +34,18 @@ class MainActivity : AppCompatActivity() {
         var gson = Gson()
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         var str_json_user = localStore.getString("user", null)
+        Log.i("str_json_user", str_json_user.toString())
         var token = localStore.getString("token", null)
 
         token?.let {
             var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1, null)
             var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
-
+            Log.i("respone uni", respone.toString())
             //token còn dùng được
             if(respone != null) {
                 val userType: Type = object : TypeToken<User?>() {}.type
                 UserInformation.USER = gson.fromJson(str_json_user, userType)
                 UserInformation.TOKEN = token
-                Log.i("!23", UserInformation.USER!!.display_name!!)
             }else{
                 UserInformation.USER = null
                 UserInformation.TOKEN = null
