@@ -30,7 +30,7 @@ class TicketHistoryFragment : Fragment() {
     private lateinit var tabSpec1: TabSpec
     private lateinit var tabSpec2: TabSpec
     private lateinit var tabSpec3: TabSpec
-    private var limit = 3
+    private var limit = 5
     private var pageHT = 0
     private var pageD = 0
     private var pageH = 0
@@ -103,9 +103,9 @@ class TicketHistoryFragment : Fragment() {
             .setPositiveButton("Hủy vé") { dialogInterface, i ->
                 val callDiscard: Call<HistoryItem> = ticketAPI.discardTicket(item.id, "Bearer ${UserInformation.TOKEN!!}")
                 dialog.show()
-                var respone: HistoryItem? = WaitingAsyncClass(callDiscard).execute().get()
+                var response: HistoryItem? = WaitingAsyncClass(callDiscard).execute().get()
                 dialog.dismiss()
-                if(respone != null) {
+                if(response != null) {
                     veHT.removeAt(id)
                     veHTAdapter.notifyItemRemoved(id)
                     startDiscard()

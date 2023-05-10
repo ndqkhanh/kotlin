@@ -349,13 +349,23 @@ interface BusOperatorService {
     fun getBusOperator(
         @Header("Authorization") token: String,
         @Path("boId") bid: String): Call<BusOperator>
+
+    @GET("bus-operator/average-rating")
+    fun getAverageRating(@Query("boId") id: String): Call<AverageRating>
+
+    @GET("bus-operator/get-review")
+    fun getReviews(
+        @Query("boId") id: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): Call<ReviewList>
 }
 
 
 class APIServiceImpl {
 
     companion object{//singleton
-        private val BASE_URL = "http://192.168.1.6:3000/v1/"
+        private val BASE_URL = "http://192.168.173.211:3000/v1/"
 
         private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -377,10 +387,10 @@ class APIServiceImpl {
         fun userService(): UserService {
             return userService
         }
-    }
 
-    fun busOperatorService(): BusOperatorService {
-        return busOperatorService
+        fun busOperatorService(): BusOperatorService {
+            return busOperatorService
+        }
     }
 
 

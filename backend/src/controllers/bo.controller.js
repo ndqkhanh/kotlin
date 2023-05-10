@@ -3,8 +3,13 @@ const catchAsync = require('../utils/catchAsync');
 const { boService } = require('../services');
 
 const getReviews = catchAsync(async (req, res) => {
-  const result = await boService.getReviews(req.params.boId, req.params.page, req.params.limit);
-  res.send(result);
+  const result = await boService.getReviews(req.query.boId, req.query.page, req.query.limit);
+  result.forEach((item, index) =>{
+      let timespan = new Date(item.ngay_review)
+      item.ngay_review = timespan.toLocaleDateString("vi",{year: "numeric", month: "2-digit", day: "2-digit",})
+    })
+  const review_list = result
+  res.send({review_list});
 });
 
 const createReview = catchAsync(async (req, res) => {
@@ -34,6 +39,10 @@ const getBOById = catchAsync(async (req, res) => {
 });
 const getAverageRating = catchAsync(async (req, res) => {
   const result = await boService.getAverageRating(req);
+  if (result[0].avg == null)
+    result[0].avg = 0
+  result[0].avg = Math.round(result[0].avg * 100) / 100
+
   res.send(result[0]);
 });
 module.exports = {

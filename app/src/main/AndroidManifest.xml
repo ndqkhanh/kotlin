@@ -72,9 +72,6 @@
             android:name=".Admin.Screen.BusTicket.AdminBusTicketActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin.Screen.AdminActivity"
-            android:exported="false" />
-        <activity
             android:name=".Admin.Screen.AdminBlogCreateActivity"
             android:exported="false" />
         <activity
@@ -94,6 +91,9 @@
             android:exported="false" />
         <activity
             android:name=".BookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.Screen.ChiTietChuyenXe"
             android:exported="false" />
         <activity
             android:name=".BusDetailActivity"

@@ -64,7 +64,7 @@ class BusSearch : AppCompatActivity() {
             val thisItem = listItemView.findViewById<ConstraintLayout>(R.id.bus_search_item)
             init {
                 thisItem.setOnClickListener {
-                    onItemClick?.invoke(items[adapterPosition].id)
+                    onItemClick?.invoke(items[adapterPosition].bo_id)
                 }
             }
         }
@@ -143,6 +143,9 @@ class BusSearch : AppCompatActivity() {
                         busAdapter = CustomItem(listBuses)
                         rv_bus_search!!.adapter = busAdapter
                         val openDetailDialog: ((String)->Unit)? = {
+                            val viewDetail = Intent(this@BusSearch, ChiTietChuyenXe::class.java)
+                            viewDetail.putExtra("boId", it)
+                            startActivity(viewDetail)
                         }
                         busAdapter.onItemClick = openDetailDialog
                     }
@@ -300,7 +303,7 @@ class BusSearch : AppCompatActivity() {
         }
 
         GlobalScope.launch (Dispatchers.IO) {
-            val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
+            val response2 = APIServiceImpl.busOperatorService().getBusOperators().awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list

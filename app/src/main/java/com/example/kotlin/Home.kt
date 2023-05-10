@@ -188,7 +188,7 @@ class Home : AppCompatActivity() {
                 }
             }
 
-            val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
+            val response2 = APIServiceImpl.busOperatorService().getBusOperators().awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list
