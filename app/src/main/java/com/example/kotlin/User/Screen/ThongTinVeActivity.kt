@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.kotlin.R
-import com.example.kotlin.Widget.UserInformation
+import com.example.kotlin.utils.UserInformation
 import com.example.kotlin.DataClass.HistoryItem
 import java.text.DecimalFormat
 

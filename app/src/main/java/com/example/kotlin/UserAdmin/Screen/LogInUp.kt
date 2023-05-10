@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.APIServiceImpl
 import com.example.kotlin.Admin.Screen.BottomNavigation.BottomAdminNavigation
 import com.example.kotlin.R
-import com.example.kotlin.Widget.WaitingAsyncClass
+import com.example.kotlin.utils.WaitingAsyncClass
 import com.example.kotlin.DataClass.*
-import com.example.kotlin.Widget.UserInformation
+import com.example.kotlin.utils.UserInformation
 import com.facebook.*
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton

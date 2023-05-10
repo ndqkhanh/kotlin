@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.*
 import com.example.kotlin.DataClass.Buses
-import com.example.kotlin.Widget.UserInformation
+import com.example.kotlin.utils.UserInformation
 import kotlinx.coroutines.*
 import retrofit2.awaitResponse
 

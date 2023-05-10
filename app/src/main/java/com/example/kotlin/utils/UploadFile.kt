@@ -1,4 +1,4 @@
-package com.example.kotlin.Widget
+package com.example.kotlin.utils
 
 import android.net.Uri
 import android.util.Log

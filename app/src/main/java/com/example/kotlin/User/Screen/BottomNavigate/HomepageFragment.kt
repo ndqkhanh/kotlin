@@ -24,9 +24,9 @@ import com.example.kotlin.User.Screen.BottomNavigate.BlogFragment
 import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation.Companion.replaceWithBlogFragment
 import com.example.kotlin.Adapter.CustomBlogItem
 import com.example.kotlin.User.Screen.BusSearch
-import com.example.kotlin.Widget.UploadFile
+import com.example.kotlin.utils.UploadFile
 import com.example.kotlin.UserAdmin.Screen.LogInUp
-import com.example.kotlin.Widget.UserInformation
+import com.example.kotlin.utils.UserInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

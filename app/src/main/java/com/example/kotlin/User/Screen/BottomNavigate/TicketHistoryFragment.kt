@@ -17,8 +17,8 @@ import com.example.kotlin.APIServiceImpl
 import com.example.kotlin.R
 import com.example.kotlin.Adapter.TicketHistoryAdapter
 import com.example.kotlin.User.Screen.BottomNavigate.TicketHistory.ThongTinVeAcivity
-import com.example.kotlin.Widget.UserInformation
-import com.example.kotlin.Widget.WaitingAsyncClass
+import com.example.kotlin.utils.UserInformation
+import com.example.kotlin.utils.WaitingAsyncClass
 import com.example.kotlin.DataClass.HistoryItem
 import com.example.kotlin.DataClass.HistoryList
 import retrofit2.Call

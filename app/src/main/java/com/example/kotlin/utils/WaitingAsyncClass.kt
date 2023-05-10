@@ -1,4 +1,4 @@
-package com.example.kotlin.Widget
+package com.example.kotlin.utils
 
 import android.os.AsyncTask
 import retrofit2.Call

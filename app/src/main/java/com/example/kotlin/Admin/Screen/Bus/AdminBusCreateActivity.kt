@@ -16,8 +16,8 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.*
-import com.example.kotlin.Widget.UploadFile
-import com.example.kotlin.Widget.UserInformation
+import com.example.kotlin.utils.UploadFile
+import com.example.kotlin.utils.UserInformation
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await

@@ -12,7 +12,7 @@ import android.view.LayoutInflater
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
-import com.example.kotlin.Widget.UserInformation
+import com.example.kotlin.utils.UserInformation
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class BlogManagementDetailActivity : AppCompatActivity() {
