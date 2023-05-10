@@ -77,5 +77,6 @@ class AdminBusTicketAdapter (private val busTickets: MutableList<BusTicket>)
             "1" -> status.setText("Chờ thanh toán")
             "2" -> status.setText("Đã thanh toán")
         }
+        image.setImageResource(R.drawable.ic_user_tie_solid)
     }
 }
