@@ -4,6 +4,7 @@ const { email } = require('../config/config');
 
 const prisma = new PrismaClient();
 const ApiError = require('../utils/ApiError');
+const { convertDateToString } = require('../utils/dateFormat');
 
 const createBus = async (req) => {
   return prisma.buses.create({
