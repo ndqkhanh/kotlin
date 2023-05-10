@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.kotlin.BlogResponse
+import com.example.kotlin.R
 
 
 //class Blog {

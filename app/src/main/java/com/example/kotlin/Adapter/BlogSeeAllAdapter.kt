@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.Adapter
 
 import android.app.Activity
 import android.view.View
@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
-import com.example.kotlin.User.Screen.BottomNavigate.BlogFragment
+import com.example.kotlin.BlogResponse
+import com.example.kotlin.R
 
 class BlogSeeAllAdapter(private val activity: Activity, private val blogs: List<BlogResponse>) :
     ArrayAdapter<BlogResponse>(activity, R.layout.blog_see_all_item, blogs) {

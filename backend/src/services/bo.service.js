@@ -2,7 +2,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
 const httpStatus = require('http-status');
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, sql } = require('@prisma/client');
 const ApiError = require('../utils/ApiError');
 
 const prisma = new PrismaClient();
@@ -139,6 +139,18 @@ const deleteBO = async (req) => {
   });
   return message;
 };
+const getAverageRating = async (req) => {
+  var getAvg = sql`select avg(r.rate) avg
+                        from reviews r
+                        join bus_operators bo
+                        on r.bo_id = bo.id
+                        where bo.id = ${req.query.boId}`;
+
+  res = await prisma.$queryRaw(getAvg);
+
+  return res
+
+};
 module.exports = {
   deleteBO,
   updateBO,
@@ -147,4 +159,5 @@ module.exports = {
   getReviews,
   createReview,
   getBusOperatorById,
+  getAverageRating,
 };

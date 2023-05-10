@@ -20,10 +20,13 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.kotlin.*
 import com.example.kotlin.User.Screen.BottomNavigate.BlogFragment
 import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation.Companion.replaceWithBlogFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.kotlin.Adapter.CustomBlogItem
+import com.example.kotlin.User.Screen.BusSearch
+import com.example.kotlin.Widget.UploadFile
+import com.example.kotlin.UserAdmin.Screen.LogInUp
+import com.example.kotlin.Widget.UserInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -163,6 +166,14 @@ class HomepageFragment : Fragment() {
 
 
         return rootView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(UserInformation.TOKEN != null)
+            loginBtn.visibility = GONE
+        else
+            loginBtn.visibility = VISIBLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

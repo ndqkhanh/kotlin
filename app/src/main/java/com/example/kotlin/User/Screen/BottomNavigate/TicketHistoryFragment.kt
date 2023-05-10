@@ -1,11 +1,9 @@
-package com.example.kotlin.User.Screen.BottomNavigate.TicketHistory
+package com.example.kotlin.User.Screen.BottomNavigate
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.kotlin.APIServiceImpl
 import com.example.kotlin.R
-import com.example.kotlin.UserInformation
-import com.example.kotlin.WaitingAsyncClass
-import com.example.kotlin.jsonConvert.History
-import com.example.kotlin.jsonConvert.HistoryList
+import com.example.kotlin.Adapter.TicketHistoryAdapter
+import com.example.kotlin.User.Screen.BottomNavigate.TicketHistory.ThongTinVeAcivity
+import com.example.kotlin.Widget.UserInformation
+import com.example.kotlin.Widget.WaitingAsyncClass
+import com.example.kotlin.DataClass.HistoryItem
+import com.example.kotlin.DataClass.HistoryList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,16 +38,16 @@ class TicketHistoryFragment : Fragment() {
     private lateinit var veHienTai: RecyclerView
     private lateinit var veHuy: RecyclerView
     private lateinit var veDaDi: RecyclerView
-    private var veHT: MutableList<History> = mutableListOf()
-    private var veH: MutableList<History> = mutableListOf()
-    private var veD: MutableList<History> = mutableListOf()
+    private var veHT: MutableList<HistoryItem> = mutableListOf()
+    private var veH: MutableList<HistoryItem> = mutableListOf()
+    private var veD: MutableList<HistoryItem> = mutableListOf()
     private var veHTAdapter = TicketHistoryAdapter(0, veHT)
     private var veHAdapter = TicketHistoryAdapter(1, veH)
     private val veDAdapter = TicketHistoryAdapter(2, veD)
     private lateinit var srl_HT: SwipeRefreshLayout
     private lateinit var srl_H: SwipeRefreshLayout
     private lateinit var srl_D: SwipeRefreshLayout
-    private var ticketAPI = APIServiceImpl.ticketService
+    private var ticketAPI = APIServiceImpl.ticketService()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,18 +92,18 @@ class TicketHistoryFragment : Fragment() {
         val dialog = ProgressDialog(requireContext())
         dialog.setCancelable(false)
 
-        var itemEvent: (History)->Unit = { item->
+        var itemEvent: (HistoryItem)->Unit = { item->
             val intentCTVe = Intent(requireActivity(), ThongTinVeAcivity::class.java)
             intentCTVe.putExtra("item", item)
             startActivity(intentCTVe)
         }
-        var discardEvent: (History, Int) -> Unit = { item, id->
+        var discardEvent: (HistoryItem, Int) -> Unit = { item, id->
             val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Hủy vé").setMessage("Lưu ý rằng khi hủy vé, bạn sẽ không được hoàn tiền")
             .setPositiveButton("Hủy vé") { dialogInterface, i ->
-                val callDiscard: Call<History> = ticketAPI.discardTicket(item.id, "Bearer ${UserInformation.TOKEN!!}")
+                val callDiscard: Call<HistoryItem> = ticketAPI.discardTicket(item.id, "Bearer ${UserInformation.TOKEN!!}")
                 dialog.show()
-                var respone: History? = WaitingAsyncClass(callDiscard).execute().get()
+                var respone: HistoryItem? = WaitingAsyncClass(callDiscard).execute().get()
                 dialog.dismiss()
                 if(respone != null) {
                     veHT.removeAt(id)

@@ -42,7 +42,7 @@
             android:name=".User.Screen.BottomNavigate.TicketHistory.ThongTinVeAcivity"
             android:exported="false" />
         <activity
-            android:name=".BusSearch"
+            android:name=".User.Screen.BusSearch"
             android:exported="false" />
         <activity
             android:name=".BlogSeeAllActivity"
@@ -63,7 +63,7 @@
             android:name=".ChoosePickUpLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".LogInUp"
+            android:name=".UserAdmin.Screen.LogInUp"
             android:exported="false" />
         <activity
             android:name=".BlogManagementActivity"

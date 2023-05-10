@@ -32,6 +32,10 @@ const getBOById = catchAsync(async (req, res) => {
   const result = await boService.getBusOperatorById(req.params.boId);
   res.send(result);
 });
+const getAverageRating = catchAsync(async (req, res) => {
+  const result = await boService.getAverageRating(req);
+  res.send(result[0]);
+});
 module.exports = {
   getBOById,
   deleteBO,
@@ -40,4 +44,5 @@ module.exports = {
   viewBO,
   getReviews,
   createReview,
+  getAverageRating
 };

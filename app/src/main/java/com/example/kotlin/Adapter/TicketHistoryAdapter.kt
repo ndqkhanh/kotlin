@@ -1,6 +1,5 @@
-package com.example.kotlin.User.Screen.BottomNavigate.TicketHistory
+package com.example.kotlin.Adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -12,13 +11,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.R
-import com.example.kotlin.jsonConvert.History
+import com.example.kotlin.DataClass.HistoryItem
 import java.text.DecimalFormat
 
-class TicketHistoryAdapter(private var type: Int, private var items: MutableList<History>)
+class TicketHistoryAdapter(private var type: Int, private var items: MutableList<HistoryItem>)
     : RecyclerView.Adapter<TicketHistoryAdapter.TicketViewHolder>(){
-    var onItemClick: ((History) -> Unit)? = null
-    var onDiscard: ((History, Int) -> Unit)? = null
+    var onItemClick: ((HistoryItem) -> Unit)? = null
+    var onDiscard: ((HistoryItem, Int) -> Unit)? = null
 
     inner class TicketViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val tinh_trang: TextView = itemView.findViewById(R.id.tinh_trang)
@@ -74,7 +73,7 @@ class TicketHistoryAdapter(private var type: Int, private var items: MutableList
 
         var format = DecimalFormat("#,###")
 
-        holder.gia_ve.text = "${format.format(item.price)}đ"
+        holder.gia_ve.text = "${format.format(item.price * item.so_luong)}đ"
         holder.gio_bat_dau.text = item.start_time
         holder.ngay_bat_dau.text = item.start_date
         holder.tinh_den.text = item.tinh_don

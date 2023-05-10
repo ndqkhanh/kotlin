@@ -1,4 +1,4 @@
-package com.example.kotlin.jsonConvert
+package com.example.kotlin.DataClass
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable

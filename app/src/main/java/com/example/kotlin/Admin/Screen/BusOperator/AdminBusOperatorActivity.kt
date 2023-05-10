@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.*
+import com.example.kotlin.Widget.UserInformation
 import kotlinx.coroutines.*
 import retrofit2.awaitResponse
 

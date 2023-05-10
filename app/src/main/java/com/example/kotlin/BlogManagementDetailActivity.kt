@@ -1,22 +1,18 @@
 package com.example.kotlin
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.facebook.appevents.ml.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
-import android.text.Html
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
+import com.example.kotlin.Widget.UserInformation
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class BlogManagementDetailActivity : AppCompatActivity() {

@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.R
-import com.example.kotlin.jsonConvert.Buses
+import com.example.kotlin.DataClass.Buses
 
 class AdminBusAdapter(val buses: MutableList<Buses>): RecyclerView.Adapter<AdminBusAdapter.ViewHolder>() {
     var onButtonClick: ((Buses)->Unit)? = null

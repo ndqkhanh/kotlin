@@ -1,5 +1,6 @@
-package com.example.kotlin
+package com.example.kotlin.User.Screen
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TabHost
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
+import androidx.databinding.adapters.TabHostBindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.example.kotlin.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -38,7 +45,7 @@ class BusSearch : AppCompatActivity() {
         }
     }
     class CustomItem(private val items: List<Bus>): RecyclerView.Adapter<CustomItem.ViewHolder>() {
-        var onItemClick: ((Bus) -> Unit)? = null
+        var onItemClick: ((String) -> Unit)? = null
 
         inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView) {
 //            val itemName = listItemView.findViewById(R.id.itemName) as TextView
@@ -53,13 +60,13 @@ class BusSearch : AppCompatActivity() {
             val busItemOperatorName = listItemView.findViewById(R.id.busItemOperatorName) as TextView
             val busItemOperatorType = listItemView.findViewById(R.id.busItemOperatorType) as TextView
             val busItemOperatorRating = listItemView.findViewById(R.id.busItemOperatorRating) as TextView
-            val detailsButton = listItemView.findViewById(R.id.detailsButton) as Button
             val bookButton = listItemView.findViewById(R.id.buyButton) as Button
-//            init {
-//                listItemView.setOnClickListener {
-//                    onItemClick?.invoke(items[adapterPosition])
-//                }
-//            }
+            val thisItem = listItemView.findViewById<ConstraintLayout>(R.id.bus_search_item)
+            init {
+                thisItem.setOnClickListener {
+                    onItemClick?.invoke(items[adapterPosition].id)
+                }
+            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -106,11 +113,12 @@ class BusSearch : AppCompatActivity() {
     var currentBusOperator: String? = ""
     var currentBusPricing: Int = 0
     var countMax: Int = 0
-    lateinit var departureId: String
-    lateinit var destinationId: String
-    lateinit var outputDateString: String
-    lateinit var loading: LottieAnimationView
-    lateinit var busAdapter: CustomItem
+    private lateinit var departureId: String
+    private lateinit var destinationId: String
+    private lateinit var outputDateString: String
+    private lateinit var loading: LottieAnimationView
+    private lateinit var busAdapter: CustomItem
+    private lateinit var busDetailDialog: BottomSheetDialog
     private fun loadMoreResult(page: Int = 0, limit: Int = 10){
         if(page == 0) loading.visibility = View.VISIBLE
 
@@ -134,6 +142,9 @@ class BusSearch : AppCompatActivity() {
                     if(page == 0){
                         busAdapter = CustomItem(listBuses)
                         rv_bus_search!!.adapter = busAdapter
+                        val openDetailDialog: ((String)->Unit)? = {
+                        }
+                        busAdapter.onItemClick = openDetailDialog
                     }
 
                     busAdapter.notifyItemRangeInserted(busAdapter.itemCount, listBuses.size - 1)
@@ -167,7 +178,7 @@ class BusSearch : AppCompatActivity() {
         backButtonScreen.setOnClickListener {
             finish()
         }
-        rv_bus_search = findViewById<RecyclerView>(R.id.rv_bus_search)
+        rv_bus_search = findViewById(R.id.rv_bus_search)
         rv_bus_search.layoutManager = LinearLayoutManager(this)
         loadMoreResult()
 
@@ -298,4 +309,6 @@ class BusSearch : AppCompatActivity() {
             }
         }
     }
+
+
 }

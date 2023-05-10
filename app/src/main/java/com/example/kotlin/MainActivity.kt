@@ -2,20 +2,17 @@ package com.example.kotlin
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.Admin.Screen.BottomNavigation.BottomAdminNavigation
 import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
-import com.example.kotlin.jsonConvert.HistoryList
-import com.example.kotlin.jsonConvert.User
-import com.facebook.CallbackManager
+import com.example.kotlin.Widget.WaitingAsyncClass
+import com.example.kotlin.DataClass.HistoryList
+import com.example.kotlin.DataClass.User
+import com.example.kotlin.Widget.UserInformation
 import com.facebook.login.LoginManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
@@ -30,13 +27,11 @@ class MainActivity : AppCompatActivity() {
         var gson = Gson()
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         var str_json_user = localStore.getString("user", null)
-        Log.i("str_json_user", str_json_user.toString())
         var token = localStore.getString("token", null)
 
         token?.let {
             var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1, null)
             var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
-            Log.i("respone uni", respone.toString())
             //token còn dùng được
             if(respone != null) {
                 val userType: Type = object : TypeToken<User?>() {}.type

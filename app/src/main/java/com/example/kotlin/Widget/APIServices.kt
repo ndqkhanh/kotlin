@@ -1,11 +1,10 @@
 package com.example.kotlin
 
-import com.example.kotlin.jsonConvert.*
+import com.example.kotlin.DataClass.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.*
 import retrofit2.http.*
 
@@ -289,7 +288,7 @@ interface TicketService {
     fun discardTicket(
         @Query("tid") tid: String,
         @Header("Authorization") token: String
-    ): Call<History>
+    ): Call<HistoryItem>
 
     //route là admin mà sao để ở ticket???
     @GET("admin/booking/list/{page}/{limit}")
@@ -363,13 +362,13 @@ class APIServiceImpl {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-        val userService: UserService = api.create(UserService::class.java)
-        val busOperatorService: BusOperatorService = api.create(BusOperatorService::class.java)
-        val blogService: BlogService = api.create(BlogService::class.java)
-        val ticketService: TicketService = api.create(TicketService::class.java)
-        val busService: BusService = api.create(BusService::class.java)
-        val busStationService:  BusStationService = api.create(BusStationService::class.java)
-        val pointService: PointService = api.create(PointService::class.java)
+        private val userService: UserService = api.create(UserService::class.java)
+        private val busOperatorService: BusOperatorService = api.create(BusOperatorService::class.java)
+        private val blogService: BlogService = api.create(BlogService::class.java)
+        private val ticketService: TicketService = api.create(TicketService::class.java)
+        private val busService: BusService = api.create(BusService::class.java)
+        private val busStationService:  BusStationService = api.create(BusStationService::class.java)
+        private val pointService: PointService = api.create(PointService::class.java)
 
         fun ticketService(): TicketService{
             return ticketService

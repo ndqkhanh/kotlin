@@ -1,7 +1,6 @@
-package com.example.kotlin
+package com.example.kotlin.Widget
 
-import android.net.Uri
-import com.example.kotlin.jsonConvert.User
+import com.example.kotlin.DataClass.User
 
 class UserInformation {
     companion object{

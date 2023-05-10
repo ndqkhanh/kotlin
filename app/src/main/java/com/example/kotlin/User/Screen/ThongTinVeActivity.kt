@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.kotlin.R
-import com.example.kotlin.UserInformation
-import com.example.kotlin.jsonConvert.History
+import com.example.kotlin.Widget.UserInformation
+import com.example.kotlin.DataClass.HistoryItem
 import java.text.DecimalFormat
 
 class ThongTinVeAcivity : AppCompatActivity() {
@@ -21,6 +21,8 @@ class ThongTinVeAcivity : AppCompatActivity() {
     private lateinit var diaChiDiemTra: TextView
     private lateinit var thoiGianDuKienDon: TextView
     private lateinit var thoiGianDuKienTra: TextView
+    private lateinit var soLuong: TextView
+    private lateinit var ghe: TextView
     private lateinit var tenKH: TextView
     private lateinit var sdtKH: TextView
     private lateinit var emailKH: TextView
@@ -29,7 +31,7 @@ class ThongTinVeAcivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thong_tin_ve)
-        val itemHistory = intent.getSerializableExtra("item") as History
+        val itemHistory = intent.getSerializableExtra("item") as HistoryItem
 
         tuyen = findViewById(R.id.txtTuyen)
         nhaXe = findViewById(R.id.txtNhaXe)
@@ -47,6 +49,8 @@ class ThongTinVeAcivity : AppCompatActivity() {
         emailKH = findViewById(R.id.txtEmail)
         note = findViewById(R.id.txtNote)
         back = findViewById(R.id.back)
+        soLuong = findViewById(R.id.txtSoLuong)
+        ghe = findViewById(R.id.txtGhe)
 
         tuyen.text = itemHistory.tinh_don + " - " + itemHistory.tinh_tra
         nhaXe.text = itemHistory.ten_nha_xe
@@ -56,7 +60,9 @@ class ThongTinVeAcivity : AppCompatActivity() {
         else "Giường nằm đôi"
 
         var format = DecimalFormat("#,###")
-        giaVe.text = "${format.format(itemHistory.price)}đ"
+        giaVe.text = "${format.format(itemHistory.price * itemHistory.so_luong)}đ"
+        ghe.text = itemHistory.seats
+        soLuong.text = itemHistory.so_luong.toString()
         tenDiemDon.text = itemHistory.ten_diem_don
         tenDiemTra.text = itemHistory.ten_diem_tra
         diaChiDiemDon.text = itemHistory.dia_chi_diem_don

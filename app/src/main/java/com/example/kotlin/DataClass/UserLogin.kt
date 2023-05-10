@@ -1,7 +1,5 @@
-package com.example.kotlin.jsonConvert
+package com.example.kotlin.DataClass
 
-import android.content.res.Resources
-import com.example.kotlin.R
 import com.google.gson.annotations.SerializedName
 
 data class UserLogin(

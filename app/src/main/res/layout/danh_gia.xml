@@ -120,6 +120,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_chi_tiet_danh_gia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

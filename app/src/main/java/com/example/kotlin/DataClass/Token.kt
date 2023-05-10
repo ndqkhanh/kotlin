@@ -1,4 +1,4 @@
-package com.example.kotlin.jsonConvert
+package com.example.kotlin.DataClass
 
 data class Token(
     val expires: String,

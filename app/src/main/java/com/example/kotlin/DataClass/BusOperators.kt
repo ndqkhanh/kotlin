@@ -1,4 +1,4 @@
-package com.example.kotlin.jsonConvert
+package com.example.kotlin.DataClass
 
 import kotlinx.serialization.Serializable
 

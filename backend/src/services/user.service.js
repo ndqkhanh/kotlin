@@ -150,7 +150,7 @@ const getHistoryByUId = async (req) => {
 
   var historyList = null;
 
-  const querySQL = sql`select bt.id, bt.bus_id, bt.phone, bt.seats, bt.status, b.start_time, b.end_time,
+  const querySQL = sql`select bt.id, bt.bus_id, bt.phone, bt.seats, bt.status, bt.num_seats so_luong, b.start_time, b.end_time,
                            		b.price, bo.name ten_nha_xe, p.name ten_diem_don,
                            		p.location dia_chi_diem_don, p2.name ten_diem_tra, p2.location dia_chi_diem_tra,
                            		bs.name tinh_don, bs2.name tinh_tra, bt.note, b.type
