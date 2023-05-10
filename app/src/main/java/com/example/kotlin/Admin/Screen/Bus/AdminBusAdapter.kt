@@ -1,5 +1,6 @@
 package com.example.kotlin.Admin.Screen.Bus
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.R
 import com.example.kotlin.DataClass.Buses
+import com.example.kotlin.utils.dateFormat
+import com.example.kotlin.utils.getDuration
 
 class AdminBusAdapter(val buses: MutableList<Buses>): RecyclerView.Adapter<AdminBusAdapter.ViewHolder>() {
     var onButtonClick: ((Buses)->Unit)? = null
@@ -19,6 +22,7 @@ class AdminBusAdapter(val buses: MutableList<Buses>): RecyclerView.Adapter<Admin
         val endTime = listItemView.findViewById<TextView>(R.id.adminBusEndTimeVal)
         val type = listItemView.findViewById<TextView>(R.id.adminBusTypeVal)
         val price = listItemView.findViewById<TextView>(R.id.adminBusPriceVal)
+        val duration = listItemView.findViewById<TextView>(R.id.adminBusDurationVal)
 //        val image = listItemView.findViewById<ImageView>(R.id.adminBusImgV)
 
         init {
@@ -46,21 +50,21 @@ class AdminBusAdapter(val buses: MutableList<Buses>): RecyclerView.Adapter<Admin
         val endTime = holder.endTime
         val type = holder.type
         val price = holder.price
+        val duration = holder.duration
 //        val image = holder.image
 
-        // TODO Modify to see correct
         busOperator.setText(bus.bus_operators.name)
         startPoint.setText(bus.bus_stations_bus_stationsTobuses_start_point.name)
         endPoint.setText(bus.bus_stations_bus_stationsTobuses_end_point.name)
-        startTime.setText(bus.start_time)
-        endTime.setText(bus.end_time)
+        startTime.setText(dateFormat(bus.start_time))
+        endTime.setText(dateFormat(bus.end_time))
         when (bus.type)
         {
             0 ->  type.setText("Ghế ngồi")
             1 ->  type.setText("Giường nằm")
             2 ->  type.setText("Giường nằm đôi")
         }
-//        type.setText(bus.type.toString())
+        duration.setText(getDuration(bus.start_time, bus.end_time))
         price.setText("VND " + bus.price.toString())
 //        image.setImageResource(android.R.drawable.star_big_on)
 

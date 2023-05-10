@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin.BusTicket
 import com.example.kotlin.R
+import com.example.kotlin.utils.dateFormat
+import com.example.kotlin.utils.getDuration
 
 class AdminBusTicketAdapter (private val busTickets: MutableList<BusTicket>)
     : RecyclerView.Adapter<AdminBusTicketAdapter.ViewHolder>() {
@@ -25,7 +27,7 @@ class AdminBusTicketAdapter (private val busTickets: MutableList<BusTicket>)
         val seatVal = listItemView.findViewById<TextView>(R.id.adminBusTicketSeatVal)
         val statusVal = listItemView.findViewById<TextView>(R.id.adminBusTicketStatusVal)
         val image = listItemView.findViewById<ImageView>(R.id.adminBusTicketImgV)
-
+        val duration = listItemView.findViewById<TextView>(R.id.adminBusTicketDurationVal)
         val button = listItemView.findViewById<Button>(R.id.adminBusTicketDeleteBtn)
 
         init {
@@ -62,20 +64,23 @@ class AdminBusTicketAdapter (private val busTickets: MutableList<BusTicket>)
         val seat = holder.seatVal
         val status = holder.statusVal
         val image = holder.image
+        val duration = holder.duration
 
 //        busID.setText(busTicket.bus_id)
         passenger.setText(busTicket.name)
         startPoint.setText(busTicket.start_point)
         endPoint.setText(busTicket.end_point)
         phone.setText(busTicket.phone)
-        startTime.setText(busTicket.start_time)
-        endTime.setText(busTicket.end_time)
+        startTime.setText(dateFormat(busTicket.start_time))
+        endTime.setText(dateFormat(busTicket.end_time))
         seat.setText("Seat "+busTicket.seat)
+        duration.setText(getDuration(busTicket.start_time, busTicket.end_time))
         when (busTicket.status)
         {
             "0" -> status.setText("Chưa thanh toán")
             "1" -> status.setText("Chờ thanh toán")
             "2" -> status.setText("Đã thanh toán")
         }
+        image.setImageResource(R.drawable.ic_user_tie_solid)
     }
 }
