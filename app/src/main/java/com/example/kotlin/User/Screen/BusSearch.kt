@@ -102,6 +102,7 @@ class BusSearch : AppCompatActivity() {
                 // Intent to ChoosePickUpLocationActivity
                 val intent = Intent(holder.itemView.context, ChooseSeatActivity::class.java)
                 intent.putExtra("busId", items[position].id)
+                intent.putExtra("boId", items[position].bus_operators.id)
                 startActivity(holder.itemView.context, intent, null)
             }
         }

@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.text.HtmlCompat
+import com.example.kotlin.User.Screen.ChiTietChuyenXe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ class EnterInformationActiviy : AppCompatActivity() {
         val retrofit = APIServiceImpl()
 
         val busId = intent.getStringExtra("busId")
+        val boId = intent.getStringExtra("boId")
         val numOfSeats = intent.getStringExtra("numOfSeats")
         val busPickUpPointId = intent.getStringExtra("busPickUpPointId")
         val busPickUpPointName = intent.getStringExtra("busPickUpPointName")
@@ -32,6 +34,14 @@ class EnterInformationActiviy : AppCompatActivity() {
         val busDropDownPointId = intent.getStringExtra("busDropDownPointId")
         val busDropDownPointName = intent.getStringExtra("busDropDownPointName")
         val busDropDownPointLocation = intent.getStringExtra("busDropDownPointLocation")
+
+        val txtBusOperatorDetail = findViewById<AppCompatButton>(R.id.txtBusOperatorDetail)
+        txtBusOperatorDetail.setOnClickListener {
+            val intent = Intent(this, ChiTietChuyenXe::class.java)
+            intent.putExtra("bId", busId)
+            intent.putExtra("boId", boId)
+            startActivity(intent)
+        }
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
