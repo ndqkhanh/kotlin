@@ -7,6 +7,7 @@ const auth = require('../../middlewares/auth');
 const router = express.Router();
 
 router.route('/search').post(validate(busValidation.searchBus), busController.searchBus);
+router.route('/detail').get(validate(busValidation.getBusDetail), busController.getBusDetail);
 
 router.route('/:busId').get(validate(busValidation.getBusInformation), busController.getBusInformation);
 

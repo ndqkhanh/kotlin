@@ -231,6 +231,9 @@ interface BusService {
     @GET("/bus/search")
     fun searchBusses(): Call<BusResponse>
 
+    @GET("/v1/bus/detail")
+    fun getBusDetail(@Query("bId") bId: String): Call<BusDetail>
+
     // Admin
     @GET("admin/bus/list/{page}/{limit}")
     fun adminGetBuses(
@@ -359,6 +362,14 @@ interface BusOperatorService {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Call<ReviewList>
+
+    @POST("bus-operator/review/create/{boId}")
+    fun createReviews(
+        @Path("boId") boId: String,
+        @Body item: ReviewItem,
+        @Header("Authorization") token: String,
+    ): Call<ReviewItem>
+
 }
 
 
@@ -390,11 +401,11 @@ class APIServiceImpl {
         fun busOperatorService(): BusOperatorService {
             return busOperatorService
         }
+
+        fun busService(): BusService{
+            return busService
+        }
     }
-
-
-
-
 
     fun searchBusses(): BusService {
         return busService

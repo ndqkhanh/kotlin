@@ -17,8 +17,23 @@ const cloneBus = catchAsync(async (req, res) => {
   const newBus = await busService.cloneBus(req.body.id, req.body.start_time, req.body.end_time);
   res.send(newBus);
 });
+const getBusDetail = catchAsync(async (req, res) => {
+  const result = await busService.getBusDetail(req);
+  let bDetail = result[0]
+
+  let timespan = new Date(bDetail.start_time)
+  bDetail.start_date = timespan.toLocaleDateString("vi",{year: "numeric", month: "2-digit", day: "2-digit",})
+  bDetail.start_time = timespan.toLocaleTimeString("vi", { hour: "2-digit", minute: "2-digit" })
+
+  timespan = new Date(bDetail.end_time)
+  bDetail.end_date = timespan.toLocaleDateString("vi",{year: "numeric", month: "2-digit", day: "2-digit",})
+  bDetail.end_time = timespan.toLocaleTimeString("vi", { hour: "2-digit", minute: "2-digit" })
+
+  res.send(bDetail);
+});
 module.exports = {
   searchBus,
   getBusInformation,
   cloneBus,
+  getBusDetail,
 };

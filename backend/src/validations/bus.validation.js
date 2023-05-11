@@ -30,8 +30,14 @@ const cloneBus = {
     end_time: Joi.date().format(['YYYY/MM/DD']).required(),
   }),
 };
+const getBusDetail = {
+  query: Joi.object().keys({
+      bId: Joi.string().uuid().required(),
+    })
+}
 module.exports = {
   searchBus,
   getBusInformation,
   cloneBus,
+  getBusDetail,
 };

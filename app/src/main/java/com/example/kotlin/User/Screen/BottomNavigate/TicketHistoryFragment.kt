@@ -195,7 +195,7 @@ class TicketHistoryFragment : Fragment() {
         var callCurrent: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${UserInformation.TOKEN!!}",pageHT,limit, "current")
         callCurrent.enqueue(object : Callback<HistoryList>{
             override fun onResponse(call: Call<HistoryList>, response: Response<HistoryList>) {
-                if(response?.body() != null){
+                if(response.body() != null){
                     val res = response.body()!!
                     if(res.history_list.isNotEmpty()) {
                         veHT.addAll(res.history_list)
@@ -214,7 +214,7 @@ class TicketHistoryFragment : Fragment() {
         var callDone: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${UserInformation.TOKEN!!}",pageD,limit, "done")
         callDone.enqueue(object : Callback<HistoryList>{
             override fun onResponse(call: Call<HistoryList>, response: Response<HistoryList>) {
-                if(response?.body() != null){
+                if(response.body() != null){
                     val res = response.body()!!
                     if(res.history_list.isNotEmpty()){
                         veD.addAll(res.history_list)
@@ -234,7 +234,7 @@ class TicketHistoryFragment : Fragment() {
         var callDiscard: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${UserInformation.TOKEN!!}",pageH,limit, "discard")
         callDiscard.enqueue(object : Callback<HistoryList>{
             override fun onResponse(call: Call<HistoryList>, response: Response<HistoryList>) {
-                if(response?.body() != null){
+                if(response.body() != null){
                     val res = response.body()!!
                     if(res.history_list.isNotEmpty()) {
                         veH.addAll(res.history_list)
