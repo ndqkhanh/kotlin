@@ -75,7 +75,7 @@ class TicketHistoryAdapter(private var type: Int, private var items: MutableList
 
         holder.gia_ve.text = "${format.format(item.price * item.so_luong)}đ"
         holder.gio_bat_dau.text = item.start_time
-        holder.ngay_bat_dau.text = item.start_date
+        holder.ngay_bat_dau.text = "item.start_date"
         holder.tinh_den.text = item.tinh_don
         holder.tinh_di.text = item.tinh_tra
         holder.ten_nha_xe.text = item.ten_nha_xe

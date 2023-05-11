@@ -51,19 +51,19 @@
             android:name=".BlogSeeAllActivity"
             android:exported="false" />
         <activity
-            android:name=".PaymentActivity"
+            android:name=".User.Screen.Booking.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".ConfirmInformationActivity"
+            android:name=".User.Screen.Booking.ConfirmInformationActivity"
             android:exported="false" />
         <activity
-            android:name=".EnterInformationActiviy"
+            android:name=".User.Screen.Booking.EnterInformationActiviy"
             android:exported="false" />
         <activity
-            android:name=".ChooseDropDownLocationActivity"
+            android:name=".User.Screen.Booking.ChooseDropDownLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".ChoosePickUpLocationActivity"
+            android:name=".User.Screen.Booking.ChoosePickUpLocationActivity"
             android:exported="false" />
         <activity
             android:name=".UserAdmin.Screen.LogInUp"
