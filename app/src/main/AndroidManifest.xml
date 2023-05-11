@@ -90,9 +90,6 @@
             android:name=".BookingDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".BusDetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".Home"
             android:exported="false" />
         <activity
