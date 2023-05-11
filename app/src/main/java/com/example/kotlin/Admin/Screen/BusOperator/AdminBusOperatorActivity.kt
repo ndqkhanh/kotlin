@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.*
+import com.example.kotlin.utils.UserInformation
 import kotlinx.coroutines.*
 import retrofit2.awaitResponse
 
@@ -47,7 +48,8 @@ class AdminBusOperatorActivity:AppCompatActivity() {
             throwable.printStackTrace()
         }
 
-
+        var page = 0
+        var limit = 10
         GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
 
             var response = retrofit.getAllBusOperators().getBusOperators().awaitResponse()

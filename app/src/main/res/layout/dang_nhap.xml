@@ -30,7 +30,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/back_from_log_in"
+                android:id="@+id/back_from_login"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"

@@ -200,7 +200,7 @@ const getTicketByBusIdAndUserId = async (busId, userId) => {
 const discardTicket = async (req) => {
   const checkTicket = await prisma.bus_tickets.findUnique({
     where: {
-      id: req.body.tid,
+      id: req.query.tid,
     },
   });
   if (!checkTicket) {
@@ -208,7 +208,7 @@ const discardTicket = async (req) => {
   }
   return prisma.bus_tickets.update({
     where: {
-      id: req.body.tid,
+      id: req.query.tid,
     },
     data: {
       status: 2,

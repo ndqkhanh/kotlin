@@ -7,7 +7,7 @@ const boController = require('../../controllers/bo.controller');
 
 const router = express.Router();
 
-router.route('/review/:boId/:page/:limit').get(validate(boValidation.getReviews), boController.getReviews);
+router.route('/get-review').get(validate(boValidation.getReviews), boController.getReviews);
 
 router
   .route('/review/create/:boId')
@@ -15,6 +15,7 @@ router
 router.route('/list/:page/:limit').get(validate(boValidation.getBO), boController.viewBO);
 router.route('/create').post(auth('createBO'), validate(boValidation.createBO), boController.createBO);
 router.route('/update').post(auth('updateBO'), validate(boValidation.updateBO), boController.updateBO);
+router.route('/average-rating').get(validate(boValidation.getAverageRating), boController.getAverageRating);
 router.route('/:boId').delete(auth('deteleBO'), validate(boValidation.deleteBO), boController.deleteBO);
 router.route('/:boId').get(auth('getBOByID'), validate(boValidation.getBOByID), boController.getBOById);
 

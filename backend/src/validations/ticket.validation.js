@@ -22,7 +22,7 @@ const printTicket = {
   }),
 };
 const discardTicket = {
-  body: Joi.object().keys({
+  query: Joi.object().keys({
     tid: Joi.string().uuid().required(),
   }),
 };

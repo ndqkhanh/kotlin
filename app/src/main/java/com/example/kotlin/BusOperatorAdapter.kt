@@ -3,12 +3,8 @@ package com.example.kotlin
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlin.jsonConvert.Buses
-import okhttp3.internal.addHeaderLenient
 
 class BusOperatorAdapter(val busOperators: MutableList<BusOperator>): RecyclerView.Adapter<BusOperatorAdapter.ViewHolder>() {
     var onItemClick : ((BusOperator) -> Unit)? = null

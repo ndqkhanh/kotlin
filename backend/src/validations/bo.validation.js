@@ -2,7 +2,7 @@
 const Joi = require('joi');
 
 const getReviews = {
-  params: Joi.object().keys({
+  query: Joi.object().keys({
     boId: Joi.string().uuid().required(),
     page: Joi.number().required(),
     limit: Joi.number().required(),
@@ -50,6 +50,11 @@ const getBOByID = {
     boId: Joi.string().uuid().required(),
   }),
 };
+const getAverageRating = {
+  query: Joi.object().keys({
+    boId: Joi.string().uuid().required()
+  })
+}
 module.exports = {
   getBOByID,
   deleteBO,
@@ -58,4 +63,5 @@ module.exports = {
   getBO,
   getReviews,
   createReview,
+  getAverageRating,
 };

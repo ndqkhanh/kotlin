@@ -13,11 +13,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.kotlin.LogInUp
+import com.example.kotlin.UserAdmin.Screen.LogInUp
 import com.example.kotlin.R
-import com.example.kotlin.UserInformation
-import com.example.kotlin.jsonConvert.User
-import android.content.SharedPreferences
+import com.example.kotlin.utils.UserInformation
 import com.facebook.login.LoginManager
 import com.facebook.login.widget.ProfilePictureView
 import com.google.firebase.auth.ktx.auth

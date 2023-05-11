@@ -5,23 +5,20 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spanned
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.text.HtmlCompat
 import com.example.kotlin.*
-import com.example.kotlin.jsonConvert.Buses
+import com.example.kotlin.utils.UploadFile
+import com.example.kotlin.utils.UserInformation
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import okhttp3.internal.wait
 import retrofit2.awaitResponse
 import java.util.*
 
@@ -47,7 +44,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
     private var photoChosen = false
     private var photoUri: Uri? = null
     private var fileUpload = UploadFile()
-
+    private lateinit var edtContent: com.google.android.material.textview.MaterialTextView
 
     private var busType: MutableList<String> = mutableListOf("Ghế ngồi", "Giường nằm", "Giường nằm đôi")
 
@@ -71,7 +68,6 @@ class AdminBusCreateActivity: AppCompatActivity() {
     val token = "BEARER " + UserInformation.TOKEN
     val retrofit = APIServiceImpl()
 
-    // TODO Fragment not activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus_create)
@@ -119,7 +115,8 @@ class AdminBusCreateActivity: AppCompatActivity() {
 //            53000
 //        )
 
-
+        var page = 0
+        var limit = 50
         // get type of bus
         val busTypeAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, busType)
@@ -225,6 +222,15 @@ class AdminBusCreateActivity: AppCompatActivity() {
             selectImage()
         }
 
+
+        edtContent = findViewById(R.id.edtPolicy)
+        // intent to EditText Detail Activity when click on edtContent
+        edtContent.setOnClickListener {
+            val intent = Intent(this, EditTextDetailActivity::class.java)
+            intent.putExtra("content", HtmlCompat.toHtml(edtContent.text as Spanned, HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE))
+            startActivityForResult(intent, 567)
+        }
+
         // add new bus
         addBtn.setOnClickListener {
             // get start time, end time
@@ -240,7 +246,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
             Log.d("start_time ", start_time)
 
 
-            policy = "Hello"
+            policy = edtContent.text.toString()
 
             // get number of seats
             if (numOfSeatET.text.toString() != "")
@@ -256,7 +262,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
             }
 
 
-            if(bo_id.isEmpty() || start_point.isEmpty() || end_point.isEmpty() || start_time.isEmpty() || end_time.isEmpty() || num_of_seats == 0 || price == 0){
+            if(bo_id.isEmpty() || start_point.isEmpty() || end_point.isEmpty() || start_time.isEmpty() || end_time.isEmpty() || num_of_seats == 0 || price == 0 || policy.isEmpty()){
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -358,7 +364,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
 
             bottomSheetDialog.setContentView(bottomSheetView)
             bottomSheetDialog.show()
-            
+
         }
 
 
@@ -383,6 +389,17 @@ class AdminBusCreateActivity: AppCompatActivity() {
                 image.setImageURI(imageUri)
                 photoUri = imageUri
                 photoChosen = true
+            }
+        }else if(requestCode == 567) {
+            if (resultCode == Activity.RESULT_OK) {
+                // get content from EditTextDetailActivity
+                val content = data?.getStringExtra("content")
+                edtContent.setText(content?.let {
+                    HtmlCompat.fromHtml(
+                        it,
+                        HtmlCompat.FROM_HTML_MODE_LEGACY
+                    )
+                })
             }
         }
     }

@@ -129,7 +129,7 @@ const createBuses = () => {
     policy:
       '<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>',
     num_of_seats: faker.datatype.number({ min: 10, max: 50 }),
-    price: faker.datatype.number({ min: 1000000, max: 10000000 }),
+    price: faker.datatype.number({ min: 10000, max: 100000 }),
   };
 };
 

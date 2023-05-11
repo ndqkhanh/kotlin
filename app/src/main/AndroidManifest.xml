@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Admin.Screen.BottomNavigation.BottomAdminNavigation"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
@@ -34,9 +37,12 @@
             android:exported="false" />
         <activity
             android:name=".User.Screen.BottomNavigate.BottomNavigation"
-            android:exported="true"/>
+            android:exported="false" />
         <activity
-            android:name=".BusSearch"
+            android:name=".User.Screen.BottomNavigate.TicketHistory.ThongTinVeAcivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.Screen.BusSearch"
             android:exported="false" />
         <activity
             android:name=".BlogSeeAllActivity"
@@ -57,16 +63,13 @@
             android:name=".ChoosePickUpLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".LogInUp"
+            android:name=".UserAdmin.Screen.LogInUp"
             android:exported="false" />
         <activity
             android:name=".BlogManagementActivity"
             android:exported="false" />
         <activity
             android:name=".Admin.Screen.BusTicket.AdminBusTicketActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Admin.Screen.AdminActivity"
             android:exported="false" />
         <activity
             android:name=".Admin.Screen.AdminBlogCreateActivity"
@@ -88,6 +91,12 @@
             android:exported="false" />
         <activity
             android:name=".BookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.Screen.ChiTietChuyenXe"
+            android:exported="false" />
+        <activity
+            android:name=".BusDetailActivity"
             android:exported="false" />
         <activity
             android:name=".Home"

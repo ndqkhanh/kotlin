@@ -4,14 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.*
-import com.example.kotlin.Admin.Screen.Bus.AdminBusCreateActivity
-import com.example.kotlin.jsonConvert.Buses
+import com.example.kotlin.DataClass.Buses
+import com.example.kotlin.utils.UserInformation
 import kotlinx.coroutines.*
 import retrofit2.awaitResponse
 
@@ -24,14 +23,17 @@ class AdminBusActivity:AppCompatActivity() {
     val retrofit = APIServiceImpl()
 
     private val REQUEST_CODE = 1
+    private var isLoading = false
 
+    private var page = 0
+    private var limit = 10
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_bus)
 
 
         buses = mutableListOf()
-
+        busRV = findViewById(R.id.adminBusRV)
 
 
         // Add Button
@@ -55,9 +57,11 @@ class AdminBusActivity:AppCompatActivity() {
         }
 
 
+
+        // Load bus list into recycle view
         GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
             Log.d("token", token!!)
-            var response = retrofit.adminGetBuses().adminGetBuses(token!!).awaitResponse() // CHANGE
+            var response = retrofit.adminGetBuses().adminGetBuses(token!!, page, limit).awaitResponse() // CHANGE
             Log.d("Response", "vui 1" + response.message())
             // debug response
             Log.d("Response", response.toString())
@@ -70,22 +74,20 @@ class AdminBusActivity:AppCompatActivity() {
                 Log.d("busTickets vui 1: ", buses.size.toString())
 
                 withContext(Dispatchers.Main){
-                    val space = 50
-                    val itemDecoration = SpaceItemDecoration(space)
 
                     busAdapter = AdminBusAdapter(buses)
-                    busRV = findViewById(R.id.adminBusRV)
                     busRV.adapter = busAdapter
                     busRV.layoutManager = LinearLayoutManager(this@AdminBusActivity,
                         LinearLayoutManager.VERTICAL,false)
 
-                    busRV.addItemDecoration(itemDecoration)
 
                 }
 
             }
 
-            // TODO DELETE 1 BOOKING
+
+
+            //  DELETE 1 BOOKING
             busAdapter?.onButtonClick = {bus ->
                 GlobalScope.launch (Dispatchers.IO) {
                     Log.d("Button clicked" , bus.id)
@@ -101,6 +103,52 @@ class AdminBusActivity:AppCompatActivity() {
             }
 
         }
+
+        // RecycleView load more items
+        busRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (lastVisibleItemPosition == totalItemCount - 1 && !isLoading) {
+                    isLoading = true
+
+                    // Load more items here from your data source
+                    // Add the new items to the adapter's data set
+                    // Notify the adapter that new items have been added
+                    page ++
+                    GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
+
+                        var response = retrofit.adminGetBuses().adminGetBuses(token!!, page, limit).awaitResponse() // CHANGE
+                        Log.d("Response", "vui 1" + response.message())
+                        // debug response
+                        Log.d("Response", response.toString())
+                        if(response.isSuccessful){
+                            Log.d("Response", "vui 2")
+                            val data = response.body()!!
+                            Log.d("Response", data.toString())
+                            for (it in data.data) buses.add(it)
+
+                            Log.d("busTickets vui 1: ", buses.size.toString())
+
+                            withContext(Dispatchers.Main){
+
+//                                busAdapter = AdminBusAdapter(buses)
+                                busAdapter!!.notifyItemRangeInserted(page * limit, (page + 1) * limit - 1)
+
+                            }
+
+                        }
+                    }
+
+
+                    isLoading = false
+                }
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

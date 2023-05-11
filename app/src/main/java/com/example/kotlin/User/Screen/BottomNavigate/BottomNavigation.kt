@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.kotlin.*
-import com.example.kotlin.User.Screen.BottomNavigate.TicketHistory.TicketHistoryFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BottomNavigation : AppCompatActivity() {

@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.kotlin.Admin.Screen.AdminActivity
+import com.example.kotlin.Admin.Screen.BottomNavigation.BottomAdminNavigation
+import com.example.kotlin.Adapter.CustomBlogItem
+import com.example.kotlin.utils.UserInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -120,7 +122,7 @@ class Home : AppCompatActivity() {
             adminButtonLayout.visibility = View.GONE
         }
         adminBtn.setOnClickListener {
-            Intent(this, AdminActivity::class.java).also {
+            Intent(this, BottomAdminNavigation::class.java).also {
                 startActivity(it)
             }
         }
@@ -186,7 +188,7 @@ class Home : AppCompatActivity() {
                 }
             }
 
-            val response2 = retrofit.busOperatorService().getBusOperators().awaitResponse()
+            val response2 = APIServiceImpl.busOperatorService().getBusOperators().awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list

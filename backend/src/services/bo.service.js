@@ -2,7 +2,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
 const httpStatus = require('http-status');
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, sql } = require('@prisma/client');
 const ApiError = require('../utils/ApiError');
 
 const prisma = new PrismaClient();
@@ -17,30 +17,15 @@ const getReviews = async (boId, page, limit) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Bus operator not found');
   }
 
-  const data = await prisma.reviews.findMany({
-    skip: page * limit,
-    take: limit,
-    orderBy: {
-      rate: 'desc',
-    },
-    where: {
-      bo_id: boId,
-    },
-    include: {
-      users: {
-        select: {
-          email: true,
-        },
-      },
-    },
-  });
-  const count = await prisma.reviews.count({
-    where: {
-      bo_id: boId,
-    },
-  });
+  var getReviews = sql`select r.rate, r."comment", u.display_name name, u.avatar_url, u.email account_name, r.update_time ngay_review
+                         from reviews r join bus_operators bo on r.bo_id = bo.id join users u on u.id = r.user_id
+                         where bo.id = ${boId}
+                         order by r.update_time desc
+                         offset ${limit * page} rows fetch next ${limit} rows only`;
 
-  return { count, data };
+  var data = await prisma.$queryRaw(getReviews);
+
+  return  data ;
 };
 
 const createReview = async (userId, boId, rate, comment) => {
@@ -139,6 +124,28 @@ const deleteBO = async (req) => {
   });
   return message;
 };
+const getAverageRating = async (req) => {
+
+  const checkBoIdExist = await prisma.bus_operators.findUnique({
+    where: {
+      id: req.query.boId,
+    },
+  });
+  if (!checkBoIdExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Bus operator not found');
+  }
+
+  var getAvg = sql`select avg(r.rate) avg
+                        from reviews r
+                        join bus_operators bo
+                        on r.bo_id = bo.id
+                        where bo.id = ${req.query.boId}`;
+
+  res = await prisma.$queryRaw(getAvg);
+
+  return res
+
+};
 module.exports = {
   deleteBO,
   updateBO,
@@ -147,4 +154,5 @@ module.exports = {
   getReviews,
   createReview,
   getBusOperatorById,
+  getAverageRating,
 };

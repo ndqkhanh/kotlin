@@ -5,124 +5,134 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_review"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Đánh giá"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/average_star"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat"
-                    android:text="4.7"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/yellow_star_24" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView23"
+                        android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:layout_weight="1"
                         android:fontFamily="@font/montserrat"
-                        android:text="Chất lượng dịch vụ"
-                        android:textColor="@color/black" />
+                        android:text="Đánh giá"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/service_star"
+                        android:id="@+id/average_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/montserrat"
                         android:text="4.7"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/yellow_star_24" />
                 </LinearLayout>
 
-                <ProgressBar
-                    android:id="@+id/progressBar_chat_luong_dv"
-                    style="?android:attr/progressBarStyleHorizontal"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Chất lượng dịch vụ"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/service_star"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:text="4.7"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar_chat_luong_dv"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="500"
+                        android:progress="470"
+                        android:progressDrawable="@drawable/custom_progress_bar"
+                        android:progressTint="@color/progress" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginVertical="30dp"
+                    android:background="@color/attribute_gray" />
+
+                <TextView
+                    android:id="@+id/textView34"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="50"
-                    android:progress="47"
-                    android:progressDrawable="@drawable/custom_progress_bar"
-                    android:progressTint="@color/progress" />
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Chi tiết đánh giá"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_chi_tiet_danh_gia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <View
-                android:id="@+id/view6"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginVertical="30dp"
-                android:background="@color/attribute_gray" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <TextView
-                android:id="@+id/textView34"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="@font/montserrat"
-                android:text="Chi tiết đánh giá"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

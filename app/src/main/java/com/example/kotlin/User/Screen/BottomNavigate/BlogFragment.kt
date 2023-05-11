@@ -12,8 +12,8 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.kotlin.APIServiceImpl
 import com.example.kotlin.BlogDetailActivity
-import com.example.kotlin.BlogSeeAllAdapter
 import com.example.kotlin.R
+import com.example.kotlin.Adapter.BlogSeeAllAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

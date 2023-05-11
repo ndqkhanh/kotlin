@@ -2,23 +2,20 @@ package com.example.kotlin
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.kotlin.Admin.Screen.AdminActivity
-import com.example.kotlin.Admin.Screen.Bus.AdminBusActivity
 import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
-import com.example.kotlin.jsonConvert.HistoryList
-import com.example.kotlin.jsonConvert.User
-import com.facebook.CallbackManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
+import com.example.kotlin.Admin.Screen.BottomNavigation.BottomAdminNavigation
+import com.example.kotlin.utils.WaitingAsyncClass
+import com.example.kotlin.DataClass.HistoryList
+import com.example.kotlin.DataClass.User
+import com.example.kotlin.utils.UserInformation
+import com.facebook.login.LoginManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -26,36 +23,32 @@ import retrofit2.Call
 import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var callbackManager: CallbackManager
-    private lateinit var auth: FirebaseAuth
-    private lateinit var user: FirebaseUser
-    private lateinit var db: FirebaseDatabase
-    private lateinit var localEditor: SharedPreferences.Editor
-    private val retrofit = APIServiceImpl()
-    private val UserAPI = APIServiceImpl().userService()
+    private val UserAPI = APIServiceImpl.userService()
 
     private fun getLocalData(){
         var gson = Gson()
         val localStore = getSharedPreferences("vexere", Context.MODE_PRIVATE)
         var str_json_user = localStore.getString("user", null)
-        Log.i("str_json_user", str_json_user.toString())
         var token = localStore.getString("token", null)
 
         token?.let {
             var callLogIn: Call<HistoryList> = UserAPI.ticketHistory("Bearer ${token!!}",0,1, null)
             var respone: HistoryList? = WaitingAsyncClass(callLogIn).execute().get()
-            Log.i("respone uni", respone.toString())
             //token còn dùng được
             if(respone != null) {
                 val userType: Type = object : TypeToken<User?>() {}.type
                 UserInformation.USER = gson.fromJson(str_json_user, userType)
                 UserInformation.TOKEN = token
             }else{
+                Firebase.auth.signOut()
+                LoginManager.getInstance().logOut()
                 UserInformation.USER = null
                 UserInformation.TOKEN = null
             }
         }
         if(token == null){
+            Firebase.auth.signOut()
+            LoginManager.getInstance().logOut()
             UserInformation.USER = null
             UserInformation.TOKEN = null
         }
@@ -77,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         getLocalData()
 
         val userIntent = Intent(this, BottomNavigation::class.java)
-        val adminIntent = Intent(this, AdminActivity::class.java)
+        val adminIntent = Intent(this, BottomAdminNavigation::class.java)
         Log.d("UserInformation", UserInformation.USER?.role.toString())
 
         if(UserInformation.USER != null){
@@ -88,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             }else{
 //                Log.d("!@#","3")
                 finish()
-                // TODO qua admin ở đây
+                // qua admin ở đây
                 startActivity(adminIntent)
             }
         }else{
