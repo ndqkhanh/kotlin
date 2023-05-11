@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Kotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".User.Screen.ThemBinhLuan"
+            android:exported="false" />
+        <activity
             android:name=".Admin.Screen.BottomNavigation.BottomAdminNavigation"
             android:exported="false" />
 
