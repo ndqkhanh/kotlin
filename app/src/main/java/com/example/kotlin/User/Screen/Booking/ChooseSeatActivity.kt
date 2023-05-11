@@ -9,7 +9,7 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
-import com.example.kotlin.User.Screen.Booking.ChoosePickUpLocationActivity
+import com.example.kotlin.User.Screen.ChiTietChuyenXe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -24,14 +24,23 @@ class ChooseSeatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_seat)
 
+        val busId = intent.getStringExtra("busId")
+        val boId = intent.getStringExtra("boId")
+
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
         btnBack.setOnClickListener {
             finish()
         }
 
-        val retrofit = APIServiceImpl()
+        val txtBusOperatorDetail = findViewById<AppCompatButton>(R.id.txtBusOperatorDetail)
+        txtBusOperatorDetail.setOnClickListener {
+            val intent = Intent(this, ChiTietChuyenXe::class.java)
+            intent.putExtra("bId", busId)
+            intent.putExtra("boId", boId)
+            startActivity(intent)
+        }
 
-        val busId = intent.getStringExtra("busId")
+        val retrofit = APIServiceImpl()
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
@@ -127,6 +136,7 @@ class ChooseSeatActivity : AppCompatActivity() {
                             continueBtn.setOnClickListener {
                                 val intent = Intent(this@ChooseSeatActivity, ChoosePickUpLocationActivity::class.java)
                                 intent.putExtra("busId", busId)
+                                intent.putExtra("boId", boId)
                                 intent.putExtra("numOfSeats", txtNumOfSeats.text.toString())
                                 startActivity(intent)
                             }
