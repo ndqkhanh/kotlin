@@ -17,7 +17,7 @@ data class HistoryItem(
     val start_date: String,
     val start_time: String,
     val so_luong: Int,
-    val status: Int,
+    var status: Int,
     val ten_diem_don: String,
     val ten_diem_tra: String,
     val ten_nha_xe: String,
