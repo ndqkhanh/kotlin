@@ -6,6 +6,137 @@ const prisma = new PrismaClient();
 const ApiError = require('../utils/ApiError');
 const { convertDateToString } = require('../utils/dateFormat');
 
+const searchBus = async (req) => {
+  const { page, limit } = req.params;
+  const { boId, price, type } = req.body;
+
+  const query = {};
+
+  if (boId) {
+    query.bo_id = boId;
+  }
+
+  if (typeof type === 'number') {
+    query.type = type;
+  }
+
+  if (typeof price === 'number') {
+    query.price = {
+      gte: price,
+    };
+  }
+  const data = await prisma.buses.findMany({
+    skip: page * limit,
+    take: limit,
+    where: query,
+    include: {
+      bus_operators: {
+        select: { name: true },
+      },
+      bus_stations_bus_stationsTobuses_start_point: {
+        select: {
+          name: true,
+          location: true,
+        },
+      },
+      bus_stations_bus_stationsTobuses_end_point: {
+        select: {
+          name: true,
+          location: true,
+        },
+      },
+    },
+  });
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const bus of data) {
+    bus.left_seats =
+      bus.num_of_seats -
+      (await prisma.bus_tickets.count({
+        where: {
+          bus_id: bus.id,
+          status: {
+            in: [0, 1],
+          },
+        },
+      }));
+
+    bus.rating =
+      Math.round(
+        (
+          await prisma.reviews.aggregate({
+            _avg: {
+              rate: true,
+            },
+            where: {
+              bo_id: bus.bo_id,
+            },
+          })
+        )._avg.rate * 10
+      ) / 10;
+  }
+
+  return { data };
+};
+
+const searchBooking = async (req) => {
+  const { page, limit } = req.params;
+  const { name, status } = req.body;
+  const query = {};
+
+  if (name) {
+    query.name = {
+      contains: name,
+    };
+  }
+
+  if (typeof status === 'number') {
+    query.status = status;
+  }
+
+  console.log('query ', query);
+
+  const data = await prisma.bus_tickets.findMany({
+    skip: page * limit,
+    take: limit,
+    where: query,
+    include: {
+      buses: {
+        include: {
+          bus_operators: true,
+          bus_stations_bus_stationsTobuses_end_point: true,
+          bus_stations_bus_stationsTobuses_start_point: true,
+        },
+      },
+      users: {
+        select: {
+          email: true,
+        },
+      },
+    },
+  });
+
+  const formatData = [];
+  data.forEach(async (item) => {
+    formatData.push({
+      id: item.id,
+      bus_id: item.bus_id,
+      name: item.name,
+      start_point: item.buses.bus_stations_bus_stationsTobuses_start_point.name,
+      end_point: item.buses.bus_stations_bus_stationsTobuses_end_point.name,
+      start_time: item.buses.start_time,
+      end_time: item.buses.end_time,
+      seat: item.seat,
+      status: item.status,
+      phone: item.phone,
+    });
+  });
+
+  console.log('count ', formatData.length);
+
+  return { data: formatData };
+};
+
 const createBus = async (req) => {
   return prisma.buses.create({
     data: {
@@ -77,23 +208,12 @@ const getBusById = async (busId) => {
       id: busId,
     },
     include: {
-      bus_operators: {
-        select: { name: true },
-      },
-      bus_stations_bus_stationsTobuses_start_point: {
-        select: {
-          name: true,
-          location: true,
-        },
-      },
-      bus_stations_bus_stationsTobuses_end_point: {
-        select: {
-          name: true,
-          location: true,
-        },
-      },
+      bus_operators: true,
+      bus_stations_bus_stationsTobuses_start_point: true,
+      bus_stations_bus_stationsTobuses_end_point: true,
     },
   });
+
   return data;
 };
 const busList = async (page, limit, req) => {
@@ -141,6 +261,32 @@ const busList = async (page, limit, req) => {
     ],
   });
 
+  for (const bus of data) {
+    bus.left_seats =
+      bus.num_of_seats -
+      (await prisma.bus_tickets.count({
+        where: {
+          bus_id: bus.id,
+          status: {
+            in: [0, 1],
+          },
+        },
+      }));
+
+    bus.rating =
+      Math.round(
+        (
+          await prisma.reviews.aggregate({
+            _avg: {
+              rate: true,
+            },
+            where: {
+              bo_id: bus.bo_id,
+            },
+          })
+        )._avg.rate * 10
+      ) / 10;
+  }
   return { data };
 };
 
@@ -267,4 +413,6 @@ module.exports = {
   bookingGet,
   busList,
   bookingDelete,
+  searchBus,
+  searchBooking,
 };

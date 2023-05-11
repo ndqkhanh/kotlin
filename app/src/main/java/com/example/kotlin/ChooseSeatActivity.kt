@@ -38,7 +38,7 @@ class ChooseSeatActivity : AppCompatActivity() {
                     retrofit.bus().getBusById(busId!!).awaitResponse()
                 if (response.isSuccessful){
                     val body2 = response.body()
-                    Log.i("body", body2.toString())
+                    Log.i("body2", body2.toString())
                     launch(Dispatchers.Main) {
                         if (body2 != null) {
                             val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
