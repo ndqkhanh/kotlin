@@ -2,10 +2,10 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
-import { pointList, wardList, districtList, streetList, blogList } from '../../data/index.js';
 
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import { pointList, wardList, districtList, streetList, blogList } from '../../data/index.js';
 
 const prisma = new PrismaClient();
 faker.locale = 'vi';
