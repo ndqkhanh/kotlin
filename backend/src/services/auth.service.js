@@ -8,8 +8,8 @@ const ApiError = require('../utils/ApiError');
 
 const { tokenTypes } = require('../config/tokens');
 
-// const { PrismaClient } = require('@prisma/client');
-// const prisma = new PrismaClient();
+const { PrismaClient,sql } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 /**
  * Login with email and password
@@ -25,6 +25,11 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   // }
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
+  }
+  if (user.boid != null && user.role == 1){
+    const queryStr = sql`select bo."name"  from bus_operators bo where bo.id = ${user.boid}`
+    const result = await prisma.$queryRaw(queryStr);
+    user.display_name = result[0].name
   }
 
   return user;

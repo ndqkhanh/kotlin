@@ -38,8 +38,6 @@ class ChooseSeatActivity : AppCompatActivity() {
             val intent = Intent(this, ChiTietChuyenXe::class.java)
             intent.putExtra("bId", busId)
             intent.putExtra("boId", boId)
-            Log.i("bId uni inside", busId.toString())
-            Log.i("boId uni inside", boId.toString())
             startActivity(intent)
         }
 

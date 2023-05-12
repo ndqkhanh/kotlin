@@ -162,6 +162,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                     intent.putExtra("busOperatorName", txtBusOperatorName.text.toString())
                                                     intent.putExtra("time", txtTime.text.toString())
                                                     intent.putExtra("totalPrice", totalPrice)
+                                                    intent.putExtra("seats", body3.data.seats)
                                                     intent.putExtra("soLuong", txtSoVe.text)
                                                     startActivity(intent)
                                                 }

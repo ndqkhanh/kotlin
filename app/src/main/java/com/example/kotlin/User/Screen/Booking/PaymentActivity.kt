@@ -37,6 +37,10 @@ class PaymentActivity : AppCompatActivity() {
         val id = intent.getStringExtra("ticketId")
         val price = intent.getIntExtra("totalPrice", 0 )
         val numsOfTicket = intent.getStringExtra("soLuong")
+        val seats = intent.getStringExtra("seats")
+
+        val seatPaymentVal = findViewById<TextView>(R.id.seatPaymentVal)
+        seatPaymentVal.text = seats
 
         val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
         val txtTime = findViewById<TextView>(R.id.txtTime)

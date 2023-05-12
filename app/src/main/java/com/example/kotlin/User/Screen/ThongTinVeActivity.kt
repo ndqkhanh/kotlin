@@ -69,7 +69,7 @@ class ThongTinVeAcivity : AppCompatActivity() {
         diaChiDiemTra.text = itemHistory.dia_chi_diem_tra
         thoiGianDuKienDon.text = "Dự kiến đón lúc " + itemHistory.start_time + " • " + itemHistory.start_date
         thoiGianDuKienTra.text = "Dự kiến trả lúc " + itemHistory.end_time + " • " + itemHistory.end_date
-        tenKH.text = UserInformation.USER!!.display_name
+        tenKH.text = itemHistory.ten_khach_hang
         sdtKH.text = itemHistory.phone
         emailKH.text = UserInformation.USER!!.email_contact
         note.text = itemHistory.note

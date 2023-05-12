@@ -236,6 +236,12 @@ interface UserService {
 
     @GET("user/information")
     fun getUserByAccountName(@Query("username") username: String): Call<User>
+
+    @POST("user/update-avatar")
+    fun updateAvatar(
+        @Header("Authorization") token: String,
+        @Body data: SuccessMessage
+    ): Call<SuccessMessage>
 }
 
 interface BusService {
@@ -436,7 +442,7 @@ interface BusOperatorService {
 
 class APIServiceImpl {
     companion object{//singleton
-        private val BASE_URL = "http://192.168.1.6:3000/v1/"
+        private val BASE_URL = "http://192.168.1.7:3000/v1/"
 
         private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

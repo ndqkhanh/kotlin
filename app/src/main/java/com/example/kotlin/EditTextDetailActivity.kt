@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Html
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.view.*
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -17,6 +18,27 @@ class EditTextDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_text_detail)
 
         edtContent = findViewById(R.id.edtContent)
+
+        edtContent.customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                // Keep the text selection capability available (selection cursor)
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                // Prevent the menu from appearing
+                menu?.clear()
+                return false
+            }
+
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                return false
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode?) {
+                // Perform cleanup if needed
+            }
+        }
 
         val oldContent = intent.getStringExtra("content")
         if(oldContent != null) {
