@@ -25,7 +25,7 @@ const getReviews = async (boId, page, limit) => {
 
   var data = await prisma.$queryRaw(getReviews);
 
-  return  data ;
+  return data;
 };
 
 const createReview = async (userId, boId, rate, comment) => {
@@ -68,12 +68,25 @@ const getBusOperatorById = async (id) => {
 };
 
 const listBusOperator = async (req) => {
+  let condition = {};
+  if (req.user.role === 'bus_operator') {
+    user = await prisma.users.findFirst({
+      where: {
+        id: req.user.id,
+      },
+      select: {
+        boid: true,
+      },
+    });
+    condition = { id: user.boid };
+  }
   const listBO = await prisma.bus_operators.findMany({
     orderBy: {
       name: 'asc',
     },
     skip: req.params.page * req.params.limit,
     take: req.params.limit,
+    where: condition,
   });
   return { data: listBO };
 };
@@ -125,7 +138,6 @@ const deleteBO = async (req) => {
   return message;
 };
 const getAverageRating = async (req) => {
-
   const checkBoIdExist = await prisma.bus_operators.findUnique({
     where: {
       id: req.query.boId,
@@ -143,8 +155,7 @@ const getAverageRating = async (req) => {
 
   res = await prisma.$queryRaw(getAvg);
 
-  return res
-
+  return res;
 };
 module.exports = {
   deleteBO,
