@@ -43,6 +43,10 @@ export const blogList = [
     update_time: '2022-08-27T14:43:55.772Z',
   },
 ];
+export const busImage =
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkbqHUzNXU8zjNSUvKcrLGvsHQHAJGSn1pGw&usqp=CAU';
+export const busOperatorImage =
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx3I-IWgE2fJn8t7aPObYaPgFUjchsK8S84g&usqp=CAU';
 
 export const pointList = [
   'Bến xe buýt Chợ Bến Thành',

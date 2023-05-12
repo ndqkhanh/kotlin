@@ -1,5 +1,28 @@
 const Joi = require('joi').extend(require('@joi/date'));
 
+const searchBus = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+  body: Joi.object().keys({
+    boId: Joi.string().uuid(),
+    price: Joi.number(),
+    type: Joi.number(),
+  }),
+};
+
+const searchBooking = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+  body: Joi.object().keys({
+    name: Joi.string(),
+    status: Joi.number(),
+  }),
+};
+
 const createBus = {
   body: Joi.object().keys({
     bo_id: Joi.string().uuid().required(),
@@ -91,4 +114,6 @@ module.exports = {
   busList,
   bookingDelete,
   bookingList,
+  searchBus,
+  searchBooking,
 };

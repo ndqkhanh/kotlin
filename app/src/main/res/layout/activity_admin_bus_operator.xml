@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorListHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/autoNhaXe" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/adminBusOperatorListHeader"
@@ -64,4 +64,21 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <AutoCompleteTextView
+        android:id="@+id/autoNhaXe"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:completionThreshold="1"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="5dp"
+        android:padding="10dp"
+        android:hint="Tìm kiếm dựa trên tiêu đề"
+        android:textColorHint="#C6C6C6"
+        android:background="@drawable/custom_form_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminBusOperatorListHeader" />
 </androidx.constraintlayout.widget.ConstraintLayout>

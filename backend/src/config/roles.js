@@ -3,6 +3,7 @@ const allRoles = {
 
   bus_operator: [
     'bookingList',
+    'searchBooking',
     'busList',
     'cloneBus',
     'deleteTicket',
