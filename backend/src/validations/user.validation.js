@@ -42,6 +42,11 @@ const getUserByUsername = {
     username: Joi.string().required(),
   },
 }
+const updateAvatar = {
+  body:{
+    avatar_url: Joi.string().required()
+  },
+};
 
 module.exports = {
   getUsers,
@@ -50,4 +55,5 @@ module.exports = {
   getMyQuestions,
   getHistoryByUId,
   getUserByUsername,
+  updateAvatar,
 };

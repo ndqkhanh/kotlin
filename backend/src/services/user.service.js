@@ -183,6 +183,14 @@ const getUserByUsername = async (email) => {
     },
   });
 };
+const updateAvatar = async(req) =>{
+  const sqlStr = sql`update users
+                     set avatar_url  = ${req.body.avatar_url}
+                                             where id = ${req.user.id}`
+  const result = await prisma.$queryRaw(sqlStr);
+
+  return result;
+}
 module.exports = {
   getHistoryByUId,
   createUser,
@@ -193,4 +201,5 @@ module.exports = {
   countMyQuestions,
   getMyQuestionsPagination,
   getUserByUsername,
+  updateAvatar,
 };
