@@ -5,7 +5,7 @@
 
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
-import { pointList, wardList, districtList, streetList, blogList } from '../../data/index.js';
+import { pointList, wardList, districtList, streetList, blogList, busOperatorImage, busImage } from '../../data/index.js';
 
 const prisma = new PrismaClient();
 faker.locale = 'vi';
@@ -83,7 +83,7 @@ const POINT_BS = [];
 const createBusOperator = () => {
   return {
     id: faker.datatype.uuid(),
-    image_url: faker.image.imageUrl(180, 180),
+    image_url: busOperatorImage,
     phone: faker.phone.number('##########'),
     name: faker.name.fullName(),
   };
@@ -137,7 +137,7 @@ const createBuses = () => {
     type: Math.floor(Math.random() * 3),
     start_time: new Date(),
     end_time: faker.datatype.datetime({ min: currentTime, max: currentTime + month }),
-    image_url: faker.image.imageUrl(300, 200),
+    image_url: busImage,
     policy:
       '<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>',
     num_of_seats: faker.datatype.number({ min: 10, max: 50 }),
@@ -198,8 +198,11 @@ async function main() {
     POINTS.push(createPoint(wards, districts));
   });
 
-  Array.from({ length: 30 }).forEach(() => {
-    POINT_BS.push(createPointBs());
+  BUS_STATIONS.forEach((bs) => {
+    POINT_BS.push({
+      point_id: POINTS[Math.floor(Math.random() * POINTS.length)].id,
+      bs_id: bs.id,
+    });
   });
   Array.from({ length: 10000 }).forEach(() => {
     BUSES.push(createBuses());
