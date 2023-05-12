@@ -1,6 +1,16 @@
 const catchAsync = require('../utils/catchAsync');
 const { adminService } = require('../services');
 
+const searchBus = catchAsync(async (req, res) => {
+  const busData = await adminService.searchBus(req);
+  res.send(busData);
+});
+
+const searchBooking = catchAsync(async (req, res) => {
+  const bookingData = await adminService.searchBooking(req);
+  res.send(bookingData);
+});
+
 const createBus = catchAsync(async (req, res) => {
   const bus = await adminService.createBus(req);
 
@@ -58,4 +68,6 @@ module.exports = {
   bookingGet,
   busList,
   bookingDelete,
+  searchBus,
+  searchBooking,
 };

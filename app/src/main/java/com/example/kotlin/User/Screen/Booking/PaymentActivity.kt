@@ -23,8 +23,11 @@ import retrofit2.Response
 import vn.zalopay.sdk.ZaloPayError
 import vn.zalopay.sdk.ZaloPaySDK
 import vn.zalopay.sdk.listeners.PayOrderListener
+import java.text.DecimalFormat
 
 class PaymentActivity : AppCompatActivity() {
+    lateinit var totalTv: TextView
+    lateinit var numsOfTicketTV: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
@@ -33,6 +36,7 @@ class PaymentActivity : AppCompatActivity() {
         val time = intent.getStringExtra("time")
         val id = intent.getStringExtra("ticketId")
         val price = intent.getIntExtra("totalPrice", 0 )
+        val numsOfTicket = intent.getStringExtra("soLuong")
 
         val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
         val txtTime = findViewById<TextView>(R.id.txtTime)
@@ -64,6 +68,15 @@ class PaymentActivity : AppCompatActivity() {
             bottomSheetDialog.setContentView(bottomSheetView)
             bottomSheetDialog.show()
         }
+
+        val useDf = DecimalFormat("###,###,###")
+        totalTv = findViewById(R.id.costVal)
+        totalTv.text = useDf.format(price).replace(",",".") + "đ"
+
+        numsOfTicketTV = findViewById(R.id.numsOfTickets)
+        val ticketCount = numsOfTicket!!.split(" ").get(0).toInt()
+
+        numsOfTicketTV.text =  useDf.format(price / ticketCount).replace(",",".") + " x " + ticketCount.toString()
 
         findViewById<Button>(R.id.paymentBtn).setOnClickListener {
             if(id != null) {

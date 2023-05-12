@@ -18,6 +18,8 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
+    display_name: 'Nguyễn Phúc Bảo',
+    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96bcd',
@@ -26,6 +28,8 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
+    display_name: 'Nguyễn Đinh Quang Khánh',
+    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96afd',
@@ -34,6 +38,8 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
+    display_name: 'Nhà xe 1',
+    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96acf',
@@ -42,6 +48,8 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
+    display_name: 'Nhà xe 2',
+    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96fdf',
@@ -50,6 +58,8 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
+    display_name: 'Người dùng 1',
+    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96abf',
@@ -58,6 +68,8 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
+    display_name: 'Người dùng 2',
+    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
 ];
 const BUS_OPERATORS = [];
@@ -122,9 +134,9 @@ const createBuses = () => {
     bo_id: BUS_OPERATORS[Math.floor(Math.random() * BUS_OPERATORS.length)].id,
     start_point: BUS_STATIONS[Math.floor(Math.random() * BUS_STATIONS.length)].id,
     end_point: BUS_STATIONS[Math.floor(Math.random() * BUS_STATIONS.length)].id,
-    type: 1,
-    start_time,
-    end_time: faker.datatype.datetime({ min: new Date(start_time).getTime(), max: currentTime + month }),
+    type: Math.floor(Math.random() * 3),
+    start_time: new Date(),
+    end_time: faker.datatype.datetime({ min: currentTime, max: currentTime + month }),
     image_url: faker.image.imageUrl(300, 200),
     policy:
       '<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>',
@@ -133,21 +145,31 @@ const createBuses = () => {
   };
 };
 
+function generateString(n) {
+  let numbers = [];
+  for (let i = 0; i < n; i++) {
+    numbers.push(i);
+  }
+  return numbers.join(',');
+}
+
 const createBusTickets = () => {
   const bus = BUSES[Math.floor(Math.random() * BUSES.length)];
-  return {
-    id: faker.datatype.uuid(),
-    bus_id: bus.id,
-    user_id: USERS[Math.floor(Math.random() * USERS.length)].id,
-    name: faker.name.fullName(),
-    phone: faker.phone.number('##########'),
-    seats: '0,1,2,3,4',
-    status: faker.datatype.number({ min: 0, max: 2 }),
-    pick_up_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
-    drop_down_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
-    note: faker.lorem.paragraph(),
-    num_seats: 5,
-  };
+  const num_of_seats = Math.floor(Math.random() * 5) + 1;
+  for (let i = 0; i < num_of_seats; i++)
+    return {
+      id: faker.datatype.uuid(),
+      bus_id: bus.id,
+      user_id: USERS[Math.floor(Math.random() * USERS.length)].id,
+      name: faker.name.fullName(),
+      phone: faker.phone.number('##########'),
+      seats: generateString(num_of_seats),
+      status: faker.datatype.number({ min: 0, max: 2 }),
+      pick_up_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
+      drop_down_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
+      note: faker.lorem.paragraph(),
+      num_seats: num_of_seats,
+    };
 };
 
 const createReview = () => {
