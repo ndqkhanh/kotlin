@@ -10,6 +10,9 @@ router
   .route('/')
   .get(auth('getProfile'), userController.getProfile)
   .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
+router
+  .route('/update-avatar')
+  .post(auth('updateAvatar'), validate(userValidation.updateAvatar), userController.updateAvatar);
 
 router.route('/information').get(validate(userValidation.getUserByUsername), userController.getUserByUsername);
 

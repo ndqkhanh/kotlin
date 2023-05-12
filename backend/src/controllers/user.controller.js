@@ -71,6 +71,15 @@ const getUserByUsername = catchAsync(async (req, res) => {
   delete user.password;
   res.send(user);
 });
+const updateAvatar = catchAsync(async (req, res) => {
+  const result = await userService.updateAvatar(req);
+  let message = {}
+  message.message = "success"
+  if (result == null)
+    res.send(result);
+  else
+    res.send(message)
+});
 module.exports = {
   getHistoryByUId,
   createUser,
@@ -79,5 +88,6 @@ module.exports = {
   updateUser,
   getMyQuestions,
   getProfile,
-  getUserByUsername
+  getUserByUsername,
+  updateAvatar
 };

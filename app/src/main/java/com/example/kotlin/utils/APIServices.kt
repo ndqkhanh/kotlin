@@ -236,6 +236,12 @@ interface UserService {
 
     @GET("user/information")
     fun getUserByAccountName(@Query("username") username: String): Call<User>
+
+    @POST("user/update-avatar")
+    fun updateAvatar(
+        @Header("Authorization") token: String,
+        @Body data: SuccessMessage
+    ): Call<SuccessMessage>
 }
 
 interface BusService {

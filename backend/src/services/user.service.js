@@ -152,6 +152,7 @@ const getHistoryByUId = async (req) => {
 
   const querySQL = sql`select bt.id, bt.bus_id, bt.phone, bt.seats, bt.status, bt.num_seats so_luong, b.start_time, b.end_time,
                            		b.price, bo.name ten_nha_xe, p.name ten_diem_don,
+                              bt.name ten_khach_hang,
                            		p.location dia_chi_diem_don, p2.name ten_diem_tra, p2.location dia_chi_diem_tra,
                            		bs.name tinh_don, bs2.name tinh_tra, bt.note, b.type
                                              from bus_tickets bt
@@ -169,7 +170,7 @@ const getHistoryByUId = async (req) => {
                                              	on bs2.id = b.end_point
                                              where ${condition} bt.user_id = ${req.user.id}
                                              order by bt.update_time desc
-                  offset ${req.query.limit * req.query.page} rows fetch next ${req.query.limit} rows only`
+                  offset ${req.query.limit * req.query.page} rows fetch next ${req.query.limit} rows only`;
 
   historyList = await prisma.$queryRaw(querySQL);
 
@@ -183,6 +184,14 @@ const getUserByUsername = async (email) => {
     },
   });
 };
+const updateAvatar = async(req) =>{
+  const sqlStr = sql`update users
+                     set avatar_url  = ${req.body.avatar_url}
+                                             where id = ${req.user.id}`
+  const result = await prisma.$queryRaw(sqlStr);
+
+  return result;
+}
 module.exports = {
   getHistoryByUId,
   createUser,
@@ -193,4 +202,5 @@ module.exports = {
   countMyQuestions,
   getMyQuestionsPagination,
   getUserByUsername,
+  updateAvatar,
 };

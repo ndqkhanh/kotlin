@@ -10,7 +10,7 @@ const createTicket = catchAsync(async (req, res) => {
     req.user.id,
     req.user.email,
     req.params.busId,
-    'Nguyen Van A',
+    req.body.name,
     req.body.phone,
     req.body.num_of_seats,
     req.body.pick_up_point,

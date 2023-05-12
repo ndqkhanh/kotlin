@@ -14,6 +14,7 @@ data class HistoryItem(
     val phone: String,
     val price: Int,
     val seats: String,
+    val ten_khach_hang: String,
     val start_date: String,
     val start_time: String,
     val so_luong: Int,
