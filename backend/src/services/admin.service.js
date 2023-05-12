@@ -84,6 +84,19 @@ const searchBooking = async (req) => {
   const { name, status } = req.body;
   const query = {};
 
+  let condition = {};
+  if (req.user.role == 'bus_operator') {
+    user = await prisma.users.findFirst({
+      where: {
+        id: req.user.id,
+      },
+      select: {
+        boid: true,
+      },
+    });
+    condition = { bo_id: user.boid };
+  }
+
   if (name) {
     query.name = {
       contains: name,
@@ -118,18 +131,19 @@ const searchBooking = async (req) => {
 
   const formatData = [];
   data.forEach(async (item) => {
-    formatData.push({
-      id: item.id,
-      bus_id: item.bus_id,
-      name: item.name,
-      start_point: item.buses.bus_stations_bus_stationsTobuses_start_point.name,
-      end_point: item.buses.bus_stations_bus_stationsTobuses_end_point.name,
-      start_time: item.buses.start_time,
-      end_time: item.buses.end_time,
-      seat: item.seat,
-      status: item.status,
-      phone: item.phone,
-    });
+    if ((condition.bo_id && item.buses.bo_id === condition.bo_id) || !condition.bo_id)
+      formatData.push({
+        id: item.id,
+        bus_id: item.bus_id,
+        name: item.name,
+        start_point: item.buses.bus_stations_bus_stationsTobuses_start_point.name,
+        end_point: item.buses.bus_stations_bus_stationsTobuses_end_point.name,
+        start_time: item.buses.start_time,
+        end_time: item.buses.end_time,
+        seat: item.seat,
+        status: item.status,
+        phone: item.phone,
+      });
   });
 
   console.log('count: ', formatData.length);
@@ -291,8 +305,6 @@ const busList = async (page, limit, req) => {
 };
 
 const bookingDelete = async (req) => {
-  if (req.user.role !== 'admin') return false;
-
   const ticket = await prisma.bus_tickets.findUnique({
     where: {
       id: req.params.bid,
@@ -310,8 +322,20 @@ const bookingDelete = async (req) => {
 };
 const bookingList = async (page, limit, req) => {
   let data = null;
-  console.log(req.user.role);
-  if (req.user.role !== 'admin') return [];
+  let condition = {};
+  if (req.user.role == 'bus_operator') {
+    user = await prisma.users.findFirst({
+      where: {
+        id: req.user.id,
+      },
+      select: {
+        boid: true,
+      },
+    });
+    condition = { bo_id: user.boid };
+  }
+
+  // This bus list is filter when user is bus operator
 
   data = await prisma.bus_tickets.findMany({
     skip: page * limit,
@@ -334,18 +358,19 @@ const bookingList = async (page, limit, req) => {
 
   const formatData = [];
   data.forEach(async (item) => {
-    formatData.push({
-      id: item.id,
-      bus_id: item.bus_id,
-      name: item.name,
-      start_point: item.buses.bus_stations_bus_stationsTobuses_start_point.name,
-      end_point: item.buses.bus_stations_bus_stationsTobuses_end_point.name,
-      start_time: item.buses.start_time,
-      end_time: item.buses.end_time,
-      seat: item.seat,
-      status: item.status,
-      phone: item.phone,
-    });
+    if ((condition.bo_id && item.buses.bo_id === condition.bo_id) || !condition.bo_id)
+      formatData.push({
+        id: item.id,
+        bus_id: item.bus_id,
+        name: item.name,
+        start_point: item.buses.bus_stations_bus_stationsTobuses_start_point.name,
+        end_point: item.buses.bus_stations_bus_stationsTobuses_end_point.name,
+        start_time: item.buses.start_time,
+        end_time: item.buses.end_time,
+        seat: item.seat,
+        status: item.status,
+        phone: item.phone,
+      });
   });
 
   return { data: formatData };

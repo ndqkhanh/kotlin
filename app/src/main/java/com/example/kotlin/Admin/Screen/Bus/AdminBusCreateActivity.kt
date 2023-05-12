@@ -140,7 +140,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
 
         // get bus operator from autocompletetextview
         GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-            var responseBO = APIServiceImpl().getAllBusOperators().getBusOperators().awaitResponse()
+            var responseBO = APIServiceImpl().getAllBusOperators().getBusOperators(token).awaitResponse()
             val listBO = mutableListOf<String>()
             if (responseBO.isSuccessful) {
                 var data = responseBO.body()!!

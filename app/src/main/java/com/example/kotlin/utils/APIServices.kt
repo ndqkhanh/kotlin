@@ -394,7 +394,9 @@ const val limit = 50
 
 interface BusOperatorService {
     @GET("bus-operator/list/${page}/${limit}")
-    fun getBusOperators(): Call<BusOperatorResponse>
+    fun getBusOperators(
+        @Header("Authorization") token: String
+    ): Call<BusOperatorResponse>
 
     @DELETE("bus-operator/{bid}")
     fun deleteBusOperator(

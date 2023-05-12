@@ -4,17 +4,17 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.ImageButton
+import android.view.LayoutInflater
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.*
 import com.example.kotlin.Admin.Screen.Bus.AdminBusAdapter
 import com.example.kotlin.DataClass.Buses
 import com.example.kotlin.utils.UserInformation
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.*
 import retrofit2.awaitResponse
 
@@ -56,17 +56,62 @@ class AdminBusTicketActivity:AppCompatActivity() {
                     busTicketAdapter?.notifyItemRangeInserted(busTickets.size, busTickets.size + limit - 1)
                     // DELETE 1 BOOKING
                     busTicketAdapter?.onButtonClick = {busTicket ->
-                        GlobalScope.launch (Dispatchers.IO) {
-                            Log.d("Button clicked" , busTicket.bus_id)
-                            val result = retrofit.adminService().deleteBooking(token, busTicket.id).awaitResponse()
 
-                            withContext(Dispatchers.Main){
-                                val pos = busTickets.indexOf(busTicket)
-                                busTickets.removeAt(pos)
-                                busTicketAdapter?.notifyItemRemoved(pos)
+                        val bottomSheetDialog = BottomSheetDialog(
+                            this@AdminBusTicketActivity, com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+                        )
+                        val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
+                            R.layout.layout_payment_bottom_sheet,
+                            findViewById<ConstraintLayout>(R.id.bottomSheet)
+                        )
+
+                        bottomSheetView.findViewById<TextView>(R.id.txtTitle).text = "Bạn có chắc xóa vé xe này không?"
+
+                        bottomSheetView.findViewById<TextView>(R.id.txtMessage).text = "Hành động này không thể hoàn tác. Hãy chắc chắn rằng bạn đã kiểm tra kỹ thông tin trước khi xóa vé xe này."
+
+                        bottomSheetView.findViewById<Button>(R.id.btnBack).setOnClickListener {
+                            bottomSheetDialog.dismiss()
+                        }
+
+                        bottomSheetView.findViewById<Button>(R.id.btnPay).text = "Tiếp tục xóa vé xe"
+
+                        bottomSheetView.findViewById<Button>(R.id.btnPay).setOnClickListener{
+                            try{
+                                GlobalScope.launch (Dispatchers.IO) {
+                                    Log.d("Button clicked" , busTicket.bus_id)
+                                    val result = retrofit.adminService().deleteBooking(token, busTicket.id).awaitResponse()
+                                    if (result.isSuccessful){
+                                        withContext(Dispatchers.Main){
+                                            val pos = busTickets.indexOf(busTicket)
+                                            busTickets.removeAt(pos)
+                                            busTicketAdapter?.notifyItemRemoved(pos)
+                                        }
+                                        launch(Dispatchers.Main) {
+                                            Toast.makeText(this@AdminBusTicketActivity, "Xóa vé xe thành công", Toast.LENGTH_SHORT).show()
+                                            bottomSheetDialog.dismiss()
+                                        }
+                                    }
+                                    else {
+                                        launch(Dispatchers.Main) {
+                                            if(response.code() == 401){
+                                                Toast.makeText(
+                                                    this@AdminBusTicketActivity,
+                                                    "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                            catch(e: Exception){
+                                Toast.makeText(this@AdminBusTicketActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                             }
                         }
 
+                        bottomSheetDialog.setContentView(bottomSheetView)
+                        bottomSheetDialog.show()
                     }
 
                 }
@@ -162,24 +207,69 @@ class AdminBusTicketActivity:AppCompatActivity() {
                             busTicketRV.adapter = busTicketAdapter
 
                             // DELETE 1 BOOKING
+
                             busTicketAdapter?.onButtonClick = {busTicket ->
-                                GlobalScope.launch (Dispatchers.IO) {
-                                    Log.d("Button clicked" , busTicket.bus_id)
-                                    val result = retrofit.adminService().deleteBooking(token, busTicket.id).awaitResponse()
 
-                                    withContext(Dispatchers.Main){
-                                        var pos = newBusTickets.indexOf(busTicket)
-                                        newBusTickets.removeAt(pos)
-                                        busTicketAdapter?.notifyItemRemoved(pos)
+                                val bottomSheetDialog = BottomSheetDialog(
+                                    this@AdminBusTicketActivity, com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+                                )
+                                val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
+                                    R.layout.layout_payment_bottom_sheet,
+                                    findViewById<ConstraintLayout>(R.id.bottomSheet)
+                                )
 
-                                        pos = busTickets.indexOf(busTicket)
-                                        busTickets.removeAt(pos)
+                                bottomSheetView.findViewById<TextView>(R.id.txtTitle).text = "Bạn có chắc xóa vé xe này không?"
+
+                                bottomSheetView.findViewById<TextView>(R.id.txtMessage).text = "Hành động này không thể hoàn tác. Hãy chắc chắn rằng bạn đã kiểm tra kỹ thông tin trước khi xóa vé xe này."
+
+                                bottomSheetView.findViewById<Button>(R.id.btnBack).setOnClickListener {
+                                    bottomSheetDialog.dismiss()
+                                }
+
+                                bottomSheetView.findViewById<Button>(R.id.btnPay).text = "Tiếp tục xóa vé xe"
+
+                                bottomSheetView.findViewById<Button>(R.id.btnPay).setOnClickListener{
+                                    try{
+                                        GlobalScope.launch (Dispatchers.IO) {
+                                            Log.d("Button clicked" , busTicket.bus_id)
+                                            val result = retrofit.adminService().deleteBooking(token, busTicket.id).awaitResponse()
+                                            if (result.isSuccessful){
+                                                withContext(Dispatchers.Main){
+                                                    var pos = newBusTickets.indexOf(busTicket)
+                                                    newBusTickets.removeAt(pos)
+                                                    busTicketAdapter?.notifyItemRemoved(pos)
+
+                                                    pos = busTickets.indexOf(busTicket)
+                                                    busTickets.removeAt(pos)
+                                                }
+                                                launch(Dispatchers.Main) {
+                                                    Toast.makeText(this@AdminBusTicketActivity, "Xóa vé xe thành công", Toast.LENGTH_SHORT).show()
+                                                    bottomSheetDialog.dismiss()
+                                                }
+                                            }
+                                            else {
+                                                launch(Dispatchers.Main) {
+                                                    if(response.code() == 401){
+                                                        Toast.makeText(
+                                                            this@AdminBusTicketActivity,
+                                                            "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                    catch(e: Exception){
+                                        Toast.makeText(this@AdminBusTicketActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                                     }
                                 }
 
 
+                                bottomSheetDialog.setContentView(bottomSheetView)
+                                bottomSheetDialog.show()
                             }
-
 
                         }
 
@@ -191,21 +281,65 @@ class AdminBusTicketActivity:AppCompatActivity() {
             }
 
             // DELETE 1 BOOKING
-            busTicketAdapter?.onButtonClick = {busTicket ->
-                GlobalScope.launch (Dispatchers.IO) {
-                    Log.d("Button clicked" , busTicket.bus_id)
-                    val result = retrofit.adminService().deleteBooking(token, busTicket.id).awaitResponse()
 
-                    withContext(Dispatchers.Main){
-                        val pos = busTickets.indexOf(busTicket)
-                        busTickets.removeAt(pos)
-                        busTicketAdapter?.notifyItemRemoved(pos)
+            busTicketAdapter?.onButtonClick = {busTicket ->
+
+                val bottomSheetDialog = BottomSheetDialog(
+                    this@AdminBusTicketActivity, com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+                )
+                val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
+                    R.layout.layout_payment_bottom_sheet,
+                    findViewById<ConstraintLayout>(R.id.bottomSheet)
+                )
+
+                bottomSheetView.findViewById<TextView>(R.id.txtTitle).text = "Bạn có chắc xóa vé xe này không?"
+
+                bottomSheetView.findViewById<TextView>(R.id.txtMessage).text = "Hành động này không thể hoàn tác. Hãy chắc chắn rằng bạn đã kiểm tra kỹ thông tin trước khi xóa vé xe này."
+
+                bottomSheetView.findViewById<Button>(R.id.btnBack).setOnClickListener {
+                    bottomSheetDialog.dismiss()
+                }
+
+                bottomSheetView.findViewById<Button>(R.id.btnPay).text = "Tiếp tục xóa vé xe"
+
+                bottomSheetView.findViewById<Button>(R.id.btnPay).setOnClickListener{
+                    try{
+                        GlobalScope.launch (Dispatchers.IO) {
+                            Log.d("Button clicked" , busTicket.bus_id)
+                            val result = retrofit.adminService().deleteBooking(token, busTicket.id).awaitResponse()
+                            if (result.isSuccessful){
+                                withContext(Dispatchers.Main){
+                                    val pos = busTickets.indexOf(busTicket)
+                                    busTickets.removeAt(pos)
+                                    busTicketAdapter?.notifyItemRemoved(pos)
+                                }
+                                launch(Dispatchers.Main) {
+                                    Toast.makeText(this@AdminBusTicketActivity, "Xóa vé xe thành công", Toast.LENGTH_SHORT).show()
+                                    bottomSheetDialog.dismiss()
+                                }
+                            }
+                            else {
+                                launch(Dispatchers.Main) {
+                                    if(response.code() == 401){
+                                        Toast.makeText(
+                                            this@AdminBusTicketActivity,
+                                            "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    catch(e: Exception){
+                        Toast.makeText(this@AdminBusTicketActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-
+                bottomSheetDialog.setContentView(bottomSheetView)
+                bottomSheetDialog.show()
             }
-
         }
 
         // RecycleView load more items

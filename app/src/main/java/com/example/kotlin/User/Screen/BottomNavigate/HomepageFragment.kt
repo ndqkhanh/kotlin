@@ -54,7 +54,7 @@ class HomepageFragment : Fragment() {
     lateinit var searchBus: Button
     lateinit var viewAllNews: AppCompatButton
     lateinit var blogList: RecyclerView
-
+    val token = "BEARER " + UserInformation.TOKEN
     private fun selectImage(){
         // select image from local storage
         val intent = Intent(Intent.ACTION_PICK)
@@ -225,7 +225,7 @@ class HomepageFragment : Fragment() {
 
             }
 
-            val response2 = APIServiceImpl.busOperatorService().getBusOperators().awaitResponse()
+            val response2 = APIServiceImpl.busOperatorService().getBusOperators(token).awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list

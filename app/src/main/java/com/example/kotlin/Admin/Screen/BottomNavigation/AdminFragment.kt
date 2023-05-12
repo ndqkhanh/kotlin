@@ -15,6 +15,7 @@ import com.example.kotlin.AdminGridAdapter
 import com.example.kotlin.AdminItem
 import com.example.kotlin.BlogManagementActivity
 import com.example.kotlin.R
+import com.example.kotlin.utils.UserInformation
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +38,13 @@ class AdminFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_admin, container, false)
         var adminItemList = generateCompanyData() //implemened below
+
+        // If role == 1: bus operator
+        // adminItemList just 2
+        if (UserInformation.USER?.role == 1) {
+            adminItemList.removeLast() // remove bus op management
+            adminItemList.removeLast() // remove blog management
+        }
         grid = rootView.findViewById(R.id.adminGV)
         adapter = AdminGridAdapter(requireContext(), adminItemList)
         grid.adapter = adapter
