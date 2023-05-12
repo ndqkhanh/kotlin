@@ -22,7 +22,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
     lateinit var busOperatorRV: RecyclerView
     lateinit var busOperators: MutableList<BusOperator>
     lateinit var backBtn: ImageButton
-    lateinit var addBusOperatorBtn: ImageButton
+    lateinit var addBusOperatorBtn: Button
     private lateinit var autoNhaXe: AutoCompleteTextView
     var busOperatorAdapter: AdminBusOperatorAdapter? = null
     val REQUEST_CODE = 1111

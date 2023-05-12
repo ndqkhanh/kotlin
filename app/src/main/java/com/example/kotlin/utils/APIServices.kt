@@ -197,7 +197,7 @@ data class BusTicket(
     val end_point: String,
     val start_time: String,
     val end_time: String,
-    val seat: String,
+    val seats: String,
     val status: String,
     val phone: String
 )

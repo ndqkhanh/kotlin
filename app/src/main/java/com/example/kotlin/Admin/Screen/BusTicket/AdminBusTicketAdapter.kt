@@ -73,7 +73,7 @@ class AdminBusTicketAdapter (private val busTickets: MutableList<BusTicket>)
         phone.setText(busTicket.phone)
         startTime.setText(dateFormat(busTicket.start_time))
         endTime.setText(dateFormat(busTicket.end_time))
-        seat.setText("Seat "+busTicket.seat)
+        seat.setText("Seat "+busTicket.seats)
         duration.setText(getDuration(busTicket.start_time, busTicket.end_time))
         when (busTicket.status)
         {

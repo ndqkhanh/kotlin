@@ -140,7 +140,7 @@ const searchBooking = async (req) => {
         end_point: item.buses.bus_stations_bus_stationsTobuses_end_point.name,
         start_time: item.buses.start_time,
         end_time: item.buses.end_time,
-        seat: item.seat,
+        seats: item.seats,
         status: item.status,
         phone: item.phone,
       });
@@ -367,7 +367,7 @@ const bookingList = async (page, limit, req) => {
         end_point: item.buses.bus_stations_bus_stationsTobuses_end_point.name,
         start_time: item.buses.start_time,
         end_time: item.buses.end_time,
-        seat: item.seat,
+        seats: item.seats,
         status: item.status,
         phone: item.phone,
       });

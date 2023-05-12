@@ -26,7 +26,7 @@ import retrofit2.awaitResponse
 class AdminBusActivity:AppCompatActivity() {
     lateinit var busRV: RecyclerView
     lateinit var buses: MutableList<Buses>
-    lateinit var addBtn: ImageButton
+    lateinit var addBtn: Button
     lateinit var backBtn: ImageButton
     var busAdapter: AdminBusAdapter? = null
     val retrofit = APIServiceImpl
