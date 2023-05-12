@@ -66,7 +66,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
     var price: Int = 0
     var type: Int = 0
     val token = "BEARER " + UserInformation.TOKEN
-    val retrofit = APIServiceImpl()
+    val retrofit = APIServiceImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,7 +140,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
 
         // get bus operator from autocompletetextview
         GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-            var responseBO = retrofit.getAllBusOperators().getBusOperators().awaitResponse()
+            var responseBO = APIServiceImpl().getAllBusOperators().getBusOperators().awaitResponse()
             val listBO = mutableListOf<String>()
             if (responseBO.isSuccessful) {
                 var data = responseBO.body()!!
@@ -176,7 +176,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
 
         // get start point, end point from autocompletetextview
         GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-            var responseBS = retrofit.getAllBusStations().getBusStations().awaitResponse()
+            var responseBS = APIServiceImpl().getAllBusStations().getBusStations().awaitResponse()
             val list = mutableListOf<String>()
             if (responseBS.isSuccessful) {
                 var data = responseBS.body()!!
@@ -324,7 +324,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
                             price
                         )
 
-                        val response = retrofit.adminCreateBus().adminCreateBus(token, data).awaitResponse()
+                        val response = retrofit.adminService().createBus(token, data).awaitResponse()
                         Log.d("Response", "vui 1" + response.message())
                         // debug response
                         Log.d("Response", response.toString())

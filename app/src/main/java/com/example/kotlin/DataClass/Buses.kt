@@ -17,6 +17,8 @@ data class Buses(
     val price: Int,
     val start_point: String,
     val start_time: String,
-    val type: Int
+    val type: Int,
+    val left_seats: Int,
+    val rating: Float
 )
 
