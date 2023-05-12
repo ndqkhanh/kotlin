@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.User.Screen.Booking
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import com.example.kotlin.APIServiceImpl
+import com.example.kotlin.R
 import androidx.core.text.HtmlCompat
+import com.example.kotlin.User.Screen.ChiTietChuyenXe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,6 +28,7 @@ class EnterInformationActiviy : AppCompatActivity() {
         val retrofit = APIServiceImpl()
 
         val busId = intent.getStringExtra("busId")
+        val boId = intent.getStringExtra("boId")
         val numOfSeats = intent.getStringExtra("numOfSeats")
         val busPickUpPointId = intent.getStringExtra("busPickUpPointId")
         val busPickUpPointName = intent.getStringExtra("busPickUpPointName")
@@ -32,6 +36,14 @@ class EnterInformationActiviy : AppCompatActivity() {
         val busDropDownPointId = intent.getStringExtra("busDropDownPointId")
         val busDropDownPointName = intent.getStringExtra("busDropDownPointName")
         val busDropDownPointLocation = intent.getStringExtra("busDropDownPointLocation")
+
+        val txtBusOperatorDetail = findViewById<AppCompatButton>(R.id.txtBusOperatorDetail)
+        txtBusOperatorDetail.setOnClickListener {
+            val intent = Intent(this, ChiTietChuyenXe::class.java)
+            intent.putExtra("bId", busId)
+            intent.putExtra("boId", boId)
+            startActivity(intent)
+        }
 
         try {
             GlobalScope.launch(Dispatchers.IO) {
@@ -47,9 +59,15 @@ class EnterInformationActiviy : AppCompatActivity() {
                             val txtTime = findViewById<TextView>(R.id.txtTime)
                             txtTime.text = body2.start_time
 
-                            val edtPersonName = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtPersonName)
-                            val edtPhoneNumber = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtPhone)
-                            val edtNote = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtNote)
+                            val edtPersonName = findViewById<com.google.android.material.textfield.TextInputEditText>(
+                                R.id.edtPersonName
+                            )
+                            val edtPhoneNumber = findViewById<com.google.android.material.textfield.TextInputEditText>(
+                                R.id.edtPhone
+                            )
+                            val edtNote = findViewById<com.google.android.material.textfield.TextInputEditText>(
+                                R.id.edtNote
+                            )
 
                             val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
                             continueBtn.setOnClickListener {

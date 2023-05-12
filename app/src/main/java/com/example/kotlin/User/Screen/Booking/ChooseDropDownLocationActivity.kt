@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.User.Screen.Booking
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,6 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import com.example.kotlin.APIServiceImpl
+import com.example.kotlin.PickUpPointAdapter
+import com.example.kotlin.Point
+import com.example.kotlin.R
+import com.example.kotlin.User.Screen.ChiTietChuyenXe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,10 +31,19 @@ class ChooseDropDownLocationActivity : AppCompatActivity() {
         val retrofit = APIServiceImpl()
 
         val busId = intent.getStringExtra("busId")
+        val boId = intent.getStringExtra("boId")
         val numOfSeats = intent.getStringExtra("numOfSeats")
         val busPickUpPointId = intent.getStringExtra("busPickUpPointId")
         val busPickUpPointName = intent.getStringExtra("busPickUpPointName")
         val busPickUpPointLocation = intent.getStringExtra("busPickUpPointLocation")
+
+        val txtBusOperatorDetail = findViewById<AppCompatButton>(R.id.txtBusOperatorDetail)
+        txtBusOperatorDetail.setOnClickListener {
+            val intent = Intent(this, ChiTietChuyenXe::class.java)
+            intent.putExtra("bId", busId)
+            intent.putExtra("boId", boId)
+            startActivity(intent)
+        }
 
         val busDropDownPoints = ArrayList<Point>()
 
@@ -58,8 +72,10 @@ class ChooseDropDownLocationActivity : AppCompatActivity() {
                                                 continueBtn.isClickable = false
                                                 continueBtn.isEnabled = false
                                                 for (i in 0 until body2.data.size) {
-                                                    busDropDownPoints.add(Point(body2.data[i].point_id, body.end_time,
-                                                        body2.data[i].points.name, body2.data[i].points.location))
+                                                    busDropDownPoints.add(
+                                                        Point(body2.data[i].point_id, body.end_time,
+                                                        body2.data[i].points.name, body2.data[i].points.location)
+                                                    )
                                                 }
                                                 val listView = findViewById<ListView>(R.id.lvDiemTra)
                                                 val adapter = PickUpPointAdapter(this@ChooseDropDownLocationActivity, busDropDownPoints)
@@ -69,7 +85,9 @@ class ChooseDropDownLocationActivity : AppCompatActivity() {
                                                         adapter.setSelectedItem(position)
                                                         continueBtn.isClickable = true
                                                         continueBtn.isEnabled = true
-                                                        continueBtn.setBackgroundDrawable(getDrawable(R.drawable.yellow_panel))
+                                                        continueBtn.setBackgroundDrawable(getDrawable(
+                                                            R.drawable.yellow_panel
+                                                        ))
                                                     }
                                                 continueBtn.setOnClickListener {
                                                     if(adapter.getSelectedPosition() == -1) {

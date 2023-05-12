@@ -45,7 +45,7 @@ class BusSearch : AppCompatActivity() {
         }
     }
     class CustomItem(private val items: List<Bus>): RecyclerView.Adapter<CustomItem.ViewHolder>() {
-        var onItemClick: ((String) -> Unit)? = null
+        var onItemClick: ((Bus) -> Unit)? = null
 
         inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView) {
 //            val itemName = listItemView.findViewById(R.id.itemName) as TextView
@@ -64,7 +64,7 @@ class BusSearch : AppCompatActivity() {
             val thisItem = listItemView.findViewById<ConstraintLayout>(R.id.bus_search_item)
             init {
                 thisItem.setOnClickListener {
-                    onItemClick?.invoke(items[adapterPosition].bo_id)
+                    onItemClick?.invoke(items[adapterPosition])
                 }
             }
         }
@@ -102,7 +102,7 @@ class BusSearch : AppCompatActivity() {
                 // Intent to ChoosePickUpLocationActivity
                 val intent = Intent(holder.itemView.context, ChooseSeatActivity::class.java)
                 intent.putExtra("busId", items[position].id)
-                Log.d("busId", items[position].id)
+                intent.putExtra("boId", items[position].bus_operators.id)
                 startActivity(holder.itemView.context, intent, null)
             }
         }
@@ -143,9 +143,10 @@ class BusSearch : AppCompatActivity() {
                     if(page == 0){
                         busAdapter = CustomItem(listBuses)
                         rv_bus_search!!.adapter = busAdapter
-                        val openDetailDialog: ((String)->Unit)? = {
+                        val openDetailDialog: ((Bus)->Unit)? = {
                             val viewDetail = Intent(this@BusSearch, ChiTietChuyenXe::class.java)
-                            viewDetail.putExtra("boId", it)
+                            viewDetail.putExtra("boId", it.bo_id)
+                            viewDetail.putExtra("bId",it.id)
                             startActivity(viewDetail)
                         }
                         busAdapter.onItemClick = openDetailDialog

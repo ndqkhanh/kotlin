@@ -17,6 +17,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="11dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/chi_tiet_ve_back"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/bo_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Bình Minh Bus"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/thoi_gian_tren_bo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="22:10 • 12/05/2023"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
         <ImageButton
             android:id="@+id/chi_tiet_ve_back"
             android:layout_width="48dp"
@@ -29,18 +59,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_10" />
 
-        <TextView
-            android:id="@+id/log_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="Chi tiết chuyến xe"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chi_tiet_ve_back"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TabHost
@@ -74,26 +92,34 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <include layout="@layout/danh_gia" />
+                    <include layout="@layout/chi_tiet_diem_don_tra" />
 
                 </LinearLayout>
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/tab2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:orientation="vertical">-->
-<!--                    <include layout="@layout/danh_gia" />-->
-<!--                </LinearLayout>-->
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <include layout="@layout/danh_gia" />
+                </LinearLayout>
 
 
-                <!--                <LinearLayout-->
-                <!--                    android:id="@+id/tab3"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:orientation="vertical">-->
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <include layout="@layout/chi_tiet_hinh_anh_nha_xe_chuyen_xe" />
+                </LinearLayout>
 
-                <!--                </LinearLayout>-->
+                <LinearLayout
+                    android:id="@+id/tab4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <include layout="@layout/chi_tiet_chinh_sach_tro_giup" />
+                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>

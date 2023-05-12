@@ -22,31 +22,28 @@ const ApiError = require('../utils/ApiError');
 
 const prisma = new PrismaClient();
 
-const payTicket = async (userId, ticketIds) => {
-  for (let i = 0; i < ticketIds.length; i++) {
-    const ticketCheck = await prisma.bus_tickets.findFirst({
-      where: {
-        id: ticketIds[i],
-        user_id: userId,
-      },
-    });
-    if (!ticketCheck) {
-      throw new ApiError(httpStatus.NOT_FOUND, `Ticket ID ${ticketIds[i]} not found or not belong to user ID ${userId}`);
-    }
+const payTicket = async (userId, tId) => {
+
+  const ticketCheck = await prisma.bus_tickets.findFirst({
+    where: {
+      id: tId,
+      user_id: userId,
+    },
+  });
+  if (!ticketCheck) {
+    throw new ApiError(httpStatus.NOT_FOUND, `Ticket ID ${tId} not found or not belong to user ID ${userId}`);
   }
-  for (let i = 0; i < ticketIds.length; i++) {
-    const ticket = await prisma.bus_tickets.update({
-      where: {
-        id: ticketIds[i],
-      },
-      data: {
-        status: 1,
-        update_time: new Date(),
-      },
-    });
-    if (!ticket) {
-      throw new ApiError(httpStatus.NOT_FOUND, `Ticket ID ${ticketIds[i]} not updated successfully`);
-    }
+  const ticket = await prisma.bus_tickets.update({
+    where: {
+      id: tId,
+    },
+    data: {
+      status: 1,
+      update_time: new Date(),
+    },
+  });
+  if (!ticket) {
+    throw new ApiError(httpStatus.NOT_FOUND, `Ticket ID ${tId} not updated successfully`);
   }
 
   return { message: 'Pay ticket successfully' };

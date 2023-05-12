@@ -28,8 +28,8 @@ const discardTicket = {
 };
 
 const payTicket = {
-  body: Joi.object().keys({
-    ticket_ids: Joi.array().required(),
+  query: Joi.object().keys({
+    tId: Joi.string().uuid().required(),
   }),
 };
 
