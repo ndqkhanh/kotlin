@@ -263,13 +263,27 @@
                     app:layout_constraintTop_toBottomOf="@+id/costVal" />
 
                 <TextView
-                    android:id="@+id/seatPaymentVal"
+                    android:id="@+id/magheTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mã ghế/giường 10"
+                    android:layout_margin="15dp"
+                    android:fontFamily="@font/montserrat_light"
+                    android:text="Mã ghế/giường"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+                <TextView
+                    android:id="@+id/seatPaymentVal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:fontFamily="@font/montserrat_medium"
+                    android:text="0"
+                    android:gravity="end"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/magheTitle"
                     app:layout_constraintTop_toBottomOf="@+id/numsOfTickets" />
 
                 <ImageView
