@@ -205,9 +205,9 @@ class BusSearch : AppCompatActivity() {
         filterBusType.setOnClickListener {
             FragmentOperatorFilter().apply {
                 var listBusType = ArrayList<ListItemFormat>()
-                listBusType.add(ListItemFormat("0", "Hạng sang"))
-                listBusType.add(ListItemFormat("1", "Thường"))
-                listBusType.add(ListItemFormat("2", "Giường"))
+                listBusType.add(ListItemFormat("0", "Ghế ngồi"))
+                listBusType.add(ListItemFormat("1", "Giường nằm"))
+                listBusType.add(ListItemFormat("2", "Giường nằm đôi"))
 
                 // pass listBusOperators to FragmentOperatorFilter
                 arguments = Bundle().apply {

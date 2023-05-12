@@ -29,10 +29,9 @@ const searchBus = async (body) => {
   };
 
   if (startTime) {
-    query.start_time = {
-      gte: startTime,
-    };
+    query.start_time = startTime;
   }
+  console.log('query', query);
 
   if (boId) {
     query.bo_id = boId;
@@ -57,7 +56,6 @@ const searchBus = async (body) => {
       bus_stations_bus_stationsTobuses_start_point: true,
     },
   });
-
   for (const bus of data) {
     bus.start_point = bus.bus_stations_bus_stationsTobuses_start_point;
     bus.end_point = bus.bus_stations_bus_stationsTobuses_end_point;

@@ -78,9 +78,9 @@ class Home : AppCompatActivity() {
             val localDate = LocalDate.parse(inputDateString, inputFormatter)
             val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val localDateTime = localDate.atStartOfDay()
-            val zonedDateTime = localDateTime.atZone(ZoneId.of("America/New_York"))
-            val outputDateString = outputFormatter.format(zonedDateTime)
-            Log.d("outputDateString", outputDateString)
+            val zonedDateTime = localDateTime.atZone(ZoneId.of("Asia/Ho_Chi_Minh"))
+            val outputDateString = outputFormatter.format(localDateTime)
+            Log.d("localDateTime", outputDateString)
             GlobalScope.launch (Dispatchers.IO) {
                 val response = APIServiceImpl().searchBusses().search(BusSearchRequest(departureId, destinationId, page, limit, outputDateString, pricing, typeOfSeatValue, busOperatorId)).awaitResponse()
                 Log.d("Search", response.toString())
@@ -162,12 +162,14 @@ class Home : AppCompatActivity() {
         datePicker.isClickable = true
         datePicker.isCursorVisible = false
 
+        Log.d("test", "test2")
         datePicker.setOnClickListener {
-            DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                Log.d("Date", "$dayOfMonth/$month/$year")
-                // set date to date picker
-                datePicker.setText("$dayOfMonth/$month/$year")
-            }, 2020, 1, 1).show()
+            // open DatePickerDialog
+            val datePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                // set text for datePicker
+                Log.d("test", "${month + 1}/$dayOfMonth/$year")
+                datePicker.setText("${month + 1}/$dayOfMonth/$year")
+            }, 2023, 5, 12)
         }
 
         val retrofit = APIServiceImpl()
