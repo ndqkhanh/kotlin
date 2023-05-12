@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.User.Screen.Booking
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import com.example.kotlin.APIServiceImpl
+import com.example.kotlin.R
 import androidx.core.text.HtmlCompat
 import com.example.kotlin.User.Screen.ChiTietChuyenXe
 import kotlinx.coroutines.Dispatchers
@@ -57,9 +59,15 @@ class EnterInformationActiviy : AppCompatActivity() {
                             val txtTime = findViewById<TextView>(R.id.txtTime)
                             txtTime.text = body2.start_time
 
-                            val edtPersonName = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtPersonName)
-                            val edtPhoneNumber = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtPhone)
-                            val edtNote = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtNote)
+                            val edtPersonName = findViewById<com.google.android.material.textfield.TextInputEditText>(
+                                R.id.edtPersonName
+                            )
+                            val edtPhoneNumber = findViewById<com.google.android.material.textfield.TextInputEditText>(
+                                R.id.edtPhone
+                            )
+                            val edtNote = findViewById<com.google.android.material.textfield.TextInputEditText>(
+                                R.id.edtNote
+                            )
 
                             val continueBtn = findViewById<AppCompatButton>(R.id.continueBtn)
                             continueBtn.setOnClickListener {
@@ -78,6 +86,7 @@ class EnterInformationActiviy : AppCompatActivity() {
                                 if(flag) return@setOnClickListener
                                 val intent = Intent(this@EnterInformationActiviy, ConfirmInformationActivity::class.java)
                                 intent.putExtra("busId", busId)
+                                intent.putExtra("boId", boId)
                                 intent.putExtra("busPickUpPointId", busPickUpPointId)
                                 intent.putExtra("busPickUpPointName", busPickUpPointName)
                                 intent.putExtra("busPickUpPointLocation", busPickUpPointLocation)

@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
+import com.example.kotlin.User.Screen.Booking.ChoosePickUpLocationActivity
 import com.example.kotlin.User.Screen.ChiTietChuyenXe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -37,6 +38,8 @@ class ChooseSeatActivity : AppCompatActivity() {
             val intent = Intent(this, ChiTietChuyenXe::class.java)
             intent.putExtra("bId", busId)
             intent.putExtra("boId", boId)
+            Log.i("bId uni inside", busId.toString())
+            Log.i("boId uni inside", boId.toString())
             startActivity(intent)
         }
 

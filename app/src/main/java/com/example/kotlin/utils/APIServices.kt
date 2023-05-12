@@ -293,6 +293,12 @@ interface TicketService {
         @Header("Authorization") token: String
     ): Call<HistoryItem>
 
+    @POST("ticket/payment")
+    fun payTicket(
+        @Query("tId") tid: String,
+        @Header("Authorization") token: String
+    ): Call<SuccessMessage>
+
     //route là admin mà sao để ở ticket???
     @GET("admin/booking/list/{page}/{limit}")
     fun getBookingList(

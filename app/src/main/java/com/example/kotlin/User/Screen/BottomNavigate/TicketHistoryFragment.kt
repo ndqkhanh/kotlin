@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +22,14 @@ import com.example.kotlin.utils.UserInformation
 import com.example.kotlin.utils.WaitingAsyncClass
 import com.example.kotlin.DataClass.HistoryItem
 import com.example.kotlin.DataClass.HistoryList
+import com.example.kotlin.DataClass.SuccessMessage
+import com.example.kotlin.utils.ZaloPay.CreateOrder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import vn.zalopay.sdk.ZaloPayError
+import vn.zalopay.sdk.ZaloPaySDK
+import vn.zalopay.sdk.listeners.PayOrderListener
 
 class TicketHistoryFragment : Fragment() {
     private lateinit var tabHost: TabHost
@@ -48,6 +54,7 @@ class TicketHistoryFragment : Fragment() {
     private lateinit var srl_H: SwipeRefreshLayout
     private lateinit var srl_D: SwipeRefreshLayout
     private var ticketAPI = APIServiceImpl.ticketService()
+    private var token = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -98,6 +105,7 @@ class TicketHistoryFragment : Fragment() {
             startActivity(intentCTVe)
         }
         var discardEvent: (HistoryItem, Int) -> Unit = { item, id->
+            Log.i("abc!@#", "discard")
             val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Hủy vé").setMessage("Lưu ý rằng khi hủy vé, bạn sẽ không được hoàn tiền")
             .setPositiveButton("Hủy vé") { dialogInterface, i ->
@@ -119,11 +127,17 @@ class TicketHistoryFragment : Fragment() {
             val alert: AlertDialog = builder.create()
             alert.show()
         }
+        var payEvent: (HistoryItem, Int) -> Unit = { item, id->
+
+            zp(item, id)
+        }
+
         veHTAdapter.onItemClick = itemEvent
         veHAdapter.onItemClick = itemEvent
         veDAdapter.onItemClick = itemEvent
 
         veHTAdapter.onDiscard = discardEvent
+        veHTAdapter.onPayTicket = payEvent
 
         if(UserInformation.TOKEN != null){
             startCurrent()
@@ -144,6 +158,59 @@ class TicketHistoryFragment : Fragment() {
         }
 
     }
+
+    private fun zp(item: HistoryItem, id: Int){
+        val orderApi = CreateOrder()
+
+        val data = orderApi.createOrder((item.price * item.so_luong).toString())
+        val code = data.getString("return_code")
+
+        if (code == "1") {
+
+            val token = data.getString("zp_trans_token")
+            ZaloPaySDK.getInstance().payOrder(requireActivity(), token, "demozpdk://app", object :
+                PayOrderListener {
+                override fun onPaymentCanceled(zpTransToken: String, appTransID: String) {
+                    //Handle User Canceled
+                    Log.i("abcd","can")
+                }
+
+                override fun onPaymentError(
+                    zaloPayErrorCode: ZaloPayError,
+                    zpTransToken: String,
+                    appTransID: String
+                ) {
+                    //Redirect to Zalo/ZaloPay Store when zaloPayError == ZaloPayError.PAYMENT_APP_NOT_FOUND
+                    //Handle Error
+                }
+
+                override fun onPaymentSucceeded(
+                    transactionId: String,
+                    transToken: String,
+                    appTransID: String
+                ) {
+                    //Handle Success
+
+                }
+            })
+        }
+        val callPay = APIServiceImpl.ticketService().payTicket(item.id, "Bearer ${UserInformation.TOKEN!!}")
+        callPay.enqueue(object : Callback<SuccessMessage> {
+            override fun onResponse(
+                call: Call<SuccessMessage>,
+                response: Response<SuccessMessage>
+            ) {
+                item.status = 1
+                veHTAdapter.notifyItemChanged(id)
+            }
+
+            override fun onFailure(call: Call<SuccessMessage>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+
+    }
+
     private fun startCurrent(){
         pageHT = 0
         veHT.clear()

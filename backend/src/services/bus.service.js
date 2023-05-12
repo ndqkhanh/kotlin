@@ -219,10 +219,9 @@ const getBusDetail = async (req) => {
                        	join point_bs pbs on pbs.bs_id = bss.id
                        	join point_bs pbe on pbe.bs_id = bse.id
                        	join points ps on ps.id = pbs.point_id
-                       	join points pe on pe.id = pbe.point_id `
+                       	join points pe on pe.id = pbe.point_id `;
 
-  result = await prisma.$queryRaw(sqlQuery);
-
+  const result = await prisma.$queryRaw(sqlQuery);
   return result;
 };
 module.exports = {
