@@ -65,7 +65,20 @@ class AdminBusActivity:AppCompatActivity() {
                     }
                     busAdapter?.notifyItemRangeInserted(page * limit, (page -1 ) * limit)
 
+                    //  DELETE 1 BOOKING
+                    busAdapter?.onButtonClick = {bus ->
+                        GlobalScope.launch (Dispatchers.IO) {
+                            Log.d("Button clicked" , bus.id)
+                            val result = retrofit.adminService().deleteBus(token, bus.id).awaitResponse()
 
+                            withContext(Dispatchers.Main){
+                                val pos = buses.indexOf(bus)
+                                buses.removeAt(pos)
+                                busAdapter?.notifyItemRemoved(pos)
+                            }
+                        }
+
+                    }
                 }
             }
         }

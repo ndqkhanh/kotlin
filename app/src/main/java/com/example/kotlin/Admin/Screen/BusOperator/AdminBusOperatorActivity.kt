@@ -96,15 +96,35 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                         override fun afterTextChanged(p0: Editable?) {}
 
                         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                            var newBusOperator: MutableList<BusOperator> = mutableListOf()
                             if (p0?.toString()!!.isEmpty()) {
-                                busOperatorAdapter = AdminBusOperatorAdapter(busOperators)
-                                busOperatorRV.adapter = busOperatorAdapter
+                                newBusOperator.addAll(busOperators)
                             }
                             else {
-                                val newBusOperator: MutableList<BusOperator>
                                 newBusOperator = busOperators.filter { it-> it.name.contains(p0.toString()) } as MutableList<BusOperator>
-                                busOperatorAdapter = AdminBusOperatorAdapter(newBusOperator)
-                                busOperatorRV.adapter = busOperatorAdapter
+                            }
+
+                            busOperatorAdapter = AdminBusOperatorAdapter(newBusOperator)
+                            busOperatorRV.adapter = busOperatorAdapter
+
+                            // DELETE 1 BOOKING
+                            busOperatorAdapter?.onButtonClick = {busOperator ->
+                                GlobalScope.launch (Dispatchers.IO) {
+                                    Log.d("Button clicked" , busOperator.id)
+
+                                    val result = retrofit.getAllBusOperators().deleteBusOperator(token, busOperator.id).awaitResponse()
+
+                                    withContext(Dispatchers.Main){
+                                        var pos = newBusOperator.indexOf(busOperator)
+                                        newBusOperator.removeAt(pos)
+                                        busOperatorAdapter?.notifyItemRemoved(pos)
+
+                                        pos = busOperators.indexOf(busOperator)
+                                        busOperators.removeAt(pos)
+                                    }
+                                }
+
+
                             }
                         }
 
@@ -124,6 +144,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
 
                     withContext(Dispatchers.Main){
                         val pos = busOperators.indexOf(busOperator)
+                        busOperators.removeAt(pos)
                         busOperatorAdapter?.notifyItemRemoved(pos)
                     }
                 }

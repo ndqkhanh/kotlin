@@ -132,6 +132,8 @@ const searchBooking = async (req) => {
     });
   });
 
+  console.log('count: ', formatData.length);
+
   return { data: formatData };
 };
 

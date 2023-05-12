@@ -34,7 +34,7 @@ class AdminBusTicketActivity:AppCompatActivity() {
 
         val name = if(autoBooking.text.toString() == "") null else autoBooking.text.toString()
         var status = if(currentStatus == "") null else currentStatus.toInt()
-        Log.d("Search", "page: $page - $limit - $name - $status")
+        Log.d("Search", "page: $page -  limit: $limit - name: $name - status $status")
 
 
         GlobalScope.launch (Dispatchers.IO) {
@@ -53,8 +53,21 @@ class AdminBusTicketActivity:AppCompatActivity() {
                         busTicketRV!!.adapter = busTicketAdapter
 
                     }
-                    busTicketAdapter?.notifyItemRangeInserted(page * limit, (page -1 ) * limit)
+                    busTicketAdapter?.notifyItemRangeInserted(busTickets.size, busTickets.size + limit - 1)
+                    // DELETE 1 BOOKING
+                    busTicketAdapter?.onButtonClick = {busTicket ->
+                        GlobalScope.launch (Dispatchers.IO) {
+                            Log.d("Button clicked" , busTicket.bus_id)
+                            val result = retrofit.adminService().deleteBooking(token, busTicket.id).awaitResponse()
 
+                            withContext(Dispatchers.Main){
+                                val pos = busTickets.indexOf(busTicket)
+                                busTickets.removeAt(pos)
+                                busTicketAdapter?.notifyItemRemoved(pos)
+                            }
+                        }
+
+                    }
 
                 }
             }
@@ -136,11 +149,38 @@ class AdminBusTicketActivity:AppCompatActivity() {
 
                         }
                         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            val newBusTickets : MutableList<BusTicket>
-                            newBusTickets = busTickets.filter { it -> it.name.contains(p0.toString()) } as MutableList<BusTicket>
-                            Log.d("newBusTickets ", newBusTickets.toString())
-                            busTicketAdapter = AdminBusTicketAdapter(newBusTickets)
+                            var newBusTickets : MutableList<BusTicket> = mutableListOf()
+                            if (p0?.toString()!!.isEmpty()){
+                                newBusTickets.addAll(busTickets)
+
+                            }
+                            else {
+                                newBusTickets = busTickets.filter { it -> it.name.contains(p0.toString()) } as MutableList<BusTicket>
+                            }
+
+                            busTicketAdapter = AdminBusTicketAdapter( newBusTickets)
                             busTicketRV.adapter = busTicketAdapter
+
+                            // DELETE 1 BOOKING
+                            busTicketAdapter?.onButtonClick = {busTicket ->
+                                GlobalScope.launch (Dispatchers.IO) {
+                                    Log.d("Button clicked" , busTicket.bus_id)
+                                    val result = retrofit.adminService().deleteBooking(token, busTicket.id).awaitResponse()
+
+                                    withContext(Dispatchers.Main){
+                                        var pos = newBusTickets.indexOf(busTicket)
+                                        newBusTickets.removeAt(pos)
+                                        busTicketAdapter?.notifyItemRemoved(pos)
+
+                                        pos = busTickets.indexOf(busTicket)
+                                        busTickets.removeAt(pos)
+                                    }
+                                }
+
+
+                            }
+
+
                         }
 
 
@@ -158,6 +198,7 @@ class AdminBusTicketActivity:AppCompatActivity() {
 
                     withContext(Dispatchers.Main){
                         val pos = busTickets.indexOf(busTicket)
+                        busTickets.removeAt(pos)
                         busTicketAdapter?.notifyItemRemoved(pos)
                     }
                 }
@@ -178,7 +219,7 @@ class AdminBusTicketActivity:AppCompatActivity() {
                 val totalItemCount = layoutManager.itemCount
 
                 // Scroll to bottom
-                if (lastVisibleItemPosition == totalItemCount - 1 && !isLoading) {
+                if (lastVisibleItemPosition == totalItemCount - 1 && !isLoading && totalItemCount > 1) {
                     isLoading = true
 
                     // Load more items here from your data source
@@ -186,30 +227,6 @@ class AdminBusTicketActivity:AppCompatActivity() {
                     // Notify the adapter that new items have been added
                     page ++
                     loadMoreResult(page, limit)
-//                    GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-//
-//                        var response = retrofit.adminService().getBookingList(token, page, limit).awaitResponse() // CHANGE
-//                        Log.d("Response", "vui 1" + response.message())
-//                        // debug response
-//                        Log.d("Response", response.toString())
-//                        if(response.isSuccessful){
-//                            Log.d("Response", "vui 2")
-//                            val data = response.body()!!
-//                            Log.d("Response", data.toString())
-//                            for (it in data.data)  busTickets.add(it)
-//
-//                            Log.d("busTickets vui 1: ", busTickets.size.toString())
-//
-//                            withContext(Dispatchers.Main){
-//
-////                                busAdapter = AdminBusAdapter(buses)
-//                                busTicketAdapter!!.notifyItemRangeInserted(page * limit, (page + 1) * limit - 1)
-//
-//                            }
-//
-//                        }
-//                    }
-
 
                     isLoading = false
                 }
@@ -223,31 +240,6 @@ class AdminBusTicketActivity:AppCompatActivity() {
                     // Notify the adapter that new items have been added
                     page --
                     loadMoreResult(page, limit)
-//                    GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-//
-//                        var response = retrofit.adminService().getBookingList(token, page, limit).awaitResponse() // CHANGE
-//                        Log.d("Response", "vui 1" + response.message())
-//                        // debug response
-//                        Log.d("Response", response.toString())
-//                        if(response.isSuccessful){
-//                            Log.d("Response", "vui 2")
-//                            val data = response.body()!!
-//                            Log.d("Response", data.toString())
-//                            for (it in data.data)  busTickets.add(it)
-//
-//                            Log.d("busTickets vui 1: ", busTickets.size.toString())
-//
-//                            withContext(Dispatchers.Main){
-//
-////                                busAdapter = AdminBusAdapter(buses)
-//                                busTicketAdapter!!.notifyItemRangeInserted(page * limit, (page + 1) * limit - 1)
-//
-//                            }
-//
-//                        }
-//                    }
-
-
                     isLoading = false
                 }
             }
