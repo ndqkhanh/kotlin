@@ -41,7 +41,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
-            android:text="Dashboard"
+            android:text="Bảng điều khiển"
             android:textColor="#ffffff"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,21 +58,15 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="25dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <ImageView
+                android:id="@+id/admin_normal_avt_user"
+                android:layout_width="74dp"
+                android:layout_height="63dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/logo"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/admin_normal_avt_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

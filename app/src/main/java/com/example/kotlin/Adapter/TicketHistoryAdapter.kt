@@ -1,5 +1,6 @@
 package com.example.kotlin.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -18,6 +19,7 @@ class TicketHistoryAdapter(private var type: Int, private var items: MutableList
     : RecyclerView.Adapter<TicketHistoryAdapter.TicketViewHolder>(){
     var onItemClick: ((HistoryItem) -> Unit)? = null
     var onDiscard: ((HistoryItem, Int) -> Unit)? = null
+    var onPayTicket: ((HistoryItem, Int) -> Unit)? = null
 
     inner class TicketViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val tinh_trang: TextView = itemView.findViewById(R.id.tinh_trang)
@@ -38,6 +40,7 @@ class TicketHistoryAdapter(private var type: Int, private var items: MutableList
         init{
             ve.setOnClickListener{onItemClick?.invoke(items[adapterPosition])}
             huy.setOnClickListener { onDiscard?.invoke(items[adapterPosition], adapterPosition) }
+            thanh_toan.setOnClickListener { onPayTicket?.invoke(items[adapterPosition], adapterPosition) }
         }
     }
 

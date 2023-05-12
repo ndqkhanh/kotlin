@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentActivity">
+    tools:context=".User.Screen.Booking.PaymentActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerContainer"
@@ -274,22 +274,22 @@
 
                 <ImageView
                     android:id="@+id/imageView8"
-                    android:layout_width="31dp"
-                    android:layout_height="33dp"
+                    android:layout_width="39dp"
+                    android:layout_height="35dp"
                     android:layout_margin="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView18"
-                    app:srcCompat="@drawable/logo_momo" />
+                    app:srcCompat="@drawable/ic_zalopay_seeklogo_com" />
 
                 <TextView
                     android:id="@+id/textView40"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
-                    android:text="Ví MoMo"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
                     android:fontFamily="@font/montserrat_medium"
+                    android:text="Ví ZaloPay"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="@+id/imageView8" />

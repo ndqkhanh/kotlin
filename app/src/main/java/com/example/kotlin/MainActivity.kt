@@ -3,6 +3,7 @@ package com.example.kotlin
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
@@ -13,6 +14,7 @@ import com.example.kotlin.utils.WaitingAsyncClass
 import com.example.kotlin.DataClass.HistoryList
 import com.example.kotlin.DataClass.User
 import com.example.kotlin.utils.UserInformation
+import com.example.kotlin.utils.ZaloPay.AppInfo.APP_ID
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -20,6 +22,8 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import retrofit2.Call
+import vn.zalopay.sdk.Environment
+import vn.zalopay.sdk.ZaloPaySDK
 import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity() {

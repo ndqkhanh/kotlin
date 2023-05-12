@@ -3,7 +3,11 @@ package com.example.kotlin.Admin.Screen.BusOperator
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +22,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
     lateinit var busOperators: MutableList<BusOperator>
     lateinit var backBtn: ImageButton
     lateinit var addBusOperatorBtn: ImageButton
+    private lateinit var autoNhaXe: AutoCompleteTextView
     var busOperatorAdapter: AdminBusOperatorAdapter? = null
     val REQUEST_CODE = 1111
     val retrofit = APIServiceImpl()
@@ -29,6 +34,8 @@ class AdminBusOperatorActivity:AppCompatActivity() {
 
         busOperators = mutableListOf()
 
+        autoNhaXe = findViewById(R.id.autoNhaXe)
+        autoNhaXe.text = null
 
         addBusOperatorBtn = findViewById(R.id.adminBusOperatorAddBtn)
         backBtn = findViewById(R.id.adminBusOperatorListBackBtn)
@@ -65,8 +72,6 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                 Log.d("busTickets vui 1: ", busOperators.size.toString())
 
                 withContext(Dispatchers.Main){
-//                    val space = 50
-//                    val itemDecoration = SpaceItemDecoration(space)
 
                     busOperatorAdapter = AdminBusOperatorAdapter(busOperators)
                     busOperatorRV = findViewById(R.id.adminBusOperatorRV)
@@ -74,13 +79,43 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                     busOperatorRV.layoutManager = LinearLayoutManager(this@AdminBusOperatorActivity,
                         LinearLayoutManager.VERTICAL,false)
 
-//                    busOperatorRV.addItemDecoration(itemDecoration)
+                    val listName = busOperators.map { it.name }
+                    val adapter = ArrayAdapter(
+                        this@AdminBusOperatorActivity,
+                        android.R.layout.simple_list_item_1,
+                        listName
+                    )
+                    autoNhaXe.setAdapter(adapter)
+                    autoNhaXe.addTextChangedListener(object: TextWatcher{
+                        override fun beforeTextChanged(
+                            p0: CharSequence?,
+                            p1: Int,
+                            p2: Int,
+                            p3: Int
+                        ) {}
+                        override fun afterTextChanged(p0: Editable?) {}
 
+                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                            if (p0?.toString()!!.isEmpty()) {
+                                busOperatorAdapter = AdminBusOperatorAdapter(busOperators)
+                                busOperatorRV.adapter = busOperatorAdapter
+                            }
+                            else {
+                                val newBusOperator: MutableList<BusOperator>
+                                newBusOperator = busOperators.filter { it-> it.name.contains(p0.toString()) } as MutableList<BusOperator>
+                                busOperatorAdapter = AdminBusOperatorAdapter(newBusOperator)
+                                busOperatorRV.adapter = busOperatorAdapter
+                            }
+                        }
+
+
+
+                    })
                 }
 
             }
 
-            // TODO DELETE 1 BOOKING
+            // DELETE 1 BOOKING
             busOperatorAdapter?.onButtonClick = {busOperator ->
                 GlobalScope.launch (Dispatchers.IO) {
                     Log.d("Button clicked" , busOperator.id)
@@ -110,7 +145,6 @@ class AdminBusOperatorActivity:AppCompatActivity() {
 
 
             GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-                Log.d("token", token!!)
                 var response = retrofit.getAllBusOperators().getBusOperator(token!!,id!!).awaitResponse() // CHANGE
                 Log.d("Response", "vui 1" + response.message())
                 // debug response

@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.User.Screen.Booking
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,11 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import com.example.kotlin.APIServiceImpl
+import com.example.kotlin.MainActivity
+import com.example.kotlin.R
+import com.example.kotlin.TicketData
+import com.example.kotlin.User.Screen.ChiTietChuyenXe
 import com.example.kotlin.utils.UserInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,6 +33,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
         val retrofit = APIServiceImpl()
 
         val busId = intent.getStringExtra("busId")
+        val boId = intent.getStringExtra("boId")
         val busPickUpPointId = intent.getStringExtra("busPickUpPointId")
         val busPickUpPointName = intent.getStringExtra("busPickUpPointName")
         val busPickUpPointLocation = intent.getStringExtra("busPickUpPointLocation")
@@ -38,6 +44,14 @@ class ConfirmInformationActivity : AppCompatActivity() {
         val phoneNumber = intent.getStringExtra("phoneNumber")
         val numOfSeats = intent.getStringExtra("numOfSeats")
         val note = intent.getStringExtra("note")
+
+        val txtBusOperatorDetail = findViewById<AppCompatButton>(R.id.txtBusOperatorDetail)
+        txtBusOperatorDetail.setOnClickListener {
+            val intent = Intent(this, ChiTietChuyenXe::class.java)
+            intent.putExtra("bId", busId)
+            intent.putExtra("boId", boId)
+            startActivity(intent)
+        }
 
         Log.i("busPickUpPointId", busPickUpPointId.toString())
         Log.i("busDropDownPointId", busDropDownPointId.toString())
@@ -148,6 +162,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                     intent.putExtra("busOperatorName", txtBusOperatorName.text.toString())
                                                     intent.putExtra("time", txtTime.text.toString())
                                                     intent.putExtra("totalPrice", totalPrice)
+                                                    intent.putExtra("soLuong", txtSoVe.text)
                                                     startActivity(intent)
                                                 }
                                             }else
@@ -164,8 +179,8 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                         "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
                                                         Toast.LENGTH_SHORT
                                                     ).show()
-//                                                    val intent = Intent(this@ConfirmInformationActivity, LoginActivity::class.java)
-//                                                    startActivity(intent)
+                                                    val intent = Intent(this@ConfirmInformationActivity, MainActivity::class.java)
+                                                    startActivity(intent)
                                                 }
                                             }
                                         }

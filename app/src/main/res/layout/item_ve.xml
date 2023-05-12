@@ -106,7 +106,6 @@
                         android:id="@+id/ngay_bat_dau"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:fontFamily="@font/montserrat"
                         android:gravity="center"
                         android:text="24/04/2023"
@@ -130,7 +129,7 @@
 
                     <TextView
                         android:id="@+id/tinh_den"
-                        android:layout_width="wrap_content"
+                        android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Hồ Chí Minh"
@@ -144,14 +143,12 @@
                         android:gravity="center"
                         android:text="→"
                         android:textColor="@color/black"
-                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tinh_di"
-                        android:layout_width="wrap_content"
+                        android:layout_width="90dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Nha Trang"
                         android:textColor="@color/black"
@@ -170,6 +167,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -200,7 +198,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="visible">
 
                         <TextView
                             android:id="@+id/textView44"

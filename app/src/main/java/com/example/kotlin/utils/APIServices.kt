@@ -127,6 +127,17 @@ data class BusSearchRequest(
     var boId: String?
     )
 
+data class AdminBusesSearchRequest(
+    var price: Int?,
+    var type: Int?,
+    var boId: String?
+)
+
+data class AdminBookingsSearchRequest(
+    var name: String?,
+    var status: Int?
+)
+
 
 data class BusStationResponse(
     val data: List<BusStation>
@@ -231,6 +242,9 @@ interface BusService {
     @GET("/bus/search")
     fun searchBusses(): Call<BusResponse>
 
+    @GET("/v1/bus/detail")
+    fun getBusDetail(@Query("bId") bId: String): Call<BusDetail>
+
     // Admin
     @GET("admin/bus/list/{page}/{limit}")
     fun adminGetBuses(
@@ -290,7 +304,16 @@ interface TicketService {
         @Header("Authorization") token: String
     ): Call<HistoryItem>
 
+    @POST("ticket/payment")
+    fun payTicket(
+        @Query("tId") tid: String,
+        @Header("Authorization") token: String
+    ): Call<SuccessMessage>
+
     //route là admin mà sao để ở ticket???
+}
+
+interface AdminService {
     @GET("admin/booking/list/{page}/{limit}")
     fun getBookingList(
         @Header("Authorization") token: String,
@@ -303,7 +326,46 @@ interface TicketService {
         @Path("bid") bid: String
     ): Call<DeleteBusTicketResponse>
 
+    @GET("admin/bus/list/{page}/{limit}")
+    fun getBuses(
+        @Header("Authorization") token: String,
+        @Path("page") page: Int,
+        @Path("limit") limit: Int
+    ) : Call<AdminBusesResponse>
 
+    @POST("admin/bus/search/{page}/{limit}")
+    fun searchBuses(
+        @Header("Authorization") token: String,
+        @Path("page") page: Int,
+        @Path("limit") limit: Int,
+        @Body bus: AdminBusesSearchRequest
+    ) : Call<AdminBusesResponse>
+
+    @GET("admin/bus/{id}")
+    fun  searchBus(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ) : Call<Buses>
+
+    @POST("admin/bus/create")
+    fun createBus(
+        @Header("Authorization") token: String,
+        @Body bus: AdminBusCreateBody
+    ): Call<AdminBusCreateRespond>
+
+    @POST("admin/bus/delete/{bid}")
+    fun deleteBus(
+        @Header("Authorization") token: String,
+        @Path("bid") bid: String
+    ): Call<DeleteBusResponse>
+
+    @POST("admin/booking/search/{page}/{limit}")
+    fun searchBookings(
+        @Header("Authorization") token: String,
+        @Path("page") page: Int,
+        @Path("limit") limit: Int,
+        @Body bus: AdminBookingsSearchRequest
+    ) : Call<BusTicketResponse>
 }
 
 interface PaymentService {
@@ -359,13 +421,20 @@ interface BusOperatorService {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Call<ReviewList>
+
+    @POST("bus-operator/review/create/{boId}")
+    fun createReviews(
+        @Path("boId") boId: String,
+        @Body item: ReviewItem,
+        @Header("Authorization") token: String,
+    ): Call<ReviewItem>
+
 }
 
 
 class APIServiceImpl {
     companion object{//singleton
         private val BASE_URL = "http://192.168.1.10:3000/v1/"
-
         private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -378,6 +447,7 @@ class APIServiceImpl {
         private val busService: BusService = api.create(BusService::class.java)
         private val busStationService:  BusStationService = api.create(BusStationService::class.java)
         private val pointService: PointService = api.create(PointService::class.java)
+        private val adminService: AdminService = api.create(AdminService::class.java)
 
         fun ticketService(): TicketService{
             return ticketService
@@ -390,9 +460,15 @@ class APIServiceImpl {
         fun busOperatorService(): BusOperatorService {
             return busOperatorService
         }
+
+        fun adminService() : AdminService {
+            return adminService
+        }
+
+        fun busService(): BusService{
+            return busService
+        }
     }
-
-
 
 
 
@@ -414,26 +490,7 @@ class APIServiceImpl {
     fun getAllBusOperators(): BusOperatorService {
         return busOperatorService
     }
-    // Admin create bus
-    fun adminDeleteBuses(): BusService {
-        return busService
-    }
 
-    fun adminGetBuses(): BusService {
-        return busService
-    }
-
-    fun adminCreateBus(): BusService {
-        return busService
-    }
-
-    fun adminBookingList(): TicketService {
-        return ticketService
-    }
-
-    fun adminDeleteBooking(): TicketService {
-        return ticketService
-    }
 
     fun adminCreateBusOperator(): BusOperatorService {
         return busOperatorService
