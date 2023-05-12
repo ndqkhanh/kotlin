@@ -10,6 +10,13 @@ import { pointList, wardList, districtList, streetList, blogList, busOperatorIma
 const prisma = new PrismaClient();
 faker.locale = 'vi';
 
+const BUS_OPERATORS = [];
+const BUS_STATIONS = [];
+const BUSES = [];
+const BUS_TICKETS = [];
+const REVIEWS = [];
+const POINTS = [];
+const POINT_BS = [];
 const USERS = [
   {
     id: 'c118f693-8722-4461-a79d-d76991b96a9e',
@@ -72,13 +79,6 @@ const USERS = [
     avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
 ];
-const BUS_OPERATORS = [];
-const BUS_STATIONS = [];
-const BUSES = [];
-const BUS_TICKETS = [];
-const REVIEWS = [];
-const POINTS = [];
-const POINT_BS = [];
 
 const createBusOperator = () => {
   return {

@@ -40,6 +40,7 @@ class Home : AppCompatActivity() {
     lateinit var adminBtn: ImageButton
     lateinit var adminTextBtn: TextView
     val retrofit = APIServiceImpl()
+    val token = "BEARER " + UserInformation.TOKEN
     private lateinit var localEditor: SharedPreferences.Editor
     var listBuses = ArrayList<Bus>()
     var currentPage = 0
@@ -190,7 +191,7 @@ class Home : AppCompatActivity() {
                 }
             }
 
-            val response2 = APIServiceImpl.busOperatorService().getBusOperators().awaitResponse()
+            val response2 = APIServiceImpl.busOperatorService().getBusOperators(token).awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list

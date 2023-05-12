@@ -33,6 +33,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
     lateinit var endTimeTimeButton: Button
     lateinit var startTimeDateButton: Button
     lateinit var endTimeDateButton: Button
+    lateinit var backBtn: ImageButton
     lateinit var addBtn: Button
     lateinit var busOperatorEt: AutoCompleteTextView
     lateinit var startPointEt: AutoCompleteTextView
@@ -97,6 +98,8 @@ class AdminBusCreateActivity: AppCompatActivity() {
         busOperators = mutableListOf()
         points = mutableListOf()
 
+        backBtn = findViewById(R.id.adminBusListBackBtn)
+        backBtn.setOnClickListener { finish() }
 
 
 
@@ -140,7 +143,7 @@ class AdminBusCreateActivity: AppCompatActivity() {
 
         // get bus operator from autocompletetextview
         GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-            var responseBO = APIServiceImpl().getAllBusOperators().getBusOperators().awaitResponse()
+            var responseBO = APIServiceImpl().getAllBusOperators().getBusOperators(token).awaitResponse()
             val listBO = mutableListOf<String>()
             if (responseBO.isSuccessful) {
                 var data = responseBO.body()!!

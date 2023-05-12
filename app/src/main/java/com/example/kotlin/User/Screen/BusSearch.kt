@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.kotlin.*
+import com.example.kotlin.utils.UserInformation
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +34,7 @@ class BusSearch : AppCompatActivity() {
     var listBuses = ArrayList<Bus>()
     lateinit var rv_bus_search: RecyclerView
     val retrofit = APIServiceImpl()
+    val token = "BEARER " + UserInformation.TOKEN
     lateinit var listBusOperators: ArrayList<BusOperator>
 
 
@@ -305,7 +307,7 @@ class BusSearch : AppCompatActivity() {
         }
 
         GlobalScope.launch (Dispatchers.IO) {
-            val response2 = APIServiceImpl.busOperatorService().getBusOperators().awaitResponse()
+            val response2 = APIServiceImpl.busOperatorService().getBusOperators(token).awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list
