@@ -86,6 +86,7 @@ class EnterInformationActiviy : AppCompatActivity() {
                                 if(flag) return@setOnClickListener
                                 val intent = Intent(this@EnterInformationActiviy, ConfirmInformationActivity::class.java)
                                 intent.putExtra("busId", busId)
+                                intent.putExtra("boId", boId)
                                 intent.putExtra("busPickUpPointId", busPickUpPointId)
                                 intent.putExtra("busPickUpPointName", busPickUpPointName)
                                 intent.putExtra("busPickUpPointLocation", busPickUpPointLocation)

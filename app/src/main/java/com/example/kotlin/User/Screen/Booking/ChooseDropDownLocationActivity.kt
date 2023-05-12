@@ -42,6 +42,8 @@ class ChooseDropDownLocationActivity : AppCompatActivity() {
             val intent = Intent(this, ChiTietChuyenXe::class.java)
             intent.putExtra("bId", busId)
             intent.putExtra("boId", boId)
+            Log.i("bId uni dropdown inside", busId.toString())
+            Log.i("boId uni dropdown inside", boId.toString())
             startActivity(intent)
         }
 

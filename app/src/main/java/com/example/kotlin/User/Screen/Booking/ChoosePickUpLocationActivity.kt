@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.AdapterView
 import android.widget.ImageButton
 import android.widget.ListView
@@ -35,6 +36,7 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
 
         val busId = intent.getStringExtra("busId")
         val boId = intent.getStringExtra("boId")
+
         val numOfSeats = intent.getStringExtra("numOfSeats")
 
         val txtBusOperatorDetail = findViewById<AppCompatButton>(R.id.txtBusOperatorDetail)
@@ -97,6 +99,7 @@ class ChoosePickUpLocationActivity : AppCompatActivity() {
                                                     else {
                                                         intent = Intent(this@ChoosePickUpLocationActivity, ChooseDropDownLocationActivity::class.java)
                                                         intent.putExtra("busId", busId)
+                                                        intent.putExtra("boId", boId)
                                                         intent.putExtra("numOfSeats", numOfSeats)
                                                         intent.putExtra("busPickUpPointId", busPickUpPoints[adapter.getSelectedPosition()].id)
                                                         intent.putExtra("busPickUpPointName", busPickUpPoints[adapter.getSelectedPosition()].name)
