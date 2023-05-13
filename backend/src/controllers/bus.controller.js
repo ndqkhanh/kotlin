@@ -19,7 +19,7 @@ const cloneBus = catchAsync(async (req, res) => {
 });
 const getBusDetail = catchAsync(async (req, res) => {
   const result = await busService.getBusDetail(req);
-  let bDetail = result[0];
+  let bDetail = result.result[0];
 
   let timespan = new Date(bDetail.start_time);
   bDetail.start_date = timespan.toLocaleDateString('vi', { year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -28,6 +28,11 @@ const getBusDetail = catchAsync(async (req, res) => {
   timespan = new Date(bDetail.end_time);
   bDetail.end_date = timespan.toLocaleDateString('vi', { year: 'numeric', month: '2-digit', day: '2-digit' });
   bDetail.end_time = timespan.toLocaleTimeString('vi', { hour: '2-digit', minute: '2-digit' });
+
+  bDetail.ds_don = result.don
+  bDetail.ds_tra = result.tra
+  delete bDetail.start_bs_id
+  delete bDetail.end_bs_id
 
   res.send(bDetail);
 });

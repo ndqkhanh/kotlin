@@ -131,6 +131,7 @@ class BusSearch : AppCompatActivity() {
         Log.d("Search", "page: $page - $limit - $busOperatorId - $pricing - $typeOfSeatValue")
 
         Log.d("Search", "$departureId - $destinationId - $outputDateString")
+        Log.d("hoang", BusSearchRequest(departureId, destinationId, page, limit, outputDateString, pricing, typeOfSeatValue, busOperatorId).toString())
         GlobalScope.launch (Dispatchers.IO) {
             val response = APIServiceImpl().searchBusses().search(BusSearchRequest(departureId, destinationId, page, limit, outputDateString, pricing, typeOfSeatValue, busOperatorId)).awaitResponse()
             Log.d("Search", response.toString())
