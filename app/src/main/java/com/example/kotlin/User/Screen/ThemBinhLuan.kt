@@ -36,10 +36,9 @@ class ThemBinhLuan : AppCompatActivity() {
         if(boId == null)
             finish()
 
-        send.visibility = GONE
         rating.setOnRatingBarChangeListener { ratingBar, fl, b ->
             if(b){
-                send.visibility = VISIBLE
+                send.isEnabled = true
             }
         }
 

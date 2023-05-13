@@ -14,6 +14,7 @@ import com.example.kotlin.DataClass.HistoryItem
 import com.example.kotlin.DataClass.SuccessMessage
 import com.example.kotlin.MainActivity
 import com.example.kotlin.R
+import com.example.kotlin.User.Screen.BottomNavigate.BottomNavigation
 import com.example.kotlin.utils.UserInformation
 import com.example.kotlin.utils.ZaloPay.CreateOrder
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -60,8 +61,7 @@ class PaymentActivity : AppCompatActivity() {
 
             bottomSheetView.findViewById<Button>(R.id.btnBack).setOnClickListener {
 
-                val intent = Intent(this, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                val intent = Intent(this, BottomNavigation::class.java)
                 finishAffinity()
                 startActivity(intent)
             }
@@ -130,6 +130,9 @@ class PaymentActivity : AppCompatActivity() {
                 call: Call<SuccessMessage>,
                 response: Response<SuccessMessage>
             ) {
+                val intent = Intent(this@PaymentActivity, BottomNavigation::class.java)
+                finishAffinity()
+                startActivity(intent)
             }
 
             override fun onFailure(call: Call<SuccessMessage>, t: Throwable) {

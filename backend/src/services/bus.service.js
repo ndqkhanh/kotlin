@@ -206,21 +206,25 @@ const getBusById = async (id) => {
   return prisma.buses.findUnique({ where: { id } });
 };
 const getBusDetail = async (req) => {
-  const sqlQuery = sql`select ps."name" ten_diem_don, ps."location" dia_chi_diem_don,
-                       		pe."name" ten_diem_tra, ps."location" dia_chi_diem_tra,
+  const sqlQuery = sql`select b.start_point start_bs_id, b.end_point end_bs_id,
                        		b.start_time, b.end_time, bo."name" ten_nha_xe,
                        		bo.phone sdt_nha_xe, bo.image_url anh_nha_xe,
                        		b.image_url anh_xe, b."policy"
                        from buses b join bus_operators bo on b.bo_id = bo.id and b.id = ${req.query.bId}
                        	join bus_stations bss on bss.id = b.start_point
-                       	join bus_stations bse on bse.id = b.end_point
-                       	join point_bs pbs on pbs.bs_id = bss.id
-                       	join point_bs pbe on pbe.bs_id = bse.id
-                       	join points ps on ps.id = pbs.point_id
-                       	join points pe on pe.id = pbe.point_id `;
+                       	join bus_stations bse on bse.id = b.end_point`;
 
   const result = await prisma.$queryRaw(sqlQuery);
-  return result;
+
+  const donListQuery = sql`select p."name" ,p."location"
+                              from point_bs pb join points p on p.id = pb.point_id
+                              where pb.bs_id = ${result[0].start_bs_id}`
+  const traListQuery = sql`select p."name" ,p."location"
+                              from point_bs pb join points p on p.id = pb.point_id
+                              where pb.bs_id = ${result[0].end_bs_id}`
+  const don = await prisma.$queryRaw(donListQuery)
+  const tra = await prisma.$queryRaw(traListQuery)
+  return {result, don, tra};
 };
 module.exports = {
   searchBus,
