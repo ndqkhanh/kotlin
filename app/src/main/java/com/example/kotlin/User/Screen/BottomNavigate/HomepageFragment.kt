@@ -145,6 +145,10 @@ class HomepageFragment : Fragment() {
     }
 
     private fun handleSelectDate(){
+        val current = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"))
+        val currentYear = current.year
+        val currentMonth = current.monthValue
+        val currentDay = current.dayOfMonth
         DatePickerDialog(this.requireContext(), DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             // check if choose a date before today
             val date = LocalDate.of(year, month + 1, dayOfMonth)
@@ -157,7 +161,7 @@ class HomepageFragment : Fragment() {
 
             departureDateEdit.setText("${month + 1}/$dayOfMonth/$year")
 
-        }, 2023, 5, 12).show()
+        }, currentYear, currentMonth - 1, currentDay).show()
     }
 
     override fun onCreateView(
