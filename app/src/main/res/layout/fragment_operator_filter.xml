@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/search_edit_text"
-        android:hint="Tìm nhà xe trong danh sách bên dưới"
+        android:hint="Tìm kiếm trong danh sách bên dưới"
         android:textColorHint="#c6c6c6"
         android:fontFamily="@font/montserrat"
         android:textSize="15dp"

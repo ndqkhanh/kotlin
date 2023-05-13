@@ -90,10 +90,10 @@ class BusSearch : AppCompatActivity() {
             holder.busDurationText.text = items[position].duration
             holder.busStartPointText.text = items[position].start_point.name
             holder.busEndPointText.text = items[position].end_point.name
-            holder.busPricing.text = items[position].pricing_format + "đ"
+            holder.busPricing.text = items[position].pricing_format
             holder.busNumOfLeftSeats.text = items[position].num_of_seats.toString() + " chỗ trống"
             holder.busItemOperatorName.text = items[position].bus_operators.name
-            holder.busItemOperatorType.text = if(items[position].type == 0) "Xe hạng sang" else if(items[position].type == 1) "Xe ghế ngồi" else "Xe giường nằm"
+            holder.busItemOperatorType.text = if(items[position].type == 0) "Ghế ngồi" else if(items[position].type == 1) "Giường nằm" else "Giường nằm đôi"
             holder.busItemOperatorRating.text = items[position].rating.toString()
 
             Glide.with(holder.itemView.context)
