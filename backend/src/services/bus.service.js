@@ -29,7 +29,7 @@ const searchBus = async (body) => {
   };
 
   if (startTime) {
-    query.start_time = startTime;
+    query.start_time = { gte: startTime };
   }
   console.log('query', query);
 
