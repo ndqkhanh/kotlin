@@ -12,7 +12,7 @@ router.route('/get-review').get(validate(boValidation.getReviews), boController.
 router
   .route('/review/create/:boId')
   .post(auth('createReview'), validate(boValidation.createReview), boController.createReview);
-router.route('/list/:page/:limit').get(auth('bookingList'), validate(boValidation.getBO), boController.viewBO);
+router.route('/list/:page/:limit').get(validate(boValidation.getBO), boController.viewBO);
 router.route('/create').post(auth('createBO'), validate(boValidation.createBO), boController.createBO);
 router.route('/update').post(auth('updateBO'), validate(boValidation.updateBO), boController.updateBO);
 router.route('/average-rating').get(validate(boValidation.getAverageRating), boController.getAverageRating);

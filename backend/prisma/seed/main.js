@@ -30,7 +30,7 @@ const USERS = [
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96bcd',
-    email: 'khanhndq2002@gmail.com',
+    email: 'khanhquang@gmail.com',
     role: 0,
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
@@ -45,7 +45,7 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
-    display_name: 'Nhà xe 1',
+    display_name: 'Nguyễn Đinh Quang Nhân',
     avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
   {
@@ -55,7 +55,7 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
-    display_name: 'Nhà xe 2',
+    display_name: 'Võ Duy Khánh',
     avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
   {
@@ -65,7 +65,7 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
-    display_name: 'Người dùng 1',
+    display_name: 'Nguyễn Trung Kiên',
     avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
   {
@@ -75,7 +75,7 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
-    display_name: 'Người dùng 2',
+    display_name: 'Trần Thị Hương',
     avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
   },
 ];

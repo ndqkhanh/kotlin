@@ -26,7 +26,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
     private lateinit var autoNhaXe: AutoCompleteTextView
     var busOperatorAdapter: AdminBusOperatorAdapter? = null
     val REQUEST_CODE = 1111
-    val retrofit = APIServiceImpl()
+    val retrofit = APIServiceImpl
     val token = "BEARER " + UserInformation.TOKEN
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
         var limit = 10
         GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
 
-            var response = retrofit.getAllBusOperators().getBusOperators(token).awaitResponse()
+            var response = retrofit.adminService().getBusOperators(token).awaitResponse()
             Log.d("Response", "vui 1" + response.message())
             // debug response
             Log.d("Response", response.toString())
@@ -133,7 +133,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                                         GlobalScope.launch (Dispatchers.IO) {
                                             Log.d("Button clicked" , busOperator.id)
 
-                                            val result = retrofit.getAllBusOperators().deleteBusOperator(token, busOperator.id).awaitResponse()
+                                            val result = APIServiceImpl().getAllBusOperators().deleteBusOperator(token, busOperator.id).awaitResponse()
 
                                             if (result.isSuccessful){
                                                 withContext(Dispatchers.Main){
@@ -206,7 +206,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                         GlobalScope.launch (Dispatchers.IO) {
                             Log.d("Button clicked" , busOperator.id)
 
-                            val result = retrofit.getAllBusOperators().deleteBusOperator(token, busOperator.id).awaitResponse()
+                            val result = APIServiceImpl().getAllBusOperators().deleteBusOperator(token, busOperator.id).awaitResponse()
 
                             if (result.isSuccessful){
                                 withContext(Dispatchers.Main){
@@ -258,7 +258,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
 
 
             GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-                var response = retrofit.getAllBusOperators().getBusOperator(token!!,id!!).awaitResponse() // CHANGE
+                var response = APIServiceImpl().getAllBusOperators().getBusOperator(token!!,id!!).awaitResponse() // CHANGE
                 Log.d("Response", "vui 1" + response.message())
                 // debug response
                 Log.d("Response", response.toString())

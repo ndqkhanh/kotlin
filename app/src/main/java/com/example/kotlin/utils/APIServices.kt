@@ -372,6 +372,11 @@ interface AdminService {
         @Path("limit") limit: Int,
         @Body bus: AdminBookingsSearchRequest
     ) : Call<BusTicketResponse>
+
+    @GET("admin/bus-operator/list/${page}/${limit}")
+    fun getBusOperators(
+        @Header("Authorization") token: String
+    ): Call<BusOperatorResponse>
 }
 
 interface PaymentService {
