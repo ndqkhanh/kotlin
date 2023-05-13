@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +33,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 data class ListItemFormat(
     val id: String,
@@ -54,7 +58,7 @@ class HomepageFragment : Fragment() {
     lateinit var searchBus: Button
     lateinit var viewAllNews: AppCompatButton
     lateinit var blogList: RecyclerView
-
+    val token = "BEARER " + UserInformation.TOKEN
     private fun selectImage(){
         // select image from local storage
         val intent = Intent(Intent.ACTION_PICK)
@@ -142,9 +146,18 @@ class HomepageFragment : Fragment() {
 
     private fun handleSelectDate(){
         DatePickerDialog(this.requireContext(), DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            departureDateEdit.setText("$month/$dayOfMonth/$year")
+            // check if choose a date before today
+            val date = LocalDate.of(year, month + 1, dayOfMonth)
+            val today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"))
+            if(date.isBefore(today)){
+                Toast.makeText(this.requireContext(), "Ngày không được trong quá khứ", Toast.LENGTH_SHORT).show()
+                departureDateEdit.setText("")
+                return@OnDateSetListener
+            }
 
-        }, 2023, 3, 25).show()
+            departureDateEdit.setText("${month + 1}/$dayOfMonth/$year")
+
+        }, 2023, 5, 12).show()
     }
 
     override fun onCreateView(
@@ -225,7 +238,7 @@ class HomepageFragment : Fragment() {
 
             }
 
-            val response2 = APIServiceImpl.busOperatorService().getBusOperators().awaitResponse()
+            val response2 = APIServiceImpl.busOperatorService().getBusOperators(token).awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list
@@ -249,8 +262,26 @@ class HomepageFragment : Fragment() {
         searchBus.setOnClickListener {
             val intent = Intent(this.requireContext(), BusSearch::class.java)
             val departureId = listBusStations.find { it.name == startPointEdit.text.toString() }?.id
+            if(departureId == null){
+                Toast.makeText(this.requireContext(), "Vui lòng chọn điểm đi", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val destinationId = listBusStations.find { it.name == endPointEdit.text.toString() }?.id
-            val outputDateString = departureDateEdit.text.toString()
+            if(destinationId == null){
+                Toast.makeText(this.requireContext(), "Vui lòng chọn điểm đến", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val inputDateString = departureDateEdit.text.toString()
+            if(inputDateString == ""){
+                Toast.makeText(this.requireContext(), "Vui lòng chọn ngày đi", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val inputFormatter = DateTimeFormatter.ofPattern("M/d/yyyy")
+            val localDate = LocalDate.parse(inputDateString, inputFormatter)
+            val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val localDateTime = localDate.atStartOfDay()
+            val zonedDateTime = localDateTime.atZone(ZoneId.of("Asia/Ho_Chi_Minh"))
+            val outputDateString = outputFormatter.format(zonedDateTime)
             val fromToString = startPointEdit.text.toString() + " -> " + endPointEdit.text.toString()
             intent.putExtra("departureId", departureId)
             intent.putExtra("destinationId", destinationId)

@@ -4,10 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.*
@@ -15,13 +19,14 @@ import com.example.kotlin.DataClass.Buses
 import com.example.kotlin.User.Screen.BusSearch
 import com.example.kotlin.User.Screen.ChiTietChuyenXe
 import com.example.kotlin.utils.UserInformation
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.*
 import retrofit2.awaitResponse
 
 class AdminBusActivity:AppCompatActivity() {
     lateinit var busRV: RecyclerView
     lateinit var buses: MutableList<Buses>
-    lateinit var addBtn: ImageButton
+    lateinit var addBtn: Button
     lateinit var backBtn: ImageButton
     var busAdapter: AdminBusAdapter? = null
     val retrofit = APIServiceImpl
@@ -41,7 +46,8 @@ class AdminBusActivity:AppCompatActivity() {
     // search bus based on filter (page, limit, busOperator, type, price)
     private fun loadMoreResult(page: Int = 0, limit: Int = 10){
 
-        val busOperatorId = if(currentBusOperator == "") null else currentBusOperator
+        var busOperatorId = if(currentBusOperator == "") null else currentBusOperator
+        if (UserInformation.USER?.role == 1) busOperatorId = UserInformation.USER!!.boid // Nha xe thi chi filter theo nha xe do
         val pricing = currentBusPricing
         var typeOfSeatValue = if(currentBusType == "") 1 else currentBusType.toInt()
         Log.d("Search", "page: $page - $limit - $busOperatorId - $pricing - $typeOfSeatValue")
@@ -65,7 +71,64 @@ class AdminBusActivity:AppCompatActivity() {
                     }
                     busAdapter?.notifyItemRangeInserted(page * limit, (page -1 ) * limit)
 
+                    //  DELETE 1 BOOKING
+                    busAdapter?.onButtonClick = {bus ->
+                        val bottomSheetDialog = BottomSheetDialog(
+                            this@AdminBusActivity, com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+                        )
+                        val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
+                            R.layout.layout_payment_bottom_sheet,
+                            findViewById<ConstraintLayout>(R.id.bottomSheet)
+                        )
 
+                        bottomSheetView.findViewById<TextView>(R.id.txtTitle).text = "Bạn có chắc xóa chuyến xe này không?"
+
+                        bottomSheetView.findViewById<TextView>(R.id.txtMessage).text = "Hành động này không thể hoàn tác. Hãy chắc chắn rằng bạn đã kiểm tra kỹ thông tin trước khi xóa chuyến xe này."
+
+                        bottomSheetView.findViewById<Button>(R.id.btnBack).setOnClickListener {
+                            bottomSheetDialog.dismiss()
+                        }
+
+                        bottomSheetView.findViewById<Button>(R.id.btnPay).text = "Tiếp tục xóa chuyến xe"
+
+
+                        bottomSheetView.findViewById<Button>(R.id.btnPay).setOnClickListener{
+                            try {
+                                GlobalScope.launch (Dispatchers.IO) {
+                                    Log.d("Button clicked" , bus.id)
+                                    val result = retrofit.adminService().deleteBus(token, bus.id).awaitResponse()
+                                    if (result.isSuccessful){
+                                        withContext(Dispatchers.Main){
+                                            val pos = buses.indexOf(bus)
+                                            buses.removeAt(pos)
+                                            busAdapter?.notifyItemRemoved(pos)
+                                        }
+                                        launch(Dispatchers.Main) {
+                                            Toast.makeText(this@AdminBusActivity, "Xóa chuyến xe thành công", Toast.LENGTH_SHORT).show()
+                                            bottomSheetDialog.dismiss()
+                                        }
+                                    }
+                                    else {
+                                        launch(Dispatchers.Main) {
+                                            if(response.code() == 401){
+                                                Toast.makeText(
+                                                    this@AdminBusActivity,
+                                                    "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                            catch (e: Exception){
+                                Toast.makeText(this@AdminBusActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        bottomSheetDialog.setContentView(bottomSheetView)
+                        bottomSheetDialog.show()
+                    }
                 }
             }
         }
@@ -129,20 +192,64 @@ class AdminBusActivity:AppCompatActivity() {
             }
 
             //  DELETE 1 BOOKING
-            busAdapter?.onButtonClick = {bus ->
-                GlobalScope.launch (Dispatchers.IO) {
-                    Log.d("Button clicked" , bus.id)
-                    val result = retrofit.adminService().deleteBus(token, bus.id).awaitResponse()
 
-                    withContext(Dispatchers.Main){
-                        val pos = buses.indexOf(bus)
-                        busAdapter?.notifyItemRemoved(pos)
-                    }
+            busAdapter?.onButtonClick = {bus ->
+                val bottomSheetDialog = BottomSheetDialog(
+                    this@AdminBusActivity, com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+                )
+                val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
+                    R.layout.layout_payment_bottom_sheet,
+                    findViewById<ConstraintLayout>(R.id.bottomSheet)
+                )
+
+                bottomSheetView.findViewById<TextView>(R.id.txtTitle).text = "Bạn có chắc xóa chuyến xe này không?"
+
+                bottomSheetView.findViewById<TextView>(R.id.txtMessage).text = "Hành động này không thể hoàn tác. Hãy chắc chắn rằng bạn đã kiểm tra kỹ thông tin trước khi xóa chuyến xe này."
+
+                bottomSheetView.findViewById<Button>(R.id.btnBack).setOnClickListener {
+                    bottomSheetDialog.dismiss()
                 }
 
+                bottomSheetView.findViewById<Button>(R.id.btnPay).text = "Tiếp tục xóa chuyến xe"
 
+
+                bottomSheetView.findViewById<Button>(R.id.btnPay).setOnClickListener{
+                    try {
+                        GlobalScope.launch (Dispatchers.IO) {
+                            Log.d("Button clicked" , bus.id)
+                            val result = retrofit.adminService().deleteBus(token, bus.id).awaitResponse()
+                            if (result.isSuccessful){
+                                withContext(Dispatchers.Main){
+                                    val pos = buses.indexOf(bus)
+                                    buses.removeAt(pos)
+                                    busAdapter?.notifyItemRemoved(pos)
+                                }
+                                launch(Dispatchers.Main) {
+                                    Toast.makeText(this@AdminBusActivity, "Xóa chuyến xe thành công", Toast.LENGTH_SHORT).show()
+                                    bottomSheetDialog.dismiss()
+                                }
+                            }
+                            else {
+                                launch(Dispatchers.Main) {
+                                    if(response.code() == 401){
+                                        Toast.makeText(
+                                            this@AdminBusActivity,
+                                            "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    catch (e: Exception){
+                        Toast.makeText(this@AdminBusActivity, "Đã xảy ra lỗi, xin hãy kiểm tra lại kết nối", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                bottomSheetDialog.setContentView(bottomSheetView)
+                bottomSheetDialog.show()
             }
-
         }
 
         // RecycleView load more items
@@ -196,9 +303,9 @@ class AdminBusActivity:AppCompatActivity() {
         filterBusType.setOnClickListener {
             FragmentOperatorFilter().apply {
                 var listBusType = ArrayList<ListItemFormat>()
-                listBusType.add(ListItemFormat("0", "Hạng sang"))
-                listBusType.add(ListItemFormat("1", "Thường"))
-                listBusType.add(ListItemFormat("2", "Giường"))
+                listBusType.add(ListItemFormat("0", "Ghế ngồi"))
+                listBusType.add(ListItemFormat("1", "Giường nằm"))
+                listBusType.add(ListItemFormat("2", "Giường nằm đôi"))
 
                 // pass listBusOperators to FragmentOperatorFilter
                 arguments = Bundle().apply {
@@ -235,7 +342,9 @@ class AdminBusActivity:AppCompatActivity() {
                 var listBusOperator = ArrayList<ListItemFormat>()
                 listBusOperators.forEach {
                     listBusOperator.add(ListItemFormat(it.id, it.name))
+                    Log.d("name ", it.name)
                 }
+
 
                 // pass listBusOperators to FragmentOperatorFilter
                 arguments = Bundle().apply {
@@ -289,11 +398,16 @@ class AdminBusActivity:AppCompatActivity() {
         }
 
         GlobalScope.launch (Dispatchers.IO) {
-            val response2 = APIServiceImpl.busOperatorService().getBusOperators().awaitResponse()
+            val response2 = APIServiceImpl.busOperatorService().getBusOperators(token).awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list
-                listBusOperators.add(0, BusOperator("all", "", "", "All"))
+                // if user is bus operator then just filter that out
+                if (UserInformation.USER?.role == 1) {
+                    listBusOperators
+                    listBusOperators =
+                        listBusOperators.filter { it -> it.id == UserInformation.USER!!.boid } as ArrayList<BusOperator>
+                }else listBusOperators.add(0, BusOperator("all", "", "", "All"))
 
             }
         }

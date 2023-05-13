@@ -25,18 +25,18 @@
             android:layout_alignParentLeft="true"
             android:textColor="@color/button_color"
             />
+
         <TextView
             android:id="@+id/removeFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xoá lọc"
-            android:fontFamily="@font/montserrat_medium"
-            android:textSize="14dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/closeFilter"
             android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/closeFilter"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Xoá lọc"
             android:textColor="@color/primary_color"
-            />
+            android:textSize="14dp" />
         <TextView
             android:id="@+id/closeFilter"
             android:layout_width="wrap_content"
