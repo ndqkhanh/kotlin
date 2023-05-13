@@ -5,7 +5,16 @@
 
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
-import { pointList, wardList, districtList, streetList, blogList, busOperatorImage, busImage } from '../../data/index.js';
+import {
+  pointList,
+  wardList,
+  districtList,
+  streetList,
+  blogList,
+  busOperatorImage,
+  busImage,
+  dateList,
+} from '../../data/index.js';
 
 const prisma = new PrismaClient();
 faker.locale = 'vi';
@@ -162,6 +171,9 @@ function generateString(n) {
 const createBusTickets = () => {
   const bus = BUSES[Math.floor(Math.random() * BUSES.length)];
   const num_of_seats = Math.floor(Math.random() * 5) + 1;
+
+  const time = dateList[Math.floor(Math.random() * dateList.length)];
+  const month = 262974383;
   for (let i = 0; i < num_of_seats; i++)
     return {
       id: faker.datatype.uuid(),
@@ -175,6 +187,8 @@ const createBusTickets = () => {
       drop_down_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
       note: faker.lorem.paragraph(),
       num_seats: num_of_seats,
+      create_time: time,
+      update_time: time,
     };
 };
 

@@ -102,7 +102,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
                                 newBusOperator.addAll(busOperators)
                             }
                             else {
-                                newBusOperator = busOperators.filter { it-> it.name.contains(p0.toString()) } as MutableList<BusOperator>
+                                newBusOperator = busOperators.filter { it-> it.name.lowercase().contains(p0.toString().lowercase().trim()) } as MutableList<BusOperator>
                             }
 
                             busOperatorAdapter = AdminBusOperatorAdapter(newBusOperator)
