@@ -68,25 +68,12 @@ const getBusOperatorById = async (id) => {
 };
 
 const listBusOperator = async (req) => {
-  let condition = {};
-  if (req.user.role === 'bus_operator') {
-    user = await prisma.users.findFirst({
-      where: {
-        id: req.user.id,
-      },
-      select: {
-        boid: true,
-      },
-    });
-    condition = { id: user.boid };
-  }
   const listBO = await prisma.bus_operators.findMany({
     orderBy: {
       name: 'asc',
     },
     skip: req.params.page * req.params.limit,
     take: req.params.limit,
-    where: condition,
   });
   return { data: listBO };
 };
