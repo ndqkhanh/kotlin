@@ -304,6 +304,32 @@ const busList = async (page, limit, req) => {
   return { data };
 };
 
+const boList = async (page, limit, req) => {
+  let data = null;
+  let condition = {};
+  if (req.user.role == 'bus_operator') {
+    user = await prisma.users.findFirst({
+      where: {
+        id: req.user.id,
+      },
+      select: {
+        boid: true,
+      },
+    });
+    condition = { id: user.boid };
+  }
+
+  const listBO = await prisma.bus_operators.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+    skip: req.params.page * req.params.limit,
+    take: req.params.limit,
+    where: condition,
+  });
+  return { data: listBO };
+};
+
 const bookingDelete = async (req) => {
   const ticket = await prisma.bus_tickets.findUnique({
     where: {
@@ -440,4 +466,5 @@ module.exports = {
   bookingDelete,
   searchBus,
   searchBooking,
+  boList,
 };

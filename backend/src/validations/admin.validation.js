@@ -79,6 +79,13 @@ const busList = {
   }),
 };
 
+const boList = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
+
 const bookingList = {
   params: Joi.object().keys({
     page: Joi.number().required(),
@@ -116,4 +123,5 @@ module.exports = {
   bookingList,
   searchBus,
   searchBooking,
+  boList,
 };
