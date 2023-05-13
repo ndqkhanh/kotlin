@@ -407,7 +407,8 @@ class AdminBusActivity:AppCompatActivity() {
                     listBusOperators
                     listBusOperators =
                         listBusOperators.filter { it -> it.id == UserInformation.USER!!.boid } as ArrayList<BusOperator>
-                }else listBusOperators.add(0, BusOperator("all", "", "", "All"))
+                }
+                // else listBusOperators.add(0, BusOperator("all", "", "", "All"))
 
             }
         }
