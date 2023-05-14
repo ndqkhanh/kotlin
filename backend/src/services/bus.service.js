@@ -31,7 +31,6 @@ const searchBus = async (body) => {
   if (startTime) {
     query.start_time = { gte: startTime };
   }
-  console.log('query', query);
 
   if (boId) {
     query.bo_id = boId;

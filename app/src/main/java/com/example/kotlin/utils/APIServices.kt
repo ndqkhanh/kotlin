@@ -447,7 +447,11 @@ interface BusOperatorService {
 
 class APIServiceImpl {
     companion object{//singleton
+<<<<<<< HEAD
         private val BASE_URL = "http://192.168.1.6:3000/v1/"
+=======
+        private val BASE_URL = "http://192.168.173.211:3000/v1/"
+>>>>>>> 0eddad70f7cf7f5b170c7b676587d8b98ea61e2b
 
         private val api: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

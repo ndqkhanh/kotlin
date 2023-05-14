@@ -168,7 +168,7 @@ const getHistoryByUId = async (req) => {
                                              	on bs.id = b.start_point
                                              	join bus_stations bs2
                                              	on bs2.id = b.end_point
-                                             where ${condition} bt.user_id = ${req.user.id}
+                                             where ${condition} bt.update_time <= current_timestamp and bt.user_id = ${req.user.id}
                                              order by bt.update_time desc
                   offset ${req.query.limit * req.query.page} rows fetch next ${req.query.limit} rows only`;
 
