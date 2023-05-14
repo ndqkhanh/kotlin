@@ -124,10 +124,6 @@ class FragmentOperatorFilter : BottomSheetDialogFragment() {
                 val filteredList = listFilter.filter { it.name.split(" ")[0].contains(s.toString()) }
                 itemsAdapter = CustomItem(filteredList, defaultId)
 
-                itemsAdapter.onItemClick = {item ->
-                    onItemClick?.invoke(item)
-                    dismiss()
-                }
 
                 filterList.adapter = itemsAdapter
 
