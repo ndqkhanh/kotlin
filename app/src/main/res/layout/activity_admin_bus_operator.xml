@@ -65,7 +65,7 @@
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="5dp"
         android:padding="10dp"
-        android:hint="Tìm kiếm dựa trên tiêu đề"
+        android:hint="Tìm kiếm dựa trên tên nhà xe"
         android:textColorHint="#C6C6C6"
         android:background="@drawable/custom_form_input"
         app:layout_constraintEnd_toEndOf="parent"
