@@ -174,13 +174,15 @@ const createBusTickets = () => {
   const bus = BUSES[Math.floor(Math.random() * BUSES.length)];
   const num_of_seats = Math.floor(Math.random() * 5) + 1;
 
+  const NEW_USERS = USERS.filter((user) => user.role === 2);
+
   const time = ticketDateList[Math.floor(Math.random() * ticketDateList.length)];
   const month = 262974383;
   for (let i = 0; i < num_of_seats; i++)
     return {
       id: faker.datatype.uuid(),
       bus_id: bus.id,
-      user_id: USERS[Math.floor(Math.random() * USERS.length)].id,
+      user_id: NEW_USERS[Math.floor(Math.random() * NEW_USERS.length)].id,
       name: faker.name.fullName(),
       phone: faker.phone.number('##########'),
       seats: generateString(num_of_seats),
