@@ -29,7 +29,7 @@ const searchBus = async (body) => {
   };
 
   if (startTime) {
-    query.start_time = { gte: startTime };
+    query.start_time = startTime;
   }
 
   if (boId) {
@@ -217,13 +217,13 @@ const getBusDetail = async (req) => {
 
   const donListQuery = sql`select p."name" ,p."location"
                               from point_bs pb join points p on p.id = pb.point_id
-                              where pb.bs_id = ${result[0].start_bs_id}`
+                              where pb.bs_id = ${result[0].start_bs_id}`;
   const traListQuery = sql`select p."name" ,p."location"
                               from point_bs pb join points p on p.id = pb.point_id
-                              where pb.bs_id = ${result[0].end_bs_id}`
-  const don = await prisma.$queryRaw(donListQuery)
-  const tra = await prisma.$queryRaw(traListQuery)
-  return {result, don, tra};
+                              where pb.bs_id = ${result[0].end_bs_id}`;
+  const don = await prisma.$queryRaw(donListQuery);
+  const tra = await prisma.$queryRaw(traListQuery);
+  return { result, don, tra };
 };
 module.exports = {
   searchBus,
