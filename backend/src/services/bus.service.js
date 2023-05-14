@@ -29,7 +29,16 @@ const searchBus = async (body) => {
   };
 
   if (startTime) {
-    query.start_time = startTime;
+    const startTimeInDay = new Date(startTime);
+    startTimeInDay.setHours(0, 0, 0, 0);
+    const endTimeInDay = new Date(startTime);
+    endTimeInDay.setHours(23, 59, 59, 999);
+    console.log('endTime', startTimeInDay, endTimeInDay);
+
+    query.start_time = {
+      gte: startTimeInDay,
+      lte: endTimeInDay,
+    };
   }
 
   if (boId) {
