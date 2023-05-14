@@ -6,6 +6,8 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.kotlin.APIServiceImpl
+import com.example.kotlin.Adapter.PointAdapter
 import com.example.kotlin.Adapter.ReviewAdapter
 import com.example.kotlin.DataClass.*
 import com.example.kotlin.R
@@ -46,14 +49,14 @@ class ChiTietChuyenXe: AppCompatActivity() {
     private lateinit var themBinhLuan: TextView
 
     //don/tra
-    private lateinit var thoiGianDon: TextView
-    private lateinit var thoiGianTra: TextView
-    private lateinit var ngayDon: TextView
-    private lateinit var ngayTra: TextView
-    private lateinit var tenDiemDon: TextView
-    private lateinit var tenDiemTra: TextView
-    private lateinit var diaChiDiemDon: TextView
-    private lateinit var diaChiDiemTra: TextView
+    private lateinit var btnDon: TextView
+    private lateinit var btnTra: TextView
+    private lateinit var rcvDon: RecyclerView
+    private lateinit var rcvTra: RecyclerView
+    private var donList = mutableListOf<Point>()
+    private var traList = mutableListOf<Point>()
+    private var donAdapter = PointAdapter(donList)
+    private var traAdapter = PointAdapter(traList)
 
     //hinh anh
     private lateinit var hinhAnhNhaXe: ImageView
@@ -112,14 +115,14 @@ class ChiTietChuyenXe: AppCompatActivity() {
         themBinhLuan = findViewById(R.id.them_binh_luan)
 
         //don/tra
-        thoiGianDon = findViewById(R.id.thoi_gian_don)
-        thoiGianTra = findViewById(R.id.thoi_gian_tra)
-        ngayDon = findViewById(R.id.ngay_don)
-        ngayTra = findViewById(R.id.ngay_tra)
-        tenDiemDon = findViewById(R.id.ten_diem_don)
-        tenDiemTra = findViewById(R.id.ten_diem_tra)
-        diaChiDiemDon = findViewById(R.id.dia_chi_diem_don)
-        diaChiDiemTra = findViewById(R.id.dia_chi_diem_tra)
+        btnDon = findViewById(R.id.btn_diem_don)
+        btnTra = findViewById(R.id.btn_diem_tra)
+        rcvDon = findViewById(R.id.rcv_don)
+        rcvTra = findViewById(R.id.rcv_tra)
+        rcvDon.layoutManager = LinearLayoutManager(this)
+        rcvTra.layoutManager = LinearLayoutManager(this)
+        rcvDon.adapter = donAdapter
+        rcvTra.adapter = traAdapter
 
         //hinh anh
         hinhAnhNhaXe = findViewById(R.id.hinh_anh_nha_xe)
@@ -158,6 +161,18 @@ class ChiTietChuyenXe: AppCompatActivity() {
                 startActivity(intentCreateReview)
             }
         }
+        btnDon.setOnClickListener {
+            rcvDon.visibility = VISIBLE
+            rcvTra.visibility = GONE
+            btnDon.setTextColor(btnDon.resources.getColor(R.color.black))
+            btnTra.setTextColor(btnTra.resources.getColor(R.color.gray_bold_text))
+        }
+        btnTra.setOnClickListener{
+            rcvTra.visibility = VISIBLE
+            rcvDon.visibility = GONE
+            btnTra.setTextColor(btnDon.resources.getColor(R.color.black))
+            btnDon.setTextColor(btnTra.resources.getColor(R.color.gray_bold_text))
+        }
     }
 
     private fun callData(){
@@ -185,14 +200,14 @@ class ChiTietChuyenXe: AppCompatActivity() {
                     boName.text = item.ten_nha_xe + " bus"
                     thoiGianDuoiBo.text =  "${item.start_time} • ${item.start_date}"
                     //don/tra
-                    thoiGianDon.text = item.start_time
-                    thoiGianTra.text = item.end_time
-                    ngayDon.text = item.start_date
-                    ngayTra.text = item.end_date
-                    tenDiemDon.text = item.ten_diem_don
-                    tenDiemTra.text = item.ten_diem_tra
-                    diaChiDiemDon.text = item.dia_chi_diem_don
-                    diaChiDiemTra.text = item.dia_chi_diem_tra
+                    donList.clear()
+                    donList.addAll(item.ds_don)
+                    btnDon.text = "Điểm đón (${donList.size})"
+                    donAdapter.notifyDataSetChanged()
+                    traList.clear()
+                    traList.addAll(item.ds_tra)
+                    btnTra.text = "Điểm trả (${traList.size})"
+                    traAdapter.notifyDataSetChanged()
 
                     //hinh anh
                     Glide.with(this@ChiTietChuyenXe).load(item.anh_nha_xe).into(hinhAnhNhaXe)

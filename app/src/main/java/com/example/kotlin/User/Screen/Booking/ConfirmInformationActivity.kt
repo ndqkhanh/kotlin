@@ -157,6 +157,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                         "Đặt vé thành công",
                                                         Toast.LENGTH_SHORT
                                                     ).show()
+                                                    Log.i("id ve nha", body3.data.id)
                                                     val intent = Intent(this@ConfirmInformationActivity, PaymentActivity::class.java)
                                                     intent.putExtra("ticketId", body3.data.id)
                                                     intent.putExtra("busOperatorName", txtBusOperatorName.text.toString())
@@ -178,7 +179,7 @@ class ConfirmInformationActivity : AppCompatActivity() {
                                                     Toast.makeText(
                                                         this@ConfirmInformationActivity,
                                                         "Phiên đăng nhập đã hết hạn.\nVui lòng đăng nhập lại.",
-                                                        Toast.LENGTH_SHORT
+                                                        Toast.LENGTH_LONG
                                                     ).show()
                                                     val intent = Intent(this@ConfirmInformationActivity, MainActivity::class.java)
                                                     startActivity(intent)

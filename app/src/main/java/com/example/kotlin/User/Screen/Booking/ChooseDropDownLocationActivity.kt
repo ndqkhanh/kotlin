@@ -98,6 +98,7 @@ class ChooseDropDownLocationActivity : AppCompatActivity() {
                                                     else {
                                                         intent = Intent(this@ChooseDropDownLocationActivity, EnterInformationActiviy::class.java)
                                                         intent.putExtra("busId", busId)
+                                                        intent.putExtra("boId", boId)
                                                         intent.putExtra("numOfSeats", numOfSeats)
                                                         intent.putExtra("busDropDownPointId", busDropDownPoints[adapter.getSelectedPosition()].id)
                                                         intent.putExtra("busDropDownPointName", busDropDownPoints[adapter.getSelectedPosition()].name)

@@ -200,7 +200,7 @@ class AdminBusTicketActivity:AppCompatActivity() {
 
                             }
                             else {
-                                newBusTickets = busTickets.filter { it -> it.name.contains(p0.toString()) } as MutableList<BusTicket>
+                                newBusTickets = busTickets.filter { it -> it.name.lowercase().contains(p0.toString().lowercase().trim()) } as MutableList<BusTicket>
                             }
 
                             busTicketAdapter = AdminBusTicketAdapter( newBusTickets)

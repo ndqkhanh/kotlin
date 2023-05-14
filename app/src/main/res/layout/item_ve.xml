@@ -129,8 +129,9 @@
 
                     <TextView
                         android:id="@+id/tinh_den"
-                        android:layout_width="90dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Hồ Chí Minh"
                         android:textColor="@color/black" />
@@ -139,6 +140,7 @@
                         android:id="@+id/textView38"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.07"
                         android:fontFamily="sans-serif"
                         android:gravity="center"
                         android:text="→"
@@ -147,8 +149,9 @@
 
                     <TextView
                         android:id="@+id/tinh_di"
-                        android:layout_width="90dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Nha Trang"
                         android:textColor="@color/black"
@@ -159,6 +162,7 @@
                         android:layout_width="15dp"
                         android:layout_height="20dp"
                         android:layout_marginVertical="10dp"
+                        android:layout_weight="0.04"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/right_arrow"
                         app:tint="@color/primary_color" />
@@ -172,7 +176,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
@@ -196,7 +200,7 @@
                     <LinearLayout
                         android:id="@+id/show_ma_dat_cho"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:visibility="visible">
@@ -213,7 +217,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat"
-                            android:text="AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                            android:text="AAAA"
                             android:textColor="@color/black" />
 
                     </LinearLayout>

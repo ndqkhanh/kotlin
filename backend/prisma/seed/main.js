@@ -5,7 +5,16 @@
 
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
-import { pointList, wardList, districtList, streetList, blogList, busOperatorImage, busImage } from '../../data/index.js';
+import {
+  pointList,
+  wardList,
+  districtList,
+  streetList,
+  blogList,
+  busOperatorImage,
+  busImage,
+  dateList,
+} from '../../data/index.js';
 
 const prisma = new PrismaClient();
 faker.locale = 'vi';
@@ -26,17 +35,19 @@ const USERS = [
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
     display_name: 'Nguyễn Phúc Bảo',
-    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
+    avatar_url:
+      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96bcd',
-    email: 'khanhndq2002@gmail.com',
+    email: 'khanhquang@gmail.com',
     role: 0,
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
     display_name: 'Nguyễn Đinh Quang Khánh',
-    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
+    avatar_url:
+      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96afd',
@@ -45,8 +56,9 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
-    display_name: 'Nhà xe 1',
-    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
+    display_name: 'Nguyễn Đinh Quang Nhân',
+    avatar_url:
+      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96acf',
@@ -55,8 +67,9 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
-    display_name: 'Nhà xe 2',
-    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
+    display_name: 'Võ Duy Khánh',
+    avatar_url:
+      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96fdf',
@@ -65,8 +78,9 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
-    display_name: 'Người dùng 1',
-    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
+    display_name: 'Nguyễn Trung Kiên',
+    avatar_url:
+      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
   },
   {
     id: 'c118f693-8722-4461-a79d-d76991b96abf',
@@ -75,8 +89,9 @@ const USERS = [
     password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
     create_time: '2022-03-22T12:26:44.480Z',
     update_time: '2022-08-27T14:43:55.772Z',
-    display_name: 'Người dùng 2',
-    avatar_url: 'https://avatars.dicebear.com/api/croodles/stefan.svg',
+    display_name: 'Trần Thị Hương',
+    avatar_url:
+      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
   },
 ];
 
@@ -126,20 +141,20 @@ const createPointBs = () => {
 // order by sl desc, DATE(start_time) desc
 
 const createBuses = () => {
-  const currentTime = new Date().getTime();
+  const time = new Date('2023-05-16T09:38:41.061Z');
   const month = 262974383;
-  const start_time = faker.datatype.datetime({ min: currentTime, max: currentTime + month });
+
   return {
     id: faker.datatype.uuid(),
     bo_id: BUS_OPERATORS[Math.floor(Math.random() * BUS_OPERATORS.length)].id,
     start_point: BUS_STATIONS[Math.floor(Math.random() * BUS_STATIONS.length)].id,
     end_point: BUS_STATIONS[Math.floor(Math.random() * BUS_STATIONS.length)].id,
     type: Math.floor(Math.random() * 3),
-    start_time: new Date(),
-    end_time: faker.datatype.datetime({ min: currentTime, max: currentTime + month }),
+    start_time: time,
+    end_time: faker.datatype.datetime({ min: time.getTime(), max: time.getTime() + month }),
     image_url: busImage,
     policy:
-      '<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>',
+      '<ul><li>KHI TRÊN XE<ul><li>Giữ chắc vé</li><li>Giữ trật tự</li></ul></li><li>Quản lý tư trang<ul><li>Không quá 10kg</li></ul></li></ul>',
     num_of_seats: faker.datatype.number({ min: 10, max: 50 }),
     price: faker.datatype.number({ min: 10000, max: 100000 }),
   };
@@ -156,6 +171,9 @@ function generateString(n) {
 const createBusTickets = () => {
   const bus = BUSES[Math.floor(Math.random() * BUSES.length)];
   const num_of_seats = Math.floor(Math.random() * 5) + 1;
+
+  const time = dateList[Math.floor(Math.random() * dateList.length)];
+  const month = 262974383;
   for (let i = 0; i < num_of_seats; i++)
     return {
       id: faker.datatype.uuid(),
@@ -169,6 +187,8 @@ const createBusTickets = () => {
       drop_down_point: POINTS[Math.floor(Math.random() * POINTS.length)].id,
       note: faker.lorem.paragraph(),
       num_seats: num_of_seats,
+      create_time: time,
+      update_time: time,
     };
 };
 

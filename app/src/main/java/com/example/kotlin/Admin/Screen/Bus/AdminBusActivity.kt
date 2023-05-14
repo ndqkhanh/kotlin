@@ -398,7 +398,7 @@ class AdminBusActivity:AppCompatActivity() {
         }
 
         GlobalScope.launch (Dispatchers.IO) {
-            val response2 = APIServiceImpl.busOperatorService().getBusOperators(token).awaitResponse()
+            val response2 = APIServiceImpl.adminService().getBusOperators(token).awaitResponse()
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list
@@ -407,7 +407,8 @@ class AdminBusActivity:AppCompatActivity() {
                     listBusOperators
                     listBusOperators =
                         listBusOperators.filter { it -> it.id == UserInformation.USER!!.boid } as ArrayList<BusOperator>
-                }else listBusOperators.add(0, BusOperator("all", "", "", "All"))
+                }
+                // else listBusOperators.add(0, BusOperator("all", "", "", "All"))
 
             }
         }
