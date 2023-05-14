@@ -13,7 +13,8 @@ import {
   blogList,
   busOperatorImage,
   busImage,
-  dateList,
+  ticketDateList,
+  busDateList,
 } from '../../data/index.js';
 
 const prisma = new PrismaClient();
@@ -141,7 +142,8 @@ const createPointBs = () => {
 // order by sl desc, DATE(start_time) desc
 
 const createBuses = () => {
-  const time = new Date('2023-05-16T09:38:41.061Z');
+  // const time = new Date('2023-05-16T09:38:41.061Z');
+  const time = busDateList[Math.floor(Math.random() * busDateList.length)];
   const month = 262974383;
 
   return {
@@ -172,7 +174,7 @@ const createBusTickets = () => {
   const bus = BUSES[Math.floor(Math.random() * BUSES.length)];
   const num_of_seats = Math.floor(Math.random() * 5) + 1;
 
-  const time = dateList[Math.floor(Math.random() * dateList.length)];
+  const time = ticketDateList[Math.floor(Math.random() * ticketDateList.length)];
   const month = 262974383;
   for (let i = 0; i < num_of_seats; i++)
     return {
