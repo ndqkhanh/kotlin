@@ -119,7 +119,7 @@ class AdminBusOperatorCreateActivity:AppCompatActivity() {
                         launch(Dispatchers.Main) {
                             bottomSheetDialog.dismiss()
                             dialog.dismiss()
-                            Toast.makeText(this@AdminBusOperatorCreateActivity, "Thêm tin tức thành công", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@AdminBusOperatorCreateActivity, "Thêm nhà xe thành công", Toast.LENGTH_SHORT).show()
                             val intent = Intent()
                             intent.putExtra("id", data.id)
                             setResult(Activity.RESULT_OK, intent)

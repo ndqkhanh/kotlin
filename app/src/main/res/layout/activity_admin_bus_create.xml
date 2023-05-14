@@ -241,21 +241,19 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutBusSeat"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="386dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Số lượng ghế"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edtPolicy"
+                    app:layout_constraintStart_toStartOf="@+id/edtPolicy"
                     app:layout_constraintTop_toBottomOf="@+id/busTypeLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/adminBusSeatCreateET"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -278,21 +276,19 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutBusPrice"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="386dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Giá tiền"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edtPolicy"
+                    app:layout_constraintStart_toStartOf="@+id/edtPolicy"
                     app:layout_constraintTop_toBottomOf="@+id/layoutBusSeat">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/adminBusPriceCreateET"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 

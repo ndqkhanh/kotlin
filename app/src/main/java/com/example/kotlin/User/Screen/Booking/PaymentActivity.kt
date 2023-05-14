@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -82,10 +84,19 @@ class PaymentActivity : AppCompatActivity() {
 
         numsOfTicketTV.text =  useDf.format(price / ticketCount).replace(",",".") + " x " + ticketCount.toString()
 
-        findViewById<Button>(R.id.paymentBtn).setOnClickListener {
+        var paymentBtn = findViewById<Button>(R.id.paymentBtn)
+        var successBtn = findViewById<Button>(R.id.successBtn)
+        paymentBtn.setOnClickListener {
             if(id != null) {
                 zp(id!!, price.toString())
+                paymentBtn.visibility = GONE
+                successBtn.visibility = VISIBLE
             }
+        }
+        successBtn.setOnClickListener {
+            val intent = Intent(this@PaymentActivity, BottomNavigation::class.java)
+            finishAffinity()
+            startActivity(intent)
         }
     }
 
@@ -130,9 +141,6 @@ class PaymentActivity : AppCompatActivity() {
                 call: Call<SuccessMessage>,
                 response: Response<SuccessMessage>
             ) {
-                val intent = Intent(this@PaymentActivity, BottomNavigation::class.java)
-                finishAffinity()
-                startActivity(intent)
             }
 
             override fun onFailure(call: Call<SuccessMessage>, t: Throwable) {

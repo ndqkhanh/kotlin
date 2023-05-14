@@ -386,8 +386,8 @@ class AdminBusTicketActivity:AppCompatActivity() {
             FragmentOperatorFilter().apply {
                 var listBookingStatus = ArrayList<ListItemFormat>()
                 listBookingStatus.add(ListItemFormat("0", "Chưa thanh toán"))
-                listBookingStatus.add(ListItemFormat("1", "Chờ thanh toán"))
-                listBookingStatus.add(ListItemFormat("2", "Đã thanh toán"))
+                listBookingStatus.add(ListItemFormat("1", "Đã thanh toán"))
+                listBookingStatus.add(ListItemFormat("2", "Đã hủy"))
 
                 // pass listBusOperators to FragmentOperatorFilter
                 arguments = Bundle().apply {
