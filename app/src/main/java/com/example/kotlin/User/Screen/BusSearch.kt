@@ -311,7 +311,7 @@ class BusSearch : AppCompatActivity() {
             if(response2.isSuccessful){
                 listBusOperators = response2.body()?.data as ArrayList<BusOperator>
                 // push all bus operator to list
-                listBusOperators.add(0, BusOperator("all", "", "", "All"))
+//                listBusOperators.add(0, BusOperator("all", "", "", "All"))
 
             }
         }
