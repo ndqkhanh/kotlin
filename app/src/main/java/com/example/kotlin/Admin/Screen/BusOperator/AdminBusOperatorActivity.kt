@@ -48,10 +48,7 @@ class AdminBusOperatorActivity:AppCompatActivity() {
         backBtn.setOnClickListener{
             finish()
         }
-        }
 
-    override fun onResume() {
-        super.onResume()
         val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
             throwable.printStackTrace()
         }
@@ -59,11 +56,8 @@ class AdminBusOperatorActivity:AppCompatActivity() {
         var page = 0
         var limit = 10
         GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
-
+            if (!busOperators.isEmpty()) busOperators.clear()
             var response = retrofit.adminService().getBusOperators(token).awaitResponse()
-            Log.d("Response", "vui 1" + response.message())
-            // debug response
-            Log.d("Response", response.toString())
             if(response.isSuccessful){
                 Log.d("Response", "vui 2")
                 val data = response.body()!!.data
@@ -245,6 +239,11 @@ class AdminBusOperatorActivity:AppCompatActivity() {
             // DELETE 1 BOOKING
 
         }
+        }
+
+    override fun onResume() {
+        super.onResume()
+
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -259,21 +258,17 @@ class AdminBusOperatorActivity:AppCompatActivity() {
 
             GlobalScope.launch (Dispatchers.IO + coroutineExceptionHandler) {
                 var response = APIServiceImpl().getAllBusOperators().getBusOperator(token!!,id!!).awaitResponse() // CHANGE
-                Log.d("Response", "vui 1" + response.message())
-                // debug response
-                Log.d("Response", response.toString())
+
                 if(response.isSuccessful){
-                    Log.d("Response", "vui 2")
                     val data = response.body()!!
-                    Log.d("Response", data.toString())
+                    Log.d("nhà xe mới thêm", data.toString())
                     busOperators.add(0,data)
 
-                    Log.d("busTickets vui 1: ", busOperators.size.toString())
 
-                    withContext(Dispatchers.Main){
-                        busOperatorAdapter?.notifyItemInserted(0)
-
-                    }
+//                    withContext(Dispatchers.Main){
+//                        busOperatorAdapter?.notifyItemInserted(0)
+//
+//                    }
 
                 }
 
