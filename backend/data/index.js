@@ -164,7 +164,6 @@ export const ticketDateList = [
   new Date('2023-05-13T09:38:41.061Z'), // qua khu,
   new Date('2023-05-14T09:38:41.061Z'), // qua khu,
   new Date('2023-05-15T09:38:41.061Z'), // qua khu,
-  new Date('2023-05-16T09:38:41.061Z'), // hien tai,
   // new Date('2023-05-18T09:38:41.061Z'), // tuong lai
 ];
 
