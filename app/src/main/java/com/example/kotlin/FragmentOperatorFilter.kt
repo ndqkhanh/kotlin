@@ -121,7 +121,24 @@ class FragmentOperatorFilter : BottomSheetDialogFragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val filteredList = listFilter.filter { it.name.split(" ")[0].contains(s.toString()) }
+//                val filteredList = listFilter.filter { it.name.split(" ")[0].contains(s.toString()) }
+//                val filteredList =
+                // search by keyword
+                var filteredList = java.util.ArrayList<ListItemFormat>()
+                listFilter.forEach { it ->
+                    // split by keyword
+                    val keywordList = s.toString().split(" ")
+                    var isMatch = true
+                    keywordList.forEach {it2 ->
+                        if (!it2.isEmpty()) {
+                            isMatch = isMatch && it2.toLowerCase() in it.name.toLowerCase()
+                        }
+                    }
+
+                    if (isMatch) {
+                        filteredList.add(it)
+                    }
+                }
                 itemsAdapter = CustomItem(filteredList, defaultId)
 
                 itemsAdapter.onItemClick = {item ->
