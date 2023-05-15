@@ -29,12 +29,15 @@ const searchBus = async (body) => {
   };
 
   if (startTime) {
-    const startTimeInDay = new Date(startTime);
+    let startTimeInDay = new Date(startTime);
     startTimeInDay.setHours(0, 0, 0, 0);
-    const endTimeInDay = new Date(startTime);
+    let endTimeInDay = new Date(startTime);
     endTimeInDay.setHours(23, 59, 59, 999);
-    console.log('endTime', startTimeInDay, endTimeInDay);
-
+    let current = new Date()
+    current.setHours(0, 0, 0, 0);
+    if(startTimeInDay.getTime() == current.getTime()){
+      startTimeInDay = new Date()
+    }
     query.start_time = {
       gte: startTimeInDay,
       lte: endTimeInDay,
