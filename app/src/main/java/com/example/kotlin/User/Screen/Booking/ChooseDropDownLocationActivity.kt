@@ -59,7 +59,8 @@ class ChooseDropDownLocationActivity : AppCompatActivity() {
                     launch(Dispatchers.Main) {
                         if (body != null) {
                             val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
-                            txtBusOperatorName.text = body.bus_operators.name
+                            val nameTmp = body.bus_operators.name + " bus"
+                            txtBusOperatorName.text = nameTmp
                             val txtTime = findViewById<TextView>(R.id.txtTime)
                             txtTime.text = body.start_time
                             try {

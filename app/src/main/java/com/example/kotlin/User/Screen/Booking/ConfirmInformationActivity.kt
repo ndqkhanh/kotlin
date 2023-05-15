@@ -68,7 +68,8 @@ class ConfirmInformationActivity : AppCompatActivity() {
                     launch(Dispatchers.Main) {
                         if (body2 != null) {
                             val txtBusOperatorName = findViewById<TextView>(R.id.txtBusOperatorName)
-                            txtBusOperatorName.text = body2.bus_operators.name
+                            val nameTmp = body2.bus_operators.name + " bus"
+                            txtBusOperatorName.text = nameTmp
                             val txtTime = findViewById<TextView>(R.id.txtTime)
                             txtTime.text = body2.start_time
 
